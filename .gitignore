@@ -1,0 +1,5 @@
+packages/
+CarNotes/bin/
+CarNotes/obj/
+*.user
+.vs/

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<CarNotes.CnDb.RefuelEvent>
+@{
+    Layout = null;
+}
+    <!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+    <div>
+        <table>
+            <tr>
+                <th>Дата</th>
+                <th>Пробег</th>
+                <th>Тип топлива</th>
+                <th>АЗС</th>
+                <th>Объем</th>
+                <th>Цена(1 литр)</th>
+                <th>Полный бак</th>
+                <th>Забыл внести предыдущую заправку</th>
+            </tr>
+            <tr>
+                @foreach (CarNotes.CnDb.RefuelEvent b in Model)
+                {
+                <td>@b.Date</td>
+                <td>@b.Mileage</td>
+                <td>@b.Fuel</td>
+                <td>@b.Station</td>
+                <td>@b.Volume</td>
+                <td>@b.PricePerOneLiter</td>
+                <td>@b.FullTank</td>
+                <td>@b.ForgotRecordPreviousGasStation</td>
+                 }
+                </tr>
+            </table>
+    </div>
+</body>
+</html>

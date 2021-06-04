@@ -100,9 +100,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="CnDb\CnDbContext.cs" />
+    <Compile Include="CnDb\GasStation.cs" />
+    <Compile Include="CnDb\RefuelEvent.cs" />
+    <Compile Include="Enums\FuelType.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106041827438_add RefuelEvent and GasStation.cs" />
+    <Compile Include="Migrations\202106041827438_add RefuelEvent and GasStation.designer.cs">
+      <DependentUpon>202106041827438_add RefuelEvent and GasStation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -117,9 +126,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="CnDb\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202106041827438_add RefuelEvent and GasStation.resx">
+      <DependentUpon>202106041827438_add RefuelEvent and GasStation.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

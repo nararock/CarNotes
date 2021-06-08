@@ -8,6 +8,7 @@
 
 </head>
 <body>
+    @Html.ActionLink("Новая запись", "CreateNewEvent")
     <div>
         <table>
             <tr>
@@ -23,17 +24,17 @@
             <tr>
                 @foreach (CarNotes.CnDb.RefuelEvent b in Model)
                 {
-                <td>@b.Date</td>
-                <td>@b.Mileage</td>
-                <td>@b.Fuel</td>
-                <td>@b.Station</td>
-                <td>@b.Volume</td>
-                <td>@b.PricePerOneLiter</td>
-                <td>@b.FullTank</td>
-                <td>@b.ForgotRecordPreviousGasStation</td>
-                 }
-                </tr>
-            </table>
+                    <td>@b.Date</td>
+                    <td>@b.Mileage</td>
+                    <td>@b.Fuel</td>
+                    <td>@b.Station</td>
+                    <td>@b.Volume</td>
+                    <td>@b.PricePerOneLiter</td>
+                    <td>@b.FullTank</td>
+                    <td>@b.ForgotRecordPreviousGasStation</td>
+                }
+            </tr>
+        </table>
     </div>
 </body>
 </html>

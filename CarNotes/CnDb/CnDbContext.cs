@@ -10,6 +10,8 @@ namespace CarNotes.CnDb
     {
         public DbSet<RefuelEvent> RefuelEvents { get; set; }
         public DbSet<GasStation> GasStations { get; set; }
+        public DbSet<RepairEvent> RepairEvents { get; set; }
+        public DbSet<CarPart> CarParts { get; set; }
         public CnDbContext() : base("name=CnDb") { }
     }
 }

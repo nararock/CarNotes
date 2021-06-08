@@ -1,0 +1,29 @@
+﻿@model CarNotes.CnDb.RefuelEvent
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CreateNewEvent</title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm())
+        {
+            <p>Дата: @Html.TextBoxFor(x => x.Date)</p>
+            <p>Пробег: @Html.TextBoxFor(x => x.Mileage)</p>
+            <p>Тип топлива: @Html.TextBoxFor(x => x.Fuel)</p>
+            <p>АЗС: @Html.TextBoxFor(x => x.Station)</p>
+            <p>Объем: @Html.TextBoxFor(x => x.Volume)</p>
+            <p>Цена: @Html.TextBoxFor(x => x.PricePerOneLiter)</p>
+            <p>Полный бак: @Html.TextBoxFor(x => x.FullTank)</p>
+            <p>Забыл внести предыдущие данные: @Html.TextBoxFor(x => x.ForgotRecordPreviousGasStation)</p>
+            <input type="submit" value="Сохранить данные" />
+        }
+    </div>
+</body>
+</html>

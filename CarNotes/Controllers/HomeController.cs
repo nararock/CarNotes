@@ -15,5 +15,10 @@ namespace CarNotes.Controllers
             CnDbContext db = new CnDbContext();
             return View(db.RefuelEvents);
         }
+
+        public ActionResult CreateNewEvent()
+        {
+            return View();
+        }
     }
 }

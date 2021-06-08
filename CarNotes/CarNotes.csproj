@@ -100,9 +100,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="CnDb\CarPart.cs" />
     <Compile Include="CnDb\CnDbContext.cs" />
     <Compile Include="CnDb\GasStation.cs" />
     <Compile Include="CnDb\RefuelEvent.cs" />
+    <Compile Include="CnDb\RepairEvent.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Enums\FuelType.cs" />
     <Compile Include="Global.asax.cs">
@@ -112,6 +114,10 @@
     <Compile Include="Migrations\202106041827438_add RefuelEvent and GasStation.designer.cs">
       <DependentUpon>202106041827438_add RefuelEvent and GasStation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106081100454_add RepairEvent and CarPart.cs" />
+    <Compile Include="Migrations\202106081100454_add RepairEvent and CarPart.designer.cs">
+      <DependentUpon>202106081100454_add RepairEvent and CarPart.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -119,6 +125,7 @@
     <Content Include="Views\web.config" />
     <None Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\CreateNewEvent.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -133,6 +140,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202106041827438_add RefuelEvent and GasStation.resx">
       <DependentUpon>202106041827438_add RefuelEvent and GasStation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106081100454_add RepairEvent and CarPart.resx">
+      <DependentUpon>202106081100454_add RepairEvent and CarPart.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

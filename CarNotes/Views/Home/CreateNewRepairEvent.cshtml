@@ -1,0 +1,27 @@
+﻿@model CarNotes.CnDb.RepairEvent
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CreateNewRepairEvent</title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm())
+        {
+            <p>Дата: @Html.TextBoxFor(x => x.Date)</p>
+            <p>Пробег: @Html.TextBoxFor(x => x.Mileage)</p>
+            <p>Название ремонтных работ: @Html.TextBoxFor(x => x.Repair)</p>
+            <p>Сервис: @Html.TextBoxFor(x => x.CarService)</p>
+            <p>Стоимость ремонтных работ: @Html.TextBoxFor(x => x.RepairCost)</p>
+            <p>Комментарии: @Html.TextBoxFor(x => x.Comments)</p>
+            <input type="submit" value="Сохранить данные" />
+        }
+    </div>
+</body>
+</html>

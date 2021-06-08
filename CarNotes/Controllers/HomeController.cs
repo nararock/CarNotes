@@ -20,5 +20,15 @@ namespace CarNotes.Controllers
         {
             return View();
         }
+
+        public ActionResult GoToRepairEvents()
+        {
+            return View();
+        }
+
+        public ActionResult CreateNewRepairEvent()
+        {
+            return View();
+        }
     }
 }

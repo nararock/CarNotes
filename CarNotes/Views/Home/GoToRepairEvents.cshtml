@@ -1,0 +1,45 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GoToRepairEvents</title>
+</head>
+<body>
+    @Html.ActionLink("Новая запись", "CreateNewRepairEvent")
+    <div>
+        <table>
+            <tr>
+                <th>Дата</th>
+                <th>Пробег</th>
+                <th>Ремонт</th>
+                <th>Сервис</th>
+                <th>Стоимость работ</th>
+                <th>Комментарии</th>
+            </tr>
+            <tr>
+                <th>Название</th>
+                <th>Производитель</th>
+                <th>Артикул</th>
+                <th>Цена</th>
+            </tr>
+            @foreach (CarNotes.CnDb.RepairEvent b in Model)
+            {
+                <tr>
+                    <td>@b.Date</td>
+                    <td>@b.Mileage</td>
+                    <td>@b.Repair</td>
+                    <td>@b.CarService</td>
+                    <td>@b.RepairCost</td>
+                    <td>@b.Comments</td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>

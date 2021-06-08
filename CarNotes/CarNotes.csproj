@@ -126,6 +126,8 @@
     <None Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\CreateNewEvent.cshtml" />
+    <Content Include="Views\Home\GoToRepairEvents.cshtml" />
+    <Content Include="Views\Home\CreateNewRepairEvent.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

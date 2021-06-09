@@ -1,4 +1,6 @@
-﻿using CarNotes.CnDb;
+﻿using CarNotes.Classes;
+using CarNotes.CnDb;
+using CarNotes.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +18,17 @@ namespace CarNotes.Controllers
             return View(db.RefuelEvents);
         }
 
+        [HttpGet]
         public ActionResult CreateNewEvent()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateNewEvent(RefuelModel rm)
+        {
+            new RefuelHelper().SaveToDataBase(rm);
+            return RedirectToAction("Index");
         }
 
         public ActionResult GoToRepairEvents()

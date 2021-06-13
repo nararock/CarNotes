@@ -20,8 +20,8 @@
             <p>АЗС: @Html.TextBoxFor(x => x.Station)</p>
             <p>Объем: @Html.TextBoxFor(x => x.Volume)</p>
             <p>Цена: @Html.TextBoxFor(x => x.PricePerOneLiter)</p>
-            <p>Полный бак: @Html.TextBoxFor(x => x.FullTank)</p>
-            <p>Забыл внести предыдущие данные: @Html.TextBoxFor(x => x.ForgotRecordPreviousGasStation)</p>
+            <p>Полный бак @Html.CheckBoxFor(x => x.FullTank)</p>
+            <p>Забыл внести предыдущие данные @Html.CheckBoxFor(x => x.ForgotRecordPreviousGasStation)</p>
             <input type="submit" value="Сохранить данные" />
         }
     </div>

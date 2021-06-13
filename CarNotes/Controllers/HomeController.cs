@@ -33,12 +33,21 @@ namespace CarNotes.Controllers
 
         public ActionResult GoToRepairEvents()
         {
-            return View();
+            CnDbContext db = new CnDbContext();
+            return View(db.RepairEvents);
         }
 
+        [HttpGet]
         public ActionResult CreateNewRepairEvent()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateNewRepairEvent(RepairModel rm)
+        {
+            new RepairHelper().SaveToDataBase(rm);
+            return RedirectToAction("GoToRepairEvents");
         }
     }
 }

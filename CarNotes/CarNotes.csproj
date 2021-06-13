@@ -101,6 +101,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Classes\RefuelHelper.cs" />
+    <Compile Include="Classes\RepairHelper.cs" />
     <Compile Include="CnDb\CarPart.cs" />
     <Compile Include="CnDb\CnDbContext.cs" />
     <Compile Include="CnDb\GasStation.cs" />
@@ -121,6 +122,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\RefuelModel.cs" />
+    <Compile Include="Models\RepairModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,42 +1,34 @@
-﻿@model IEnumerable<CarNotes.CnDb.RefuelEvent>
-@{
-    Layout = null;
-}
-    <!DOCTYPE html>
-<html>
-<head>
+﻿@model List<CarNotes.Models.CommonModel>
+@using CarNotes.Classes;
 
-</head>
-<body>
-    @Html.ActionLink("Новая запись", "CreateNewEvent")
-    @Html.ActionLink("Ремонт автомобиля", "GoToRepairEvents")
-    <div>
-        <table>
-            <tr>
-                <th>Дата</th>
-                <th>Пробег</th>
-                <th>Тип топлива</th>
-                <th>АЗС</th>
-                <th>Объем</th>
-                <th>Цена(1 литр)</th>
-                <th>Полный бак</th>
-                <th>Забыл внести предыдущую заправку</th>
-            </tr>
-            @foreach (CarNotes.CnDb.RefuelEvent b in Model)
-            {
+    
+<div>
+    <table>
+        <caption class="nameTable" style="background-color:@Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name))">@ViewBag.Name</caption>
         <tr>
-            <td>@b.Date</td>
-            <td>@b.Mileage</td>
-            <td>@b.Fuel</td>
-            <td>@b.Station</td>
-            <td>@b.Volume</td>
-            <td>@b.PricePerOneLiter</td>
-            <td>@b.FullTank</td>
-            <td>@b.ForgotRecordPreviousGasStation</td>
+            <th>Тип записи</th>
+            <th>Дата</th>
+            <th>Пробег</th>
+            <th>Стоимость</th>
         </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (item.Record == CarNotes.Enums.RecordType.Refuel)
+                    {
+                        @:Заправка
                     }
-               
-            </table>
-    </div>
-</body>
-</html>
+                    else
+                    {
+                        @:Ремонт
+                    }
+                </td>
+                <td>@item.Date</td>
+                <td>@item.Mileage</td>
+                <td>@item.Cost</td>
+            </tr>
+        }
+
+    </table>
+</div>

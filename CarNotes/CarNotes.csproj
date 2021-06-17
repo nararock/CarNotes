@@ -138,6 +138,7 @@
     <Content Include="Views\Home\GoToRepairEvents.cshtml" />
     <Content Include="Views\Home\CreateNewRepairEvent.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_BasicTemplate.cshtml" />
     <Content Include="Views\Shared\_LinkMenuTemplate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

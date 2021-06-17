@@ -1,0 +1,92 @@
+﻿@using CarNotes.Classes;
+@using CarNotes.Models;
+@{ 
+    List<LinkMenuModel> menu = new LinkMenuHelper().get(ViewBag.Name);
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>_BasicTemplate</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+        /*верхняя часть с логотипом*/
+        .top {
+            margin-top:0px;
+            margin-bottom: 50px;
+            border-bottom: 1px solid thin lightgray;
+            background-color:floralwhite;
+            height:60px;
+        }
+        .topLetters {
+            margin-right: 30px;
+            margin-top: 20px;
+            text-align: right;
+        }
+        .image {
+            float: left;
+            margin-left: 30px;
+        }
+        /*ссылки под логотипом*/
+        .links{
+            font-size: 20px;
+            text-align:center;
+        }
+
+        /*таблица с данными*/
+        .content {
+            width: 800px;
+            margin: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            text-align: center;
+        }
+        th {
+            font-weight: normal;
+            padding: 10px 8px;
+        }
+
+        td {
+            padding: 9px 8px;
+            transition: .05s linear;
+        }
+        .nameTable {
+            font-size: 25px;
+            margin-bottom: 15px;
+            margin-top: 10px;
+            border-radius: 15px;
+            color: floralwhite;
+        }
+        th {
+            border-bottom: 2px solid @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name));
+        }
+        tr:hover td {
+            color: floralwhite;
+            background-color: @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name));
+        }
+        /*форма для создания событий*/
+        .form{
+            margin-top: 40px;
+            text-align:left;
+        }
+    </style>
+    @RenderSection("styles", false)
+</head>
+<body>
+    <div class="top">
+        <img src="../Content/logoCar.png" height="60" class="image"/>
+        <p class="topLetters">По всем вопросам пишите на почту: <br /> nararock@mail.ru</p>
+    </div>
+    <div class="links">@Html.Partial("_LinkMenuTemplate", menu)</div>
+    <div class="content">
+        @RenderBody()
+    </div>
+</body>
+</html>

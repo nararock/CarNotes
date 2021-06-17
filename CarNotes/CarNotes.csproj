@@ -101,6 +101,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Classes\CommonHelper.cs" />
+    <Compile Include="Classes\LinkMenuHelper.cs" />
     <Compile Include="Classes\RefuelHelper.cs" />
     <Compile Include="Classes\RepairHelper.cs" />
     <Compile Include="CnDb\CarPart.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="CnDb\RepairEvent.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Enums\FuelType.cs" />
+    <Compile Include="Enums\RecordType.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -123,6 +125,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CommonModel.cs" />
+    <Compile Include="Models\LinkMenuModel.cs" />
     <Compile Include="Models\RefuelModel.cs" />
     <Compile Include="Models\RepairModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -134,6 +137,7 @@
     <Content Include="Views\Home\CreateNewEvent.cshtml" />
     <Content Include="Views\Home\GoToRepairEvents.cshtml" />
     <Content Include="Views\Home\CreateNewRepairEvent.cshtml" />
+    <Content Include="Views\Shared\_LinkMenuTemplate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

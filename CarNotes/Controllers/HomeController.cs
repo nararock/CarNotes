@@ -43,6 +43,7 @@ namespace CarNotes.Controllers
 
         public ActionResult GoToRepairEvents()
         {
+            ViewBag.Name = "Ремонт";
             CnDbContext db = new CnDbContext();
             return View(db.RepairEvents);
         }
@@ -50,6 +51,7 @@ namespace CarNotes.Controllers
         [HttpGet]
         public ActionResult CreateNewRepairEvent()
         {
+            ViewBag.Name = "Новый ремонт";
             return View();
         }
 

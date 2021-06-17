@@ -14,6 +14,15 @@ namespace CarNotes.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            ViewBag.Name = "Общая таблица";
+            var common = new CommonHelper();
+            var cm = common.CreateList();
+            return View(cm);
+        }
+
+        public ActionResult GoToRefuelEvents()
+        {
+            ViewBag.Name = "Заправка";
             CnDbContext db = new CnDbContext();
             return View(db.RefuelEvents);
         }

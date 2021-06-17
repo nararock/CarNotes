@@ -1,17 +1,5 @@
 ﻿@model CarNotes.CnDb.RefuelEvent
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>CreateNewEvent</title>
-</head>
-<body>
-    <div>
+    <div class="form">
         @using (Html.BeginForm())
         {
             <p>Дата: @Html.TextBoxFor(x => x.Date)</p>
@@ -22,8 +10,8 @@
             <p>Цена: @Html.TextBoxFor(x => x.PricePerOneLiter)</p>
             <p>Полный бак @Html.CheckBoxFor(x => x.FullTank)</p>
             <p>Забыл внести предыдущие данные @Html.CheckBoxFor(x => x.ForgotRecordPreviousGasStation)</p>
-            <input type="submit" value="Сохранить данные" />
+            <input type="submit" value="Сохранить данные" class="button" />
         }
+
     </div>
-</body>
-</html>
+       

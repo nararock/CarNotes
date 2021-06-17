@@ -30,6 +30,7 @@ namespace CarNotes.Controllers
         [HttpGet]
         public ActionResult CreateNewEvent()
         {
+            ViewBag.Name = "Новая заправка";
             return View();
         }
 

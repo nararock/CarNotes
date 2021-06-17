@@ -38,7 +38,7 @@ namespace CarNotes.Controllers
         public ActionResult CreateNewEvent(RefuelModel rm)
         {
             new RefuelHelper().SaveToDataBase(rm);
-            return RedirectToAction("Index");
+            return RedirectToAction("GoToRefuelEvents");
         }
 
         public ActionResult GoToRepairEvents()

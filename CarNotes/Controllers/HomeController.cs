@@ -27,13 +27,6 @@ namespace CarNotes.Controllers
             return View(db.RefuelEvents);
         }
 
-        [HttpGet]
-        public ActionResult CreateNewEvent()
-        {
-            ViewBag.Name = "Новая заправка";
-            return View();
-        }
-
         [HttpPost]
         public ActionResult CreateNewEvent(RefuelModel rm)
         {
@@ -46,13 +39,6 @@ namespace CarNotes.Controllers
             ViewBag.Name = "Ремонт";
             CnDbContext db = new CnDbContext();
             return View(db.RepairEvents);
-        }
-
-        [HttpGet]
-        public ActionResult CreateNewRepairEvent()
-        {
-            ViewBag.Name = "Новый ремонт";
-            return View();
         }
 
         [HttpPost]

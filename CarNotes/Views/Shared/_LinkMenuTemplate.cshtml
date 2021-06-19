@@ -3,28 +3,19 @@
     Layout = null;
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>LinkMenuTemplate</title>
-    <style>
-        .link {
-            border-radius: 15px;
-            padding: 15px 30px;
-            position: relative;
-            text-decoration: none;
-            color:floralwhite;
-        }
-    </style>
-</head>
-<body>
-    <div> 
-        @foreach(CarNotes.Models.LinkMenuModel l in Model)
-        {
-            <a href="@l.MethodLink" class="link" style="background-color:@l.Color">@l.NameLink</a>
-        }
-    </div>
-</body>
-</html>
+<style>
+    .link {
+        border-radius: 15px;
+        padding: 15px 30px;
+        position: relative;
+        text-decoration: none;
+        color: floralwhite;
+        display:inline-block;
+    }
+</style>
+<div>
+    @foreach (CarNotes.Models.LinkMenuModel l in Model)
+    {
+        <a href="@Url.Content(l.MethodLink)" class="link" style="background-color:@l.Color">@l.NameLink</a>
+    }
+</div>

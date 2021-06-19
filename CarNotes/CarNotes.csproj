@@ -129,6 +129,7 @@
     <Compile Include="Models\LinkMenuModel.cs" />
     <Compile Include="Models\RefuelModel.cs" />
     <Compile Include="Models\RepairModel.cs" />
+    <Compile Include="Models\SubMenuModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

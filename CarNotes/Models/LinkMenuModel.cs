@@ -10,5 +10,6 @@ namespace CarNotes.Models
         public string NameLink { get; set; }
         public string MethodLink { get; set; }
         public string Color { get; set; }
+        public List<SubMenuModel> Buttons { get; set; }
     }
 }

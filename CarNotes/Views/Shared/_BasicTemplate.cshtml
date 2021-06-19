@@ -1,7 +1,10 @@
 ﻿@using CarNotes.Classes;
 @using CarNotes.Models;
-@{ 
+@{
     List<LinkMenuModel> menu = new LinkMenuHelper().get(ViewBag.Name);
+}
+@{
+    List<SubMenuModel> buttons = new LinkMenuHelper().getButtons(ViewBag.Name);
 }
 <!DOCTYPE html>
 
@@ -60,7 +63,6 @@
         .nameTable {
             font-size: 25px;
             margin-bottom: 15px;
-            margin-top: 10px;
             border-radius: 15px;
             color: floralwhite;
         }
@@ -76,17 +78,67 @@
             margin-top: 40px;
             text-align:left;
         }
+        /*кнопки для перехода в окно создания события*/
+        .button {
+            background-color: @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name));
+            opacity: 0.65;
+            height:25px;
+            margin-top: 20px;
+            display: inline-block;
+            border: none;
+            border-radius: 15px;
+            color: floralwhite;
+        }
+        .buttons {
+            text-align: center;
+        }
+        /*всплывающая форма создания события*/
+        .newRefuelWindow, .newRepairWindow {
+            position: absolute;
+            display: none;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        .form{
+            width: 600px;
+            border:1px solid grey;
+            background-color: floralwhite;
+            margin-left:auto;
+            margin-right:auto;
+            margin-top: 100px;
+            margin-bottom: 30px;
+            text-align:center;
+        }
     </style>
+    <script>
+        function popup(str) {
+            var elem;
+            if (str == "Новый ремонт")
+                elem = document.getElementsByClassName('newRefuelWindow');
+            else elem = document.getElementsByClassName('newRepairWindow');
+            elem[0].style.display = 'inline-block';
+        }
+    </script>
     @RenderSection("styles", false)
 </head>
 <body>
     <div class="top">
-        <img src="../Content/logoCar.png" height="60" class="image"/>
+        <img src="../Content/logoCar.png" height="60" class="image" />
         <p class="topLetters">По всем вопросам пишите на почту: <br /> nararock@mail.ru</p>
     </div>
     <div class="links">@Html.Partial("_LinkMenuTemplate", menu)</div>
-    <div class="content">
-        @RenderBody()
-    </div>
+    <div class="buttons">
+        @foreach (SubMenuModel s in buttons)
+        {
+            <input type="button" value="@s.Name" class="button" onclick="popup('@s.Name')" />
+        }
+</div>
+<div class="content">
+    @RenderBody()
+</div>
+<div class="newRefuelWindow">@Html.Partial("CreateNewEvent", new CarNotes.CnDb.RefuelEvent())</div>
+<div class="newRepairWindow">@Html.Partial("CreateNewRepairEvent", new CarNotes.CnDb.RepairEvent())</div>
 </body>
 </html>

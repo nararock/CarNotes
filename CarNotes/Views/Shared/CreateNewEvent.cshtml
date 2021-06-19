@@ -1,6 +1,6 @@
 ﻿@model CarNotes.CnDb.RefuelEvent
     <div class="form">
-        @using (Html.BeginForm())
+        @using (Html.BeginForm("CreateNewEvent", "Home"))
         {
             <p>Дата: @Html.TextBoxFor(x => x.Date)</p>
             <p>Пробег: @Html.TextBoxFor(x => x.Mileage)</p>
@@ -12,6 +12,5 @@
             <p>Забыл внести предыдущие данные @Html.CheckBoxFor(x => x.ForgotRecordPreviousGasStation)</p>
             <input type="submit" value="Сохранить данные" class="button" />
         }
-
     </div>
        

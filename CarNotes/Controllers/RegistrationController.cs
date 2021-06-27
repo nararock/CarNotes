@@ -3,6 +3,7 @@ using CarNotes.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -17,9 +18,9 @@ namespace CarNotes.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(RegistrationModel rm)
+        public async Task<ActionResult> Index(RegistrationModel rm)
         {
-            new RegistrationHelper().Register(rm, HttpContext);
+            await new RegistrationHelper().Register(rm, HttpContext);
             return View("EndOfRegistration");
         }
     }

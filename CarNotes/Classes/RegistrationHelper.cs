@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace CarNotes.Classes
 {
     public class RegistrationHelper
     {
-        public void Register(RegistrationModel rm, HttpContextBase context)
+        public async Task Register(RegistrationModel rm, HttpContextBase context)
         {
             var authHelper = new AuthHelper(context);
             var user = new CnDb.User
@@ -17,8 +18,7 @@ namespace CarNotes.Classes
                 Email = rm.Email,
                 UserName = rm.Email
             };
-            authHelper.UserManager.CreateAsync(user);
-            authHelper.UserManager.AddPasswordAsync(user.Id, rm.Password);
+            var result = await authHelper.UserManager.CreateAsync(user, rm.Password);
         }
     }
 }

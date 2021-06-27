@@ -11,12 +11,13 @@
     <title>Index</title>
 </head>
 <body>
-    <div> 
+    <div>
         @using (Html.BeginForm())
         {
-            <p>Имя: @Html.TextBoxFor(x=>x.Name)</p>
-            <p>Почта: @Html.TextBoxFor(x=>x.Email)</p>
-            <p>Пароль: @Html.TextBoxFor(x=>x.Password)</p>
+            <p>Имя: @Html.TextBoxFor(x => x.Name)</p>
+            <p>Почта: @Html.TextBoxFor(x => x.Email)</p>
+            <p>Пароль: @Html.TextBoxFor(x => x.Password)</p>
+            <input type="submit" value="Зарегистрироваться" class="button" />
         }
     </div>
 </body>

@@ -29,6 +29,7 @@
             margin-right: 30px;
             margin-top: 20px;
             text-align: right;
+            text-decoration:none;
         }
         .image {
             float: left;
@@ -126,7 +127,7 @@
 <body>
     <div class="top">
         <img src="../Content/logoCar.png" height="60" class="image" />
-        <p class="topLetters">По всем вопросам пишите на почту: <br /> nararock@mail.ru</p>
+        <p class="topLetters"><a href="@Url.Content("~/Registration/Index")" >Зарегистрироваться</a></p>
     </div>
     <div class="links">@Html.Partial("_LinkMenuTemplate", menu)</div>
     <div class="buttons">
@@ -140,5 +141,6 @@
 </div>
 <div class="newRefuelWindow">@Html.Partial("CreateNewEvent", new CarNotes.CnDb.RefuelEvent())</div>
 <div class="newRepairWindow">@Html.Partial("CreateNewRepairEvent", new CarNotes.CnDb.RepairEvent())</div>
+<div><p >По всем вопросам пишите на почту: <br /> nararock@mail.ru</p></div>
 </body>
 </html>

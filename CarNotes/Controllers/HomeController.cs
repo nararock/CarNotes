@@ -27,6 +27,7 @@ namespace CarNotes.Controllers
             return View(db.RefuelEvents);
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult CreateNewEvent(RefuelModel rm)
         {
@@ -41,6 +42,8 @@ namespace CarNotes.Controllers
             return View(db.RepairEvents);
         }
 
+
+        [Authorize]
         [HttpPost]
         public ActionResult CreateNewRepairEvent(RepairModel rm)
         {

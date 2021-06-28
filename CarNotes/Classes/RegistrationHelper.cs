@@ -9,7 +9,7 @@ namespace CarNotes.Classes
 {
     public class RegistrationHelper
     {
-        public async Task Register(RegistrationModel rm, HttpContextBase context)
+        public async Task<IEnumerable<string>> Register(RegistrationModel rm, HttpContextBase context)
         {
             var authHelper = new AuthHelper(context);
             var user = new CnDb.User
@@ -19,6 +19,7 @@ namespace CarNotes.Classes
                 UserName = rm.Email
             };
             var result = await authHelper.UserManager.CreateAsync(user, rm.Password);
+            return result.Errors;
         }
     }
 }

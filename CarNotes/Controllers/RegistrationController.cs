@@ -20,7 +20,19 @@ namespace CarNotes.Controllers
         [HttpPost]
         public async Task<ActionResult> Index(RegistrationModel rm)
         {
-            await new RegistrationHelper().Register(rm, HttpContext);
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            var result = await new RegistrationHelper().Register(rm, HttpContext);
+            if (result.Any())
+            {
+                foreach(var element in result)
+                {
+                    ModelState.AddModelError("", element);
+                }
+                return View();
+            }
             return View("EndOfRegistration");
         }
     }

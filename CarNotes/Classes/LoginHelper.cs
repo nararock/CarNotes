@@ -15,5 +15,10 @@ namespace CarNotes.Classes
             var result = await authHelper.SignInManager.PasswordSignInAsync(lm.Login, lm.Password, true, true);
             return result == Microsoft.AspNet.Identity.Owin.SignInStatus.Success;
         }
+
+        public void LogOut(HttpContextBase context)
+        {
+            new AuthHelper(context).AuthenticationManager.SignOut();
+        }
     }
 }

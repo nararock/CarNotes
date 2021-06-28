@@ -27,5 +27,11 @@ namespace CarNotes.Controllers
             }
             return Redirect("~");
         }
+
+        public ActionResult LogOut()
+        {
+            new LoginHelper().LogOut(HttpContext);
+            return Redirect("~");
+        }
     }
 }

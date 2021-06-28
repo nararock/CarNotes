@@ -6,6 +6,12 @@
 @{
     List<SubMenuModel> buttons = new LinkMenuHelper().getButtons(ViewBag.Name);
 }
+@{ 
+    var isVerified = new AuthHelper(Context).AuthenticationManager.User.Identity.IsAuthenticated;
+}
+@{
+    var userName = new AuthHelper(Context).AuthenticationManager.User.Identity.Name;
+}
 <!DOCTYPE html>
 
 <html>
@@ -127,8 +133,16 @@
 <body>
     <div class="top">
         <img src="../Content/logoCar.png" height="60" class="image" />
-        <p class="topLetters"><a href="@Url.Content("~/Registration/Index")">Зарегистрироваться</a></p>
-        <p class="topLetters"><a href="@Url.Content("~/Login/Index")">Вход</a></p>
+        @if (!isVerified)
+        {
+            <p class="topLetters"><a href="@Url.Content("~/Registration/Index")">Зарегистрироваться</a></p>
+            <p class="topLetters"><a href="@Url.Content("~/Login/Index")">Вход</a></p>
+        }
+        else
+        {
+            <p class="topLetters">Привет, @userName</p>
+            <p class="topLetters"><a href="@Url.Content("~/Login/LogOut")">Выйти</a></p>
+        }
     </div>
     <div class="links">@Html.Partial("_LinkMenuTemplate", menu)</div>
     <div class="buttons">

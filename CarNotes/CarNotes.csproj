@@ -136,6 +136,7 @@
     <Compile Include="Classes\CommonHelper.cs" />
     <Compile Include="Classes\IdentityConfig.cs" />
     <Compile Include="Classes\LinkMenuHelper.cs" />
+    <Compile Include="Classes\LoginHelper.cs" />
     <Compile Include="Classes\RefuelHelper.cs" />
     <Compile Include="Classes\RegistrationHelper.cs" />
     <Compile Include="Classes\RepairHelper.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="CnDb\RepairEvent.cs" />
     <Compile Include="CnDb\User.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Enums\FuelType.cs" />
     <Compile Include="Enums\RecordType.cs" />
@@ -167,6 +169,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CommonModel.cs" />
     <Compile Include="Models\LinkMenuModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RefuelModel.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Models\RepairModel.cs" />
@@ -187,6 +190,7 @@
     <Content Include="Views\Shared\_LinkMenuTemplate.cshtml" />
     <Content Include="Views\Registration\Index.cshtml" />
     <Content Include="Views\Registration\EndOfRegistration.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

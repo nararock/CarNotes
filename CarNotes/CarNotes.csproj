@@ -140,6 +140,7 @@
     <Compile Include="Classes\RefuelHelper.cs" />
     <Compile Include="Classes\RegistrationHelper.cs" />
     <Compile Include="Classes\RepairHelper.cs" />
+    <Compile Include="Classes\VehicleHelper.cs" />
     <Compile Include="CnDb\CarPart.cs" />
     <Compile Include="CnDb\CnDbContext.cs" />
     <Compile Include="CnDb\GasStation.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
+    <Compile Include="Controllers\VehicleController.cs" />
     <Compile Include="Enums\FuelType.cs" />
     <Compile Include="Enums\RecordType.cs" />
     <Compile Include="Global.asax.cs">
@@ -179,6 +181,7 @@
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Models\RepairModel.cs" />
     <Compile Include="Models\SubMenuModel.cs" />
+    <Compile Include="Models\VehicleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StartUp.cs" />
   </ItemGroup>
@@ -196,6 +199,7 @@
     <Content Include="Views\Registration\Index.cshtml" />
     <Content Include="Views\Registration\EndOfRegistration.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Vehicle\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

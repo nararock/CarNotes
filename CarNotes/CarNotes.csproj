@@ -146,6 +146,7 @@
     <Compile Include="CnDb\RefuelEvent.cs" />
     <Compile Include="CnDb\RepairEvent.cs" />
     <Compile Include="CnDb\User.cs" />
+    <Compile Include="CnDb\Vehicle.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
@@ -165,6 +166,10 @@
     <Compile Include="Migrations\202106192203242_add Identity.cs" />
     <Compile Include="Migrations\202106192203242_add Identity.designer.cs">
       <DependentUpon>202106192203242_add Identity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106292056358_add VehicleTable.cs" />
+    <Compile Include="Migrations\202106292056358_add VehicleTable.designer.cs">
+      <DependentUpon>202106292056358_add VehicleTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CommonModel.cs" />
@@ -208,6 +213,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106192203242_add Identity.resx">
       <DependentUpon>202106192203242_add Identity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106292056358_add VehicleTable.resx">
+      <DependentUpon>202106292056358_add VehicleTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

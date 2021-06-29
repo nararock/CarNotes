@@ -12,6 +12,7 @@ namespace CarNotes.CnDb
     public class User: IdentityUser
     {
         public string Name { get; set; }
+        public virtual List<Vehicle> Vehicles { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {
             // Обратите внимание, что authenticationType должен совпадать с типом, определенным в CookieAuthenticationOptions.AuthenticationType

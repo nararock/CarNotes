@@ -1,0 +1,12 @@
+﻿@model CarNotes.CnDb.Vehicle
+    <div class="form">
+        @using (Html.BeginForm("Add", "Vehicle"))
+        {
+            <p>Марка: @Html.TextBoxFor(x => x.Brand)</p>
+            <p>Модель: @Html.TextBoxFor(x => x.Model)</p>
+            <p>Год выпуска: @Html.TextBoxFor(x => x.ReleaseYear)</p>
+            <p>Цвет: @Html.TextBoxFor(x => x.Color)</p>
+            <p>Кузов: @Html.TextBoxFor(x => x.Body)</p>
+            <input type="submit" value="Сохранить данные" class="button" />
+        }
+    </div>

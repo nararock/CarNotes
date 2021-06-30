@@ -9,8 +9,37 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <style>
+        /*всплывающая форма создания события*/
+        .Add {
+            position: absolute;
+            display: none;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        .form {
+            width: 600px;
+            border: 1px solid grey;
+            background-color: floralwhite;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 100px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function up() {
+            elem = document.getElementsByClassName('Add');
+            elem[0].style.display = "inline-block";
+        }
+    </script>
 </head>
 <body>
+    <input type="button" value="Добавить новое транспортное средство" class="button" onclick="up()"/>
+    <div class="Add">@Html.Partial("Add", new CarNotes.CnDb.Vehicle())</div>
     <div>
         @if (Model.Count > 0)
         {
@@ -36,7 +65,7 @@
         }
         else
         {
-            <p>У вас пока не добавлено ни одного транспортного средства.</p>
+            <p>У вас не добавлено ни одного транспортного средства.</p>
         }
     </div>
 </body>

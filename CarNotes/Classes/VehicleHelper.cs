@@ -24,5 +24,20 @@ namespace CarNotes.Classes
             }).ToList();
             return answer;
         }
+
+        public void Create(VehicleModel vm, HttpContextBase context)
+        {
+            var database = new CnDbContext();
+            var userId = new AuthHelper(context).AuthenticationManager.User.Identity.GetUserId();
+            var vehicle = new Vehicle();
+            vehicle.UserId = userId;
+            vehicle.Body = vm.Body;
+            vehicle.Brand = vm.Brand;
+            vehicle.Color = vm.Color;
+            vehicle.Model = vm.Model;
+            vehicle.ReleaseYear = vm.ReleaseYear;
+            database.Vehicles.Add(vehicle);
+            database.SaveChanges();
+        }
     }
 }

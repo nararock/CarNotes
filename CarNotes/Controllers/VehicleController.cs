@@ -1,4 +1,5 @@
 ﻿using CarNotes.Classes;
+using CarNotes.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,13 @@ namespace CarNotes.Controllers
         {
             var vehicles = new VehicleHelper().GetVehicles(HttpContext);
             return View(vehicles);
+        }
+
+        [HttpPost]
+        public ActionResult Add(VehicleModel vm)
+        {
+            new VehicleHelper().Create(vm, HttpContext);
+            return Redirect("Index");
         }
     }
 }

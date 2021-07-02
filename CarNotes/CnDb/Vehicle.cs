@@ -15,5 +15,7 @@ namespace CarNotes.CnDb
         public string Body { get; set; }
         public string Color { get; set; }
         public virtual User User { get; set; }
+        public virtual List<RefuelEvent> RefuelEvents { get; set; }
+        public virtual List<RepairEvent> RepairEvents { get; set; }
     }
 }

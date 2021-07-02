@@ -23,6 +23,8 @@ namespace CarNotes.CnDb
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Vehicle>().HasRequired(v => v.User).WithMany(u => u.Vehicles).HasForeignKey(v => v.UserId);
+            modelBuilder.Entity<RefuelEvent>().HasRequired(r => r.Vehicle).WithMany(v => v.RefuelEvents).HasForeignKey(r => r.VehicleId);
+            modelBuilder.Entity<RepairEvent>().HasRequired(r => r.Vehicle).WithMany(v => v.RepairEvents).HasForeignKey(r => r.VehicleId);
 
             base.OnModelCreating(modelBuilder);
         }

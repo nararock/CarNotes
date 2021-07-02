@@ -17,5 +17,7 @@ namespace CarNotes.CnDb
         public double PricePerOneLiter { get; set; }
         public bool FullTank { get; set; }
         public bool ForgotRecordPreviousGasStation { get; set; }
+        public virtual Vehicle Vehicle { get; set; }
+        public int VehicleId { get; set; }
     }
 }

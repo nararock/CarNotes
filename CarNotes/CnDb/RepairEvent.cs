@@ -15,5 +15,7 @@ namespace CarNotes.CnDb
         public string CarService { get; set; }
         public decimal RepairCost { get; set; }
         public string Comments { get; set; }
+        public virtual Vehicle Vehicle { get; set; }
+        public int VehicleId { get; set; }
     }
 }

@@ -173,6 +173,10 @@
     <Compile Include="Migrations\202106292056358_add VehicleTable.designer.cs">
       <DependentUpon>202106292056358_add VehicleTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202107022005040_add relations between Vehicles and RepairEvents and RefuelEvents.cs" />
+    <Compile Include="Migrations\202107022005040_add relations between Vehicles and RepairEvents and RefuelEvents.designer.cs">
+      <DependentUpon>202107022005040_add relations between Vehicles and RepairEvents and RefuelEvents.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CommonModel.cs" />
     <Compile Include="Models\LinkMenuModel.cs" />
@@ -208,7 +212,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Migrations\202107022003377_add relations between Vehicles and RepairEvents \" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202106041827438_add RefuelEvent and GasStation.resx">
       <DependentUpon>202106041827438_add RefuelEvent and GasStation.cs</DependentUpon>
@@ -221,6 +227,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106292056358_add VehicleTable.resx">
       <DependentUpon>202106292056358_add VehicleTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107022005040_add relations between Vehicles and RepairEvents and RefuelEvents.resx">
+      <DependentUpon>202107022005040_add relations between Vehicles and RepairEvents and RefuelEvents.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

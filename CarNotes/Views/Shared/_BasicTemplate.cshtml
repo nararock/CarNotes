@@ -2,15 +2,10 @@
 @using CarNotes.Models;
 @{
     List<LinkMenuModel> menu = new LinkMenuHelper().get(ViewBag.Name);
-}
-@{
     List<SubMenuModel> buttons = new LinkMenuHelper().getButtons(ViewBag.Name);
-}
-@{ 
     var isVerified = new AuthHelper(Context).AuthenticationManager.User.Identity.IsAuthenticated;
-}
-@{
     var userName = new AuthHelper(Context).AuthenticationManager.User.Identity.Name;
+    var vehicles = new VehicleHelper().GetVehicles(Context);
 }
 <!DOCTYPE html>
 
@@ -141,6 +136,11 @@
         else
         {
             <p class="topLetters">Привет, @userName</p>
+            <p class="topLetters"><select size="1">@foreach (var element in vehicles)
+            {
+                <option>@element.Brand  @element.Model  @element.ReleaseYear</option>
+            }
+                </select></p>
             <p class="topLetters"><a href="@Url.Content("~/Vehicle/Index")">Гараж</a></p>
             <p class="topLetters"><a href="@Url.Content("~/Login/LogOut")">Выйти</a></p>
         }

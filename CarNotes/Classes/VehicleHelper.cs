@@ -16,6 +16,7 @@ namespace CarNotes.Classes
             var userId = new AuthHelper(context).AuthenticationManager.User.Identity.GetUserId();
             var answer = database.Vehicles.Where(x => x.UserId == userId).Select(x => new VehicleModel
             {
+                Id = x.Id,
                 Brand = x.Brand,
                 Body = x.Body,
                 ReleaseYear = x.ReleaseYear,

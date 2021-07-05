@@ -1,4 +1,5 @@
 ﻿@model CarNotes.CnDb.RepairEvent
+    <script src="@Url.Content("~/Content/Main.js")"></script>
     <div class="form">
         @using (Html.BeginForm())
         {
@@ -8,6 +9,15 @@
             <p>Сервис: @Html.TextBoxFor(x => x.CarService)</p>
             <p>Стоимость ремонтных работ: @Html.TextBoxFor(x => x.RepairCost)</p>
             <p>Комментарии: @Html.TextBoxFor(x => x.Comments)</p>
+            <input type="button" value="Добавить запчасть" class="button" id="addCarPart"/>
+            <table id="carPartsTable">
+                <tr>
+                    <th>Название</th>
+                    <th>Производитель</th>
+                    <th>Артикул</th>
+                    <th>Цена</th>
+                </tr>
+            </table>
             <input type="submit" value="Сохранить данные" class="button" />
         }
     </div>

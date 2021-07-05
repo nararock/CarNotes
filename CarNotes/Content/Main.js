@@ -22,3 +22,24 @@ function updateVehicleSelector() {
         setCookie('vehicleId', elem.value);
     })
 }
+
+//CarParts
+function createTable() {
+    var elemTable = document.getElementById('carPartsTable');
+    var tableRow = document.createElement('tr');
+    var amountTh = elemTable.children[0].children[0].cells.length;
+    for (var i = 0; i < amountTh; i++) {
+        var cell = document.createElement('th');
+        var input = document.createElement('input');
+        cell.appendChild(input);
+        tableRow.appendChild(cell);
+    }
+    var cell = document.createElement('th');
+    cell.innerHTML = "&times";
+    cell.addEventListener("click", function () {
+        cell.parentElement.remove();
+    })
+    tableRow.appendChild(cell);
+    elemTable.appendChild(tableRow);
+}
+

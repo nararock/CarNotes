@@ -1,6 +1,7 @@
 ﻿using CarNotes.Classes;
 using CarNotes.CnDb;
 using CarNotes.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,6 +49,11 @@ namespace CarNotes.Controllers
         [HttpPost]
         public ActionResult CreateNewEvent(RefuelModel rm)
         {
+            var vehicleId = int.Parse(HttpContext.Request.Cookies.Get("vehicleId").Value);
+            var Id = new AuthHelper(HttpContext).AuthenticationManager.User.Identity.GetUserId();
+            var vehicle = new CnDbContext().Vehicles.FirstOrDefault(x => x.Id == vehicleId);
+            if (vehicle == null || vehicle.UserId != Id)
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
             new RefuelHelper().SaveToDataBase(rm);
             return RedirectToAction("GoToRefuelEvents");
         }
@@ -64,7 +70,12 @@ namespace CarNotes.Controllers
         [HttpPost]
         public ActionResult CreateNewRepairEvent(RepairModel rm)
         {
-            new RepairHelper().SaveToDataBase(rm);
+            var vehicleId = int.Parse(HttpContext.Request.Cookies.Get("vehicleId").Value);
+            var Id = new AuthHelper(HttpContext).AuthenticationManager.User.Identity.GetUserId();
+            var vehicle = new CnDbContext().Vehicles.FirstOrDefault(x => x.Id == vehicleId);
+            if (vehicle == null || vehicle.UserId != Id)
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
+            new RepairHelper().SaveToDataBase(rm, vehicleId);
             return RedirectToAction("GoToRepairEvents");
         }
     }

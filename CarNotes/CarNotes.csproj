@@ -180,6 +180,7 @@
       <DependentUpon>202107022005040_add relations between Vehicles and RepairEvents and RefuelEvents.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\CarPartModel.cs" />
     <Compile Include="Models\CommonModel.cs" />
     <Compile Include="Models\LinkMenuModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
@@ -192,6 +193,9 @@
     <Compile Include="StartUp.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </Content>
     <None Include="packages.config" />
     <Content Include="Views\Home\GoToRefuelEvents.cshtml" />
     <Content Include="Views\Shared\CreateNewEvent.cshtml" />

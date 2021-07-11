@@ -27,14 +27,12 @@ function updateVehicleSelector() {
 function createTable() {
     var elemTable = document.getElementById('carPartsTable');
     var tableRow = document.createElement('tr');
-    var amountTh = elemTable.children[0].children[0].cells.length;
-    for (var i = 0; i < amountTh; i++) {
-        var cell = document.createElement('th');
-        var input = document.createElement('input');
-        cell.appendChild(input);
-        tableRow.appendChild(cell);
-    }
-    var cell = document.createElement('th');
+    var amount = elemTable.children.length  - 1;
+    createCell(tableRow, "Parts[" + amount + "].Name");
+    createCell(tableRow, "Parts[" + amount + "].CarManufacturer");
+    createCell(tableRow, "Parts[" + amount + "].Article");
+    createCell(tableRow, "Parts[" + amount + "].Price");
+    var cell = document.createElement('td');
     cell.innerHTML = "&times";
     cell.addEventListener("click", function () {
         cell.parentElement.remove();

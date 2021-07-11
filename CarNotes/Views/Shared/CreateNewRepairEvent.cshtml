@@ -1,7 +1,7 @@
-﻿@model CarNotes.CnDb.RepairEvent
+﻿@model CarNotes.Models.RepairModel
     <script src="@Url.Content("~/Content/Main.js")"></script>
     <div class="form">
-        @using (Html.BeginForm())
+        @using (Html.BeginForm("CreateNewRepairEvent", "Home", FormMethod.Post))
         {
             <p>Дата: @Html.TextBoxFor(x => x.Date)</p>
             <p>Пробег: @Html.TextBoxFor(x => x.Mileage)</p>

@@ -12,12 +12,29 @@ namespace CarNotes.Controllers
     public class HomeController : Controller
     {
         // GET: Home
-        public ActionResult Index()
+        public ActionResult Index(int? vehicleId)
         {
-            ViewBag.Name = "Общая таблица";
-            var common = new CommonHelper();
-            var cm = common.CreateList();
-            return View(cm);
+            if (vehicleId != null)
+            {
+                var common = new CommonHelper();
+                var cm = common.CreateList((int)vehicleId);
+                if (cm == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
+                ViewBag.Name = "Общая таблица";
+                return View(cm);
+            }
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Redirect("~/RegistrationController/Index");
+            }
+            var vehicleIDCookie = HttpContext.Request.Cookies.Get("vehicleId")?.Value;
+            if (vehicleIDCookie != null)
+            {
+                return Redirect("~/Home/Index?vehicleId=" +  vehicleIDCookie);
+            }
+            var userId = new AuthHelper(HttpContext).AuthenticationManager.User.Identity.GetUserId();
+            vehicleId = new CnDbContext().Users.Find(userId).Vehicles.FirstOrDefault().Id;
+            if (vehicleId != null) return Redirect("~/Home/Index?vehicleId=" + vehicleId);
+            return Redirect("~/Vehicle/Index");
         }
 
         public ActionResult GoToRefuelEvents()

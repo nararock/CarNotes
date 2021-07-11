@@ -41,3 +41,11 @@ function createTable() {
     elemTable.appendChild(tableRow);
 }
 
+function createCell(tableRow, name) {
+    var cell = document.createElement('td');
+    var input = document.createElement('input');
+    cell.appendChild(input);
+    input.name = name;
+    tableRow.appendChild(cell);
+}
+

@@ -38,11 +38,29 @@ namespace CarNotes.Controllers
             return Redirect("~/Vehicle/Index");
         }
 
-        public ActionResult GoToRefuelEvents()
+        public ActionResult GoToRefuelEvents(int? vehicleId)
         {
-            ViewBag.Name = "Заправка";
-            CnDbContext db = new CnDbContext();
-            return View(db.RefuelEvents);
+            if (vehicleId != null)
+            {
+                var common = new RefuelHelper();
+                var cm = common.GetList((int)vehicleId);
+                if (cm == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
+                ViewBag.Name = "Заправка";
+                return View(cm);
+            }
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Redirect("~/RegistrationController/Index");
+            }
+            var vehicleIDCookie = HttpContext.Request.Cookies.Get("vehicleId")?.Value;
+            if (vehicleIDCookie != null)
+            {
+                return Redirect("~/Home/GoToRefuelEvents?vehicleId=" + vehicleIDCookie);
+            }
+            var userId = new AuthHelper(HttpContext).AuthenticationManager.User.Identity.GetUserId();
+            vehicleId = new CnDbContext().Users.Find(userId).Vehicles.FirstOrDefault().Id;
+            if (vehicleId != null) return Redirect("~/Home/GoToRefuelEvents?vehicleId=" + vehicleId);
+            return Redirect("~/Vehicle/Index");
         }
 
         [Authorize]

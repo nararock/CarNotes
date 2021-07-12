@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CarNotes.CnDb.RefuelEvent>
+﻿@model List<CarNotes.Models.RefuelModel>
 @using CarNotes.Classes;
 
 <div>
@@ -14,7 +14,7 @@
             <th>Полный бак</th>
             <th>Забыл внести предыдущую заправку</th>
         </tr>
-        @foreach (CarNotes.CnDb.RefuelEvent b in Model)
+        @foreach (CarNotes.Models.RefuelModel b in Model)
         {
             <tr>
                 <td>@b.Date</td>

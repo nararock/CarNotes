@@ -72,7 +72,7 @@ namespace CarNotes.Controllers
             var vehicle = new CnDbContext().Vehicles.FirstOrDefault(x => x.Id == vehicleId);
             if (vehicle == null || vehicle.UserId != Id)
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
-            new RefuelHelper().SaveToDataBase(rm);
+            new RefuelHelper().SaveToDataBase(rm, vehicleId);
             return RedirectToAction("GoToRefuelEvents");
         }
 

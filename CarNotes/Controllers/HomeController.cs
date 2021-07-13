@@ -76,11 +76,29 @@ namespace CarNotes.Controllers
             return RedirectToAction("GoToRefuelEvents");
         }
 
-        public ActionResult GoToRepairEvents()
+        public ActionResult GoToRepairEvents(int? vehicleId)
         {
-            ViewBag.Name = "Ремонт";
-            CnDbContext db = new CnDbContext();
-            return View(db.RepairEvents);
+            if (vehicleId != null)
+            {
+                var common = new RepairHelper();
+                var cm = common.GetList((int)vehicleId);
+                if (cm == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
+                ViewBag.Name = "Ремонт";
+                return View(cm);
+            }
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Redirect("~/RegistrationController/Index");
+            }
+            var vehicleIDCookie = HttpContext.Request.Cookies.Get("vehicleId")?.Value;
+            if (vehicleIDCookie != null)
+            {
+                return Redirect("~/Home/GoToRepairEvents?vehicleId=" + vehicleIDCookie);
+            }
+            var userId = new AuthHelper(HttpContext).AuthenticationManager.User.Identity.GetUserId();
+            vehicleId = new CnDbContext().Users.Find(userId).Vehicles.FirstOrDefault().Id;
+            if (vehicleId != null) return Redirect("~/Home/GoToRepairEvents?vehicleId=" + vehicleId);
+            return Redirect("~/Vehicle/Index");
         }
 
 

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CarNotes.CnDb.RepairEvent>
+﻿@model List<CarNotes.Models.RepairModel>
 @using CarNotes.Classes;
 
 <div>
@@ -12,7 +12,7 @@
             <th>Стоимость работ</th>
             <th>Комментарии</th>
         </tr>
-        @foreach (CarNotes.CnDb.RepairEvent b in Model)
+        @foreach (CarNotes.Models.RepairModel b in Model)
         {
             <tr>
                 <td>@b.Date</td>

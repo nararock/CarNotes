@@ -8,7 +8,7 @@ namespace CarNotes.Models
 {
     public class RepairModel
     {
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
         public double Mileage { get; set; }
         public string Repair { get; set; }
         public List<CarPartModel> Parts { get; set; }

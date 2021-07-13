@@ -3,19 +3,30 @@ using CarNotes.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 using System.Web;
 
 namespace CarNotes.Classes
 {
     public class RepairHelper
     {
+        public List<RepairModel> GetList(int vehicleId)
+        {
+            var db = new CnDbContext();
+            var vehicle = db.Vehicles.Include(v=>v.RepairEvents.Select(r=>r.Parts)).FirstOrDefault(x => x.Id == vehicleId);
+            if (vehicle == null) return null;
+            var list = vehicle.RepairEvents.Select(x => new RepairModel { Date=x.Date, Mileage=x.Mileage, Repair=x.Repair,
+                CarService=x.CarService, RepairCost=x.RepairCost, Comments=x.Comments, Parts=x.Parts.Select(y=>new CarPartModel { Article=y.Article,
+                    CarManufacturer=y.CarManufacturer, Name=y.Name, Price=y.Price}).ToList() }).ToList();
+            return list;
+        }
         public void SaveToDataBase(RepairModel rm, int vehicleId)
         {
             var database = new CnDbContext();
             var repairEvent = new RepairEvent();
             repairEvent.CarService = rm.CarService;
             repairEvent.Comments = rm.Comments;
-            repairEvent.Date = DateTime.ParseExact(rm.Date, "dd.MM.yyyy", null);
+            repairEvent.Date = rm.Date;
             repairEvent.Mileage = rm.Mileage;
             repairEvent.Repair = rm.Repair;
             repairEvent.RepairCost = rm.RepairCost;

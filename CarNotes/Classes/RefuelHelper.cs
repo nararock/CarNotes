@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using CarNotes.Enums;
 
 namespace CarNotes.Classes
 {
@@ -26,7 +27,9 @@ namespace CarNotes.Classes
             var database = new CnDbContext();
             var refuelEvent = new RefuelEvent();
             refuelEvent.Date = rm.Date;
-            //refuelEvent.Fuel = rm.Fuel;
+            FuelType fuelanswer;
+            Enum.TryParse(rm.Fuel, out fuelanswer);
+            refuelEvent.Fuel = fuelanswer;
             refuelEvent.FullTank = rm.FullTank;
             refuelEvent.Mileage = rm.Mileage;
             refuelEvent.PricePerOneLiter = rm.PricePerOneLiter;

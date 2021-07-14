@@ -49,7 +49,7 @@ function createCell(tableRow, name) {
     tableRow.appendChild(cell);
 }
 
-
+//change select
 function changeData()
 {
     var elem = document.getElementById('vehicleSelect');

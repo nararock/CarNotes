@@ -17,6 +17,15 @@ namespace CarNotes.Controllers
         {
             if (vehicleId != null)
             {
+                ViewBag.IsChecked = false;
+                if (HttpContext.User.Identity.IsAuthenticated)
+                {
+                    var userIdCheck = new AuthHelper(HttpContext).AuthenticationManager.User.Identity.GetUserId();
+                    if (new CnDbContext().Users.Find(userIdCheck).Vehicles.Any(v => v.Id == vehicleId))
+                    {
+                        ViewBag.IsChecked = true;
+                    }
+                }
                 var common = new CommonHelper();
                 var cm = common.CreateList((int)vehicleId);
                 if (cm == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
@@ -42,6 +51,15 @@ namespace CarNotes.Controllers
         {
             if (vehicleId != null)
             {
+                ViewBag.IsChecked = false;
+                if (HttpContext.User.Identity.IsAuthenticated)
+                {
+                    var userIdCheck = new AuthHelper(HttpContext).AuthenticationManager.User.Identity.GetUserId();
+                    if (new CnDbContext().Users.Find(userIdCheck).Vehicles.Any(v => v.Id == vehicleId))
+                    {
+                        ViewBag.IsChecked = true;
+                    }
+                }
                 var common = new RefuelHelper();
                 var cm = common.GetList((int)vehicleId);
                 if (cm == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
@@ -80,6 +98,15 @@ namespace CarNotes.Controllers
         {
             if (vehicleId != null)
             {
+                ViewBag.IsChecked = false;
+                if (HttpContext.User.Identity.IsAuthenticated)
+                {
+                    var userIdCheck = new AuthHelper(HttpContext).AuthenticationManager.User.Identity.GetUserId();
+                    if (new CnDbContext().Users.Find(userIdCheck).Vehicles.Any(v => v.Id == vehicleId))
+                    {
+                        ViewBag.IsChecked = true;
+                    }
+                }
                 var common = new RepairHelper();
                 var cm = common.GetList((int)vehicleId);
                 if (cm == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);

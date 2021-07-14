@@ -138,9 +138,9 @@
         else
         {
             <p class="topLetters">Привет, @userName</p>
-            <p class="topLetters"><select size="1" id="vehicleSelect">@foreach (var element in vehicles)
+            <p class="topLetters"><select size="1" id="vehicleSelect" onchange="changeData()">@foreach (var element in vehicles)
             {
-                <option value="@element.Id">@element.Brand  @element.Model  @element.ReleaseYear</option>
+                <option value="@element.Id">@element.Brand  @element.Model  @element.ReleaseYear </option>
             }
                 </select></p>
             <p class="topLetters"><a href="@Url.Content("~/Vehicle/Index")">Гараж</a></p>

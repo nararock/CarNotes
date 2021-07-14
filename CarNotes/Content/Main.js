@@ -49,3 +49,11 @@ function createCell(tableRow, name) {
     tableRow.appendChild(cell);
 }
 
+
+function changeData()
+{
+    var elem = document.getElementById('vehicleSelect');
+    var vehicle = elem.value;
+    var location = window.location;
+    location.search = "?vehicleId=" + vehicle;
+}

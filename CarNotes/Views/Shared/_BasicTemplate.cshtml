@@ -138,27 +138,33 @@
         else
         {
             <p class="topLetters">Привет, @userName</p>
-            <p class="topLetters"><select size="1" id="vehicleSelect" onchange="changeData()">@foreach (var element in vehicles)
-            {
-                <option value="@element.Id">@element.Brand  @element.Model  @element.ReleaseYear </option>
-            }
-                </select></p>
-            <p class="topLetters"><a href="@Url.Content("~/Vehicle/Index")">Гараж</a></p>
-            <p class="topLetters"><a href="@Url.Content("~/Login/LogOut")">Выйти</a></p>
-        }
+            <p class="topLetters">
+                <select size="1" id="vehicleSelect" onchange="changeData()">
+                    @foreach (var element in vehicles)
+                    {
+                        <option value="@element.Id">@element.Brand  @element.Model  @element.ReleaseYear </option>
+                    }
+            </select>
+        </p>
+        <p class="topLetters"><a href="@Url.Content("~/Vehicle/Index")">Гараж</a></p>
+        <p class="topLetters"><a href="@Url.Content("~/Login/LogOut")">Выйти</a></p>
+    }
     </div>
     <div class="links">@Html.Partial("_LinkMenuTemplate", menu)</div>
-    <div class="buttons">
-        @foreach (SubMenuModel s in buttons)
-        {
-            <input type="button" value="@s.Name" class="button" onclick="popup('@s.Name')" />
-        }
-</div>
-<div class="content">
-    @RenderBody()
-</div>
-<div class="newRefuelWindow">@Html.Partial("CreateNewEvent", new CarNotes.Models.RefuelModel())</div>
-<div class="newRepairWindow">@Html.Partial("CreateNewRepairEvent", new CarNotes.Models.RepairModel())</div>
-<div><p >По всем вопросам пишите на почту: <br /> nararock@mail.ru</p></div>
+    @if (ViewBag.IsChecked)
+    {
+        <div class="buttons">
+            @foreach (SubMenuModel s in buttons)
+            {
+                <input type="button" value="@s.Name" class="button" onclick="popup('@s.Name')" />
+            }
+        </div>
+    }
+    <div class="content">
+        @RenderBody()
+    </div>
+    <div class="newRefuelWindow">@Html.Partial("CreateNewEvent", new CarNotes.Models.RefuelModel())</div>
+    <div class="newRepairWindow">@Html.Partial("CreateNewRepairEvent", new CarNotes.Models.RepairModel())</div>
+    <div><p>По всем вопросам пишите на почту: <br /> nararock@mail.ru</p></div>
 </body>
 </html>

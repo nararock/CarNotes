@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
 using System.Web;
+using Microsoft.AspNet.Identity;
 
 namespace CarNotes.Classes
 {
@@ -43,6 +44,22 @@ namespace CarNotes.Classes
             }
             database.RepairEvents.Add(repairEvent);
             database.SaveChanges();
+        }
+
+        public void Delete(int id, HttpContextBase hc)
+        {
+            var data = new CnDbContext();
+            var repair = data.RepairEvents.Include(x=>x.Parts).FirstOrDefault(x => x.Id == id);
+            if (repair?.Vehicle?.UserId == hc.User.Identity.GetUserId())
+            {
+                var parts = repair.Parts;
+                for(int i = 0; i < parts.Count;)
+                {
+                    parts.RemoveAt(i);
+                }
+                data.RepairEvents.Remove(repair);
+                data.SaveChanges();
+            }
         }
     }
 }

@@ -57,3 +57,9 @@ function changeData()
     var location = window.location;
     location.search = "?vehicleId=" + vehicle;
 }
+
+//delete events
+function deleteRepair(id)
+{
+    document.location = "/Repair/Delete?id=" + id;
+}

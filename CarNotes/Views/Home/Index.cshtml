@@ -10,6 +10,8 @@
             <th>Дата</th>
             <th>Пробег</th>
             <th>Стоимость</th>
+            <th></th>
+            <th></th>
         </tr>
         @foreach (var item in Model)
         {
@@ -27,6 +29,8 @@
                 <td>@item.Date</td>
                 <td>@item.Mileage</td>
                 <td>@item.Cost</td>
+                <td><input type="submit" value="&#9998"/></td>
+                <td><input type="submit" value="&#10008"/></td>
             </tr>
         }
 

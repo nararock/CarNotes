@@ -11,17 +11,21 @@
             <th>Сервис</th>
             <th>Стоимость работ</th>
             <th>Комментарии</th>
+            <th></th>
+            <th></th>
         </tr>
         @foreach (CarNotes.Models.RepairModel b in Model)
         {
-            <tr>
-                <td>@b.Date</td>
-                <td>@b.Mileage</td>
-                <td>@b.Repair</td>
-                <td>@b.CarService</td>
-                <td>@b.RepairCost</td>
-                <td>@b.Comments</td>
-            </tr>
+    <tr>
+        <td>@b.Date</td>
+        <td>@b.Mileage</td>
+        <td>@b.Repair</td>
+        <td>@b.CarService</td>
+        <td>@b.RepairCost</td>
+        <td>@b.Comments</td>
+        <td><input type="submit" value="&#9998" onclick="editRepair(@b.Id)"/></td>
+        <td><input type="submit" value="&#10008" onclick="deleteRepair(@b.Id)"/></td>
+    </tr>
         }
     </table>
 </div>

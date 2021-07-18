@@ -7,6 +7,7 @@ namespace CarNotes.Models
 {
     public class RefuelModel
     {
+        public int Id { get; set; }
         public DateTime Date { get; set; }
         public double Mileage { get; set; }
         public string Fuel { get; set; }

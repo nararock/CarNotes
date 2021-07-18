@@ -8,6 +8,7 @@ namespace CarNotes.Models
 {
     public class RepairModel
     {
+        public int Id { get; set; }
         public DateTime Date { get; set; }
         public double Mileage { get; set; }
         public string Repair { get; set; }

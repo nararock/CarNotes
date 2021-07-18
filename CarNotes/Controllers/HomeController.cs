@@ -34,7 +34,7 @@ namespace CarNotes.Controllers
             }
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Redirect("~/RegistrationController/Index");
+                return Redirect("~/Registration/Index");
             }
             var vehicleIDCookie = HttpContext.Request.Cookies.Get("vehicleId")?.Value;
             if (vehicleIDCookie != null)
@@ -68,7 +68,7 @@ namespace CarNotes.Controllers
             }
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Redirect("~/RegistrationController/Index");
+                return Redirect("~/Registration/Index");
             }
             var vehicleIDCookie = HttpContext.Request.Cookies.Get("vehicleId")?.Value;
             if (vehicleIDCookie != null)
@@ -115,7 +115,7 @@ namespace CarNotes.Controllers
             }
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Redirect("~/RegistrationController/Index");
+                return Redirect("~/Registration/Index");
             }
             var vehicleIDCookie = HttpContext.Request.Cookies.Get("vehicleId")?.Value;
             if (vehicleIDCookie != null)

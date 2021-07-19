@@ -8,6 +8,7 @@ namespace CarNotes.Models
 {
     public class CommonModel
     {
+        public int Id { get; set; }
         public RecordType Record { get; set; }
         public DateTime Date { get; set; }
         public double Mileage { get; set; }

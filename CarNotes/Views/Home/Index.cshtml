@@ -30,7 +30,7 @@
                 <td>@item.Mileage</td>
                 <td>@item.Cost</td>
                 <td><input type="submit" value="&#9998"/></td>
-                <td><input type="submit" value="&#10008"/></td>
+                <td><input type="submit" value="&#10008" onclick="deleteCommon('@item.Record', @item.Id)"/></td>
             </tr>
         }
 

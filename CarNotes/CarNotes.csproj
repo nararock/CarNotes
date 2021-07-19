@@ -152,6 +152,7 @@
     <Compile Include="CnDb\Vehicle.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\RefuelController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Controllers\RepairController.cs" />
     <Compile Include="Controllers\VehicleController.cs" />
@@ -221,6 +222,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Migrations\202107022003377_add relations between Vehicles and RepairEvents \" />
+    <Folder Include="Views\Refuel\" />
     <Folder Include="Views\Repair\" />
   </ItemGroup>
   <ItemGroup>

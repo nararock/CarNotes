@@ -63,3 +63,13 @@ function deleteRepair(id)
 {
     document.location = "/Repair/Delete?id=" + id;
 }
+
+function deleteRefuel(id)
+{
+    document.location = "/Refuel/Delete?id=" + id;
+}
+
+function deleteCommon(record, id)
+{
+   document.location = "/Home/DeleteEvent?record=" + record + "&id=" + id;
+}

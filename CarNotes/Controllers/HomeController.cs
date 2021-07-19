@@ -141,5 +141,18 @@ namespace CarNotes.Controllers
             new RepairHelper().SaveToDataBase(rm, vehicleId);
             return RedirectToAction("GoToRepairEvents");
         }
+
+        public ActionResult DeleteEvent(string record, int id)
+        {
+            if(record == "Refuel")
+            {
+                new RefuelHelper().Delete(id, HttpContext);
+            }
+            else if(record == "Repair")
+            {
+                new RepairHelper().Delete(id, HttpContext);
+            }
+            return Redirect("~/Home/Index");
+        }
     }
 }

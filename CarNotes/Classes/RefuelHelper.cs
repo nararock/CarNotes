@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using CarNotes.Enums;
+using Microsoft.AspNet.Identity;
 
 namespace CarNotes.Classes
 {
@@ -48,6 +49,18 @@ namespace CarNotes.Classes
             refuelEvent.ForgotRecordPreviousGasStation = rm.ForgotRecordPreviousGasStation;
             database.RefuelEvents.Add(refuelEvent);
             database.SaveChanges();
+        }
+
+        public void Delete(int id, HttpContextBase hc)
+        {
+            var data = new CnDbContext();
+            var refuel = data.RefuelEvents.Include(x => x.Station).FirstOrDefault(x => x.ID == id);
+            if (refuel?.Vehicle?.UserId == hc.User.Identity.GetUserId())
+            {
+                data.GasStations.Remove(refuel.Station);
+                data.RefuelEvents.Remove(refuel);
+                data.SaveChanges();
+            }
         }
     }
 }

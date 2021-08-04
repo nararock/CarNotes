@@ -73,3 +73,9 @@ function deleteCommon(record, id)
 {
    document.location = "/Home/DeleteEvent?record=" + record + "&id=" + id;
 }
+
+//edit events
+function editRefuel(id)
+{
+    document.location = "/Refuel/Edit?id=" + id;
+}

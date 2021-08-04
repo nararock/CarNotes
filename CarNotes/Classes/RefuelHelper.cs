@@ -62,5 +62,47 @@ namespace CarNotes.Classes
                 data.SaveChanges();
             }
         }
+
+        public RefuelModel GetDataEdit(int id)
+        {
+            var db = new CnDbContext();
+            var editRefuel = db.RefuelEvents.Include(x => x.Station).FirstOrDefault(x => x.ID == id);
+            if (editRefuel == null)
+            {
+                return new RefuelModel();
+            }
+            var editRefuelModel = new RefuelModel();
+            editRefuelModel.Date = editRefuel.Date;
+            editRefuelModel.Fuel = editRefuel.Fuel.ToString();
+            editRefuelModel.FullTank = editRefuel.FullTank;
+            editRefuelModel.Mileage = editRefuel.Mileage;
+            editRefuelModel.PricePerOneLiter = editRefuel.PricePerOneLiter;
+            editRefuelModel.Station = editRefuel.Station.Name;
+            editRefuelModel.Volume = editRefuel.Volume;
+            editRefuelModel.ForgotRecordPreviousGasStation = editRefuel.ForgotRecordPreviousGasStation;
+            editRefuelModel.Id = editRefuel.ID;
+            return editRefuelModel;
+        }
+
+        public void ChangeData(RefuelModel rm)
+        {
+            var data = new CnDbContext();
+            var refuelEvent = data.RefuelEvents.Where(x => x.ID == rm.Id).Include(y=>y.Station).FirstOrDefault();
+            if (refuelEvent != null)
+            {
+                refuelEvent.ID = rm.Id;
+                refuelEvent.Date = rm.Date;
+                refuelEvent.ForgotRecordPreviousGasStation = rm.ForgotRecordPreviousGasStation;
+                Enum.TryParse(rm.Fuel, out FuelType l);
+                refuelEvent.Fuel = l;
+                refuelEvent.FullTank = rm.FullTank;
+                refuelEvent.ID = rm.Id;
+                refuelEvent.Mileage = rm.Mileage;
+                refuelEvent.PricePerOneLiter = rm.PricePerOneLiter;
+                refuelEvent.Station.Name = rm.Station;
+                refuelEvent.Volume = rm.Volume;
+                data.SaveChanges();
+            }
+        }
     }
 }

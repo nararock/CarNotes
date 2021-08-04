@@ -1,0 +1,30 @@
+﻿@model CarNotes.Models.RefuelModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+    <div class="form">
+        @using (Html.BeginForm("Edit", "Refuel")) 
+        { 
+            <p>Дата @Html.TextBox("Date", @Model.Date)</p>
+            <p>Пробег @Html.TextBox("Mileage", @Model.Mileage)</p>
+            <p>Вид топлива @Html.DropDownList("Fuel", new SelectList(new string[] { "A80", "A92", "A95", "A98" }))</p>
+            <p>АЗС @Html.TextBox("Station", @Model.Station)</p>
+            <p>Объем @Html.TextBox("Volume", @Model.Volume)</p>
+            <p>Цена @Html.TextBox("PricePerOneLiter", @Model.PricePerOneLiter)</p>
+            <p>Полный бак @Html.TextBox("FullTank", @Model.FullTank)</p>
+            <p>Забыл внести предыдущие данные @Html.TextBox("ForgotRecordPreviousGasStation", @Model.ForgotRecordPreviousGasStation)</p>
+            <p>@Html.Hidden("Id", Model.Id)</p>
+            <input type="submit" value="Сохранить изменения" class="button" />
+        }
+        </div>
+</body>
+</html>

@@ -21,7 +21,10 @@ namespace CarNotes.Controllers
         public ActionResult Edit(int id)
         {
             var refuelEdit = new RefuelHelper().GetDataEdit(id);
-            return View(refuelEdit);
+            var result = new JsonResult();
+            result.Data = refuelEdit;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
         }
 
         [HttpPost]

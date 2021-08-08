@@ -77,5 +77,22 @@ function deleteCommon(record, id)
 //edit events
 function editRefuel(id)
 {
-    document.location = "/Refuel/Edit?id=" + id;
+    fetch("/Refuel/Edit?id=" + id)
+        .then(response => response.json())
+        .then((data) => {
+            console.log(data);
+            var elementsForm = document.getElementById('formEdit');
+            elementsForm.children.Date.value = data.Date;
+            elementsForm.children.Mileage.value = data.Mileage;
+            elementsForm.children.Fuel.value = data.Fuel;
+            elementsForm.children.Station.value = data.Station;
+            elementsForm.children.Volume.value = data.Volume;
+            elementsForm.children.PricePerOneLiter.value = data.PricePerOneLiter;
+            elementsForm.children.FullTank.checked = data.FullTank;
+            elementsForm.children.ForgotRecordPreviousGasStation.checked = data.ForgotRecordPreviousGasStation;
+            elementsForm.children.Id.value = data.Id;
+            document.getElementsByClassName('EditData')[0].style.display = 'inline-block';
+        }, () => {
+                alert("Произошла ошибка");
+        });
 }

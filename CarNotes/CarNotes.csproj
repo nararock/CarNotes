@@ -129,6 +129,7 @@
     <Content Include="Content\logoCar.png" />
     <Content Include="Content\Main.js" />
     <Content Include="Global.asax" />
+    <Content Include="Styles\Main.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

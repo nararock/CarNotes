@@ -33,9 +33,9 @@
         function popup(str) {
             var elem;
             if (str == "Новый ремонт")
-                elem = document.getElementsByClassName('newRepairWindow');
-            else elem = document.getElementsByClassName('newRefuelWindow');
-            elem[0].style.display = 'inline-block';
+                elem = document.getElementById('newRepairWindow');
+            else elem = document.getElementById('newRefuelWindow');
+            elem.style.display = 'inline-block';
         }
     </script>
     @RenderSection("styles", false)
@@ -57,11 +57,11 @@
                     {
                         <option value="@element.Id">@element.Brand  @element.Model  @element.ReleaseYear </option>
                     }
-            </select>
-        </p>
-        <p class="topLetters"><a href="@Url.Content("~/Vehicle/Index")">Гараж</a></p>
-        <p class="topLetters"><a href="@Url.Content("~/Login/LogOut")">Выйти</a></p>
-    }
+                </select>
+            </p>
+            <p class="topLetters"><a href="@Url.Content("~/Vehicle/Index")">Гараж</a></p>
+            <p class="topLetters"><a href="@Url.Content("~/Login/LogOut")">Выйти</a></p>
+        }
     </div>
     <div class="links">@Html.Partial("_LinkMenuTemplate", menu)</div>
     @if (ViewBag.IsChecked)

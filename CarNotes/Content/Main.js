@@ -2,9 +2,6 @@
 document.addEventListener("DOMContentLoaded", ready);
 function ready() {
     updateVehicleSelector();
-
-    var elem = document.getElementById('addCarPart');
-    elem.addEventListener("click", createTable);
 }
 
 function updateVehicleSelector() {
@@ -24,10 +21,15 @@ function updateVehicleSelector() {
 }
 
 //CarParts
+function addCarPart()
+{
+    createTable();
+}
 function createTable() {
-    var elemTable = document.getElementById('carPartsTable');
+    var elem = document.getElementById('newRepairWindow');
+    var elemTable = elem.getElementsByTagName('table');
     var tableRow = document.createElement('tr');
-    var amount = elemTable.children.length  - 1;
+    var amount = elemTable.length  - 1;
     createCell(tableRow, "Parts[" + amount + "].Name");
     createCell(tableRow, "Parts[" + amount + "].CarManufacturer");
     createCell(tableRow, "Parts[" + amount + "].Article");
@@ -38,7 +40,7 @@ function createTable() {
         cell.parentElement.remove();
     })
     tableRow.appendChild(cell);
-    elemTable.appendChild(tableRow);
+    elemTable[0].append(tableRow);
 }
 
 function createCell(tableRow, name) {

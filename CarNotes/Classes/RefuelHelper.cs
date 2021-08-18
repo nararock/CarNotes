@@ -18,7 +18,7 @@ namespace CarNotes.Classes
             var vehicle = db.Vehicles.Include(v => v.RefuelEvents.Select(r => r.Station))
                 .FirstOrDefault(x => x.Id == vehicleId);
             if (vehicle == null) return null;
-            var list = vehicle.RefuelEvents.Select(x => new RefuelModel {Id = x.ID, Date = x.Date, Mileage = x.Mileage, Fuel = x.Fuel.ToString(), Station = x.Station.Name,
+            var list = vehicle.RefuelEvents.Select(x => new RefuelModel {Id = x.ID, Date = x.Date.ToString("dd.MM.yyyy"), Mileage = x.Mileage, Fuel = x.Fuel.ToString(), Station = x.Station.Name,
                 Volume = x.Volume, PricePerOneLiter = x.PricePerOneLiter, FullTank = x.FullTank,
                 ForgotRecordPreviousGasStation = x.ForgotRecordPreviousGasStation }).ToList();
             return list;
@@ -27,7 +27,7 @@ namespace CarNotes.Classes
         {
             var database = new CnDbContext();
             var refuelEvent = new RefuelEvent();
-            refuelEvent.Date = rm.Date;
+            refuelEvent.Date = DateTime.ParseExact(rm.Date, "dd.MM.yyyy", null);
             FuelType fuelanswer;
             Enum.TryParse(rm.Fuel, out fuelanswer);
             refuelEvent.Fuel = fuelanswer;
@@ -72,7 +72,7 @@ namespace CarNotes.Classes
                 return new RefuelModel();
             }
             var editRefuelModel = new RefuelModel();
-            editRefuelModel.Date = editRefuel.Date;
+            editRefuelModel.Date = editRefuel.Date.ToString("dd.MM.yyyy");
             editRefuelModel.Fuel = editRefuel.Fuel.ToString();
             editRefuelModel.FullTank = editRefuel.FullTank;
             editRefuelModel.Mileage = editRefuel.Mileage;
@@ -91,7 +91,7 @@ namespace CarNotes.Classes
             if (refuelEvent != null)
             {
                 refuelEvent.ID = rm.Id;
-                refuelEvent.Date = rm.Date;
+                refuelEvent.Date = DateTime.ParseExact(rm.Date, "dd.MM.yyyy", null);
                 refuelEvent.ForgotRecordPreviousGasStation = rm.ForgotRecordPreviousGasStation;
                 Enum.TryParse(rm.Fuel, out FuelType l);
                 refuelEvent.Fuel = l;

@@ -16,7 +16,7 @@ namespace CarNotes.Classes
             var db = new CnDbContext();
             var vehicle = db.Vehicles.Include(v=>v.RepairEvents.Select(r=>r.Parts)).FirstOrDefault(x => x.Id == vehicleId);
             if (vehicle == null) return null;
-            var list = vehicle.RepairEvents.Select(x => new RepairModel {Id = x.Id, Date=x.Date, Mileage=x.Mileage, Repair=x.Repair,
+            var list = vehicle.RepairEvents.Select(x => new RepairModel {Id = x.Id, Date=x.Date.ToString(), Mileage=x.Mileage, Repair=x.Repair,
                 CarService=x.CarService, RepairCost=x.RepairCost, Comments=x.Comments, Parts=x.Parts.Select(y=>new CarPartModel { Article=y.Article,
                     CarManufacturer=y.CarManufacturer, Name=y.Name, Price=y.Price}).ToList() }).ToList();
             return list;
@@ -27,7 +27,9 @@ namespace CarNotes.Classes
             var repairEvent = new RepairEvent();
             repairEvent.CarService = rm.CarService;
             repairEvent.Comments = rm.Comments;
-            repairEvent.Date = rm.Date;
+            var tempDate = new DateTime();
+            DateTime.TryParse(rm.Date, out tempDate);
+            repairEvent.Date = tempDate;
             repairEvent.Mileage = rm.Mileage;
             repairEvent.Repair = rm.Repair;
             repairEvent.RepairCost = rm.RepairCost;

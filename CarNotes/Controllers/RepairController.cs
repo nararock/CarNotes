@@ -15,5 +15,15 @@ namespace CarNotes.Controllers
             new RepairHelper().Delete(id, HttpContext);
             return Redirect("~/Home/GoToRepairEvents");
         }
+
+        [HttpGet]
+        public ActionResult RepairEdit(int id)
+        {
+            var repairEdit = new RepairHelper().GetDataEdit(id);
+            var result = new JsonResult();
+            result.Data = repairEdit;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
     }
 }

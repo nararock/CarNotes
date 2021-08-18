@@ -1,0 +1,20 @@
+﻿<form action="/Repair/RepairEdit" method="post" class="form" id="RepairFormEdit">
+    <p>Дата: </p><input type="text" name="Date" />
+    <p>Пробег: </p><input type="text" name="Mileage" />
+    <p>Название ремонтных работ: </p><input type="text" name="Repair" />
+    <p>Сервис: </p><input type="text" name="CarService" />
+    <p>Стоимость ремонтных работ:</p><input type="text" name="RepairCost" />
+    <p>Комментарии</p><input type="text" name="Comments" />
+    <input type="hidden" name="Id" /><br>
+    <p>Запчасти: </p>
+    <input type="button" value="Добавить запчасть" class="button" onclick="addCarPart()" />
+    <table name="Parts">
+        <tr>
+            <th>Название</th>
+            <th>Производитель</th>
+            <th>Артикул</th>
+            <th>Цена</th>
+        </tr>
+    </table>
+    <input type="submit" value="Сохранить данные" class="button" />
+</form>

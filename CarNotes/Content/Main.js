@@ -105,4 +105,45 @@ function RefuelEditSubmit()
     return true;
 }
 
+function createCellRepairTable(tableRow, value) {
+    var cell = document.createElement('td');
+    var input = document.createElement('input');
+    cell.appendChild(input);
+    input.value = value;
+    tableRow.appendChild(cell);
+}
+
+function editRepair(id)
+{
+    fetch("/Repair/RepairEdit?id=" + id)
+        .then(response => response.json())
+        .then((data) => {
+            var elementsForm = document.getElementById('RepairFormEdit');
+            elementsForm.children.Date.value = data.Date;
+            elementsForm.children.Mileage.value = data.Mileage;
+            elementsForm.children.Repair.value = data.Repair;
+            elementsForm.children.CarService.value = data.CarService;
+            elementsForm.children.RepairCost.value = data.RepairCost;
+            elementsForm.children.Comments.value = data.Comments;
+            elementsForm.children.Id.value = data.Id;
+            var elem = document.getElementById("EditRepairData");
+            var elementTable = elem.getElementsByTagName("table");
+            for (var i = 0; i < data.Parts.length; i++) {
+                var tableRow = document.createElement('tr');
+                createCellRepairTable(tableRow, data.Parts[i].Name);
+                createCellRepairTable(tableRow, data.Parts[i].CarManufacturer);
+                createCellRepairTable(tableRow, data.Parts[i].Article);
+                createCellRepairTable(tableRow, data.Parts[i].Price);
+                var cell = document.createElement('td');
+                cell.innerHTML = "&times";
+                cell.addEventListener("click", function () {
+                    cell.parentElement.remove();
+                })
+                tableRow.append(cell);
+                elementTable[0].append(tableRow);
+            }
+            document.getElementById('EditRepairData').style.display = 'inline-block';
+            }, () => {
+                alert("Произошла ошибка");
+            });
 }

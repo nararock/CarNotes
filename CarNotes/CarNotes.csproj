@@ -215,6 +215,7 @@
     <Content Include="Views\Vehicle\Index.cshtml" />
     <Content Include="Views\Vehicle\Add.cshtml" />
     <Content Include="Views\Shared\RefuelEdit.cshtml" />
+    <Content Include="Views\Shared\RepairEdit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -61,5 +61,34 @@ namespace CarNotes.Classes
                 data.SaveChanges();
             }
         }
+
+        public RepairModel GetDataEdit(int id)
+        {
+            var db = new CnDbContext();
+            var editRepair = db.RepairEvents.Include(x => x.Parts).FirstOrDefault(y => y.Id == id);
+            if (editRepair == null)
+            {
+                return new RepairModel();
+            }
+            var editRepairModel = new RepairModel();            
+            editRepairModel.Id = editRepair.Id;
+            editRepairModel.Mileage = editRepair.Mileage;
+            editRepairModel.Repair = editRepair.Repair;
+            editRepairModel.RepairCost = editRepair.RepairCost;
+            editRepairModel.Date = editRepair.Date.ToString("dd.MM.yyyy");
+            editRepairModel.CarService = editRepair.CarService;
+            editRepairModel.Comments = editRepair.Comments;
+            editRepairModel.Parts = new List<CarPartModel>();
+            for (int i = 0; i < editRepair.Parts.Count; i++)
+            {
+                var editCarPartModel = new CarPartModel();
+                editCarPartModel.Article = editRepair.Parts[i].Article;
+                editCarPartModel.CarManufacturer = editRepair.Parts[i].CarManufacturer;
+                editCarPartModel.Name = editRepair.Parts[i].Name;
+                editCarPartModel.Price = editRepair.Parts[i].Price;
+                editRepairModel.Parts.Add(editCarPartModel);
+            }
+            return editRepairModel;
+        }
     }
 }

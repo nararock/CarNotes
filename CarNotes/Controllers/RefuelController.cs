@@ -18,7 +18,7 @@ namespace CarNotes.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int id)
+        public ActionResult RefuelEdit(int id)
         {
             var refuelEdit = new RefuelHelper().GetDataEdit(id);
             var result = new JsonResult();
@@ -28,9 +28,10 @@ namespace CarNotes.Controllers
         }
 
         [HttpPost]
-        public void Edit(RefuelModel rm)
+        public ActionResult RefuelEdit(RefuelModel rm)
         {
             new RefuelHelper().ChangeData(rm);
+            return Redirect("/Home/GoToRefuelEvents");
         }
     }
 }

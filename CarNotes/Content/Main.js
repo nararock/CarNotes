@@ -77,7 +77,7 @@ function deleteCommon(record, id)
 //edit events
 function editRefuel(id)
 {
-    fetch("/Refuel/Edit?id=" + id)
+    fetch("/Refuel/RefuelEdit?id=" + id)
         .then(response => response.json())
         .then((data) => {
             console.log(data);
@@ -88,11 +88,21 @@ function editRefuel(id)
             elementsForm.children.Station.value = data.Station;
             elementsForm.children.Volume.value = data.Volume;
             elementsForm.children.PricePerOneLiter.value = data.PricePerOneLiter;
-            elementsForm.children.FullTank.checked = data.FullTank;
-            elementsForm.children.ForgotRecordPreviousGasStation.checked = data.ForgotRecordPreviousGasStation;
+            elementsForm.children.FullTankCheckbox.checked = data.FullTank;
+            elementsForm.children.ForgotRecordPreviousGasStationCheckbox.checked = data.ForgotRecordPreviousGasStation;
             elementsForm.children.Id.value = data.Id;
-            document.getElementsByClassName('EditData')[0].style.display = 'inline-block';
+            document.getElementById('EditRefuelData')[0].style.display = 'inline-block';
         }, () => {
                 alert("Произошла ошибка");
         });
+}
+
+function RefuelEditSubmit()
+{
+    var elementsForm = document.getElementById('formEdit');
+    elementsForm.children.FullTank.value = elementsForm.children.FullTankCheckbox.checked;
+    elementsForm.children.ForgotRecordPreviousGasStation.value = elementsForm.children.ForgotRecordPreviousGasStationCheckbox.checked;
+    return true;
+}
+
 }

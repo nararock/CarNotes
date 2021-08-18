@@ -62,11 +62,7 @@ td {
 tr:hover td {
     color: floralwhite;
 }
-/*форма для создания событий*/
-.form {
-    margin-top: 40px;
-    text-align: left;
-}
+
 /*кнопки для перехода в окно создания события*/
 .button {
     opacity: 0.65;
@@ -82,7 +78,7 @@ tr:hover td {
     text-align: center;
 }
 /*всплывающая форма создания события*/
-.newRefuelWindow, .newRepairWindow, .EditData {
+.modal {
     position: absolute;
     display: none;
     top: 0;
@@ -90,8 +86,7 @@ tr:hover td {
     right: 0;
     bottom: 0;
 }
-
-.form {
+.form{
     width: 600px;
     border: 1px solid grey;
     background-color: floralwhite;

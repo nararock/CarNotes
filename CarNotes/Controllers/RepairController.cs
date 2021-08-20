@@ -1,4 +1,5 @@
 ﻿using CarNotes.Classes;
+using CarNotes.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,13 @@ namespace CarNotes.Controllers
             result.Data = repairEdit;
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
+        }
+
+        [HttpPost]
+        public ActionResult RepairEdit(RepairModel rm)
+        {
+            new RepairHelper().ChangeData(rm);
+            return Redirect("/Home/GoToRepairEvents");
         }
     }
 }

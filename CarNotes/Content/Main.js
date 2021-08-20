@@ -107,11 +107,12 @@ function RefuelEditSubmit()
     return true;
 }
 
-function createCellRepairTable(tableRow, value) {
+function createCellRepairTable(tableRow, value, name) {
     var cell = document.createElement('td');
     var input = document.createElement('input');
     cell.appendChild(input);
     input.value = value;
+    input.name = name;
     tableRow.appendChild(cell);
 }
 
@@ -132,14 +133,29 @@ function editRepair(id)
             var elementTable = elem.getElementsByTagName("table");
             for (var i = 0; i < data.Parts.length; i++) {
                 var tableRow = document.createElement('tr');
-                createCellRepairTable(tableRow, data.Parts[i].Name);
-                createCellRepairTable(tableRow, data.Parts[i].CarManufacturer);
-                createCellRepairTable(tableRow, data.Parts[i].Article);
-                createCellRepairTable(tableRow, data.Parts[i].Price);
+                createCellRepairTable(tableRow, data.Parts[i].Name, "Parts["+i+"].Name");
+                createCellRepairTable(tableRow, data.Parts[i].CarManufacturer, "Parts["+i+"].CarManufacturer");
+                createCellRepairTable(tableRow, data.Parts[i].Article, "Parts["+i+"].Article");
+                createCellRepairTable(tableRow, data.Parts[i].Price, "Parts[" + i + "].Price");
+                /*ячейка со скрытым значением Id*/
+                var inputId = document.createElement('input');
+                inputId.name = "Parts[" + i +"].Id";
+                inputId.type = "hidden";
+                inputId.value = data.Parts[i].Id;
+                /*скрытая ячейка с булевым значением удаляется ли ячейка */
+                var inputDelete = document.createElement('input');
+                inputDelete.type = "hidden";
+                inputDelete.className = "inputDelete";
+                inputDelete.name = "Parts[" + i +"].IsDeleted";
+                /*ячейка с событием скрытия поля по нажатию крестик*/
                 var cell = document.createElement('td');
                 cell.innerHTML = "&times";
-                cell.addEventListener("click", function () {
-                    cell.parentElement.remove();
+                cell.append(inputId);
+                cell.append(inputDelete);
+                cell.addEventListener("click", function (e) {
+                    e.target.parentElement.style.display = "none";
+                    var IsDeletedInput = e.target.getElementsByClassName("inputDelete");
+                    IsDeletedInput[0].value = "true";
                 })
                 tableRow.append(cell);
                 elementTable[0].append(tableRow);

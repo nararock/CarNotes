@@ -90,7 +90,6 @@ namespace CarNotes.Classes
             var refuelEvent = data.RefuelEvents.Where(x => x.ID == rm.Id).Include(y=>y.Station).FirstOrDefault();
             if (refuelEvent != null)
             {
-                refuelEvent.ID = rm.Id;
                 refuelEvent.Date = DateTime.ParseExact(rm.Date, "dd.MM.yyyy", null);
                 refuelEvent.ForgotRecordPreviousGasStation = rm.ForgotRecordPreviousGasStation;
                 Enum.TryParse(rm.Fuel, out FuelType l);

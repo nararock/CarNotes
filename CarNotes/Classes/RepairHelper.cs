@@ -84,6 +84,7 @@ namespace CarNotes.Classes
             for (int i = 0; i < editRepair.Parts.Count; i++)
             {
                 var editCarPartModel = new CarPartModel();
+                editCarPartModel.Id = editRepair.Parts[i].Id;
                 editCarPartModel.Article = editRepair.Parts[i].Article;
                 editCarPartModel.CarManufacturer = editRepair.Parts[i].CarManufacturer;
                 editCarPartModel.Name = editRepair.Parts[i].Name;

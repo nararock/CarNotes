@@ -21,15 +21,15 @@ function updateVehicleSelector() {
 }
 
 //CarParts
-function addCarPart()
+function addCarPart(id)
 {
-    createTable();
+    createTable(id);
 }
-function createTable() {
-    var elem = document.getElementById('newRepairWindow');
+function createTable(id) {
+    var elem = document.getElementById(id);
     var elemTable = elem.getElementsByTagName('table');
     var tableRow = document.createElement('tr');
-    var amount = elemTable.length  - 1;
+    var amount = elemTable[0].rows.length - 1;
     createCell(tableRow, "Parts[" + amount + "].Name");
     createCell(tableRow, "Parts[" + amount + "].CarManufacturer");
     createCell(tableRow, "Parts[" + amount + "].Article");

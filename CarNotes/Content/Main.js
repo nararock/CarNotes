@@ -93,7 +93,7 @@ function editRefuel(id)
             elementsForm.children.FullTankCheckbox.checked = data.FullTank;
             elementsForm.children.ForgotRecordPreviousGasStationCheckbox.checked = data.ForgotRecordPreviousGasStation;
             elementsForm.children.Id.value = data.Id;
-            document.getElementById('EditRefuelData')[0].style.display = 'inline-block';
+            document.getElementById('EditRefuelData').style.display = 'inline-block';
         }, () => {
                 alert("Произошла ошибка");
         });

@@ -87,6 +87,7 @@ tr:hover td {
     bottom: 0;
 }
 .form{
+    position:relative;
     width: 600px;
     border: 1px solid grey;
     background-color: floralwhite;
@@ -95,4 +96,14 @@ tr:hover td {
     margin-top: 100px;
     margin-bottom: 30px;
     text-align: center;
+}
+/*кнопка закрытия во всплывающих окнах*/
+.cross {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+}
+.cross>p
+{
+    margin:0;
 }

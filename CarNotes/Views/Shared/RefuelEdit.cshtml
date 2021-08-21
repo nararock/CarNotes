@@ -1,4 +1,5 @@
 ﻿ <form action="/Refuel/RefuelEdit" method="post" class="form" id="formEdit">
+    <div class="cross" onclick="closeWindow(event)"><p>&#10008</p></div>
     <p>Дата: </p><input type="text" name="Date" />
     <p>Пробег: </p><input type="text" name="Mileage" />
     <p>Вид топлива: </p><input type="text" name="Fuel" />
@@ -6,9 +7,9 @@
     <p>Объем: </p><input type="text" name="Volume" />
     <p>Цена: </p><input type="text" name="PricePerOneLiter" />
     <p>Полный бак: </p><input type="checkbox" name="FullTankCheckbox" />
-    <input type="hidden" name="FullTank"/>
+    <input type="hidden" name="FullTank" />
     <p>Забыл внести предыдущие данные: </p><input type="checkbox" name="ForgotRecordPreviousGasStationCheckbox" />
-    <input type="hidden" name="ForgotRecordPreviousGasStation"/>
+    <input type="hidden" name="ForgotRecordPreviousGasStation" />
     <input type="hidden" name="Id" /><br>
-    <input type="submit" value="Сохранить изменения" class="button" onclick="RefuelEditSubmit()"/>
+    <input type="submit" value="Сохранить изменения" class="button" onclick="RefuelEditSubmit()" />
 </form>

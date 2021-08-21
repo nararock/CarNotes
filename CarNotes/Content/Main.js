@@ -176,3 +176,10 @@ function editCommon(record, id)
         editRepair(id);
     }
 }
+/*close windows*/
+function closeWindow(event)
+{
+    var elem = event.target;
+    var parent = elem.closest('.modal');
+    parent.style.display = "none";
+}

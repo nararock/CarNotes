@@ -165,3 +165,14 @@ function editRepair(id)
                 alert("Произошла ошибка");
             });
 }
+
+function editCommon(record, id)
+{
+    if (record == 'Refuel') {
+        editRefuel(id);
+    }
+    else if (record == 'Repair')
+    {
+        editRepair(id);
+    }
+}

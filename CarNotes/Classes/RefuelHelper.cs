@@ -103,5 +103,12 @@ namespace CarNotes.Classes
                 data.SaveChanges();
             }
         }
+
+        public List<GasStationModel> GetGasStationsList()
+        {
+            var db = new CnDbContext();
+            var gasStation = db.GasStations.Select(x => new GasStationModel {Id = x.ID, Name = x.Name }).ToList();         
+            return gasStation;
+        }
     }
 }

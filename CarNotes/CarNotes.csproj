@@ -185,6 +185,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CarPartModel.cs" />
     <Compile Include="Models\CommonModel.cs" />
+    <Compile Include="Models\GasStationModel.cs" />
     <Compile Include="Models\LinkMenuModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RefuelModel.cs" />

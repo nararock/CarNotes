@@ -35,16 +35,7 @@ namespace CarNotes.Classes
             refuelEvent.Mileage = rm.Mileage;
             refuelEvent.PricePerOneLiter = rm.PricePerOneLiter;
             refuelEvent.VehicleId = vehicleId;
-            var gs = database.GasStations.FirstOrDefault(x => x.Name == rm.Station);
-            if (gs == null)
-            {
-                gs = new GasStation()
-                {
-                    Name = rm.Station
-                };
-                database.GasStations.Add(gs);
-            }
-            refuelEvent.Station = gs;
+            refuelEvent.Station_ID = rm.Station;
             refuelEvent.Volume = rm.Volume;
             refuelEvent.ForgotRecordPreviousGasStation = rm.ForgotRecordPreviousGasStation;
             database.RefuelEvents.Add(refuelEvent);
@@ -98,7 +89,7 @@ namespace CarNotes.Classes
                 refuelEvent.ID = rm.Id;
                 refuelEvent.Mileage = rm.Mileage;
                 refuelEvent.PricePerOneLiter = rm.PricePerOneLiter;
-                refuelEvent.Station.Name = rm.Station;
+                refuelEvent.Station_ID = rm.Station;
                 refuelEvent.Volume = rm.Volume;
                 data.SaveChanges();
             }

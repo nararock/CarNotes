@@ -60,6 +60,11 @@ function changeData()
     location.search = "?vehicleId=" + vehicle;
 }
 
+function changeSelectList(e)
+{
+    return;
+}
+
 //delete events
 function deleteRepair(id)
 {
@@ -176,7 +181,7 @@ function editCommon(record, id)
         editRepair(id);
     }
 }
-/*close windows*/
+/*close windows ("cross")*/
 function closeWindow(event)
 {
     var elem = event.target;

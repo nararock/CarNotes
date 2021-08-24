@@ -12,13 +12,13 @@ namespace CarNotes.Classes
 {
     public class RefuelHelper
     {
-        public List<RefuelModel> GetList(int vehicleId)
+        public List<RefuelModelOutput> GetList(int vehicleId)
         {
             var db = new CnDbContext();
             var vehicle = db.Vehicles.Include(v => v.RefuelEvents.Select(r => r.Station))
                 .FirstOrDefault(x => x.Id == vehicleId);
             if (vehicle == null) return null;
-            var list = vehicle.RefuelEvents.Select(x => new RefuelModel {Id = x.ID, Date = x.Date.ToString("dd.MM.yyyy"), Mileage = x.Mileage, Fuel = x.Fuel.ToString(), Station = x.Station.Name,
+            var list = vehicle.RefuelEvents.Select(x => new RefuelModelOutput {Id = x.ID, Date = x.Date.ToString("dd.MM.yyyy"), Mileage = x.Mileage, Fuel = x.Fuel.ToString(), Station = x.Station.Name,
                 Volume = x.Volume, PricePerOneLiter = x.PricePerOneLiter, FullTank = x.FullTank,
                 ForgotRecordPreviousGasStation = x.ForgotRecordPreviousGasStation }).ToList();
             return list;
@@ -54,15 +54,15 @@ namespace CarNotes.Classes
             }
         }
 
-        public RefuelModel GetDataEdit(int id)
+        public RefuelModelOutput GetDataEdit(int id)
         {
             var db = new CnDbContext();
             var editRefuel = db.RefuelEvents.Include(x => x.Station).FirstOrDefault(x => x.ID == id);
             if (editRefuel == null)
             {
-                return new RefuelModel();
+                return new RefuelModelOutput();
             }
-            var editRefuelModel = new RefuelModel();
+            var editRefuelModel = new RefuelModelOutput();
             editRefuelModel.Date = editRefuel.Date.ToString("dd.MM.yyyy");
             editRefuelModel.Fuel = editRefuel.Fuel.ToString();
             editRefuelModel.FullTank = editRefuel.FullTank;

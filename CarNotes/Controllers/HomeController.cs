@@ -60,8 +60,7 @@ namespace CarNotes.Controllers
                         ViewBag.IsChecked = true;
                     }
                 }
-                var common = new RefuelHelper();
-                var cm = common.GetList((int)vehicleId);
+                var cm = new RefuelHelper().GetList((int)vehicleId);
                 if (cm == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
                 ViewBag.Name = "Заправка";
                 return View(cm);

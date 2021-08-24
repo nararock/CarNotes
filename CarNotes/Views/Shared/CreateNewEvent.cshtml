@@ -9,7 +9,7 @@
             <p>Дата: @Html.TextBoxFor(x => x.Date)</p>
             <p>Пробег: @Html.TextBoxFor(x => x.Mileage)</p>
             <p>Тип топлива: @Html.DropDownList("Fuel", new SelectList(new string[] { "A80", "A92", "A95", "A98" }))</p>
-            <p>АЗС: @Html.DropDownList("Station", new SelectList(gasStation.Select(x=>x.Name).ToArray()))</p>
+            <p>АЗС: @Html.DropDownListFor(x=>x.Station, new SelectList(gasStation, "Id", "Name"), new {@onchange = "changeSelectList(this.value)"})</p>
             <p>Объем: @Html.TextBoxFor(x => x.Volume)</p>
             <p>Цена: @Html.TextBoxFor(x => x.PricePerOneLiter)</p>
             <p>Полный бак @Html.CheckBoxFor(x => x.FullTank)</p>

@@ -62,6 +62,13 @@ function changeData()
 
 function changeSelectList(e)
 {
+    var inputStation = document.getElementsByName('CustomStation');
+    if (e == "1") {
+        inputStation[0].parentElement.style.display = "inline-block";
+    }
+    else if (e != "1" && inputStation[0].parentElement.style.display != "none") {
+        inputStation[0].parentElement.style.display = "none";
+    }
     return;
 }
 

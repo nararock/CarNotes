@@ -65,6 +65,23 @@ function changeSelectList(e)
     return;
 }
 
+//create new event
+function popup(str) {
+    var elem;
+    if (str == "Новый ремонт")
+        elem = document.getElementById('newRepairWindow');
+    else if (str == "Новая заправка") {
+        elem = document.getElementById('newRefuelWindow');
+        var elemStation = elem.getElementsByTagName("form")[0].Station;
+        var option = document.createElement('option');
+        option.innerHTML = "";
+        option.selected = true;
+        option.disabled = true;
+        elemStation.prepend(option);
+    }
+    elem.style.display = 'inline-block';
+}
+
 //delete events
 function deleteRepair(id)
 {

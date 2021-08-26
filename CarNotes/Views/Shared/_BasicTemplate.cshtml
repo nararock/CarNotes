@@ -29,15 +29,6 @@
     </style>
     <script src="@Url.Content("~/Content/cookie.min.js")"></script>
     <script src="@Url.Content("~/Content/Main.js")"></script>
-    <script>
-        function popup(str) {
-            var elem;
-            if (str == "Новый ремонт")
-                elem = document.getElementById('newRepairWindow');
-            else elem = document.getElementById('newRefuelWindow');
-            elem.style.display = 'inline-block';
-        }
-    </script>
     @RenderSection("styles", false)
 </head>
 <body>

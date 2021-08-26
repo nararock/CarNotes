@@ -186,6 +186,10 @@
     <Compile Include="Migrations\202108232108438_add relation between RefuelEvent and GasStation.designer.cs">
       <DependentUpon>202108232108438_add relation between RefuelEvent and GasStation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202108262216276_add CustomStation field.cs" />
+    <Compile Include="Migrations\202108262216276_add CustomStation field.designer.cs">
+      <DependentUpon>202108262216276_add CustomStation field.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CarPartModel.cs" />
     <Compile Include="Models\CommonModel.cs" />
@@ -251,6 +255,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202108232108438_add relation between RefuelEvent and GasStation.resx">
       <DependentUpon>202108232108438_add relation between RefuelEvent and GasStation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108262216276_add CustomStation field.resx">
+      <DependentUpon>202108262216276_add CustomStation field.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

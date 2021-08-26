@@ -13,6 +13,7 @@ namespace CarNotes.CnDb
         public double Mileage { get; set; }
         public FuelType Fuel { get; set; }
         public GasStation Station { get; set; }
+        public string CustomStation { get; set; }
         public int Station_ID { get; set; }
         public double Volume { get; set; }
         public double PricePerOneLiter { get; set; }

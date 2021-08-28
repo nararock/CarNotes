@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", ready);
 function ready() {
     updateVehicleSelector();
-
+    //добавление пустой строки в начало выпадающего списка с АЗС при создании события
     elem = document.getElementById('newRefuelWindow');
     var elemStation = elem.getElementsByTagName("form")[0].Station;
     var option = document.createElement('option');
@@ -10,6 +10,39 @@ function ready() {
     option.selected = true;
     option.disabled = true;
     elemStation.prepend(option);
+    //добавление календаря при выборе даты во всплывающих окнах
+    $('.MyDateRangePicker').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true,
+        locale: {
+            format: 'DD.MM.YYYY',
+            "cancelLabel": "Отмена",
+            "applyLabel": "Применить",
+             "daysOfWeek": [
+                "Вс",
+                "Пн",
+                "Вт",
+                "Ср",
+                "Чт",
+                "Пт",
+                "Сб"
+            ],
+            "monthNames": [
+                "Январь",
+                "Февраль",
+                "Март",
+                "Апрель",
+                "Май",
+                "Июнь",
+                "Июль",
+                "Август",
+                "Сентябрь",
+                "Октябрь",
+                "Ноябрь",
+                "Декабрь"
+            ],
+        }
+    })
 }
 
 function updateVehicleSelector() {

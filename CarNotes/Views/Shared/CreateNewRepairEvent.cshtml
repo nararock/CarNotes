@@ -3,7 +3,7 @@
         <div class="cross" onclick="closeWindow(event)"><p>&#10008</p></div>
         @using (Html.BeginForm("CreateNewRepairEvent", "Home", FormMethod.Post))
         {
-            <p>Дата: @Html.TextBoxFor(x => x.Date)</p>
+            <p>Дата: @Html.TextBoxFor(x => x.Date, new { @class = "MyDateRangePicker" })</p>
             <p>Пробег: @Html.TextBoxFor(x => x.Mileage)</p>
             <p>Название ремонтных работ: @Html.TextBoxFor(x => x.Repair)</p>
             <p>Сервис: @Html.TextBoxFor(x => x.CarService)</p>

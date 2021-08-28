@@ -1,14 +1,25 @@
-﻿ <form action="/Refuel/RefuelEdit" method="post" class="form" id="formEdit">
+﻿@using CarNotes.Classes
+@using CarNotes.Models
+@{List<GasStationModel> gasStation = new RefuelHelper().GetGasStationsList();}
+<form action="/Refuel/RefuelEdit" method="post" class="form" id="formEdit">
     <div class="cross" onclick="closeWindow(event)"><p>&#10008</p></div>
-    <p>Дата: </p><input type="text" name="Date" />
-    <p>Пробег: </p><input type="text" name="Mileage" />
-    <p>Вид топлива: </p><input type="text" name="Fuel" />
-    <p>АЗС: </p><select>name="Station"</select>
-    <p>Объем: </p><input type="text" name="Volume" />
-    <p>Цена: </p><input type="text" name="PricePerOneLiter" />
-    <p>Полный бак: </p><input type="checkbox" name="FullTankCheckbox" />
+    <p>Дата: <input type="text" name="Date" /></p>
+    <p>Пробег: <input type="text" name="Mileage" /></p>
+    <p>Вид топлива: <input type="text" name="Fuel" /></p>
+    <p>
+        АЗС: <select name="Station" onchange="changeSelectList(event)">
+            @foreach (var elem in gasStation)
+            {
+                <option value="@elem.Id">@elem.Name</option>
+            }
+        </select>
+    </p>
+    <p style="display:none"><input type="text" name="CustomStation" /></p>
+    <p>Объем: <input type="text" name="Volume" /></p>
+    <p>Цена: <input type="text" name="PricePerOneLiter" /></p>
+    <p>Полный бак: <input type="checkbox" name="FullTankCheckbox" /></p>
     <input type="hidden" name="FullTank" />
-    <p>Забыл внести предыдущие данные: </p><input type="checkbox" name="ForgotRecordPreviousGasStationCheckbox" />
+    <p>Забыл внести предыдущие данные: <input type="checkbox" name="ForgotRecordPreviousGasStationCheckbox" /></p>
     <input type="hidden" name="ForgotRecordPreviousGasStation" />
     <input type="hidden" name="Id" /><br>
     <input type="submit" value="Сохранить изменения" class="button" onclick="RefuelEditSubmit()" />

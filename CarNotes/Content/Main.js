@@ -114,15 +114,22 @@ function editRefuel(id)
         .then((data) => {
             console.log(data);
             var elementsForm = document.getElementById('formEdit');
-            elementsForm.children.Date.value = data.Date;
-            elementsForm.children.Mileage.value = data.Mileage;
-            elementsForm.children.Fuel.value = data.Fuel;
-            elementsForm.children.Station.value = data.Station;
-            elementsForm.children.Volume.value = data.Volume;
-            elementsForm.children.PricePerOneLiter.value = data.PricePerOneLiter;
-            elementsForm.children.FullTankCheckbox.checked = data.FullTank;
-            elementsForm.children.ForgotRecordPreviousGasStationCheckbox.checked = data.ForgotRecordPreviousGasStation;
-            elementsForm.children.Id.value = data.Id;
+            elementsForm.Date.value = data.Date;
+            elementsForm.Mileage.value = data.Mileage;
+            elementsForm.Fuel.value = data.Fuel;
+            elementsForm.Station.value = data.Station;
+            if (data.Station == 1) {
+                elementsForm.CustomStation.value = data.CustomStation;
+                elementsForm.CustomStation.parentElement.style.display = "inline-block";
+            }
+            else if (data.Station != 1 && elementsForm.CustomStation.parentElement.style.display != "none") {
+                elementsForm.CustomStation.parentElement.style.display = "none";
+            }
+            elementsForm.Volume.value = data.Volume;
+            elementsForm.PricePerOneLiter.value = data.PricePerOneLiter;
+            elementsForm.FullTankCheckbox.checked = data.FullTank;
+            elementsForm.ForgotRecordPreviousGasStationCheckbox.checked = data.ForgotRecordPreviousGasStation;
+            elementsForm.Id.value = data.Id;
             document.getElementById('EditRefuelData').style.display = 'inline-block';
         }, () => {
                 alert("Произошла ошибка");

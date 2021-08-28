@@ -58,21 +58,25 @@ namespace CarNotes.Classes
             }
         }
 
-        public RefuelModelOutput GetDataEdit(int id)
+        public RefuelModel GetDataEdit(int id)
         {
             var db = new CnDbContext();
             var editRefuel = db.RefuelEvents.Include(x => x.Station).FirstOrDefault(x => x.ID == id);
             if (editRefuel == null)
             {
-                return new RefuelModelOutput();
+                return new RefuelModel();
             }
-            var editRefuelModel = new RefuelModelOutput();
+            var editRefuelModel = new RefuelModel();
             editRefuelModel.Date = editRefuel.Date.ToString("dd.MM.yyyy");
             editRefuelModel.Fuel = editRefuel.Fuel.ToString();
             editRefuelModel.FullTank = editRefuel.FullTank;
             editRefuelModel.Mileage = editRefuel.Mileage;
             editRefuelModel.PricePerOneLiter = editRefuel.PricePerOneLiter;
-            editRefuelModel.Station = editRefuel.Station.Name;
+            editRefuelModel.Station = editRefuel.Station.ID;
+            if (editRefuel.CustomStation != null)
+            {
+                editRefuelModel.CustomStation = editRefuel.CustomStation;
+            }
             editRefuelModel.Volume = editRefuel.Volume;
             editRefuelModel.ForgotRecordPreviousGasStation = editRefuel.ForgotRecordPreviousGasStation;
             editRefuelModel.Id = editRefuel.ID;

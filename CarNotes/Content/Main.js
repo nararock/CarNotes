@@ -70,14 +70,13 @@ function changeData()
 
 function changeSelectList(e)
 {
-    var inputStation = document.getElementsByName('CustomStation');
-    if (e == "1") {
-        inputStation[0].parentElement.style.display = "inline-block";
+    var inputStation = e.target;
+    if (inputStation.value == "1") {
+        inputStation.parentElement.nextElementSibling.style.display = "inline-block";
     }
-    else if (e != "1" && inputStation[0].parentElement.style.display != "none") {
-        inputStation[0].parentElement.style.display = "none";
+    else if (inputStation.value != "1") {
+        inputStation.parentElement.nextElementSibling.style.display = "none";
     }
-    return;
 }
 
 //create new event

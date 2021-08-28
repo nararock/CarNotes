@@ -2,6 +2,14 @@
 document.addEventListener("DOMContentLoaded", ready);
 function ready() {
     updateVehicleSelector();
+
+    elem = document.getElementById('newRefuelWindow');
+    var elemStation = elem.getElementsByTagName("form")[0].Station;
+    var option = document.createElement('option');
+    option.innerHTML = "";
+    option.selected = true;
+    option.disabled = true;
+    elemStation.prepend(option);
 }
 
 function updateVehicleSelector() {
@@ -79,12 +87,6 @@ function popup(str) {
         elem = document.getElementById('newRepairWindow');
     else if (str == "Новая заправка") {
         elem = document.getElementById('newRefuelWindow');
-        var elemStation = elem.getElementsByTagName("form")[0].Station;
-        var option = document.createElement('option');
-        option.innerHTML = "";
-        option.selected = true;
-        option.disabled = true;
-        elemStation.prepend(option);
     }
     elem.style.display = 'inline-block';
 }

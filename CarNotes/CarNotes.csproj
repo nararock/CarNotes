@@ -145,12 +145,14 @@
     <Compile Include="Classes\RepairHelper.cs" />
     <Compile Include="Classes\VehicleHelper.cs" />
     <Compile Include="CnDb\CarPart.cs" />
+    <Compile Include="CnDb\CarSubsystem.cs" />
     <Compile Include="CnDb\CnDbContext.cs" />
     <Compile Include="CnDb\GasStation.cs" />
     <Compile Include="CnDb\RefuelEvent.cs" />
     <Compile Include="CnDb\RepairEvent.cs" />
     <Compile Include="CnDb\User.cs" />
     <Compile Include="CnDb\Vehicle.cs" />
+    <Compile Include="CnDb\CarSystem.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RefuelController.cs" />
@@ -189,6 +191,10 @@
     <Compile Include="Migrations\202108262216276_add CustomStation field.cs" />
     <Compile Include="Migrations\202108262216276_add CustomStation field.designer.cs">
       <DependentUpon>202108262216276_add CustomStation field.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108301727495_add CarSystem and CarSubsystem.cs" />
+    <Compile Include="Migrations\202108301727495_add CarSystem and CarSubsystem.designer.cs">
+      <DependentUpon>202108301727495_add CarSystem and CarSubsystem.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CarPartModel.cs" />
@@ -258,6 +264,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202108262216276_add CustomStation field.resx">
       <DependentUpon>202108262216276_add CustomStation field.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108301727495_add CarSystem and CarSubsystem.resx">
+      <DependentUpon>202108301727495_add CarSystem and CarSubsystem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,7 +1,11 @@
-﻿//Cookie
+﻿//переменная для хранения значений CarSystem и CarSubsystem
+var system;
+//Cookie
 document.addEventListener("DOMContentLoaded", ready);
+//выполняется при открытии страницы
 function ready() {
     updateVehicleSelector();
+
     //добавление пустой строки в начало выпадающего списка с АЗС при создании события
     elem = document.getElementById('newRefuelWindow');
     var elemStation = elem.getElementsByTagName("form")[0].Station;
@@ -10,6 +14,7 @@ function ready() {
     option.selected = true;
     option.disabled = true;
     elemStation.prepend(option);
+
     //добавление календаря при выборе даты во всплывающих окнах
     $('.MyDateRangePicker').daterangepicker({
         singleDatePicker: true,
@@ -43,6 +48,10 @@ function ready() {
             ],
         }
     })
+    //получение всех значений CarSystem и CarSubsystem
+    fetch("/Repair/GetSystem")
+        .then(response => response.json())
+        .then((data) => { system = data; });
 }
 
 function updateVehicleSelector() {
@@ -68,28 +77,76 @@ function addCarPart(id)
 }
 function createTable(id) {
     var elem = document.getElementById(id);
-    var elemTable = elem.getElementsByTagName('table');
+    var elemTable = elem.getElementsByTagName('table')
     var tableRow = document.createElement('tr');
     var amount = elemTable[0].rows.length - 1;
-    createCell(tableRow, "Parts[" + amount + "].Name");
-    createCell(tableRow, "Parts[" + amount + "].CarManufacturer");
-    createCell(tableRow, "Parts[" + amount + "].Article");
-    createCell(tableRow, "Parts[" + amount + "].Price");
+    createCellInput(tableRow, "Parts[" + amount + "].Name");
+    createCellsSelect(tableRow, system);
+    createCellInput(tableRow, "Parts[" + amount + "].CarManufacturer");
+    createCellInput(tableRow, "Parts[" + amount + "].Article");
+    createCellInput(tableRow, "Parts[" + amount + "].Price");
     var cell = document.createElement('td');
     cell.innerHTML = "&times";
     cell.addEventListener("click", function () {
+        elemSelect[0].style.display = "none";
         cell.parentElement.remove();
     })
     tableRow.appendChild(cell);
     elemTable[0].append(tableRow);
 }
 
-function createCell(tableRow, name) {
+function createCellInput(tableRow, name) {
     var cell = document.createElement('td');
     var input = document.createElement('input');
     cell.appendChild(input);
     input.name = name;
     tableRow.appendChild(cell);
+}
+
+function createCellsSelect(tableRow, system) {
+    var cellSystem = document.createElement('td');
+    var cellSubsystem = document.createElement('td');
+    var selectSystem = document.createElement('select');
+    var selectSubsystem = document.createElement('select');
+    selectSystem.onchange = changeSubsystem;
+    selectSystem.name = "CarSystem";
+    selectSubsystem.name = "CarSubsystem"
+    for (var i = 0; i < system.length; i++) {
+        var optionSystem = document.createElement('option');
+        optionSystem.innerHTML = system[i].Name;
+        optionSystem.value = system[i].Id;
+        //optionSystem.onchange = changeSubsystem();
+        selectSystem.append(optionSystem);
+    }
+    for (var j = 0; j < system[0].CarSubsystems.length; j++) {
+        var optionSubsystem = document.createElement('option');
+        optionSubsystem.innerHTML = system[0].CarSubsystems[j].Name;
+        selectSubsystem.append(optionSubsystem);   
+    }
+    cellSystem.appendChild(selectSystem);
+    cellSubsystem.append(selectSubsystem);
+    tableRow.appendChild(cellSystem);
+    tableRow.appendChild(cellSubsystem);
+    
+}
+
+function removeOptions(selectElement) {
+    var i, L = selectElement.options.length - 1;
+    for (i = L; i >= 0; i--) {
+        selectElement.remove(i);
+    }
+}
+
+function changeSubsystem(event) {
+    var selectSystem = event.target;
+    var selectSubsystem = selectSystem.parentElement.nextElementSibling.childNodes[0];
+    var selectValueSystem = selectSystem.value;
+    removeOptions(selectSubsystem);
+    for (var j = 0; j < system[selectValueSystem - 1].CarSubsystems.length; j++) {
+        var optionSubsystem = document.createElement('option');
+        optionSubsystem.innerHTML = system[selectValueSystem - 1].CarSubsystems[j].Name;
+        selectSubsystem.append(optionSubsystem);
+    }
 }
 
 //change select
@@ -145,7 +202,7 @@ function editRefuel(id)
     fetch("/Refuel/RefuelEdit?id=" + id)
         .then(response => response.json())
         .then((data) => {
-            console.log(data);
+            //console.log(data);
             var elementsForm = document.getElementById('formEdit');
             elementsForm.Date.value = data.Date;
             elementsForm.Mileage.value = data.Mileage;

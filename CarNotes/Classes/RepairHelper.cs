@@ -134,5 +134,18 @@ namespace CarNotes.Classes
             }
             db.SaveChanges();
         }
+        
+       public List<CarSystemModel> GetSystemList()
+        {
+            var db = new CnDbContext();
+            var listSystem = db.CarSystems.Include(c => c.Subsystems).ToList()
+                .Select(cs => new CarSystemModel
+                {
+                    Name = cs.Name,
+                    Id = cs.Id,
+                    CarSubsystems = cs.Subsystems.Select(ss => new CarSubsystemModel { Name = ss.Name, Id = ss.Id }).ToList()
+                }).ToList();
+            return listSystem;
+        }
     }
 }

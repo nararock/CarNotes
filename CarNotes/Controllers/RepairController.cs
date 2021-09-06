@@ -33,5 +33,14 @@ namespace CarNotes.Controllers
             new RepairHelper().ChangeData(rm);
             return Redirect("/Home/GoToRepairEvents");
         }
+
+        public ActionResult GetSystem()
+        {
+            var resultList = new RepairHelper().GetSystemList();
+            var resultJson = new JsonResult();
+            resultJson.Data = resultList;
+            resultJson.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return resultJson;
+        }
     }
 }

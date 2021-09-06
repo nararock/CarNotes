@@ -12,6 +12,8 @@ namespace CarNotes.Models
         public string CarManufacturer { get; set; }
         public string Article { get; set; }
         public double Price { get; set; }
+        public int CarSystem { get; set; }
+        public int CarSubsystem { get; set; }
         public bool? IsDeleted { get; set; }
     }
 }

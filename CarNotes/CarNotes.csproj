@@ -196,8 +196,14 @@
     <Compile Include="Migrations\202108301727495_add CarSystem and CarSubsystem.designer.cs">
       <DependentUpon>202108301727495_add CarSystem and CarSubsystem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202108301935157_create relation between CarPart and CarSubsystem.cs" />
+    <Compile Include="Migrations\202108301935157_create relation between CarPart and CarSubsystem.designer.cs">
+      <DependentUpon>202108301935157_create relation between CarPart and CarSubsystem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CarPartModel.cs" />
+    <Compile Include="Models\CarSubsystemModel.cs" />
+    <Compile Include="Models\CarSystemModel.cs" />
     <Compile Include="Models\CommonModel.cs" />
     <Compile Include="Models\GasStationModel.cs" />
     <Compile Include="Models\LinkMenuModel.cs" />
@@ -267,6 +273,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202108301727495_add CarSystem and CarSubsystem.resx">
       <DependentUpon>202108301727495_add CarSystem and CarSubsystem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108301935157_create relation between CarPart and CarSubsystem.resx">
+      <DependentUpon>202108301935157_create relation between CarPart and CarSubsystem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

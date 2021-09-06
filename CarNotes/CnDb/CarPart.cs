@@ -12,5 +12,7 @@ namespace CarNotes.CnDb
         public string CarManufacturer { get; set; }
         public string Article { get; set; }
         public double Price { get; set; }
+        public int CarSubsystemId { get; set; }
+        public CarSubsystem CarSubsystem { get; set; }
     }
 }

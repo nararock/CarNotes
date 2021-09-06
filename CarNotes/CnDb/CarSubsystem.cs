@@ -11,5 +11,6 @@ namespace CarNotes.CnDb
         public string Name { get; set; }
         public int CarsystemId { get; set; }
         public virtual CarSystem CarSystem { get; set; }
+        public List<CarPart> CarParts { get; set; }
     }
 }

@@ -42,6 +42,7 @@ namespace CarNotes.Classes
                 carPart.CarManufacturer = rm.Parts[i].CarManufacturer;
                 carPart.Name = rm.Parts[i].Name;
                 carPart.Price = rm.Parts[i].Price;
+                carPart.CarSubsystemId = rm.Parts[i].CarSubsystem;
                 repairEvent.Parts.Add(carPart);
             }
             database.RepairEvents.Add(repairEvent);

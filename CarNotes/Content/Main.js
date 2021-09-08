@@ -81,7 +81,7 @@ function createTable(id) {
     var tableRow = document.createElement('tr');
     var amount = elemTable[0].rows.length - 1;
     createCellInput(tableRow, "Parts[" + amount + "].Name");
-    createCellsSelect(tableRow, system);
+    createCellsSelect(tableRow, system, "Parts[" + amount + "].CarSubsystem");
     createCellInput(tableRow, "Parts[" + amount + "].CarManufacturer");
     createCellInput(tableRow, "Parts[" + amount + "].Article");
     createCellInput(tableRow, "Parts[" + amount + "].Price");
@@ -103,14 +103,14 @@ function createCellInput(tableRow, name) {
     tableRow.appendChild(cell);
 }
 
-function createCellsSelect(tableRow, system) {
+function createCellsSelect(tableRow, system, name) {
     var cellSystem = document.createElement('td');
     var cellSubsystem = document.createElement('td');
     var selectSystem = document.createElement('select');
     var selectSubsystem = document.createElement('select');
     selectSystem.onchange = changeSubsystem;
     selectSystem.name = "CarSystem";
-    selectSubsystem.name = "CarSubsystem"
+    selectSubsystem.name = name;
     for (var i = 0; i < system.length; i++) {
         var optionSystem = document.createElement('option');
         optionSystem.innerHTML = system[i].Name;
@@ -121,6 +121,7 @@ function createCellsSelect(tableRow, system) {
     for (var j = 0; j < system[0].CarSubsystems.length; j++) {
         var optionSubsystem = document.createElement('option');
         optionSubsystem.innerHTML = system[0].CarSubsystems[j].Name;
+        optionSubsystem.value = system[0].CarSubsystems[j].Id;
         selectSubsystem.append(optionSubsystem);   
     }
     cellSystem.appendChild(selectSystem);
@@ -145,6 +146,7 @@ function changeSubsystem(event) {
     for (var j = 0; j < system[selectValueSystem - 1].CarSubsystems.length; j++) {
         var optionSubsystem = document.createElement('option');
         optionSubsystem.innerHTML = system[selectValueSystem - 1].CarSubsystems[j].Name;
+        optionSubsystem.value = system[selectValueSystem - 1].CarSubsystems[j].Id;
         selectSubsystem.append(optionSubsystem);
     }
 }

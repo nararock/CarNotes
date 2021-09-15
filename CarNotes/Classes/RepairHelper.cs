@@ -68,7 +68,10 @@ namespace CarNotes.Classes
         public RepairModel GetDataEdit(int id)
         {
             var db = new CnDbContext();
-            var editRepair = db.RepairEvents.Include(x => x.Parts).FirstOrDefault(y => y.Id == id);
+            var editRepair = db.RepairEvents
+                .Include(x => x.Parts)
+                .Include(x => x.Parts.Select(p => p.CarSubsystem))
+                .FirstOrDefault(y => y.Id == id);
             if (editRepair == null)
             {
                 return new RepairModel();
@@ -85,11 +88,16 @@ namespace CarNotes.Classes
             for (int i = 0; i < editRepair.Parts.Count; i++)
             {
                 var editCarPartModel = new CarPartModel();
+                editCarPartModel.CarSubsystemModel = new CarSubsystemModel();
                 editCarPartModel.Id = editRepair.Parts[i].Id;
                 editCarPartModel.Article = editRepair.Parts[i].Article;
                 editCarPartModel.CarManufacturer = editRepair.Parts[i].CarManufacturer;
                 editCarPartModel.Name = editRepair.Parts[i].Name;
                 editCarPartModel.Price = editRepair.Parts[i].Price;
+                editCarPartModel.CarSubsystemModel.Id = editRepair.Parts[i].CarSubsystem.Id;
+                editCarPartModel.CarSubsystemModel.Name = editRepair.Parts[i].CarSubsystem.Name;
+                editCarPartModel.CarSubsystemModel.CarSubsystemId = editRepair.Parts[i].CarSubsystem.CarsystemId;
+                editCarPartModel.CarSubsystem = editRepair.Parts[i].CarSubsystemId;
                 editRepairModel.Parts.Add(editCarPartModel);
             }
             return editRepairModel;

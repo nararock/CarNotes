@@ -77,11 +77,11 @@ function addCarPart(id)
 }
 function createTable(id) {
     var elem = document.getElementById(id);
-    var elemTable = elem.getElementsByTagName('table')
+    var elementTBody = elem.getElementsByTagName('tbody')
     var tableRow = document.createElement('tr');
-    var amount = elemTable[0].rows.length - 1;
+    var amount = elementTBody[0].rows.length - 1;
     createCellInput(tableRow, "Parts[" + amount + "].Name");
-    createCellsSelect(tableRow, system, "Parts[" + amount + "].CarSubsystem");
+    createCellsSelect(tableRow, "Parts[" + amount + "].CarSubsystem");
     createCellInput(tableRow, "Parts[" + amount + "].CarManufacturer");
     createCellInput(tableRow, "Parts[" + amount + "].Article");
     createCellInput(tableRow, "Parts[" + amount + "].Price");
@@ -92,7 +92,7 @@ function createTable(id) {
         cell.parentElement.remove();
     })
     tableRow.appendChild(cell);
-    elemTable[0].append(tableRow);
+    elementTBody[0].append(tableRow);
 }
 
 function createCellInput(tableRow, name) {
@@ -102,8 +102,8 @@ function createCellInput(tableRow, name) {
     input.name = name;
     tableRow.appendChild(cell);
 }
-
-function createCellsSelect(tableRow, system, name) {
+//создание выпадающего списка для системы и подсистемы для событий типа создания и редактирования
+function createCellsSelect(tableRow, name, val) {
     var cellSystem = document.createElement('td');
     var cellSubsystem = document.createElement('td');
     var selectSystem = document.createElement('select');
@@ -114,14 +114,20 @@ function createCellsSelect(tableRow, system, name) {
     for (var i = 0; i < system.length; i++) {
         var optionSystem = document.createElement('option');
         optionSystem.innerHTML = system[i].Name;
+        if (val != undefined && val.CarSubsystemId - 1 == i) {
+            optionSystem.selected = true;
+        }
         optionSystem.value = system[i].Id;
-        //optionSystem.onchange = changeSubsystem();
         selectSystem.append(optionSystem);
     }
-    for (var j = 0; j < system[0].CarSubsystems.length; j++) {
+    var index = 0;
+    if (val != undefined) {
+        index = val.CarSubsystemId - 1;
+    }
+    for (var j = 0; j < system[index].CarSubsystems.length; j++) {
         var optionSubsystem = document.createElement('option');
-        optionSubsystem.innerHTML = system[0].CarSubsystems[j].Name;
-        optionSubsystem.value = system[0].CarSubsystems[j].Id;
+        optionSubsystem.innerHTML = system[index].CarSubsystems[j].Name;
+        optionSubsystem.value = system[index].CarSubsystems[j].Id;
         selectSubsystem.append(optionSubsystem);   
     }
     cellSystem.appendChild(selectSystem);
@@ -236,7 +242,7 @@ function RefuelEditSubmit()
     return true;
 }
 
-function createCellRepairTable(tableRow, value, name) {
+function createCellRepairInput(tableRow, value, name) {
     var cell = document.createElement('td');
     var input = document.createElement('input');
     cell.appendChild(input);
@@ -244,6 +250,7 @@ function createCellRepairTable(tableRow, value, name) {
     input.name = name;
     tableRow.appendChild(cell);
 }
+
 
 function editRepair(id)
 {
@@ -259,13 +266,15 @@ function editRepair(id)
             elementsForm.children.Comments.value = data.Comments;
             elementsForm.children.Id.value = data.Id;
             var elem = document.getElementById("EditRepairData");
-            var elementTable = elem.getElementsByTagName("table");
+            var elementTbody = elem.getElementsByTagName("tbody");
             for (var i = 0; i < data.Parts.length; i++) {
                 var tableRow = document.createElement('tr');
-                createCellRepairTable(tableRow, data.Parts[i].Name, "Parts["+i+"].Name");
-                createCellRepairTable(tableRow, data.Parts[i].CarManufacturer, "Parts["+i+"].CarManufacturer");
-                createCellRepairTable(tableRow, data.Parts[i].Article, "Parts["+i+"].Article");
-                createCellRepairTable(tableRow, data.Parts[i].Price, "Parts[" + i + "].Price");
+                createCellRepairInput(tableRow, data.Parts[i].Name, "Parts[" + i + "].Name");
+                //createCellRepairSelect(tableRow, data.Parts[i].CarSubsystemModel, "Parts[" + i + "].CarSubsystemModel");
+                createCellsSelect(tableRow, "Parts[" + i + "].CarSubsystemModel", data.Parts[i].CarSubsystemModel);
+                createCellRepairInput(tableRow, data.Parts[i].CarManufacturer, "Parts["+i+"].CarManufacturer");
+                createCellRepairInput(tableRow, data.Parts[i].Article, "Parts["+i+"].Article");
+                createCellRepairInput(tableRow, data.Parts[i].Price, "Parts[" + i + "].Price");
                 /*ячейка со скрытым значением Id*/
                 var inputId = document.createElement('input');
                 inputId.name = "Parts[" + i +"].Id";
@@ -287,7 +296,7 @@ function editRepair(id)
                     IsDeletedInput[0].value = "true";
                 })
                 tableRow.append(cell);
-                elementTable[0].append(tableRow);
+                elementTbody[0].append(tableRow);
             }
             document.getElementById('EditRepairData').style.display = 'inline-block';
             }, () => {
@@ -311,4 +320,13 @@ function closeWindow(event)
     var elem = event.target;
     var parent = elem.closest('.modal');
     parent.style.display = "none";
+}
+/*clear the form fields before closing*/
+function clearRepairEvent(event) {
+    var element = event.target;
+    var modalParent = element.closest('.modal');
+    var formElements = modalParent.getElementsByTagName('form');
+    formElements[0].reset();
+    formElements[0].getElementsByTagName('tbody')[0].innerHTML = "";
+    closeWindow(event);
 }

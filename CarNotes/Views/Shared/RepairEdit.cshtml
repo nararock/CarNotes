@@ -1,5 +1,5 @@
 ﻿<form action="/Repair/RepairEdit" method="post" class="form" id="RepairFormEdit">
-    <div class="cross" onclick="closeWindow(event)"><p>&#10008</p></div>
+    <div class="cross" onclick="clearRepairEvent(event)"><p>&#10008</p></div>
     <p>Дата: </p><input type="text" name="Date" class = "MyDateRangePicker"/>
     <p>Пробег: </p><input type="text" name="Mileage" />
     <p>Название ремонтных работ: </p><input type="text" name="Repair" />
@@ -10,12 +10,17 @@
     <p>Запчасти: </p>
     <input type="button" value="Добавить запчасть" class="button" onclick="addCarPart('RepairFormEdit')" />
     <table name="Parts">
-        <tr>
-            <th>Название</th>
-            <th>Производитель</th>
-            <th>Артикул</th>
-            <th>Цена</th>
-        </tr>
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Система</th>
+                <th>Подсистема</th>
+                <th>Производитель</th>
+                <th>Артикул</th>
+                <th>Цена</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
     </table>
     <input type="submit" value="Сохранить данные" class="button" />
 </form>

@@ -2,7 +2,7 @@
 @using CarNotes.Models
 @{List<GasStationModel> gasStation = new RefuelHelper().GetGasStationsList();}
 <form action="/Refuel/RefuelEdit" method="post" class="form" id="formEdit">
-    <div class="cross" onclick="closeWindow(event)"><p>&#10008</p></div>
+    <div class="cross" onclick="clearEvent(event)"><p>&#10008</p></div>
     <p>Дата: <input type="text" name="Date" class = "MyDateRangePicker"/></p>
     <p>Пробег: <input type="text" name="Mileage" /></p>
     <p>Вид топлива: <input type="text" name="Fuel" /></p>

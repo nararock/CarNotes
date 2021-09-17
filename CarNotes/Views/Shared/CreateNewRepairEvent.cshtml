@@ -1,7 +1,7 @@
 ﻿@model CarNotes.Models.RepairModel
 
     <div class="form">
-        <div class="cross" onclick="clearRepairEvent(event)"><p>&#10008</p></div>
+        <div class="cross" onclick="clearEvent(event)"><p>&#10008</p></div>
         @using (Html.BeginForm("CreateNewRepairEvent", "Home", FormMethod.Post))
         {
             <p>Дата: @Html.TextBoxFor(x => x.Date, new { @class = "MyDateRangePicker" })</p>

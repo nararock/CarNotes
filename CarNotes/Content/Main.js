@@ -322,11 +322,13 @@ function closeWindow(event)
     parent.style.display = "none";
 }
 /*clear the form fields before closing*/
-function clearRepairEvent(event) {
+function clearEvent(event) {
     var element = event.target;
     var modalParent = element.closest('.modal');
     var formElements = modalParent.getElementsByTagName('form');
     formElements[0].reset();
-    formElements[0].getElementsByTagName('tbody')[0].innerHTML = "";
+    if (formElements[0].getElementsByTagName('tbody').length > 0) {
+        formElements[0].getElementsByTagName('tbody')[0].innerHTML = "";
+    }
     closeWindow(event);
 }

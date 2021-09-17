@@ -79,9 +79,9 @@ function createTable(id) {
     var elem = document.getElementById(id);
     var elementTBody = elem.getElementsByTagName('tbody')
     var tableRow = document.createElement('tr');
-    var amount = elementTBody[0].rows.length - 1;
+    var amount = elementTBody[0].rows.length;
     createCellInput(tableRow, "Parts[" + amount + "].Name");
-    createCellsSelect(tableRow, "Parts[" + amount + "].CarSubsystem");
+    createCellsSelect(tableRow, "Parts[" + amount + "].SubSystemId");
     createCellInput(tableRow, "Parts[" + amount + "].CarManufacturer");
     createCellInput(tableRow, "Parts[" + amount + "].Article");
     createCellInput(tableRow, "Parts[" + amount + "].Price");
@@ -109,12 +109,12 @@ function createCellsSelect(tableRow, name, val) {
     var selectSystem = document.createElement('select');
     var selectSubsystem = document.createElement('select');
     selectSystem.onchange = changeSubsystem;
-    selectSystem.name = "CarSystem";
+    selectSystem.name = name.replace('SubSystemId', 'SystemId');
     selectSubsystem.name = name;
     for (var i = 0; i < system.length; i++) {
         var optionSystem = document.createElement('option');
         optionSystem.innerHTML = system[i].Name;
-        if (val != undefined && val.CarSubsystemId - 1 == i) {
+        if (val != undefined && val.SystemId - 1 == i) {
             optionSystem.selected = true;
         }
         optionSystem.value = system[i].Id;
@@ -122,7 +122,7 @@ function createCellsSelect(tableRow, name, val) {
     }
     var index = 0;
     if (val != undefined) {
-        index = val.CarSubsystemId - 1;
+        index = val.SystemId - 1;
     }
     for (var j = 0; j < system[index].CarSubsystems.length; j++) {
         var optionSubsystem = document.createElement('option');
@@ -271,7 +271,7 @@ function editRepair(id)
                 var tableRow = document.createElement('tr');
                 createCellRepairInput(tableRow, data.Parts[i].Name, "Parts[" + i + "].Name");
                 //createCellRepairSelect(tableRow, data.Parts[i].CarSubsystemModel, "Parts[" + i + "].CarSubsystemModel");
-                createCellsSelect(tableRow, "Parts[" + i + "].CarSubsystemModel", data.Parts[i].CarSubsystemModel);
+                createCellsSelect(tableRow, "Parts[" + i + "].SubSystemId", data.Parts[i]);
                 createCellRepairInput(tableRow, data.Parts[i].CarManufacturer, "Parts["+i+"].CarManufacturer");
                 createCellRepairInput(tableRow, data.Parts[i].Article, "Parts["+i+"].Article");
                 createCellRepairInput(tableRow, data.Parts[i].Price, "Parts[" + i + "].Price");

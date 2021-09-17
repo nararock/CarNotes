@@ -42,7 +42,7 @@ namespace CarNotes.Classes
                 carPart.CarManufacturer = rm.Parts[i].CarManufacturer;
                 carPart.Name = rm.Parts[i].Name;
                 carPart.Price = rm.Parts[i].Price;
-                carPart.CarSubsystemId = rm.Parts[i].CarSubsystem;
+                carPart.CarSubsystemId = rm.Parts[i].SubSystemId;
                 repairEvent.Parts.Add(carPart);
             }
             database.RepairEvents.Add(repairEvent);
@@ -88,16 +88,13 @@ namespace CarNotes.Classes
             for (int i = 0; i < editRepair.Parts.Count; i++)
             {
                 var editCarPartModel = new CarPartModel();
-                editCarPartModel.CarSubsystemModel = new CarSubsystemModel();
                 editCarPartModel.Id = editRepair.Parts[i].Id;
                 editCarPartModel.Article = editRepair.Parts[i].Article;
                 editCarPartModel.CarManufacturer = editRepair.Parts[i].CarManufacturer;
                 editCarPartModel.Name = editRepair.Parts[i].Name;
                 editCarPartModel.Price = editRepair.Parts[i].Price;
-                editCarPartModel.CarSubsystemModel.Id = editRepair.Parts[i].CarSubsystem.Id;
-                editCarPartModel.CarSubsystemModel.Name = editRepair.Parts[i].CarSubsystem.Name;
-                editCarPartModel.CarSubsystemModel.CarSubsystemId = editRepair.Parts[i].CarSubsystem.CarsystemId;
-                editCarPartModel.CarSubsystem = editRepair.Parts[i].CarSubsystemId;
+                editCarPartModel.SystemId = editRepair.Parts[i].CarSubsystem.CarsystemId;
+                editCarPartModel.SubSystemId = editRepair.Parts[i].CarSubsystemId;
                 editRepairModel.Parts.Add(editCarPartModel);
             }
             return editRepairModel;
@@ -106,7 +103,11 @@ namespace CarNotes.Classes
         public void ChangeData(RepairModel rm)
         {
             var db = new CnDbContext();
-            var repairEvent = db.RepairEvents.Include(x => x.Parts).Where(y => y.Id == rm.Id).FirstOrDefault();
+            var repairEvent = db.RepairEvents
+                .Include(x => x.Parts)
+                .Include(x => x.Parts.Select(p => p.CarSubsystem))
+                .Where(y => y.Id == rm.Id)
+                .FirstOrDefault();
             repairEvent.CarService = rm.CarService;
             repairEvent.Comments = rm.Comments;
             var tempDate = new DateTime();
@@ -129,15 +130,16 @@ namespace CarNotes.Classes
                     carPartDb.CarManufacturer = p.CarManufacturer;
                     carPartDb.Name = p.Name;
                     carPartDb.Price = p.Price;
+                    carPartDb.CarSubsystemId = p.SubSystemId;
                 } 
                 else if (p.Id == 0 && p.IsDeleted != true)
                 {
                     var carParts = new CarPart();
-                    carParts.Id = -1;
                     carParts.Name = p.Name;
                     carParts.Price = p.Price;
                     carParts.Article = p.Article;
                     carParts.CarManufacturer = p.CarManufacturer;
+                    carParts.CarSubsystemId = p.SubSystemId;
                     repairEvent.Parts.Add(carParts);
                 }
             }

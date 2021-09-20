@@ -55,11 +55,6 @@ namespace CarNotes.Classes
             var repair = data.RepairEvents.Include(x=>x.Parts).FirstOrDefault(x => x.Id == id);
             if (repair?.Vehicle?.UserId == hc.User.Identity.GetUserId())
             {
-                var parts = repair.Parts;
-                for(int i = 0; i < parts.Count;)
-                {
-                    parts.RemoveAt(i);
-                }
                 data.RepairEvents.Remove(repair);
                 data.SaveChanges();
             }

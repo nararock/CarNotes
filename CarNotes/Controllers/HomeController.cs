@@ -42,7 +42,7 @@ namespace CarNotes.Controllers
                 return Redirect("~/Home/Index?vehicleId=" +  vehicleIDCookie);
             }
             var userId = new AuthHelper(HttpContext).AuthenticationManager.User.Identity.GetUserId();
-            vehicleId = new CnDbContext().Users.Find(userId).Vehicles.FirstOrDefault().Id;
+            vehicleId = new CnDbContext().Users.Find(userId).Vehicles.FirstOrDefault()?.Id;
             if (vehicleId != null) return Redirect("~/Home/Index?vehicleId=" + vehicleId);
             return Redirect("~/Vehicle/Index");
         }

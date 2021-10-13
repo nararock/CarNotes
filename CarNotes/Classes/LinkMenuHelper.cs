@@ -16,8 +16,8 @@ namespace CarNotes.Classes
         {
             Menu = new List<LinkMenuModel> {
                 new LinkMenuModel { NameLink="Общая таблица", MethodLink="~/Home/Index", Color ="#EB86E5", Buttons=SubMenus },
-                new LinkMenuModel { NameLink="Заправка", MethodLink="~/Home/GoToRefuelEvents", Color="#84EBDF", Buttons=new List<SubMenuModel>{ SubMenus[0]} }, 
-                new LinkMenuModel { NameLink="Ремонт", MethodLink="~/Home/GoToRepairEvents", Color="#EB7C7A", Buttons=new List<SubMenuModel>{ SubMenus[1]} }
+                new LinkMenuModel { NameLink="Заправка", MethodLink="~/Refuel/Index", Color="#84EBDF", Buttons=new List<SubMenuModel>{ SubMenus[0]} }, 
+                new LinkMenuModel { NameLink="Ремонт", MethodLink="~/Repair/Index", Color="#EB7C7A", Buttons=new List<SubMenuModel>{ SubMenus[1]} }
             };
         }
 

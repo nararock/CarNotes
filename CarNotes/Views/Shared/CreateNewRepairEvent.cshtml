@@ -2,7 +2,7 @@
 
     <div class="form">
         <div class="cross" onclick="clearEvent(event)"><p>&#10008</p></div>
-        @using (Html.BeginForm("CreateNewRepairEvent", "Home", FormMethod.Post))
+        @using (Html.BeginForm("Create", "Repair", FormMethod.Post))
         {
             <p>Дата: @Html.TextBoxFor(x => x.Date, new { @class = "MyDateRangePicker" })</p>
             <p>Пробег: @Html.TextBoxFor(x => x.Mileage)</p>

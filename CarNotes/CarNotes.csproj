@@ -218,9 +218,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Content Include="Views\Home\GoToRefuelEvents.cshtml" />
+    <Content Include="Views\Refuel\Index.cshtml" />
     <Content Include="Views\Shared\CreateNewEvent.cshtml" />
-    <Content Include="Views\Home\GoToRepairEvents.cshtml" />
+    <Content Include="Views\Repair\Index.cshtml" />
     <Content Include="Views\Shared\CreateNewRepairEvent.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_BasicTemplate.cshtml" />
@@ -243,7 +243,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Migrations\202107022003377_add relations between Vehicles and RepairEvents \" />
-    <Folder Include="Views\Repair\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202106041827438_add RefuelEvent and GasStation.resx">

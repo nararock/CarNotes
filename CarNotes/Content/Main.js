@@ -207,7 +207,7 @@ function deleteCommon(record, id)
 //edit events
 function editRefuel(id)
 {
-    fetch("/Refuel/RefuelEdit?id=" + id)
+    fetch("/Refuel/Get?id=" + id)
         .then(response => response.json())
         .then((data) => {
             //console.log(data);
@@ -254,7 +254,7 @@ function createCellRepairInput(tableRow, value, name) {
 
 function editRepair(id)
 {
-    fetch("/Repair/RepairEdit?id=" + id)
+    fetch("/Repair/Get?id=" + id)
         .then(response => response.json())
         .then((data) => {
             var elementsForm = document.getElementById('RepairFormEdit');

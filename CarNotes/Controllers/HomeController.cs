@@ -34,7 +34,7 @@ namespace CarNotes.Controllers
             }
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Redirect("~/Registration/Index");
+                return Redirect("~/Login/Index");
             }
             var vehicleIDCookie = HttpContext.Request.Cookies.Get("vehicleId")?.Value;
             if (vehicleIDCookie != null)
@@ -47,100 +47,11 @@ namespace CarNotes.Controllers
             return Redirect("~/Vehicle/Index");
         }
 
-        public ActionResult GoToRefuelEvents(int? vehicleId)
-        {
-            if (vehicleId != null)
-            {
-                ViewBag.IsChecked = false;
-                if (HttpContext.User.Identity.IsAuthenticated)
-                {
-                    var userIdCheck = new AuthHelper(HttpContext).AuthenticationManager.User.Identity.GetUserId();
-                    if (new CnDbContext().Users.Find(userIdCheck).Vehicles.Any(v => v.Id == vehicleId))
-                    {
-                        ViewBag.IsChecked = true;
-                    }
-                }
-                var cm = new RefuelHelper().GetList((int)vehicleId);
-                if (cm == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
-                ViewBag.Name = "Заправка";
-                return View(cm);
-            }
-            if (!HttpContext.User.Identity.IsAuthenticated)
-            {
-                return Redirect("~/Registration/Index");
-            }
-            var vehicleIDCookie = HttpContext.Request.Cookies.Get("vehicleId")?.Value;
-            if (vehicleIDCookie != null)
-            {
-                return Redirect("~/Home/GoToRefuelEvents?vehicleId=" + vehicleIDCookie);
-            }
-            var userId = new AuthHelper(HttpContext).AuthenticationManager.User.Identity.GetUserId();
-            vehicleId = new CnDbContext().Users.Find(userId).Vehicles.FirstOrDefault().Id;
-            if (vehicleId != null) return Redirect("~/Home/GoToRefuelEvents?vehicleId=" + vehicleId);
-            return Redirect("~/Vehicle/Index");
-        }
+        
 
-        [Authorize]
-        [HttpPost]
-        public ActionResult CreateNewEvent(RefuelModel rm)
-        {
-            var vehicleId = int.Parse(HttpContext.Request.Cookies.Get("vehicleId").Value);
-            var Id = new AuthHelper(HttpContext).AuthenticationManager.User.Identity.GetUserId();
-            var vehicle = new CnDbContext().Vehicles.FirstOrDefault(x => x.Id == vehicleId);
-            if (vehicle == null || vehicle.UserId != Id)
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
-            new RefuelHelper().SaveToDataBase(rm, vehicleId);
-            return RedirectToAction("GoToRefuelEvents");
-        }
+       
 
-        public ActionResult GoToRepairEvents(int? vehicleId)
-        {
-            if (vehicleId != null)
-            {
-                ViewBag.IsChecked = false;
-                if (HttpContext.User.Identity.IsAuthenticated)
-                {
-                    var userIdCheck = new AuthHelper(HttpContext).AuthenticationManager.User.Identity.GetUserId();
-                    if (new CnDbContext().Users.Find(userIdCheck).Vehicles.Any(v => v.Id == vehicleId))
-                    {
-                        ViewBag.IsChecked = true;
-                    }
-                }
-                var common = new RepairHelper();
-                var cm = common.GetList((int)vehicleId);
-                if (cm == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
-                ViewBag.Name = "Ремонт";
-                return View(cm);
-            }
-            if (!HttpContext.User.Identity.IsAuthenticated)
-            {
-                return Redirect("~/Registration/Index");
-            }
-            var vehicleIDCookie = HttpContext.Request.Cookies.Get("vehicleId")?.Value;
-            if (vehicleIDCookie != null)
-            {
-                return Redirect("~/Home/GoToRepairEvents?vehicleId=" + vehicleIDCookie);
-            }
-            var userId = new AuthHelper(HttpContext).AuthenticationManager.User.Identity.GetUserId();
-            vehicleId = new CnDbContext().Users.Find(userId).Vehicles.FirstOrDefault().Id;
-            if (vehicleId != null) return Redirect("~/Home/GoToRepairEvents?vehicleId=" + vehicleId);
-            return Redirect("~/Vehicle/Index");
-        }
-
-
-        [Authorize]
-        [HttpPost]
-        public ActionResult CreateNewRepairEvent(RepairModel rm)
-        {
-            var vehicleId = int.Parse(HttpContext.Request.Cookies.Get("vehicleId").Value);
-            var Id = new AuthHelper(HttpContext).AuthenticationManager.User.Identity.GetUserId();
-            var vehicle = new CnDbContext().Vehicles.FirstOrDefault(x => x.Id == vehicleId);
-            if (vehicle == null || vehicle.UserId != Id)
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
-            new RepairHelper().SaveToDataBase(rm, vehicleId);
-            return RedirectToAction("GoToRepairEvents");
-        }
-
+       
         public ActionResult DeleteEvent(string record, int id)
         {
             if(record == "Refuel")

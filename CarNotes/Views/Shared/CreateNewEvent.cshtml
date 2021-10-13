@@ -4,7 +4,7 @@
 @{List<GasStationModel> gasStation = new RefuelHelper().GetGasStationsList();}
     <div class="form">
         <div class="cross" onclick="clearEvent(event)"><p>&#10008</p></div>
-        @using (Html.BeginForm("CreateNewEvent", "Home"))
+        @using (Html.BeginForm("Create", "Refuel"))
         {
             <p>Дата: @Html.TextBoxFor(x => x.Date, new { @class = "MyDateRangePicker" })</p>
             <p>Пробег: @Html.TextBoxFor(x => x.Mileage)</p>

@@ -102,7 +102,10 @@ function createCellInput(tableRow, name) {
     input.name = name;
     tableRow.appendChild(cell);
 }
-//создание выпадающего списка для системы и подсистемы для событий типа создания и редактирования
+/** 
+ *  создание выпадающего списка для системы и подсистемы для событий типа создания и редактирования 
+ *  @param tableRow Строка
+ * */
 function createCellsSelect(tableRow, name, val) {
     var cellSystem = document.createElement('td');
     var cellSubsystem = document.createElement('td');

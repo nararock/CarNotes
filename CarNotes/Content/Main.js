@@ -15,7 +15,9 @@ function ready() {
     option.disabled = true;
     elemStation.prepend(option);
 
-    //добавление календаря при выборе даты во всплывающих окнах
+    /**добавление календаря при выборе даты во всплывающих окнах при помощи функции библиотеки jquery
+     * используется в окнах создания и редактирования событий
+     * */
     $('.MyDateRangePicker').daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
@@ -54,6 +56,7 @@ function ready() {
         .then((data) => { system = data; });
 }
 
+//установка куки при загрузке страницы (если не определено)/выбор автотранспорта из имеющего списка (при определенной куки)
 function updateVehicleSelector() {
     var elem = document.getElementById('vehicleSelect');
     var vehicleIdCookie = getCookie('vehicleId');
@@ -69,12 +72,15 @@ function updateVehicleSelector() {
         setCookie('vehicleId', elem.value);
     })
 }
-
+//CreateRepairEvent and RepairEdit
 //CarParts
 function addCarPart(id)
 {
     createTable(id);
 }
+/**формирование полей таблицы с системами и подсистемами для создания (или правки) события ремонта
+ * @param id строка, id элемента (table) 
+**/
 function createTable(id) {
     var elem = document.getElementById(id);
     var elementTBody = elem.getElementsByTagName('tbody')
@@ -94,7 +100,10 @@ function createTable(id) {
     tableRow.appendChild(cell);
     elementTBody[0].append(tableRow);
 }
-
+/**создание элемента input для ячейки таблицы с системами и подсистемами
+ * @param {any} tableRow ссылка на элемент строки в таблице
+ * @param {any} name строка, название поля таблицы, для которого создается input
+ */
 function createCellInput(tableRow, name) {
     var cell = document.createElement('td');
     var input = document.createElement('input');
@@ -104,7 +113,9 @@ function createCellInput(tableRow, name) {
 }
 /** 
  *  создание выпадающего списка для системы и подсистемы для событий типа создания и редактирования 
- *  @param tableRow Строка
+ *  @param tableRow ссылка на элемент строки в таблице
+ *  @param name строка, название поля таблицы, для которого создается select
+ *  @param val id (номер) подсистемы (используется при создании таблицы на странице редактирования события ремонта)
  * */
 function createCellsSelect(tableRow, name, val) {
     var cellSystem = document.createElement('td');
@@ -123,7 +134,7 @@ function createCellsSelect(tableRow, name, val) {
         optionSystem.value = system[i].Id;
         selectSystem.append(optionSystem);
     }
-    var index = 0;
+    var index = 0; //по умолчанию при создании события выбрана первая система в списке
     if (val != undefined) {
         index = val.SystemId - 1;
     }
@@ -139,14 +150,19 @@ function createCellsSelect(tableRow, name, val) {
     tableRow.appendChild(cellSubsystem);
     
 }
-
+/**удаление списка подсистем из таблицы с деталями автотранспорта при срабатывании события типа сменя системы
+ * @param selectElement ссылка на список подсистем, которые нужно удалить
+ */
 function removeOptions(selectElement) {
     var i, L = selectElement.options.length - 1;
     for (i = L; i >= 0; i--) {
         selectElement.remove(i);
     }
 }
-
+/**заполнение новыми подсистемами в select в таблице при событии смены системы 
+ * 
+ * @param {any} event передача элемента при нажатии которого, произошло событие смены системы при создании (редактировании) таблицы 
+ */
 function changeSubsystem(event) {
     var selectSystem = event.target;
     var selectSubsystem = selectSystem.parentElement.nextElementSibling.childNodes[0];
@@ -159,8 +175,10 @@ function changeSubsystem(event) {
         selectSubsystem.append(optionSubsystem);
     }
 }
-
-//change select
+//Vehicle _BasicTemplate
+//change select vehicle
+/**функция срабатывает на событие смены транспортного средства, смена параметра транпсортного средства (vehicleId) в адресной строке
+ * */
 function changeData()
 {
     var elem = document.getElementById('vehicleSelect');
@@ -168,7 +186,12 @@ function changeData()
     var location = window.location;
     location.search = "?vehicleId=" + vehicle;
 }
-
+//CreateRefuelEvent and RefuelEdit
+/**срабатывает на событие смены название АЗС в списке при создании или редактировании события заправки автотранспорта
+ * открывает поле для ввода заправки, которой нет в приведенном списке АЗС при выборе соотвествующего option
+ * 
+ * @param {any} e параметр, который был выбран при событии (option)
+ */
 function changeSelectList(e)
 {
     var inputStation = e.target;
@@ -179,7 +202,11 @@ function changeSelectList(e)
         inputStation.parentElement.nextElementSibling.style.display = "none";
     }
 }
-
+//SubMenu BasicTemplate
+/**срабатывает на событие нажатие на кнопку выбора события (Новая заправка или Новый ремонт) в шапке мастер страницы
+ * делает видимым выбранное частичное представление, которое было скрыто
+ * @param {any} str имя выбранного частичного представления в подменю
+ */
 //create new event
 function popup(str) {
     var elem;
@@ -190,24 +217,46 @@ function popup(str) {
     }
     elem.style.display = 'inline-block';
 }
-
 //delete events
+//Repair (Index)
+/**
+ * срабатывает на событие нажатия на "крестик" в таблице с событиями ремонта
+ * @param {any} id номер события, которое нужно удалить из таблицы с ремонтами, вызывается соотвествующий метод контроллера Repair  
+ */
 function deleteRepair(id)
 {
     document.location = "/Repair/Delete?id=" + id;
 }
 
+//Refuel (Index)
+/**
+ * срабатывает на событие нажатия на "крестик" в таблице с событиями заправки
+ * @param {any} id номер события, которое нужно удалить из таблицы с заправками, вызывается соотвествующий метод контроллера Refuel
+ */
 function deleteRefuel(id)
 {
     document.location = "/Refuel/Delete?id=" + id;
 }
 
+//Home (Index)
+/**
+ * срабатывает на событие нажатия на "крестик" в общей таблице с событиями заправки и ремонта, 
+ * вызывается метод DeleteEvent 
+ * @param {any} record название удаляемого события
+ * @param {any} id номер удаляемого события в соотвествующей событию таблице
+ */
 function deleteCommon(record, id)
 {
    document.location = "/Home/DeleteEvent?record=" + record + "&id=" + id;
 }
 
 //edit events
+//RefuelEdit
+/**
+ * срабатывает на событие нажатия на знак редактирования ("карандаш") в таблице для редактирования событий заправки
+ * открыает окно для редактирования события, где заполняет форму редактирования данными выбранного события (id)
+ * @param {any} id номер события заправки для редактирования
+ */
 function editRefuel(id)
 {
     fetch("/Refuel/Get?id=" + id)
@@ -237,6 +286,10 @@ function editRefuel(id)
         });
 }
 
+/**
+ * срабатывает на событие нажатия на кнопку "Сохранить изменения" в окне редактирования события
+ * устанавливает значение полей типа checkbox в параметре value для отправки формы при сохранении изменений
+ * */
 function RefuelEditSubmit()
 {
     var elementsForm = document.getElementById('formEdit');
@@ -245,6 +298,14 @@ function RefuelEditSubmit()
     return true;
 }
 
+//RepairEdit
+/**
+ * заполняет таблицу с деталями автротранспорта в окне редактирования события ремонта
+ * создает input с заданным параметром в ячейке таблицы
+ * @param {any} tableRow ссылка на строку в таблице
+ * @param {any} value значение параметра 
+ * @param {any} name название параметра
+ */
 function createCellRepairInput(tableRow, value, name) {
     var cell = document.createElement('td');
     var input = document.createElement('input');
@@ -254,7 +315,11 @@ function createCellRepairInput(tableRow, value, name) {
     tableRow.appendChild(cell);
 }
 
-
+/**
+ * срабатывает на событие нажатия на знак редактирования ("карандаш") в таблице для редактирования событий ремонта
+ * открывает окно для редактирования события, где заполняет форму редактирования данными выбранного события (id)
+ * @param {any} id номер события заправки для редактирования
+ */
 function editRepair(id)
 {
     fetch("/Repair/Get?id=" + id)
@@ -307,6 +372,13 @@ function editRepair(id)
             });
 }
 
+//Home (Index)
+/**
+ * срабатывает на событие нажатия на знак редактирования ("карандаш") в общей таблице 
+ * в зависимости от параметра record вызывает соотвествующую функцию для редавтирования события
+ * @param {any} record название редактируемого события
+ * @param {any} id номер события в соотвествующей таблице событий
+ */
 function editCommon(record, id)
 {
     if (record == 'Refuel') {
@@ -317,7 +389,12 @@ function editCommon(record, id)
         editRepair(id);
     }
 }
+
 /*close windows ("cross")*/
+/**
+ * скрывает форму соотвествующего события при нажатии на крестик
+ * @param {any} event элемент из соотвествующего окна, по которому произошло событие нажатия
+ */
 function closeWindow(event)
 {
     var elem = event.target;
@@ -325,6 +402,11 @@ function closeWindow(event)
     parent.style.display = "none";
 }
 /*clear the form fields before closing*/
+/**
+ * срабатывает на события нажатия на крестик в окнах создания или редактирования событий
+ * очищает форму перед удалением 
+ * @param {any} event элемент из соотвествующего окна, по которому произошло событие нажатия 
+ */
 function clearEvent(event) {
     var element = event.target;
     var modalParent = element.closest('.modal');

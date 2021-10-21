@@ -199,6 +199,10 @@
     <Compile Include="Migrations\202108301935157_create relation between CarPart and CarSubsystem.designer.cs">
       <DependentUpon>202108301935157_create relation between CarPart and CarSubsystem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202110211456189_adding relation between RepairEvent and CarPart.cs" />
+    <Compile Include="Migrations\202110211456189_adding relation between RepairEvent and CarPart.designer.cs">
+      <DependentUpon>202110211456189_adding relation between RepairEvent and CarPart.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CarPartModel.cs" />
     <Compile Include="Models\CarSubsystemModel.cs" />
@@ -234,6 +238,7 @@
     <Content Include="Views\Vehicle\Add.cshtml" />
     <Content Include="Views\Shared\RefuelEdit.cshtml" />
     <Content Include="Views\Shared\RepairEdit.cshtml" />
+    <Content Include="Views\Shared\_TableTemplate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -271,6 +276,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202108301935157_create relation between CarPart and CarSubsystem.resx">
       <DependentUpon>202108301935157_create relation between CarPart and CarSubsystem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110211456189_adding relation between RepairEvent and CarPart.resx">
+      <DependentUpon>202110211456189_adding relation between RepairEvent and CarPart.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

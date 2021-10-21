@@ -40,5 +40,12 @@ namespace CarNotes.Classes
             database.Vehicles.Add(vehicle);
             database.SaveChanges();
         }
+
+        public void Delete(int id)
+        {
+            var db = new CnDbContext();
+            db.Vehicles.Remove(db.Vehicles.FirstOrDefault(x => x.Id == id));
+            db.SaveChanges();
+        }
     }
 }

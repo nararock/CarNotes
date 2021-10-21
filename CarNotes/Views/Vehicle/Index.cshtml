@@ -9,6 +9,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <link rel="stylesheet" href="~/Styles/Main.css">
     <style>
         /*всплывающая форма создания события*/
         .Add {
@@ -19,15 +20,12 @@
             right: 0;
             bottom: 0;
         }
-        .form {
-            width: 600px;
-            border: 1px solid grey;
-            background-color: floralwhite;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 100px;
-            margin-bottom: 30px;
-            text-align: center;
+        .button {
+            background-color: darkkhaki;
+        }
+        tr:hover td {
+            background-color: darkkhaki;
+            opacity: 0.65;
         }
     </style>
     <script>
@@ -36,6 +34,7 @@
             elem[0].style.display = "inline-block";
         }
     </script>
+    <script src="@Url.Content("~/Content/Main.js")"></script>
 </head>
 <body>
     <input type="button" value="Добавить новое транспортное средство" class="button" onclick="up()"/>
@@ -59,6 +58,7 @@
                         <td>@element.ReleaseYear</td>
                         <td>@element.Color</td>
                         <td>@element.Body</td>
+                        <td onclick="deleteVehicle(@element.Id)">&#10008</td>
                     </tr>
                 }
             </table>

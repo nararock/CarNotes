@@ -23,5 +23,11 @@ namespace CarNotes.Controllers
             new VehicleHelper().Create(vm, HttpContext);
             return Redirect("Index");
         }
+
+        public ActionResult Delete(int id)
+        {
+            new VehicleHelper().Delete(id);
+            return Redirect("/Vehicle/Index");
+        }
     }
 }

@@ -417,3 +417,11 @@ function clearEvent(event) {
     }
     closeWindow(event);
 }
+
+/**
+ * удаление транспортного средства из гаража
+ * @param {any} id номер ТС в БД
+ */
+function deleteVehicle(id) {
+    document.location = "/Vehicle/Delete?id=" + id;
+}

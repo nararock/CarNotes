@@ -14,5 +14,6 @@ namespace CarNotes.CnDb
         public double Price { get; set; }
         public int CarSubsystemId { get; set; }
         public CarSubsystem CarSubsystem { get; set; }
+        [Column("RepairEvent_Id")]
     }
 }

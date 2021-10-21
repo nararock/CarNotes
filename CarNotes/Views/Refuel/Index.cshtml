@@ -1,6 +1,8 @@
 ﻿@model List<CarNotes.Models.RefuelModelOutput>
 @using CarNotes.Classes;
-
+@{
+    Layout = "../Shared/_TableTemplate.cshtml";
+}
 <div>
     <table>
         <caption class="nameTable" style="background-color:@Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name))">@ViewBag.Name</caption>

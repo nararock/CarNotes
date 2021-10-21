@@ -1,0 +1,12 @@
+﻿
+@{
+    Layout = "../Shared/_BasicTemplate.cshtml";
+}
+@Html.Partial("_LinkMenuTemplate", ViewData)
+<div class="content">
+    @RenderBody()
+</div>
+<div class="modal" id="newRefuelWindow">@Html.Partial("CreateNewEvent", new CarNotes.Models.RefuelModel())</div>
+<div class="modal" id="newRepairWindow">@Html.Partial("CreateNewRepairEvent", new CarNotes.Models.RepairModel())</div>
+<div class="modal" id="EditRepairData">@Html.Partial("RepairEdit")</div>
+<div class="modal" id="EditRefuelData">@Html.Partial("RefuelEdit")</div>

@@ -1,8 +1,5 @@
 ﻿@using CarNotes.Classes;
-@using CarNotes.Models;
 @{
-    List<LinkMenuModel> menu = new LinkMenuHelper().get(ViewBag.Name);
-    List<SubMenuModel> buttons = new LinkMenuHelper().getButtons(ViewBag.Name);
     var isVerified = new AuthHelper(Context).AuthenticationManager.User.Identity.IsAuthenticated;
     var userName = new AuthHelper(Context).AuthenticationManager.User.Identity.Name;
     var vehicles = new VehicleHelper().GetVehicles(Context);
@@ -14,19 +11,6 @@
     <meta name="viewport" content="width=device-width" />
     <title>_BasicTemplate</title>
     <link rel="stylesheet" href="~/Styles/Main.css" />
-    <style>
-        /*таблица с данными*/
-        th {
-            border-bottom: 2px solid @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name));
-        }
-        tr:hover td {
-            background-color: @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name));
-        }
-        /*кнопки для перехода в окно создания события*/
-        .button {
-            background-color: @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name));
-        }
-    </style>
     <script src="@Url.Content("~/Content/cookie.min.js")"></script>
     <script src="@Url.Content("~/Content/Main.js")"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -58,23 +42,7 @@
             <p class="topLetters"><a href="@Url.Content("~/Login/LogOut")">Выйти</a></p>
         }
     </div>
-    <div class="links">@Html.Partial("_LinkMenuTemplate", menu)</div>
-    @if (ViewBag.IsChecked)
-    {
-        <div class="buttons">
-            @foreach (SubMenuModel s in buttons)
-            {
-                <input type="button" value="@s.Name" class="button" onclick="popup('@s.Name')" />
-            }
-        </div>
-    }
-    <div class="content">
-        @RenderBody()
-    </div>
-    <div class ="modal" id="newRefuelWindow">@Html.Partial("CreateNewEvent", new CarNotes.Models.RefuelModel())</div>
-    <div class="modal" id="newRepairWindow">@Html.Partial("CreateNewRepairEvent", new CarNotes.Models.RepairModel())</div>
-    <div class ="modal" id="EditRepairData">@Html.Partial("RepairEdit")</div>
-    <div class ="modal" id="EditRefuelData">@Html.Partial("RefuelEdit")</div>
+    @RenderBody()
     <div><p>По всем вопросам пишите на почту: <br /> nararock@mail.ru</p></div>
 </body>
 </html>

@@ -15,7 +15,8 @@ function ready() {
     option.disabled = true;
     elemStation.prepend(option);
 
-    /**добавление календаря при выборе даты во всплывающих окнах при помощи функции библиотеки jquery
+    /**
+     * добавление календаря при выборе даты во всплывающих окнах при помощи функции библиотеки jquery
      * используется в окнах создания и редактирования событий
      * */
     $('.MyDateRangePicker').daterangepicker({
@@ -50,13 +51,17 @@ function ready() {
             ],
         }
     })
-    //получение всех значений CarSystem и CarSubsystem
+    /**
+     * получение всех значений CarSystem и CarSubsystem
+     * */
     fetch("/Repair/GetSystem")
         .then(response => response.json())
         .then((data) => { system = data; });
 }
 
-//установка куки при загрузке страницы (если не определено)/выбор автотранспорта из имеющего списка (при определенной куки)
+/**
+ * установка куки при загрузке страницы (если не определено)/выбор автотранспорта из имеющего списка (при определенной куки)
+ * */
 function updateVehicleSelector() {
     var elem = document.getElementById('vehicleSelect');
     var vehicleIdCookie = getCookie('vehicleId');

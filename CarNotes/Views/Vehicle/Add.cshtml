@@ -1,5 +1,6 @@
 ﻿@model CarNotes.CnDb.Vehicle
     <div class="form">
+        <div class="cross" onclick="clearEvent(event)"><p>&#10008</p></div>
         @using (Html.BeginForm("Add", "Vehicle"))
         {
             <p>Марка: @Html.TextBoxFor(x => x.Brand)</p>

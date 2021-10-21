@@ -20,18 +20,18 @@
         </tr>
         @foreach (CarNotes.Models.RefuelModelOutput b in Model)
         {
-    <tr>
-        <td>@b.Date</td>
-        <td>@b.Mileage</td>
-        <td>@b.Fuel</td>
-        <td>@b.Station</td>
-        <td>@b.Volume</td>
-        <td>@b.PricePerOneLiter</td>
-        <td>@b.FullTank</td>
-        <td>@b.ForgotRecordPreviousGasStation</td>
-        <td><input type="submit" value="&#9998" onclick="editRefuel(@b.Id)" /></td>
-        <td><input type="submit" value="&#10008" onclick="deleteRefuel(@b.Id)"/></td>
-    </tr>
+            <tr>
+                <td>@b.Date</td>
+                <td>@b.Mileage</td>
+                <td>@b.Fuel</td>
+                <td>@b.Station</td>
+                <td>@b.Volume</td>
+                <td>@b.PricePerOneLiter</td>
+                <td>@b.FullTank</td>
+                <td>@b.ForgotRecordPreviousGasStation</td>
+                <td><input type="submit" value="&#9998" onclick="editRefuel(@b.Id)" /></td>
+                <td><input type="submit" value="&#10008" onclick="deleteRefuel(@b.Id)" /></td>
+            </tr>
         }
 
     </table>

@@ -8,15 +8,18 @@ using System.Web.Mvc;
 
 namespace CarNotes.Controllers
 {
+
+    [Authorize]
     public class VehicleController : Controller
     {
         // GET: Vehicle
         public ActionResult Index()
         {
+            ViewBag.Name = "Гараж";
+            ViewBag.IsChecked = true;
             var vehicles = new VehicleHelper().GetVehicles(HttpContext);
             return View(vehicles);
         }
-
         [HttpPost]
         public ActionResult Add(VehicleModel vm)
         {

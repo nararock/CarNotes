@@ -4,31 +4,35 @@
     Layout = "../Shared/_TableTemplate.cshtml";
 }
 <div>
-    <table>
-        <caption class="nameTable" style="background-color:@Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name))">@ViewBag.Name</caption>
-        <tr>
-            <th>Дата</th>
-            <th>Пробег</th>
-            <th>Ремонт</th>
-            <th>Сервис</th>
-            <th>Стоимость работ</th>
-            <th>Комментарии</th>
-            <th></th>
-            <th></th>
-        </tr>
-        @foreach (CarNotes.Models.RepairModel b in Model)
-        {
+    <table class="ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) table ">
+        <caption>@ViewBag.Name</caption>
+        <thead>
             <tr>
-                <td>@b.Date</td>
-                <td>@b.Mileage</td>
-                <td>@b.Repair</td>
-                <td>@b.CarService</td>
-                <td>@b.RepairCost</td>
-                <td>@b.Comments</td>
-                <td><input type="submit" value="&#9998" onclick="editRepair(@b.Id)" /></td>
-                <td><input type="submit" value="&#10008" onclick="deleteRepair(@b.Id)" /></td>
+                <th>Дата</th>
+                <th>Пробег</th>
+                <th>Ремонт</th>
+                <th>Сервис</th>
+                <th>Стоимость работ</th>
+                <th>Комментарии</th>
+                <th style="width:0"></th>
+                <th style="width:0"></th>
             </tr>
-        }
+        </thead>
+        <tbode>
+            @foreach (CarNotes.Models.RepairModel b in Model)
+            {
+                <tr>
+                    <td>@b.Date</td>
+                    <td>@b.Mileage</td>
+                    <td>@b.Repair</td>
+                    <td>@b.CarService</td>
+                    <td>@b.RepairCost</td>
+                    <td>@b.Comments</td>
+                    <td><input type="button" value="&#9998" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editRepair(@b.Id)" /></td>
+                    <td><input type="button" value="&#10008" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="deleteRepair(@b.Id)" /></td>
+                </tr>
+            }
+        </tbode>
     </table>
 </div>
 

@@ -4,36 +4,40 @@
     Layout = "../Shared/_TableTemplate.cshtml";
 }
 <div>
-    <table>
-        <caption class="nameTable" style="background-color:@Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name))">@ViewBag.Name</caption>
-        <tr>
-            <th>Тип записи</th>
-            <th>Дата</th>
-            <th>Пробег</th>
-            <th>Стоимость</th>
-            <th></th>
-            <th></th>
-        </tr>
-        @foreach (var item in Model)
-        {
+    <table class="ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) table ">
+        <caption>@ViewBag.Name</caption>
+        <thead>
             <tr>
-                <td>
-                    @if (item.Record == CarNotes.Enums.RecordType.Refuel)
-                    {
-                        @:Заправка
-                    }
-                    else
-                    {
-                        @:Ремонт
-                    }
-                </td>
-                <td>@item.Date</td>
-                <td>@item.Mileage</td>
-                <td>@item.Cost</td>
-                <td><input type="submit" value="&#9998" onclick="editCommon('@item.Record', @item.Id)" /></td>
-                <td><input type="submit" value="&#10008" onclick="deleteCommon('@item.Record', @item.Id)" /></td>
+                <th>Тип записи</th>
+                <th>Дата</th>
+                <th>Пробег</th>
+                <th>Стоимость</th>
+                <th style="width:0"></th>
+                <th style="width:0"></th>
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (item.Record == CarNotes.Enums.RecordType.Refuel)
+                        {
+                            @:Заправка
+                        }
+                        else
+                        {
+                            @:Ремонт
+                        }
+                    </td>
+                    <td>@item.Date</td>
+                    <td>@item.Mileage</td>
+                    <td>@item.Cost</td>
+                    <td><input type="button" value="&#9998" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editCommon('@item.Record', @item.Id)" /></td>
+                    <td><input type="button" value="&#10008" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="deleteCommon('@item.Record', @item.Id)" /></td>
+                </tr>
+            }
 
+        </tbody>
     </table>
 </div>

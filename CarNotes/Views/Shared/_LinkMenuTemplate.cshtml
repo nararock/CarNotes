@@ -1,47 +1,21 @@
 ﻿@using CarNotes.Models
 @using CarNotes.Classes
 @{
-    List<LinkMenuModel> menu = new LinkMenuHelper().get(ViewBag.Name);
     List<SubMenuModel> buttons = new LinkMenuHelper().getButtons(ViewBag.Name);
     Layout = null;
 }
-
-    <style>
-        /*таблица с данными*/
-        th {
-            border-bottom: 2px solid @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name));
-        }
-        tr:hover td {
-            background-color: @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name));
-        }
-        /*кнопки для перехода в окно создания события*/
-        .button {
-            background-color: @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name));
-        }
-    
-    .link {
-        border-radius: 15px;
-        padding: 15px 30px;
-        position: relative;
-        text-decoration: none;
-        color: floralwhite;
-        display: inline-block;
+<style>
+    .submenu {
+        margin-bottom: 15px;
+        text-align:center;
     }
 </style>
-<div class="links">
-    <div>
-        @foreach (CarNotes.Models.LinkMenuModel l in menu)
-        {
-            <a href="@Url.Content(l.MethodLink)" class="link" style="background-color:@l.Color">@l.NameLink</a>
-        }
-    </div>
-</div>
 @if (ViewBag.IsChecked)
 {
-    <div class="buttons">
+    <div class="submenu">
         @foreach (SubMenuModel s in buttons)
         {
-            <input type="button" value="@s.Name" class="button" onclick="popup('@s.Name')" />
+            <input type="button" value="@s.Name" class="ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="popup('@s.Name')" />
         }
     </div>
 }

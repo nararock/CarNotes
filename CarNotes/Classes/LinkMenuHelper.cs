@@ -10,14 +10,15 @@ namespace CarNotes.Classes
     {
         private List<LinkMenuModel> Menu;
 
-        private List<SubMenuModel> SubMenus = new List<SubMenuModel> { new SubMenuModel { Name = "Новая заправка" }, new SubMenuModel { Name = "Новый ремонт" } };
+        private List<SubMenuModel> SubMenus = new List<SubMenuModel> { new SubMenuModel { Name = "Новая заправка" }, new SubMenuModel { Name = "Новый ремонт" }, new SubMenuModel { Name = "Добавить новое транспортное средство"} };
 
         public LinkMenuHelper()
         {
             Menu = new List<LinkMenuModel> {
-                new LinkMenuModel { NameLink="Общая таблица", MethodLink="~/Home/Index", Color ="#EB86E5", Buttons=SubMenus },
-                new LinkMenuModel { NameLink="Заправка", MethodLink="~/Refuel/Index", Color="#84EBDF", Buttons=new List<SubMenuModel>{ SubMenus[0]} }, 
-                new LinkMenuModel { NameLink="Ремонт", MethodLink="~/Repair/Index", Color="#EB7C7A", Buttons=new List<SubMenuModel>{ SubMenus[1]} }
+                new LinkMenuModel { NameLink="Общая таблица", MethodLink="~/Home/Index", Color ="violet", Buttons=new List<SubMenuModel> { SubMenus[0], SubMenus[1]} },
+                new LinkMenuModel { NameLink="Заправка", MethodLink="~/Refuel/Index", Color="purple", Buttons=new List<SubMenuModel>{ SubMenus[0]} }, 
+                new LinkMenuModel { NameLink="Ремонт", MethodLink="~/Repair/Index", Color="pink", Buttons=new List<SubMenuModel>{ SubMenus[1]} },
+                new LinkMenuModel {NameLink="Гараж" , MethodLink="~/Vehicle/Index" , Color="brown" , Buttons=new List<SubMenuModel> { SubMenus[2]}}
             };
         }
 

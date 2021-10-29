@@ -46,12 +46,7 @@ namespace CarNotes.Controllers
             if (vehicleId != null) return Redirect("~/Home/Index?vehicleId=" + vehicleId);
             return Redirect("~/Vehicle/Index");
         }
-
-        
-
-       
-
-       
+           
         public ActionResult DeleteEvent(string record, int id)
         {
             if(record == "Refuel")
@@ -63,6 +58,11 @@ namespace CarNotes.Controllers
                 new RepairHelper().Delete(id, HttpContext);
             }
             return Redirect("~/Home/Index");
+        }
+
+        public ActionResult Test()
+        {
+            return View("~/Views/Shared/_BasicTemplateNew.cshtml");
         }
     }
 }

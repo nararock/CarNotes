@@ -1,0 +1,138 @@
+﻿@using CarNotes.Classes;
+@using CarNotes.Models;
+@using Microsoft.AspNet.Identity;
+@{
+    var userHelper = new AuthHelper(Context);
+    var isVerified = userHelper.AuthenticationManager.User.Identity.IsAuthenticated;
+    var userName = userHelper.GetName(userHelper.AuthenticationManager.User.Identity.GetUserId());
+    var vehicles = new VehicleHelper().GetVehicles(Context);
+    List<LinkMenuModel> menu = new LinkMenuHelper().get(ViewBag.Name);
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>_BasicTemplateNew</title>
+    <link rel="stylesheet" href="~/Styles/semantic.min.css" />
+    <script type="text/javascript" src="~/Scripts/semantic.min.js"></script>    
+    <script src="@Url.Content("~/Content/cookie.min.js")"></script>
+    <script src="@Url.Content("~/Content/Main.js")"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    @RenderSection("styles", false)
+    <style>
+        /*стили для header (верхней части)*/
+        .container {
+            max-width: 1200px;
+            height: 100px;
+            margin: 0 auto;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .imageBlock {
+            width: 200px;
+            height: 100px;
+            display: inline-block;
+        }
+
+        .image {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+
+        .navigation {
+            flex-grow: 1;
+        }
+
+            .navigation ul {
+                display: flex;
+                justify-content: center;
+                flex-flow: row nowrap;
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+
+            .navigation li {
+                margin-right: 30px;
+            }
+
+                .navigation li:last-child {
+                    margin-right: 0;
+                }
+
+            .navigation a {
+                padding: 8px 10px;
+            }
+
+        .userInfo {
+            flex-direction: column;
+            width: 200px;
+            height: 100px;
+            padding-right: 0;
+        }
+        /*стили для contant (для средней части, контента)*/
+        .contant {
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="imageBlock"><img src="~/Content/logoCarNotes1.jpg" class="image" /></div><nav class="navigation">
+                <ul>
+                    @foreach (CarNotes.Models.LinkMenuModel l in menu)
+                    {
+                        <li><a href="@Url.Content(l.MethodLink)" class="link large ui @l.Color tertiary button">@l.NameLink</a></li>
+                    }
+                    @*<li><a href="@Url.Content("~/Vehicle/Index")" class="link large ui brown tertiary button">Гараж</a></li>*@
+                </ul>
+            </nav><div class="userInfo">
+                @if (!isVerified)
+                {
+                    <p class="topLetters"><a href="@Url.Content("~/Registration/Index")">Зарегистрироваться</a></p>
+                    <p class="topLetters"><a href="@Url.Content("~/Login/Index")">Вход</a></p>
+                }
+                else
+                {
+                    <p class="userName">@userName</p>
+                    <p><a href="@Url.Content("~/Login/LogOut")">Выйти</a></p>
+                    <p>
+                        @if (vehicles.Count >= 1)
+                        {
+                            if (vehicles.Count == 1)
+                            {
+                                <span>@vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear</span>
+                            }
+                            else
+                            {
+                                <select size="1" id="vehicleSelect" onchange="changeData()">
+                                    @foreach (var element in vehicles)
+                                    {
+                                        <option value="@element.Id">@element.Brand  @element.Model  @element.ReleaseYear </option>
+                                    }
+                                </select>
+                            }
+                        }
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="contant">
+        @RenderBody()
+    </div>  
+</body>
+</html>

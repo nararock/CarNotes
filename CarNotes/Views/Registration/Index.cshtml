@@ -16,7 +16,7 @@
         {
             <p>Имя: @Html.TextBoxFor(x => x.Name)</p>
             <p>Почта: @Html.TextBoxFor(x => x.Email)</p>
-            <p>Пароль: @Html.TextBoxFor(x => x.Password)</p>
+            <p>Пароль: @Html.PasswordFor(x => x.Password)</p>
             @Html.ValidationSummary();
             <input type="submit" value="Зарегистрироваться" class="button" />
         }

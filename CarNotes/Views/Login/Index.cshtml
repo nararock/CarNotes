@@ -15,7 +15,7 @@
         @using (Html.BeginForm())
         {
             <p>Логин: @Html.TextBoxFor(x => x.Login)</p>
-            <p>Пароль: @Html.TextBoxFor(x => x.Password)</p>
+            <p>Пароль: @Html.PasswordFor(x => x.Password)</p>
             @Html.ValidationSummary();
             <input type="submit" value="Войти" class="button" />
         }

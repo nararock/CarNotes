@@ -126,9 +126,13 @@
   <ItemGroup>
     <Content Include="Content\cookie.min.js" />
     <Content Include="Content\logoCar.png" />
+    <Content Include="Content\logoCarNotes1.jpg" />
     <Content Include="Content\Main.js" />
     <Content Include="Global.asax" />
+    <Content Include="Styles\semantic.min.css" />
+    <Content Include="Scripts\semantic.min.js" />
     <Content Include="Styles\Main.css" />
+    <Content Include="Styles\Reset.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -239,6 +243,7 @@
     <Content Include="Views\Shared\RefuelEdit.cshtml" />
     <Content Include="Views\Shared\RepairEdit.cshtml" />
     <Content Include="Views\Shared\_TableTemplate.cshtml" />
+    <Content Include="Views\Shared\_BasicTemplateNew.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

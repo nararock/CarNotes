@@ -1,8 +1,10 @@
 ﻿@using CarNotes.Classes;
+@using CarNotes.Models;
 @{
     var isVerified = new AuthHelper(Context).AuthenticationManager.User.Identity.IsAuthenticated;
     var userName = new AuthHelper(Context).AuthenticationManager.User.Identity.Name;
     var vehicles = new VehicleHelper().GetVehicles(Context);
+    List<LinkMenuModel> menu = new LinkMenuHelper().get(ViewBag.Name);
 }
 <!DOCTYPE html>
 
@@ -31,16 +33,34 @@
         {
             <p class="topLetters">Привет, @userName</p>
             <p class="topLetters">
-                <select size="1" id="vehicleSelect" onchange="changeData()">
-                    @foreach (var element in vehicles)
+                @if (vehicles.Count >= 1)
+                {
+                    if (vehicles.Count == 1)
                     {
-                        <option value="@element.Id">@element.Brand  @element.Model  @element.ReleaseYear </option>
+                        <span>@vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear</span>
                     }
-                </select>
+                    else
+                    {
+                        <select size="1" id="vehicleSelect" onchange="changeData()">
+                            @foreach (var element in vehicles)
+                            {
+                                <option value="@element.Id">@element.Brand  @element.Model  @element.ReleaseYear </option>
+                            }
+                        </select>
+                    }
+                }
             </p>
             <p class="topLetters"><a href="@Url.Content("~/Vehicle/Index")">Гараж</a></p>
             <p class="topLetters"><a href="@Url.Content("~/Login/LogOut")">Выйти</a></p>
         }
+    </div>
+    <div class="links">
+        <div>
+            @foreach (CarNotes.Models.LinkMenuModel l in menu)
+            {
+                <a href="@Url.Content(l.MethodLink)" class="link" style="background-color:@l.Color">@l.NameLink</a>
+            }
+        </div>
     </div>
     @RenderBody()
     <div><p>По всем вопросам пишите на почту: <br /> nararock@mail.ru</p></div>

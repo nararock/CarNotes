@@ -1,6 +1,7 @@
 ﻿using Microsoft.Owin.Security;
 using System.Web;
 using Microsoft.AspNet.Identity.Owin;
+using CarNotes.CnDb;
 
 namespace CarNotes.Classes
 {
@@ -44,6 +45,13 @@ namespace CarNotes.Classes
             {
                 return _httpContext.GetOwinContext().Authentication;
             }
+        }
+
+        public string GetName(string userId)
+        {
+            var db = new CnDbContext();
+            string userName = db.Users.Find(userId).Name;
+            return userName;
         }
     }
 

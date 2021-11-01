@@ -16,10 +16,10 @@
     <meta name="viewport" content="width=device-width" />
     <title>_BasicTemplateNew</title>
     <link rel="stylesheet" href="~/Styles/semantic.min.css" />
-    <script type="text/javascript" src="~/Scripts/semantic.min.js"></script>    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/semantic.min.js"></script>
     <script src="@Url.Content("~/Content/cookie.min.js")"></script>
     <script src="@Url.Content("~/Content/Main.js")"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
@@ -114,6 +114,12 @@
                         {
                             if (vehicles.Count == 1)
                             {
+                                <select size="1" id="vehicleSelect" onchange="changeData()" style="display:none">
+                                    @foreach (var element in vehicles)
+                                    {
+                                        <option value="@element.Id">@element.Brand  @element.Model  @element.ReleaseYear </option>
+                                    }
+                                </select>
                                 <span>@vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear</span>
                             }
                             else
@@ -133,6 +139,6 @@
     </div>
     <div class="contant">
         @RenderBody()
-    </div>  
+    </div>
 </body>
 </html>

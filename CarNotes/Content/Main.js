@@ -214,13 +214,18 @@ function changeSelectList(e)
  */
 //create new event
 function popup(str) {
-    var elem;
     if (str == "Новый ремонт")
-        elem = document.getElementById('newRepairWindow');
+        $('#newRepairWindow')
+            .modal('show');
     else if (str == "Новая заправка") {
-        elem = document.getElementById('newRefuelWindow');
+        $('#newRefuelWindow')
+            .modal({
+                onApprove: function () {
+                    document.getElementById("newRefuelWindow").getElementsByTagName("form")[0].submit();
+                }
+            })
+            .modal('show');
     }
-    elem.style.display = 'inline-block';
 }
 //delete events
 //Repair (Index)

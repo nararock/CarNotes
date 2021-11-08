@@ -1,13 +1,24 @@
 ﻿@model CarNotes.CnDb.Vehicle
-    <div class="form">
-        <div class="cross" onclick="clearEvent(event)"><p>&#10008</p></div>
-        @using (Html.BeginForm("Add", "Vehicle"))
-        {
-            <p>Марка: @Html.TextBoxFor(x => x.Brand)</p>
-            <p>Модель: @Html.TextBoxFor(x => x.Model)</p>
-            <p>Год выпуска: @Html.TextBoxFor(x => x.ReleaseYear)</p>
-            <p>Цвет: @Html.TextBoxFor(x => x.Color)</p>
-            <p>Кузов: @Html.TextBoxFor(x => x.Body)</p>
-            <input type="submit" value="Сохранить данные" class="button" />
-        }
+<i class="close icon"></i>
+<div class="header">
+    Новое транспортное средство
+</div>
+<div class="content">
+    @using (Html.BeginForm("Add", "Vehicle", FormMethod.Post, new { @class = "ui form" }))
+    {
+        <div class="field">Марка: @Html.TextBoxFor(x => x.Brand)</div>
+        <div class="field">Модель: @Html.TextBoxFor(x => x.Model)</div>
+        <div class="field">Год выпуска: @Html.TextBoxFor(x => x.ReleaseYear)</div>
+        <div class="field">Цвет: @Html.TextBoxFor(x => x.Color)</div>
+        <div class="field">Кузов: @Html.TextBoxFor(x => x.Body)</div>
+        @*<input type="submit" value="Сохранить данные" class="button" />*@
+    }
+</div>
+<div class="actions">
+    <div class="ui black deny button">
+        Отмена
     </div>
+    <div class="ui positive button">
+        Добавить
+    </div>
+</div>

@@ -1,0 +1,42 @@
+﻿@model CarNotes.Models.RefuelModel
+@using CarNotes.Classes
+@using CarNotes.Models
+@{List<GasStationModel> gasStation = new RefuelHelper().GetGasStationsList();}
+<i class="close icon"></i>
+<div class="header">
+    Новая заправка
+</div>
+<div class="content">
+
+    @using (Html.BeginForm("Create", "Refuel", FormMethod.Post, new { @class = "ui form" }))
+    {
+        <div class="field">Дата: @Html.TextBoxFor(x => x.Date, new { @class = "MyDateRangePicker" })</div>
+        <div class="field">Пробег: @Html.TextBoxFor(x => x.Mileage)</div>
+        <div class="field">Тип топлива: @Html.DropDownList("Fuel", new SelectList(new string[] { "A80", "A92", "A95", "A98" }), new { @class = "ui fluid dropdown" })</div>
+        <div class="field">АЗС: @Html.DropDownListFor(x => x.Station, new SelectList(gasStation, "Id", "Name"), new { @onchange = "changeSelectList(event)", @class = "ui fluid dropdown" })</div>
+        <div class="field" style="display:none">Введите название АЗС: @Html.TextBoxFor(x => x.CustomStation)</div>
+        <div class="field">Объем: @Html.TextBoxFor(x => x.Volume)</div>
+        <div class="field">Цена: @Html.TextBoxFor(x => x.PricePerOneLiter)</div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input type="checkbox" name="FullTankCheckbox" />
+                <label>Полный бак</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input type="checkbox" name="ForgotRecordPreviousGasStationCheckbox" />
+                <label>Забыл внести предыдущие данные</label>
+            </div>
+        </div>
+    }
+</div>
+<div class="actions">
+    <div class="ui black deny button">
+        Отмена
+    </div>
+    <div class="ui positive button">
+        Создать
+    </div>
+</div>
+

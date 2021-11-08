@@ -88,7 +88,9 @@ function addCarPart(id)
 **/
 function createTable(id) {
     var elem = document.getElementById(id);
-    var elementTBody = elem.getElementsByTagName('tbody')
+    var elemTable = elem.getElementsByTagName('table');
+    elemTable[0].style.display = "";
+    var elementTBody = elem.getElementsByTagName('tbody');
     var tableRow = document.createElement('tr');
     var amount = elementTBody[0].rows.length;
     createCellInput(tableRow, "Parts[" + amount + "].Name");
@@ -99,11 +101,16 @@ function createTable(id) {
     var cell = document.createElement('td');
     cell.innerHTML = "&times";
     cell.addEventListener("click", function () {
-        elemSelect[0].style.display = "none";
+
+        if (cell.closest('tbody').children.length == 1) {
+            cell.closest('table').style.display = "none";
+        }
         cell.parentElement.remove();
     })
     tableRow.appendChild(cell);
     elementTBody[0].append(tableRow);
+    var elemSelect = tableRow.getElementsByTagName('select');
+    $(elemSelect).dropdown();
 }
 /**создание элемента input для ячейки таблицы с системами и подсистемами
  * @param {any} tableRow ссылка на элемент строки в таблице
@@ -126,7 +133,9 @@ function createCellsSelect(tableRow, name, val) {
     var cellSystem = document.createElement('td');
     var cellSubsystem = document.createElement('td');
     var selectSystem = document.createElement('select');
+    selectSystem.classList.add("ui", "fluid", "dropdown");
     var selectSubsystem = document.createElement('select');
+    selectSubsystem.classList.add("ui", "fluid", "dropdown", "subsystem");
     selectSystem.onchange = changeSubsystem;
     selectSystem.name = name.replace('SubSystemId', 'SystemId');
     selectSubsystem.name = name;
@@ -159,7 +168,8 @@ function createCellsSelect(tableRow, name, val) {
  * @param selectElement ссылка на список подсистем, которые нужно удалить
  */
 function removeOptions(selectElement) {
-    var i, L = selectElement.options.length - 1;
+
+    var i, L = selectElement.getElementsByTagName("option").length - 1;
     for (i = L; i >= 0; i--) {
         selectElement.remove(i);
     }
@@ -170,7 +180,7 @@ function removeOptions(selectElement) {
  */
 function changeSubsystem(event) {
     var selectSystem = event.target;
-    var selectSubsystem = selectSystem.parentElement.nextElementSibling.childNodes[0];
+    var selectSubsystem = selectSystem.closest("tr").getElementsByClassName("subsystem")[0].getElementsByTagName("select")[0];
     var selectValueSystem = selectSystem.value;
     removeOptions(selectSubsystem);
     for (var j = 0; j < system[selectValueSystem - 1].CarSubsystems.length; j++) {
@@ -201,10 +211,12 @@ function changeSelectList(e)
 {
     var inputStation = e.target;
     if (inputStation.value == "1") {
-        inputStation.parentElement.nextElementSibling.style.display = "inline-block";
+        $(inputStation.parentElement.parentElement.nextElementSibling).slideDown();
+        //inputStation.parentElement.parentElement.nextElementSibling.style.display = "inline-block";
     }
     else if (inputStation.value != "1") {
-        inputStation.parentElement.nextElementSibling.style.display = "none";
+        $(inputStation.parentElement.parentElement.nextElementSibling).slideUp();
+        //inputStation.parentElement.parentElement.nextElementSibling.style.display = "none";
     }
 }
 //SubMenu BasicTemplate
@@ -216,12 +228,29 @@ function changeSelectList(e)
 function popup(str) {
     if (str == "Новый ремонт")
         $('#newRepairWindow')
+            .modal({
+                autofocus: false,
+                onApprove: function () {
+                    document.getElementById("newRepairWindow").getElementsByTagName("form")[0].submit();
+                },
+                onVisible: () => {
+                    $("#newRepairWindow select").dropdown();
+                }
+            })
             .modal('show');
     else if (str == "Новая заправка") {
         $('#newRefuelWindow')
             .modal({
+                autofocus: false,
                 onApprove: function () {
                     document.getElementById("newRefuelWindow").getElementsByTagName("form")[0].submit();
+                },
+                onVisible: () => {
+                    $("#newRefuelWindow select").dropdown();
+                    $("#newRefuelWindow .ui.checkbox").checkbox();
+                },
+                onHidden: () => {
+                    $("#newRefuelWindow form")[0].reset();
                 }
             })
             .modal('show');
@@ -272,7 +301,18 @@ function editRefuel(id)
     fetch("/Refuel/Get?id=" + id)
         .then(response => response.json())
         .then((data) => {
-            //console.log(data);
+            $('#EditRefuelData').modal({
+                autofocus:false,
+                onVisible: () => {
+                    $('#EditRefuelData select').dropdown();
+                    $('#EditRefuelData .ui.checkbox').checkbox();
+                },
+                onApprove: function () {
+                    RefuelEditSubmit();
+                    document.getElementById('EditRefuelData').getElementsByTagName("form")[0].submit();
+                }
+                })
+                .modal('show');
             var elementsForm = document.getElementById('formEdit');
             elementsForm.Date.value = data.Date;
             elementsForm.Mileage.value = data.Mileage;
@@ -290,7 +330,8 @@ function editRefuel(id)
             elementsForm.FullTankCheckbox.checked = data.FullTank;
             elementsForm.ForgotRecordPreviousGasStationCheckbox.checked = data.ForgotRecordPreviousGasStation;
             elementsForm.Id.value = data.Id;
-            document.getElementById('EditRefuelData').style.display = 'inline-block';
+            
+            //document.getElementById('EditRefuelData').style.display = 'inline-block';
         }, () => {
                 alert("Произошла ошибка");
         });
@@ -303,8 +344,8 @@ function editRefuel(id)
 function RefuelEditSubmit()
 {
     var elementsForm = document.getElementById('formEdit');
-    elementsForm.children.FullTank.value = elementsForm.children.FullTankCheckbox.checked;
-    elementsForm.children.ForgotRecordPreviousGasStation.value = elementsForm.children.ForgotRecordPreviousGasStationCheckbox.checked;
+    elementsForm.children.FullTank.value = elementsForm.children[7].getElementsByTagName('input')[0].checked;
+    elementsForm.children.ForgotRecordPreviousGasStation.value = elementsForm.children[9].getElementsByTagName('input').ForgotRecordPreviousGasStationCheckbox.checked;
     return true;
 }
 
@@ -335,14 +376,21 @@ function editRepair(id)
     fetch("/Repair/Get?id=" + id)
         .then(response => response.json())
         .then((data) => {
+            $('#EditRepairData').modal({
+                autofocus: false,
+                onApprove: function () {
+                    document.getElementById('EditRepairData').getElementsByTagName("form")[0].submit();
+                }
+            })
+                .modal('show');
             var elementsForm = document.getElementById('RepairFormEdit');
-            elementsForm.children.Date.value = data.Date;
-            elementsForm.children.Mileage.value = data.Mileage;
-            elementsForm.children.Repair.value = data.Repair;
-            elementsForm.children.CarService.value = data.CarService;
-            elementsForm.children.RepairCost.value = data.RepairCost;
-            elementsForm.children.Comments.value = data.Comments;
-            elementsForm.children.Id.value = data.Id;
+            elementsForm.Date.value = data.Date;
+            elementsForm.Mileage.value = data.Mileage;
+            elementsForm.Repair.value = data.Repair;
+            elementsForm.CarService.value = data.CarService;
+            elementsForm.RepairCost.value = data.RepairCost;
+            elementsForm.Comments.value = data.Comments;
+            elementsForm.Id.value = data.Id;
             var elem = document.getElementById("EditRepairData");
             var elementTbody = elem.getElementsByTagName("tbody");
             for (var i = 0; i < data.Parts.length; i++) {

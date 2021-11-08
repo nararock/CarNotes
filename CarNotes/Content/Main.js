@@ -255,6 +255,17 @@ function popup(str) {
             })
             .modal('show');
     }
+    else if (str == "Добавить новое транспортное средство") {
+        $('#AddVehicle')
+            .modal({
+                onApprove: function () {
+                    document.getElementById("AddVehicle").getElementsByTagName("form")[0].submit();
+                }
+            })
+            .modal('show');
+        //elem = document.getElementsByClassName('Add');
+        //elem[0].style.display = "inline-block";
+    }
 }
 //delete events
 //Repair (Index)

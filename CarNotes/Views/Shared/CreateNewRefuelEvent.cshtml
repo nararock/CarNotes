@@ -7,7 +7,6 @@
     Новая заправка
 </div>
 <div class="content">
-
     @using (Html.BeginForm("Create", "Refuel", FormMethod.Post, new { @class = "ui form" }))
     {
         <div class="field">Дата: @Html.TextBoxFor(x => x.Date, new { @class = "MyDateRangePicker" })</div>

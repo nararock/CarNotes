@@ -22,17 +22,11 @@
             bottom: 0;
         }       
     </style>
-    <script>
-        function up() {
-            elem = document.getElementsByClassName('Add');
-            elem[0].style.display = "inline-block";
-        }
-    </script>
     <script src="@Url.Content("~/Content/Main.js")"></script>
 </head>
 <body>
     @*<input type="button" value="Добавить новое транспортное средство" class="button" onclick="up()"/>*@
-    <div class="Add modal">@Html.Partial("Add", new CarNotes.CnDb.Vehicle())</div>
+    <div class="ui mini modal" id="AddVehicle">@Html.Partial("Add", new CarNotes.CnDb.Vehicle())</div>
     <div>
         @if (Model.Count > 0)
         {

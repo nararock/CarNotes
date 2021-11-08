@@ -10,7 +10,7 @@ namespace CarNotes.Models
     {
         public int Id { get; set; }
         public RecordType Record { get; set; }
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
         public double Mileage { get; set; }
         public double Cost { get; set; }
     }

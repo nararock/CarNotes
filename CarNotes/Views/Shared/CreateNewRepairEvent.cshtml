@@ -1,30 +1,43 @@
-﻿@model CarNotes.Models.RepairModel
-
-    <div class="form">
-        <div class="cross" onclick="clearEvent(event)"><p>&#10008</p></div>
-        @using (Html.BeginForm("Create", "Repair", FormMethod.Post))
-        {
-            <p>Дата: @Html.TextBoxFor(x => x.Date, new { @class = "MyDateRangePicker" })</p>
-            <p>Пробег: @Html.TextBoxFor(x => x.Mileage)</p>
-            <p>Название ремонтных работ: @Html.TextBoxFor(x => x.Repair)</p>
-            <p>Сервис: @Html.TextBoxFor(x => x.CarService)</p>
-            <p>Стоимость ремонтных работ: @Html.TextBoxFor(x => x.RepairCost)</p>
-            <p>Комментарии: @Html.TextBoxFor(x => x.Comments)</p>
-            <input type="button" value="Добавить запчасть" class="button" onclick="addCarPart('newRepairWindow')" />
-            <table>
-                <thead>
-                    <tr>
-                        <th>Название</th>
-                        <th>Система</th>
-                        <th>Подсистема</th>
-                        <th>Производитель</th>
-                        <th>Артикул</th>
-                        <th>Цена</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>  
-            <input type="submit" value="Сохранить данные" class="button" />
-        }
+﻿@using CarNotes.Classes
+@model CarNotes.Models.RepairModel
+<i class="close icon"></i>
+<div class="header">
+    Новый ремонт
+</div>
+<div class="content">
+    @using (Html.BeginForm("Create", "Repair", FormMethod.Post, new { @class = "ui form" }))
+    {
+        <div class="field">Дата: @Html.TextBoxFor(x => x.Date, new { @class = "MyDateRangePicker" })</div>
+        <div class="field">Пробег: @Html.TextBoxFor(x => x.Mileage)</div>
+        <div class="field">Название ремонтных работ: @Html.TextBoxFor(x => x.Repair)</div>
+        <div class="field">Сервис: @Html.TextBoxFor(x => x.CarService)</div>
+        <div class="field">Стоимость ремонтных работ: @Html.TextBoxFor(x => x.RepairCost)</div>
+        <div class="field">Комментарии: @Html.TextBoxFor(x => x.Comments)</div>
+        <div class="ui button" onclick="addCarPart('newRepairWindow')">
+            Добавить запчасть
+        </div>
+        <table style="display:none" class = "ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) table">
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Система</th>
+                    <th>Подсистема</th>
+                    <th>Производитель</th>
+                    <th>Артикул</th>
+                    <th>Цена</th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    }
+</div>
+<div class="actions">
+    <div class="ui black deny button">
+        Отмена
     </div>
+    <div class="ui positive button">
+        Сохранить данные
+    </div>
+</div>
 

@@ -1,26 +1,59 @@
 ﻿@using CarNotes.Classes
 @using CarNotes.Models
-@{List<GasStationModel> gasStation = new RefuelHelper().GetGasStationsList();}
-<form action="/Refuel/Edit" method="post" class="form" id="formEdit">
-    <div class="cross" onclick="clearEvent(event)"><p>&#10008</p></div>
-    <p>Дата: <input type="text" name="Date" class = "MyDateRangePicker"/></p>
-    <p>Пробег: <input type="text" name="Mileage" /></p>
-    <p>Вид топлива: <input type="text" name="Fuel" /></p>
-    <p>
-        АЗС: <select name="Station" onchange="changeSelectList(event)">
-            @foreach (var elem in gasStation)
-            {
-                <option value="@elem.Id">@elem.Name</option>
-            }
-        </select>
-    </p>
-    <p style="display:none"><input type="text" name="CustomStation" /></p>
-    <p>Объем: <input type="text" name="Volume" /></p>
-    <p>Цена: <input type="text" name="PricePerOneLiter" /></p>
-    <p>Полный бак: <input type="checkbox" name="FullTankCheckbox" /></p>
-    <input type="hidden" name="FullTank" />
-    <p>Забыл внести предыдущие данные: <input type="checkbox" name="ForgotRecordPreviousGasStationCheckbox" /></p>
-    <input type="hidden" name="ForgotRecordPreviousGasStation" />
-    <input type="hidden" name="Id" /><br>
-    <input type="submit" value="Сохранить изменения" class="button" onclick="RefuelEditSubmit()" />
-</form>
+@{
+    List<GasStationModel> gasStation = new RefuelHelper().GetGasStationsList();
+}
+<i class="close icon"></i>
+<div class="header">
+    Изменение данных о заправке
+</div>
+<div class="content">
+    <form action="/Refuel/Edit" method="post" class="ui form" id="formEdit">
+        <div class="field">Дата: <input type="text" name="Date" class="MyDateRangePicker" /></div>
+        <div class="field">Пробег: <input type="text" name="Mileage" /></div>
+        <div class="field">
+            Вид топлива: <select name="Fuel" class="ui fluid dropdown">
+                @foreach (var elem in new string[] { "A80", "A92", "A95", "A98" })
+                {
+                    <option>@elem</option>
+                }
+            </select>
+            @*<input type="text" name="Fuel" />*@
+        </div>
+        <div class="field">
+            АЗС: <select name="Station" onchange="changeSelectList(event)" class="ui fluid dropdown">
+                @foreach (var elem in gasStation)
+                {
+                    <option value="@elem.Id">@elem.Name</option>
+                }
+            </select>
+        </div>
+        <p style="display:none"><input type="text" name="CustomStation" /></p>
+        <div class="field">Объем: <input type="text" name="Volume" /></div>
+        <div class="field">Цена: <input type="text" name="PricePerOneLiter" /></div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input type="checkbox" name="FullTankCheckbox" />
+                <label>Полный бак</label>
+            </div>
+        </div>
+        <input type="hidden" name="FullTank" />
+        <div class="field">
+            <div class="ui checkbox">
+                <input type="checkbox" name="ForgotRecordPreviousGasStationCheckbox" />
+                <label>Забыл внести предыдущие данные</label>
+            </div>
+        </div>
+        <input type="hidden" name="ForgotRecordPreviousGasStation" />
+        <input type="hidden" name="Id" /><br>
+        @*<input type="submit" value="Сохранить изменения" class="button" onclick="RefuelEditSubmit()" />*@
+    </form>
+</div>
+<div class="actions">
+    <div class="ui black deny button">
+        Отмена
+    </div>
+    <div class="ui positive button">
+        Изменить
+    </div>
+</div>

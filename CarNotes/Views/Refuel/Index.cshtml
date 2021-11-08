@@ -30,8 +30,18 @@
                     <td>@b.Station</td>
                     <td>@b.Volume</td>
                     <td>@b.PricePerOneLiter</td>
-                    <td>@b.FullTank</td>
-                    <td>@b.ForgotRecordPreviousGasStation</td>
+                    <td>
+                        @if (b.FullTank == true)
+                        {
+                            <i class="check icon"></i>
+                        }
+                    </td>
+                    <td>
+                        @if (b.ForgotRecordPreviousGasStation == true)
+                        {
+                            <i class="check icon"></i>
+                        }
+                    </td>
                     <td><input type="button" value="&#9998" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editRefuel(@b.Id)" /></td>
                     <td><input type="button" value="&#10008" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="deleteRefuel(@b.Id)" /></td>
                 </tr>

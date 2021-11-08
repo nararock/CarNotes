@@ -231,7 +231,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Views\Refuel\Index.cshtml" />
-    <Content Include="Views\Shared\CreateNewEvent.cshtml" />
+    <Content Include="Views\Shared\CreateNewRefuelEvent.cshtml" />
     <Content Include="Views\Repair\Index.cshtml" />
     <Content Include="Views\Shared\CreateNewRepairEvent.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />

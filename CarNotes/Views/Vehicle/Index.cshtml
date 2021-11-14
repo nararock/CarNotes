@@ -30,7 +30,7 @@
     <div>
         @if (Model.Count > 0)
         {
-            <table class="ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) table ">
+            <table class="ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) unstackable table ">
                 <caption>@ViewBag.Name</caption>
                 <thead>
                     <tr>
@@ -51,7 +51,7 @@
                             <td>@element.ReleaseYear</td>
                             <td>@element.Color</td>
                             <td>@element.Body</td>
-                            <td><input type="button" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" value = &#10008 onclick="deleteVehicle(@element.Id)" /></td>
+                            <td><input type="button" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" value=&#10008 onclick="deleteVehicle(@element.Id)" /></td>
                         </tr>
                     }
                 </tbody>               
@@ -59,7 +59,16 @@
         }
         else
         {
-            <p>У вас не добавлено ни одного транспортного средства.</p>
+            <div style="text-align: center">
+                <br />
+                <i class="massive icons">
+                    <i class="big brown dont icon"></i>
+                    <i class="truck monster icon"></i>
+                </i>
+                <br />
+                <br />
+                <h3>            У вас не добавлено ни одного транспортного средства.        </h3>
+            </div>
         }
     </div>
 </body>

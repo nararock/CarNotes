@@ -14,12 +14,12 @@
     <div>
         @using (Html.BeginForm())
         {
-            <p>Логин: @Html.TextBoxFor(x => x.Login)</p>
+            <p>Почта: @Html.TextBoxFor(x => x.Login)</p>
             <p>Пароль: @Html.PasswordFor(x => x.Password)</p>
             @Html.ValidationSummary();
             <input type="submit" value="Войти" class="button" />
         }
-        <a href="/Registration/Index">Регистрация</a>
+        <a href="@Url.Content("~/Registration/Index")">Регистрация</a>
     </div>
 </body>
 </html>

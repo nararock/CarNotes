@@ -6,6 +6,11 @@ document.addEventListener("DOMContentLoaded", ready);
 function ready() {
     updateVehicleSelector();
 
+    $('#vehicleSelect')
+        .dropdown();
+
+    $('.ui.right.dropdown.item').dropdown();
+
     //добавление пустой строки в начало выпадающего списка с АЗС при создании события
     elem = document.getElementById('newRefuelWindow');
     var elemStation = elem.getElementsByTagName("form")[0].Station;

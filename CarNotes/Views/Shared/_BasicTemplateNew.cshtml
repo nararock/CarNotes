@@ -13,7 +13,7 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>_BasicTemplateNew</title>
     <link rel="stylesheet" href="~/Styles/semantic.min.css" />
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -25,6 +25,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     @RenderSection("styles", false)
     <style>
+
         /*стили для header (верхней части)*/
         .container {
             max-width: 1200px;
@@ -73,12 +74,20 @@
                 padding: 8px 10px;
             }
 
+            .navigation:hover a {
+            }
+
         .userInfo {
             flex-direction: column;
             width: 200px;
             height: 100px;
             padding-right: 0;
         }
+
+        .exit:hover::after {
+            content: attr(data-title);
+        }
+
         /*стили для contant (для средней части, контента)*/
         .contant {
             max-width: 1200px;
@@ -86,10 +95,30 @@
             margin-right: auto;
             margin-top: 40px;
         }
+
+        @@media screen and (min-width: 500px) {
+            .visibleOnPC {
+                display: block;
+            }
+
+            .visibleOnMobile {
+                display: none;
+            }
+        }
+
+        @@media screen and (max-width: 499px) {
+            .visibleOnPC {
+                display: none;
+            }
+
+            .visibleOnMobile {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="header">
+    <div class="header visibleOnPC">
         <div class="container">
             <div class="imageBlock"><img src="~/Content/logoCarNotes1.jpg" class="image" /></div><nav class="navigation">
                 <ul>
@@ -97,7 +126,6 @@
                     {
                         <li><a href="@Url.Content(l.MethodLink)" class="link large ui @l.Color tertiary button">@l.NameLink</a></li>
                     }
-                    @*<li><a href="@Url.Content("~/Vehicle/Index")" class="link large ui brown tertiary button">Гараж</a></li>*@
                 </ul>
             </nav><div class="userInfo">
                 @if (!isVerified)
@@ -107,33 +135,75 @@
                 }
                 else
                 {
-                    <p class="userName">@userName</p>
-                    <p><a href="@Url.Content("~/Login/LogOut")">Выйти</a></p>
+                    <p class="userName"><i class="user circle outline icon"></i>@userName <a href="@Url.Content("~/Login/LogOut")" class="exit" data-title="Выйти"><i class="sign in alternate icon"></i></a></p>
+                    @*<p class="exit" data-title="Выйти"></p>*@
+
                     <p>
                         @if (vehicles.Count >= 1)
                         {
                             if (vehicles.Count == 1)
                             {
-                                <select size="1" id="vehicleSelect" onchange="changeData()" style="display:none">
-                                    @foreach (var element in vehicles)
-                                    {
-                                        <option value="@element.Id">@element.Brand  @element.Model  @element.ReleaseYear </option>
-                                    }
-                                </select>
-                                <span>@vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear</span>
+                                <span id="spanVehicle" data-value="@vehicles[0].Id"><i class="car side icon"></i><strong>@vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear</strong></span>
                             }
                             else
                             {
-                                <select size="1" id="vehicleSelect" onchange="changeData()">
-                                    @foreach (var element in vehicles)
-                                    {
-                                        <option value="@element.Id">@element.Brand  @element.Model  @element.ReleaseYear </option>
-                                    }
-                                </select>
+                                <span>
+                                    <div class="ui inline dropdown " id="vehicleSelect" size="1">
+                                        <div class="text">
+                                            <i class="car side icon"></i>
+                                            @vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear
+                                        </div>
+                                        <i class="dropdown icon"></i>
+                                        <div class="menu">
+                                            @foreach (var element in vehicles)
+                                            {
+                                                <div class="item" data-value="@element.Id" onclick="changeData(@element.Id)">
+                                                    <i class="car side icon"></i>
+                                                    @element.Brand @element.Model @element.ReleaseYear
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </span>
                             }
                         }
                     </p>
                 }
+            </div>
+        </div>
+    </div>
+    <div class="visibleOnMobile">
+        <div class="ui text menu">
+            <div class="item">
+                <img class="ui small image" src="~/Content/logoCarNotes1.jpg" />
+            </div>
+            <div class="ui right dropdown icon item">
+                <i class="th large icon"></i>
+                @*Меню<i class="dropdown icon"></i>*@
+                <div class="menu">
+                    @foreach (CarNotes.Models.LinkMenuModel l in menu)
+                    {
+                        <div class="item"><a href="@Url.Content(l.MethodLink)" @*class="link small ui tertiary button"*@>@l.NameLink</a></div>
+                    }
+                    <div class="divider"></div>
+                    <div class="item"><i class="user circle outline icon"></i>@userName</div>
+                    @if (vehicles.Count > 0)
+                    {
+                        <div class="ui inline dropdown item" id="vehicleSelect" size="1">
+                            <i class="dropdown icon"></i><div class="text">
+                                @vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear
+                            </div>
+                            <div class="menu">
+                                @foreach (var element in vehicles)
+                                {
+                                    <div class="item" data-value="@element.Id" onclick="changeData(@element.Id)">
+                                        @element.Brand @element.Model @element.ReleaseYear
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>

@@ -68,24 +68,34 @@ function ready() {
  * установка куки при загрузке страницы (если не определено)/выбор автотранспорта из имеющего списка (при определенной куки)
  * */
 function updateVehicleSelector() {
-    var elem = document.getElementById('vehicleSelect');
     var vehicleIdCookie = getCookie('vehicleId');
-    if (elem.children.length == 0) { return; }
+    var span = document.getElementById('spanVehicle');
+    if (span != null) {
+        if (vehicleIdCookie == undefined) {
+            setCookie('vehicleId', span.dataset.value);
+        }
+        return;
+    }
+
+    var select = document.getElementById('vehicleSelect');
+    if (select == null) return;
     if (vehicleIdCookie == undefined) {
-        elem.children[0].selected = true;
-        setCookie('vehicleId', elem.value);
+        select.children[0].selected = true;
+        setCookie('vehicleId', select.value);
     }
     else if (vehicleIdCookie != undefined) {
-        elem.value = vehicleIdCookie;
+        $('#vehicleSelect').dropdown('set selected', vehicleIdCookie);
+        //elem.value = vehicleIdCookie;
     }
-    elem.addEventListener("change", function () {
-        setCookie('vehicleId', elem.value);
-    })
+    
+
+
+
+    
 }
 //CreateRepairEvent and RepairEdit
 //CarParts
-function addCarPart(id)
-{
+function addCarPart(id) {
     createTable(id);
 }
 /**формирование полей таблицы с системами и подсистемами для создания (или правки) события ремонта
@@ -161,13 +171,13 @@ function createCellsSelect(tableRow, name, val) {
         var optionSubsystem = document.createElement('option');
         optionSubsystem.innerHTML = system[index].CarSubsystems[j].Name;
         optionSubsystem.value = system[index].CarSubsystems[j].Id;
-        selectSubsystem.append(optionSubsystem);   
+        selectSubsystem.append(optionSubsystem);
     }
     cellSystem.appendChild(selectSystem);
     cellSubsystem.append(selectSubsystem);
     tableRow.appendChild(cellSystem);
     tableRow.appendChild(cellSubsystem);
-    
+
 }
 /**удаление списка подсистем из таблицы с деталями автотранспорта при срабатывании события типа сменя системы
  * @param selectElement ссылка на список подсистем, которые нужно удалить
@@ -199,12 +209,12 @@ function changeSubsystem(event) {
 //change select vehicle
 /**функция срабатывает на событие смены транспортного средства, смена параметра транпсортного средства (vehicleId) в адресной строке
  * */
-function changeData()
-{
-    var elem = document.getElementById('vehicleSelect');
-    var vehicle = elem.value;
+function changeData(Id) {
+    //var elem = document.getElementById('vehicleSelect');
+    //var vehicle = elem.value;
+    setCookie('vehicleId', Id);
     var location = window.location;
-    location.search = "?vehicleId=" + vehicle;
+    location.search = "?vehicleId=" + Id;
 }
 //CreateRefuelEvent and RefuelEdit
 /**срабатывает на событие смены название АЗС в списке при создании или редактировании события заправки автотранспорта
@@ -212,8 +222,7 @@ function changeData()
  * 
  * @param {any} e параметр, который был выбран при событии (option)
  */
-function changeSelectList(e)
-{
+function changeSelectList(e) {
     var inputStation = e.target;
     if (inputStation.value == "1") {
         $(inputStation.parentElement.parentElement.nextElementSibling).slideDown();
@@ -268,8 +277,6 @@ function popup(str) {
                 }
             })
             .modal('show');
-        //elem = document.getElementsByClassName('Add');
-        //elem[0].style.display = "inline-block";
     }
 }
 //delete events
@@ -278,8 +285,7 @@ function popup(str) {
  * срабатывает на событие нажатия на "крестик" в таблице с событиями ремонта
  * @param {any} id номер события, которое нужно удалить из таблицы с ремонтами, вызывается соотвествующий метод контроллера Repair  
  */
-function deleteRepair(id)
-{
+function deleteRepair(id) {
     document.location = "/Repair/Delete?id=" + id;
 }
 
@@ -288,8 +294,7 @@ function deleteRepair(id)
  * срабатывает на событие нажатия на "крестик" в таблице с событиями заправки
  * @param {any} id номер события, которое нужно удалить из таблицы с заправками, вызывается соотвествующий метод контроллера Refuel
  */
-function deleteRefuel(id)
-{
+function deleteRefuel(id) {
     document.location = "/Refuel/Delete?id=" + id;
 }
 
@@ -300,9 +305,8 @@ function deleteRefuel(id)
  * @param {any} record название удаляемого события
  * @param {any} id номер удаляемого события в соотвествующей событию таблице
  */
-function deleteCommon(record, id)
-{
-   document.location = "/Home/DeleteEvent?record=" + record + "&id=" + id;
+function deleteCommon(record, id) {
+    document.location = "/Home/DeleteEvent?record=" + record + "&id=" + id;
 }
 
 //edit events
@@ -312,13 +316,12 @@ function deleteCommon(record, id)
  * открыает окно для редактирования события, где заполняет форму редактирования данными выбранного события (id)
  * @param {any} id номер события заправки для редактирования
  */
-function editRefuel(id)
-{
+function editRefuel(id) {
     fetch("/Refuel/Get?id=" + id)
         .then(response => response.json())
         .then((data) => {
             $('#EditRefuelData').modal({
-                autofocus:false,
+                autofocus: false,
                 onVisible: () => {
                     $('#EditRefuelData select').dropdown();
                     $('#EditRefuelData .ui.checkbox').checkbox();
@@ -327,7 +330,7 @@ function editRefuel(id)
                     RefuelEditSubmit();
                     document.getElementById('EditRefuelData').getElementsByTagName("form")[0].submit();
                 }
-                })
+            })
                 .modal('show');
             var elementsForm = document.getElementById('formEdit');
             elementsForm.Date.value = data.Date;
@@ -346,10 +349,10 @@ function editRefuel(id)
             elementsForm.FullTankCheckbox.checked = data.FullTank;
             elementsForm.ForgotRecordPreviousGasStationCheckbox.checked = data.ForgotRecordPreviousGasStation;
             elementsForm.Id.value = data.Id;
-            
+
             //document.getElementById('EditRefuelData').style.display = 'inline-block';
         }, () => {
-                alert("Произошла ошибка");
+            alert("Произошла ошибка");
         });
 }
 
@@ -357,8 +360,7 @@ function editRefuel(id)
  * срабатывает на событие нажатия на кнопку "Сохранить изменения" в окне редактирования события
  * устанавливает значение полей типа checkbox в параметре value для отправки формы при сохранении изменений
  * */
-function RefuelEditSubmit()
-{
+function RefuelEditSubmit() {
     var elementsForm = document.getElementById('formEdit');
     elementsForm.children.FullTank.value = elementsForm.children[7].getElementsByTagName('input')[0].checked;
     elementsForm.children.ForgotRecordPreviousGasStation.value = elementsForm.children[9].getElementsByTagName('input').ForgotRecordPreviousGasStationCheckbox.checked;
@@ -387,8 +389,7 @@ function createCellRepairInput(tableRow, value, name) {
  * открывает окно для редактирования события, где заполняет форму редактирования данными выбранного события (id)
  * @param {any} id номер события заправки для редактирования
  */
-function editRepair(id)
-{
+function editRepair(id) {
     fetch("/Repair/Get?id=" + id)
         .then(response => response.json())
         .then((data) => {
@@ -414,19 +415,19 @@ function editRepair(id)
                 createCellRepairInput(tableRow, data.Parts[i].Name, "Parts[" + i + "].Name");
                 //createCellRepairSelect(tableRow, data.Parts[i].CarSubsystemModel, "Parts[" + i + "].CarSubsystemModel");
                 createCellsSelect(tableRow, "Parts[" + i + "].SubSystemId", data.Parts[i]);
-                createCellRepairInput(tableRow, data.Parts[i].CarManufacturer, "Parts["+i+"].CarManufacturer");
-                createCellRepairInput(tableRow, data.Parts[i].Article, "Parts["+i+"].Article");
+                createCellRepairInput(tableRow, data.Parts[i].CarManufacturer, "Parts[" + i + "].CarManufacturer");
+                createCellRepairInput(tableRow, data.Parts[i].Article, "Parts[" + i + "].Article");
                 createCellRepairInput(tableRow, data.Parts[i].Price, "Parts[" + i + "].Price");
                 /*ячейка со скрытым значением Id*/
                 var inputId = document.createElement('input');
-                inputId.name = "Parts[" + i +"].Id";
+                inputId.name = "Parts[" + i + "].Id";
                 inputId.type = "hidden";
                 inputId.value = data.Parts[i].Id;
                 /*скрытая ячейка с булевым значением удаляется ли ячейка */
                 var inputDelete = document.createElement('input');
                 inputDelete.type = "hidden";
                 inputDelete.className = "inputDelete";
-                inputDelete.name = "Parts[" + i +"].IsDeleted";
+                inputDelete.name = "Parts[" + i + "].IsDeleted";
                 /*ячейка с событием скрытия поля по нажатию крестик*/
                 var cell = document.createElement('td');
                 cell.innerHTML = "&times";
@@ -441,9 +442,9 @@ function editRepair(id)
                 elementTbody[0].append(tableRow);
             }
             document.getElementById('EditRepairData').style.display = 'inline-block';
-            }, () => {
-                alert("Произошла ошибка");
-            });
+        }, () => {
+            alert("Произошла ошибка");
+        });
 }
 
 //Home (Index)
@@ -453,13 +454,11 @@ function editRepair(id)
  * @param {any} record название редактируемого события
  * @param {any} id номер события в соотвествующей таблице событий
  */
-function editCommon(record, id)
-{
+function editCommon(record, id) {
     if (record == 'Refuel') {
         editRefuel(id);
     }
-    else if (record == 'Repair')
-    {
+    else if (record == 'Repair') {
         editRepair(id);
     }
 }
@@ -469,8 +468,7 @@ function editCommon(record, id)
  * скрывает форму соотвествующего события при нажатии на крестик
  * @param {any} event элемент из соотвествующего окна, по которому произошло событие нажатия
  */
-function closeWindow(event)
-{
+function closeWindow(event) {
     var elem = event.target;
     var parent = elem.closest('.modal');
     parent.style.display = "none";

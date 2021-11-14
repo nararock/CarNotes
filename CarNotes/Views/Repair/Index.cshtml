@@ -4,7 +4,7 @@
     Layout = "../Shared/_TableTemplate.cshtml";
 }
 <div>
-    <table class="ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) table ">
+    <table class="ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) unstackable table ">
         <caption>@ViewBag.Name</caption>
         <thead>
             <tr>

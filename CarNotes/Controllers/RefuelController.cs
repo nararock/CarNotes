@@ -32,15 +32,17 @@ namespace CarNotes.Controllers
             }
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Redirect("~/Registration/Index");
+                return Redirect("~/Login/Index");
             }
-            var vehicleIDCookie = HttpContext.Request.Cookies.Get("vehicleId")?.Value;
-            if (vehicleIDCookie != null)
+            // Проверяем, что в куке было число
+            var vehicleIdCookie = HttpContext.Request.Cookies.Get("vehicleId")?.Value;
+            int vehicleIdNumber;
+            if (int.TryParse(vehicleIdCookie, out vehicleIdNumber))
             {
-                return Redirect("~/Refuel/Index?vehicleId=" + vehicleIDCookie);
+                return Redirect("~/Refuel/Index?vehicleId=" + vehicleIdNumber);
             }
             var userId = new AuthHelper(HttpContext).AuthenticationManager.User.Identity.GetUserId();
-            vehicleId = new CnDbContext().Users.Find(userId).Vehicles.FirstOrDefault().Id;
+            vehicleId = new CnDbContext().Users.Find(userId).Vehicles.FirstOrDefault()?.Id;
             if (vehicleId != null) return Redirect("~/Refuel/Index?vehicleId=" + vehicleId);
             return Redirect("~/Vehicle/Index");
         }

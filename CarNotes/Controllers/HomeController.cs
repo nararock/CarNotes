@@ -36,10 +36,11 @@ namespace CarNotes.Controllers
             {
                 return Redirect("~/Login/Index");
             }
-            var vehicleIDCookie = HttpContext.Request.Cookies.Get("vehicleId")?.Value;
-            if (vehicleIDCookie != null)
+            var vehicleIdCookie = HttpContext.Request.Cookies.Get("vehicleId")?.Value;
+            int vehicleIdNumber;
+            if (int.TryParse(vehicleIdCookie, out vehicleIdNumber))
             {
-                return Redirect("~/Home/Index?vehicleId=" +  vehicleIDCookie);
+                return Redirect("~/Home/Index?vehicleId=" + vehicleIdNumber);
             }
             var userId = new AuthHelper(HttpContext).AuthenticationManager.User.Identity.GetUserId();
             vehicleId = new CnDbContext().Users.Find(userId).Vehicles.FirstOrDefault()?.Id;

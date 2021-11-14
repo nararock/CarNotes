@@ -60,10 +60,5 @@ namespace CarNotes.Controllers
             }
             return Redirect("~/Home/Index");
         }
-
-        public ActionResult Test()
-        {
-            return View("~/Views/Shared/_BasicTemplateNew.cshtml");
-        }
     }
 }

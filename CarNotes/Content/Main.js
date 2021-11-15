@@ -9,7 +9,7 @@ function ready() {
     $('#vehicleSelect')
         .dropdown();
 
-    $('.ui.right.dropdown.item').dropdown();
+    $('#mobile-header .dropdown').dropdown();
 
     //добавление пустой строки в начало выпадающего списка с АЗС при создании события
     elem = document.getElementById('newRefuelWindow');

@@ -125,8 +125,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\cookie.min.js" />
-    <Content Include="Content\logoCar.png" />
-    <Content Include="Content\logoCarNotes1.jpg" />
+    <Content Include="Content\logo_big.png" />
+    <Content Include="Content\logo_small.png" />
     <Content Include="Content\Main.js" />
     <Content Include="Global.asax" />
     <Content Include="Styles\semantic.min.css" />

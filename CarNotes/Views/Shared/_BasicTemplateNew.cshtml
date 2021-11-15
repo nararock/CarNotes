@@ -28,19 +28,23 @@
 
         /*стили для header (верхней части)*/
         .container {
-            max-width: 1200px;
             height: 100px;
-            margin: 0 auto;
             display: flex;
             flex-flow: row nowrap;
             justify-content: flex-start;
             align-items: center;
         }
 
-        .imageBlock {
-            width: 200px;
-            height: 100px;
-            display: inline-block;
+        #logo > img {
+            width: 80px;
+            height: 92px;
+        }
+
+        #logo-text {
+            font-variant: small-caps;
+            margin-left: 8px;
+            font-size: 16px;
+            padding-bottom: 7px;
         }
 
         .image {
@@ -96,31 +100,90 @@
             margin-top: 40px;
         }
 
-        @@media screen and (min-width: 500px) {
-            .visibleOnPC {
-                display: block;
-            }
-
-            .visibleOnMobile {
-                display: none;
-            }
+        .userName {
+            margin-top: 0.5em !important;
+            margin-bottom: 0.5em
         }
 
-        @@media screen and (max-width: 499px) {
-            .visibleOnPC {
-                display: none;
+        /* Стили для мобильных телефонов */
+        @@media screen and (max-width: 767.98px) {
+            .large-monitor-only,
+            .small-monitor-only,
+            .tablet-only {
+                display: none !important;
             }
 
-            .visibleOnMobile {
-                display: block;
+            #logo > img {
+                width: 53px;
+                height: 61px;
+            }
+
+            #logo-text {
+                margin-left: 6px;
+                font-size: 14px;
+                padding-bottom: 2px;
+            }
+        }
+        /* Стили для планшетов */
+        @@media only screen and (min-width: 768px) and (max-width: 991.98px) {
+            .large-monitor-only,
+            .small-monitor-only,
+            .mobile-only {
+                display: none !important;
+            }
+
+            #logo > img {
+                width: 53px;
+                height: 61px;
+            }
+
+            #logo-text {
+                margin-left: 6px;
+                font-size: 14px;
+                padding-bottom: 5px;
+            }
+
+            .userInfo {
+                flex-direction: column;
+                width: 180px;
+                height: 100px;
+                padding-right: 0;
+                font-size: 13px;
+            }
+
+            .userName {
+                margin-top: 1em !important;
+            }
+        }
+        /* Стили для небольших экранов */
+        @@media only screen and (min-width: 992px) and (max-width: 1199.98px) {
+            .large-monitor-only,
+            .tablet-only,
+            .mobile-only {
+                display: none !important;
+            }
+        }
+        /* Стили для больших экранов */
+        @@media only screen and (min-width: 1200px) {
+            .small-monitor-only,
+            .tablet-only,
+            .mobile-only {
+                display: none !important;
             }
         }
     </style>
 </head>
 <body>
-    <div class="header visibleOnPC">
+    <div class="ui container large-monitor-only">
         <div class="container">
-            <div class="imageBlock"><img src="~/Content/logoCarNotes1.jpg" class="image" /></div><nav class="navigation">
+            <div id="logo">
+                <img src="~/Content/logo_small.png" class="image" />
+            </div>
+            <div id="logo-text">
+                Записки<br />
+                Автомобилиста
+            </div>
+            <nav class="navigation">
                 <ul>
                     @foreach (CarNotes.Models.LinkMenuModel l in menu)
                     {
@@ -138,76 +201,197 @@
                     <p class="userName"><i class="user circle outline icon"></i>@userName <a href="@Url.Content("~/Login/LogOut")" class="exit" data-title="Выйти"><i class="sign in alternate icon"></i></a></p>
                     @*<p class="exit" data-title="Выйти"></p>*@
 
-                    <p>
+                    <div>
                         @if (vehicles.Count >= 1)
                         {
                             if (vehicles.Count == 1)
                             {
-                                <span id="spanVehicle" data-value="@vehicles[0].Id"><i class="car side icon"></i><strong>@vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear</strong></span>
+                                <i class="car side icon"></i><strong id="spanVehicle" data-value="@vehicles[0].Id">@vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear</strong>
                             }
                             else
                             {
-                                <span>
-                                    <div class="ui inline dropdown " id="vehicleSelect" size="1">
-                                        <div class="text">
-                                            <i class="car side icon"></i>
-                                            @vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear
-                                        </div>
-                                        <i class="dropdown icon"></i>
-                                        <div class="menu">
-                                            @foreach (var element in vehicles)
-                                            {
-                                                <div class="item" data-value="@element.Id" onclick="changeData(@element.Id)">
-                                                    <i class="car side icon"></i>
-                                                    @element.Brand @element.Model @element.ReleaseYear
-                                                </div>
-                                            }
-                                        </div>
+                                <i class="car side icon"></i>
+                                <div class="ui inline dropdown " id="vehicleSelect" size="1">
+                                    <div class="text">
+                                        @vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear
                                     </div>
-                                </span>
+                                    <i class="dropdown icon"></i>
+                                    <div class="menu">
+                                        @foreach (var element in vehicles)
+                                        {
+                                            <div class="item" data-value="@element.Id" onclick="changeData(@element.Id)">
+                                                @element.Brand @element.Model @element.ReleaseYear
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
                             }
                         }
-                    </p>
+                    </div>
                 }
             </div>
         </div>
     </div>
-    <div class="visibleOnMobile">
-        <div class="ui text menu">
-            <div class="item">
-                <img class="ui small image" src="~/Content/logoCarNotes1.jpg" />
+    <div class="ui container small-monitor-only">
+        <div class="container">
+            <div id="logo">
+                <img src="~/Content/logo_small.png" class="image" />
             </div>
-            <div class="ui right dropdown icon item">
-                <i class="th large icon"></i>
-                @*Меню<i class="dropdown icon"></i>*@
-                <div class="menu">
+            <div id="logo-text">
+                Записки<br />
+                Автомобилиста
+            </div>
+            <nav class="navigation">
+                <ul>
                     @foreach (CarNotes.Models.LinkMenuModel l in menu)
                     {
-                        <div class="item"><a href="@Url.Content(l.MethodLink)" @*class="link small ui tertiary button"*@>@l.NameLink</a></div>
+                        <li><a href="@Url.Content(l.MethodLink)" class="link large ui @l.Color tertiary button">@l.NameLink</a></li>
                     }
-                    <div class="divider"></div>
-                    <div class="item"><i class="user circle outline icon"></i>@userName</div>
-                    @if (vehicles.Count > 0)
+                </ul>
+            </nav><div class="userInfo">
+                @if (!isVerified)
+                {
+                    <p class="topLetters"><a href="@Url.Content("~/Registration/Index")">Зарегистрироваться</a></p>
+                    <p class="topLetters"><a href="@Url.Content("~/Login/Index")">Вход</a></p>
+                }
+                else
+                {
+                    <p class="userName"><i class="user circle outline icon"></i>@userName <a href="@Url.Content("~/Login/LogOut")" class="exit" data-title="Выйти"><i class="sign in alternate icon"></i></a></p>
+                    @*<p class="exit" data-title="Выйти"></p>*@
+
+                  <div>
+                      @if (vehicles.Count >= 1)
+                      {
+                          if (vehicles.Count == 1)
+                          {
+                              <i class="car side icon"></i><strong id="spanVehicle" data-value="@vehicles[0].Id">@vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear</strong>
+                          }
+                          else
+                          {
+                              <i class="car side icon"></i>
+                              <div class="ui inline dropdown " id="vehicleSelect" size="1">
+                                  <div class="text">
+                                      @vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear
+                                  </div>
+                                  <i class="dropdown icon"></i>
+                                  <div class="menu">
+                                      @foreach (var element in vehicles)
+                                      {
+                                          <div class="item" data-value="@element.Id" onclick="changeData(@element.Id)">
+                                              @element.Brand @element.Model @element.ReleaseYear
+                                          </div>
+                                      }
+                                  </div>
+                              </div>
+                          }
+                      }
+                  </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="ui container tablet-only">
+        <div class="container">
+            <div id="logo">
+                <img src="~/Content/logo_small.png" class="image" />
+            </div>
+            <div id="logo-text">
+                Записки<br />
+                Автомобилиста
+            </div>
+            <nav class="navigation">
+                <ul>
+                    @foreach (CarNotes.Models.LinkMenuModel l in menu)
                     {
-                        <div class="ui inline dropdown item" id="vehicleSelect" size="1">
-                            <i class="dropdown icon"></i><div class="text">
-                                @vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear
-                            </div>
-                            <div class="menu">
-                                @foreach (var element in vehicles)
-                                {
-                                    <div class="item" data-value="@element.Id" onclick="changeData(@element.Id)">
-                                        @element.Brand @element.Model @element.ReleaseYear
-                                    </div>
-                                }
-                            </div>
-                        </div>
+                        <li><a href="@Url.Content(l.MethodLink)" class="link ui @l.Color tertiary button">@l.NameLink</a></li>
                     }
+                </ul>
+            </nav><div class="userInfo">
+                @if (!isVerified)
+                {
+                    <p class="topLetters"><a href="@Url.Content("~/Registration/Index")">Зарегистрироваться</a></p>
+                    <p class="topLetters"><a href="@Url.Content("~/Login/Index")">Вход</a></p>
+                }
+                else
+                {
+                    <p class="userName"><i class="user circle outline icon"></i>@userName <a href="@Url.Content("~/Login/LogOut")" class="exit" data-title="Выйти"><i class="sign in alternate icon"></i></a></p>
+                    @*<p class="exit" data-title="Выйти"></p>*@
+
+                  <div>
+                      @if (vehicles.Count >= 1)
+                      {
+                          if (vehicles.Count == 1)
+                          {
+                              <i class="car side icon"></i><strong id="spanVehicle" data-value="@vehicles[0].Id">@vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear</strong>
+                          }
+                          else
+                          {
+                              <i class="car side icon"></i>
+                              <div class="ui inline dropdown " id="vehicleSelect" size="1">
+                                  <div class="text">
+                                      @vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear
+                                  </div>
+                                  <i class="dropdown icon"></i>
+                                  <div class="menu">
+                                      @foreach (var element in vehicles)
+                                      {
+                                          <div class="item" data-value="@element.Id" onclick="changeData(@element.Id)">
+                                              @element.Brand @element.Model @element.ReleaseYear
+                                          </div>
+                                      }
+                                  </div>
+                              </div>
+                          }
+                      }
+                  </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div id="mobile-header" class="ui container mobile-only">
+        <div class="ui text menu">
+            <div class="item">
+                <div id="logo">
+                    <img class="ui small image" src="~/Content/logo_small.png" />
+                </div>
+                <div id="logo-text">
+                    Записки<br />
+                    Автомобилиста
+                </div>
+            </div>
+            <div class="right menu">
+                <div class="ui icon dropdown item">
+                    <i class="bars large icon"></i>
+                    <div class="menu">
+                        @foreach (CarNotes.Models.LinkMenuModel l in menu)
+                        {
+                            <a href="@Url.Content(l.MethodLink)" class="item">@l.NameLink</a>
+                        }
+                        <div class="divider"></div>
+                        <div class="item"><i class="user circle outline icon"></i>@userName</div>
+                        @if (vehicles.Count > 0)
+                        {
+                            <div class="item" id="vehicleSelect" size="1">
+                                <i class="dropdown icon"></i><div class="text">
+                                    @vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear
+                                </div>
+                                <div class="menu">
+                                    @foreach (var element in vehicles)
+                                    {
+                                        <div class="item" data-value="@element.Id" onclick="changeData(@element.Id)">
+                                            @element.Brand @element.Model @element.ReleaseYear
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        <a class="item" href="@Url.Content("~/Login/LogOut")">Выйти</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="content">
+    <div class="ui container">
         @RenderBody()
     </div>
 </body>

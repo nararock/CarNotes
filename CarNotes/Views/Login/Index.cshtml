@@ -36,6 +36,7 @@
 
         .ui.fluid.large.teal.submit.button {
             background-color: #91c37c;
+            
         }
     </style>
 </head>
@@ -63,20 +64,13 @@
                         </div>
                     </div>
                     <button class="ui fluid large teal submit button" type="submit">Войти</button>
-                    <div class="ui error message"></div>
+                    <div class="ui error message"></div>   
                 </div>
             </form>
+            <div class="ui message">
+                Нет аккаунта? <a href="@Url.Content("~/Registration/Index")">Регистрация</a>
+            </div>            
         </div>
     </div>
-    @*<div>
-            @using (Html.BeginForm())
-            {
-                <p>Почта: @Html.TextBoxFor(x => x.Login)</p>
-                <p>Пароль: @Html.PasswordFor(x => x.Password)</p>
-                @Html.ValidationSummary();
-                <input type="submit" value="Войти" class="button" />
-            }
-            <a href="@Url.Content("~/Registration/Index")">Регистрация</a>
-        </div>*@
 </body>
 </html>

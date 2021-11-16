@@ -9,17 +9,86 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <link rel="stylesheet" href="~/Styles/semantic.min.css" />
+    <script src="@Url.Content("~/Content/cookie.min.js")"></script>
+    <style>
+        body {
+            background-color: white;
+        }
+
+            body > .grid {
+                height: 100%;
+            }
+
+        .image {
+            margin-top: -100px;
+            margin-bottom: 9px;
+        }
+
+        .column {
+            max-width: 450px;
+        }
+
+        .content {
+            color: black;
+            margin-bottom: 9px;
+        }
+
+        .ui.fluid.large.teal.submit.button {
+            background-color: #91c37c;
+
+        }
+        
+    </style>
 </head>
 <body>
-    <div>
-        @using (Html.BeginForm())
-        {
-            <p>Имя: @Html.TextBoxFor(x => x.Name)</p>
-            <p>Почта: @Html.TextBoxFor(x => x.Email)</p>
-            <p>Пароль: @Html.PasswordFor(x => x.Password)</p>
-            @Html.ValidationSummary();
-            <input type="submit" value="Зарегистрироваться" class="button" />
-        }
+    <div class="ui middle aligned center aligned grid">
+        <div class="column">
+            <h3 class="ui teal image header">
+                <img src="~/Content/logo_small.png" class="image" />
+                <div class="content">
+                    Записки Автомобилиста
+                </div>
+            </h3>
+            <form class="ui large form" method="post" action="~/Login/Index">
+                <div class="ui stacked segment">
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="user icon"></i>
+                            <input type="text" name="Name" placeholder="Имя">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="user icon"></i>
+                            <input type="text" name="Login" placeholder="Почта">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="lock icon"></i>
+                            <input type="password" name="Password" placeholder="Пароль">
+                        </div>
+                    </div>
+                    <button class="ui fluid large teal submit button" type="submit">Зарегистрироваться</button>
+                    <div class="ui error message"></div>
+                </div>
+            </form>
+            <div class="ui message">
+                Уже есть аккаунт? <a href="@Url.Content("~/Login/Index")">Войти</a>
+            </div>
+        </div>
     </div>
+
+    @*<div>
+            @using (Html.BeginForm())
+            {
+                <p>Имя: @Html.TextBoxFor(x => x.Name)</p>
+                <p>Почта: @Html.TextBoxFor(x => x.Email)</p>
+                <p>Пароль: @Html.PasswordFor(x => x.Password)</p>
+                @Html.ValidationSummary();
+                <input type="submit" value="Зарегистрироваться" class="button" />
+            }
+        </div>*@
 </body>
 </html>

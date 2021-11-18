@@ -24,6 +24,7 @@ namespace CarNotes.Controllers
                     if (new CnDbContext().Users.Find(userIdCheck).Vehicles.Any(v => v.Id == vehicleId))
                     {
                         ViewBag.IsChecked = true;
+                        HttpContext.Request.Cookies.Set(new HttpCookie("vehicleId", vehicleId.ToString()));
                     }
                 }
                 var common = new CommonHelper();

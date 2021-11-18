@@ -49,6 +49,8 @@ namespace CarNotes.Classes
 
         public string GetName(string userId)
         {
+            if (userId == null) return "";
+
             var db = new CnDbContext();
             string userName = db.Users.Find(userId).Name;
             return userName;

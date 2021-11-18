@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", ready);
 function ready() {
     updateVehicleSelector();
 
-    $('#vehicleSelect')
+    $('.vehicleSelect')
         .dropdown();
 
     $('#mobile-header .dropdown').dropdown();
@@ -69,29 +69,10 @@ function ready() {
  * */
 function updateVehicleSelector() {
     var vehicleIdCookie = getCookie('vehicleId');
-    var span = document.getElementById('spanVehicle');
-    if (span != null) {
-        if (vehicleIdCookie == undefined) {
-            setCookie('vehicleId', span.dataset.value);
-        }
-        return;
-    }
-
-    var select = document.getElementById('vehicleSelect');
-    if (select == null) return;
-    if (vehicleIdCookie == undefined) {
-        select.children[0].selected = true;
-        setCookie('vehicleId', select.value);
-    }
-    else if (vehicleIdCookie != undefined) {
-        $('#vehicleSelect').dropdown('set selected', vehicleIdCookie);
-        //elem.value = vehicleIdCookie;
-    }
-    
-
-
-
-    
+    var select = document.getElementsByClassName('vehicleSelect');
+    if (select.length == 0) return;
+    if (vehicleIdCookie == undefined) { return;}
+    $('.vehicleSelect').dropdown('set selected', vehicleIdCookie);
 }
 //CreateRepairEvent and RepairEdit
 //CarParts

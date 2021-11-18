@@ -206,12 +206,12 @@
                         {
                             if (vehicles.Count == 1)
                             {
-                                <i class="car side icon"></i><strong id="spanVehicle" data-value="@vehicles[0].Id">@vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear</strong>
+                                <i class="car side icon"></i><strong>@vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear</strong>
                             }
                             else
                             {
                                 <i class="car side icon"></i>
-                                <div class="ui inline dropdown " id="vehicleSelect" size="1">
+                                <div class="ui inline dropdown vehicleSelect" size="1">
                                     <div class="text">
                                         @vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear
                                     </div>
@@ -264,12 +264,12 @@
                       {
                           if (vehicles.Count == 1)
                           {
-                              <i class="car side icon"></i><strong id="spanVehicle" data-value="@vehicles[0].Id">@vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear</strong>
+                              <i class="car side icon"></i><strong>@vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear</strong>
                           }
                           else
                           {
                               <i class="car side icon"></i>
-                              <div class="ui inline dropdown " id="vehicleSelect" size="1">
+                              <div class="ui inline dropdown vehicleSelect" size="1">
                                   <div class="text">
                                       @vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear
                                   </div>
@@ -322,12 +322,12 @@
                       {
                           if (vehicles.Count == 1)
                           {
-                              <i class="car side icon"></i><strong id="spanVehicle" data-value="@vehicles[0].Id">@vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear</strong>
+                              <i class="car side icon"></i><strong>@vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear</strong>
                           }
                           else
                           {
                               <i class="car side icon"></i>
-                              <div class="ui inline dropdown " id="vehicleSelect" size="1">
+                              <div class="ui inline dropdown vehicleSelect" size="1">
                                   <div class="text">
                                       @vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear
                                   </div>
@@ -371,7 +371,7 @@
                         <div class="item"><i class="user circle outline icon"></i>@userName</div>
                         @if (vehicles.Count > 0)
                         {
-                            <div class="item" id="vehicleSelect" size="1">
+                            <div class="item vehicleSelect" size="1">
                                 <i class="dropdown icon"></i><div class="text">
                                     @vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear
                                 </div>

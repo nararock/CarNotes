@@ -8,6 +8,8 @@ function ready() {
 
     $('.vehicleSelect')
         .dropdown();
+    $('.ui.circular.icon.label').popup({
+    });
 
     $('#mobile-header .dropdown').dropdown();
 

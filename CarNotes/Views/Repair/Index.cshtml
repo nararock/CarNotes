@@ -4,7 +4,7 @@
     Layout = "../Shared/_TableTemplate.cshtml";
 }
 <div>
-    <table class="ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) unstackable table ">
+    <table class="ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) unstackable table hide-on-mobile">
         <caption>@ViewBag.Name</caption>
         <thead>
             <tr>
@@ -35,5 +35,41 @@
         </tbode>
     </table>
 </div>
+@foreach (CarNotes.Models.RepairModel b in Model)
+{
+    <div class=" ui grid" style="margin-bottom:-2rem">
+        <div class="column">
+            <div class="ui fluid card mobile-only">
+                <div class="content">
+                    <div class="header">
+                        @b.Repair
+                    </div>
+                    <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="deleteRepair(@b.Id)">
+                        <i class="trash alternate icon"></i>
+                    </button>
+                    <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editRepair(@b.Id)">
+                        <i class="highlighter icon"></i>
+                    </button>
+                    <div class="meta">
+                        @b.Date
+                    </div>
+                    <div class="description">
+                        Пробег: @b.Mileage км
+                    </div>
+                    <div class="description">
+                        Сервис: @b.CarService
+                    </div>
+                    <div class="description">
+                        Стоимость: @b.RepairCost руб.
+                    </div>
+                </div>
+                @*<div class="extra content">
+                    <i class="comment outline icon"></i>
+                    @b.Comments
+                </div>*@
+            </div>
+        </div>
+    </div>
+}
 
 

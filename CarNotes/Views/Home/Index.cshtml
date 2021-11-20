@@ -3,7 +3,7 @@
 @{
     Layout = "../Shared/_TableTemplate.cshtml";
 }
-<div>
+<div class="hide-on-mobile">
     <table class="ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) unstackable table ">
         <caption>@ViewBag.Name</caption>
         <thead>
@@ -41,3 +41,43 @@
         </tbody>
     </table>
 </div>
+@foreach (var item in Model)
+{
+    <div class=" ui grid  mobile-only" style="margin-bottom:-2rem">
+        <div class="column">
+            <div class="ui fluid card">
+                <div class="content">
+                    <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="deleteCommon('@item.Record', @item.Id)">
+                        <i class="trash alternate icon"></i>
+                    </button>
+                    <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editCommon('@item.Record', @item.Id)">
+                        <i class="highlighter icon"></i>
+                    </button>
+                    <div class="header">
+                        @if (item.Record == CarNotes.Enums.RecordType.Refuel)
+                        {
+                            @:Заправка
+                        }
+                        else
+                        {
+                            @:Ремонт
+                        }
+                    </div>
+                    <div class="meta">
+                        @item.Date
+                    </div>
+                    <div class="description">
+                        Пробег: @item.Mileage км
+                    </div>
+                    <div class="description">
+                        Стоимость: @item.Cost руб.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+

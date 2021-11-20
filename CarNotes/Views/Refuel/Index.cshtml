@@ -4,16 +4,17 @@
     Layout = "../Shared/_TableTemplate.cshtml";
 }
 <div>
-    <table class="ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) unstackable table ">
+    <table class="ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) unstackable table hide-on-mobile">
         <caption>@ViewBag.Name</caption>
         <thead>
             <tr>
                 <th>Дата</th>
                 <th>Пробег</th>
-                <th>Тип топлива</th>
+                <th>Топливо</th>
                 <th>АЗС</th>
                 <th>Объем</th>
-                <th>Цена(1 литр)</th>
+                <th>Цена</th>
+                <th>Стоимость</th>
                 <th>Полный бак</th>
                 <th>Забыл внести предыдущую заправку</th>
                 <th style="width:0"></th>
@@ -30,6 +31,7 @@
                     <td>@b.Station</td>
                     <td>@b.Volume</td>
                     <td>@b.PricePerOneLiter</td>
+                    <td>@b.Cost</td>
                     <td>
                         @if (b.FullTank == true)
                         {
@@ -49,4 +51,55 @@
         </tbody>
     </table>
 </div>
+@foreach (CarNotes.Models.RefuelModelOutput b in Model)
+{
+    <div class=" ui grid" style="margin-bottom:-2rem">
+        <div class="column">
+            <div class="ui fluid card mobile-only">
+                <div class="content">
+                    <div class="header">
+                        @b.Station
+                    </div>
+                    <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="deleteRefuel(@b.Id)">
+                        <i class="trash alternate icon"></i>
+                    </button>
+                    <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editRefuel(@b.Id)">
+                        <i class="highlighter icon"></i>
+                    </button>
+                    <div class="meta">
+                        @b.Date
+                    </div>
+                    <div class="description">
+                        Пробег: @b.Mileage км
+                    </div>
+                    <div class="description">
+                        @b.Volume литров @b.Fuel
+                        @if (b.FullTank != false)
+                        {
+                            <div class="ui circular icon label " data-content="Полный бак">
+                                <i class="gas pump icon"></i>
+                            </div>
+                        }
+                    </div>
+                    <div class="description">
+                        Стоимость: @b.Cost руб. (@b.PricePerOneLiter руб/л)
+                    </div>
+                    @*@if (b.FullTank != false)
+                    {
+                        <div class="ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic label" style="margin:3px 0 4px 0">
+                            Полный бак
+                        </div>
+                    }*@
+                    @if (b.ForgotRecordPreviousGasStation != false)
+                    {
+                        <div class="ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic label">
+                            Забыл внести предыдущую заправку
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 

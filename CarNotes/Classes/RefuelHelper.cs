@@ -18,9 +18,9 @@ namespace CarNotes.Classes
             var vehicle = db.Vehicles.Include(v => v.RefuelEvents.Select(r => r.Station))
                 .FirstOrDefault(x => x.Id == vehicleId);
             if (vehicle == null) return null;
-            var list = vehicle.RefuelEvents.Select(x => new RefuelModelOutput {Id = x.ID, Date = x.Date.ToString("dd.MM.yyyy"), Mileage = x.Mileage, Fuel = x.Fuel.ToString(),
-                Station = (x.Station_ID == 1)? x.CustomStation:x.Station.Name,
-                Volume = x.Volume, PricePerOneLiter = x.PricePerOneLiter, FullTank = x.FullTank,
+            var list = vehicle.RefuelEvents.Select(x => new RefuelModelOutput { Id = x.ID, Date = x.Date.ToString("dd.MM.yyyy"), Mileage = x.Mileage, Fuel = x.Fuel.ToString(),
+                Station = (x.Station_ID == 1) ? x.CustomStation : x.Station.Name,
+                Volume = x.Volume, PricePerOneLiter = x.PricePerOneLiter, Cost = x.Volume * x.PricePerOneLiter,  FullTank = x.FullTank,
                 ForgotRecordPreviousGasStation = x.ForgotRecordPreviousGasStation }).ToList();
             return list;
         }

@@ -23,6 +23,7 @@ namespace CarNotes.Controllers
                     if (new CnDbContext().Users.Find(userIdCheck).Vehicles.Any(v => v.Id == vehicleId))
                     {
                         ViewBag.IsChecked = true;
+                        HttpContext.Response.Cookies.Set(new HttpCookie("vehicleId", vehicleId.ToString()));
                     }
                 }
                 var cm = new RefuelHelper().GetList((int)vehicleId);

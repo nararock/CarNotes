@@ -76,26 +76,20 @@
                         @b.Volume литров @b.Fuel
                         @if (b.FullTank != false)
                         {
-                            <div class="ui circular icon label " data-content="Полный бак">
+                            <div class="ui circular green basic icon label myPopupClass" data-content="Полный бак">
                                 <i class="gas pump icon"></i>
+                            </div>
+                        }
+                        @if (b.ForgotRecordPreviousGasStation != false)
+                        {
+                            <div class="ui circular green basic icon label myPopupClass" data-content="Забыл внести предыдущую заправку">
+                                <i class="comment slash icon"></i>
                             </div>
                         }
                     </div>
                     <div class="description">
                         Стоимость: @b.Cost руб. (@b.PricePerOneLiter руб/л)
                     </div>
-                    @*@if (b.FullTank != false)
-                    {
-                        <div class="ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic label" style="margin:3px 0 4px 0">
-                            Полный бак
-                        </div>
-                    }*@
-                    @if (b.ForgotRecordPreviousGasStation != false)
-                    {
-                        <div class="ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic label">
-                            Забыл внести предыдущую заправку
-                        </div>
-                    }
                 </div>
             </div>
         </div>

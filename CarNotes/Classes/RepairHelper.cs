@@ -116,7 +116,7 @@ namespace CarNotes.Classes
             {
                 if (p.Id != 0 && p.IsDeleted == true)
                 {
-                    repairEvent.Parts.Remove(repairEvent.Parts.Where(x => x.Id == p.Id).FirstOrDefault());
+                    db.CarParts.Remove(repairEvent.Parts.Where(x => x.Id == p.Id).FirstOrDefault());
                 } 
                 else if (p.Id != 0)
                 {

@@ -18,7 +18,7 @@
                 <th style="width:0"></th>
             </tr>
         </thead>
-        <tbode>
+        <tbody>
             @foreach (CarNotes.Models.RepairModel b in Model)
             {
                 <tr>
@@ -32,7 +32,7 @@
                     <td><input type="button" value="&#10008" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="deleteRepair(@b.Id)" /></td>
                 </tr>
             }
-        </tbode>
+        </tbody>
     </table>
 </div>
 @foreach (CarNotes.Models.RepairModel b in Model)
@@ -63,10 +63,6 @@
                         Стоимость: @b.RepairCost руб.
                     </div>
                 </div>
-                @*<div class="extra content">
-                    <i class="comment outline icon"></i>
-                    @b.Comments
-                </div>*@
             </div>
         </div>
     </div>

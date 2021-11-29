@@ -6,12 +6,13 @@ document.addEventListener("DOMContentLoaded", ready);
 function ready() {
     updateVehicleSelector();
 
-    $('.vehicleSelect')
-        .dropdown();
-    $('.ui.circular.icon.label').popup({
+    $('.vehicleSelect').dropdown();
+    $('myPopupClass').popup({
     });
 
-    $('#mobile-header .dropdown').dropdown();
+    $('#mobile-header .dropdown').dropdown({
+        displayType: 'block'
+    });
 
     //добавление пустой строки в начало выпадающего списка с АЗС при создании события
     elem = document.getElementById('newRefuelWindow');
@@ -78,89 +79,90 @@ function updateVehicleSelector() {
 }
 //CreateRepairEvent and RepairEdit
 //CarParts
-function addCarPart(id) {
-    createTable(id);
-}
 /**формирование полей таблицы с системами и подсистемами для создания (или правки) события ремонта
  * @param id строка, id элемента (table) 
 **/
-function createTable(id) {
-    var elem = document.getElementById(id);
-    var elemTable = elem.getElementsByTagName('table');
-    elemTable[0].style.display = "";
-    var elementTBody = elem.getElementsByTagName('tbody');
-    var tableRow = document.createElement('tr');
-    var amount = elementTBody[0].rows.length;
-    createCellInput(tableRow, "Parts[" + amount + "].Name");
-    createCellsSelect(tableRow, "Parts[" + amount + "].SubSystemId");
-    createCellInput(tableRow, "Parts[" + amount + "].CarManufacturer");
-    createCellInput(tableRow, "Parts[" + amount + "].Article");
-    createCellInput(tableRow, "Parts[" + amount + "].Price");
-    var cell = document.createElement('td');
-    cell.innerHTML = "&times";
-    cell.addEventListener("click", function () {
+function addCarPart() {
+    var mainTable = document.querySelector("#mainRepairCreateTable");
+    mainTable.style.display = '';
+    var cloneTable = document.querySelector("#cloneRepairCreateTable tr");
+    var clone = cloneTable.cloneNode(true);
+    mainTable.append(clone);
 
-        if (cell.closest('tbody').children.length == 1) {
-            cell.closest('table').style.display = "none";
+    //var elem = document.getElementById(id);
+    //var elemTable = elem.getElementsByTagName('table');
+    //elemTable[0].style.display = "";
+    //var elementTBody = elem.getElementsByTagName('tbody');
+    //var tableRow = document.createElement('tr');
+    var amount = mainTable.childElementCount;
+    createCellInput(clone, "Name", amount);
+    createCellsSelect(clone, "Parts[" + amount + "]");
+    createCellInput(clone, "CarManufacturer", amount);
+    createCellInput(clone, "Article", amount);
+    createCellInput(clone, "Price", amount);
+    //var cell = document.createElement('td');
+    //cell.innerHTML = "&times";
+    var button = clone.querySelector('.deleteCarPartButton');
+    button.addEventListener("click", function () {
+        if (button.closest('table').children.length == 1) {
+            button.closest('table').style.display = "none";
         }
-        cell.parentElement.remove();
-    })
-    tableRow.appendChild(cell);
-    elementTBody[0].append(tableRow);
-    var elemSelect = tableRow.getElementsByTagName('select');
-    $(elemSelect).dropdown();
+        button.closest('tr').remove();
+    });
+    //tableRow.appendChild(cell);
+    //elementTBody[0].append(tableRow);
+    //var elemSelect = tableRow.getElementsByTagName('select');
+    //$(elemSelect).dropdown();
 }
 /**создание элемента input для ячейки таблицы с системами и подсистемами
  * @param {any} tableRow ссылка на элемент строки в таблице
  * @param {any} name строка, название поля таблицы, для которого создается input
  */
-function createCellInput(tableRow, name) {
-    var cell = document.createElement('td');
-    var input = document.createElement('input');
-    cell.appendChild(input);
-    input.name = name;
-    tableRow.appendChild(cell);
+function createCellInput(element, fieldName, index) {
+    var input = element.querySelector("[name=" + fieldName+ "]");
+    input.name = "Parts[" + index + "]." + fieldName;
+    //var cell = document.createElement('td');
+    //var input = document.createElement('input');
+    //cell.appendChild(input);
+    //input.name = name;
+    //tableRow.appendChild(cell);
 }
 /** 
- *  создание выпадающего списка для системы и подсистемы для событий типа создания и редактирования 
- *  @param tableRow ссылка на элемент строки в таблице
+ *  заполнение выпадающего списка значениями для систем и подсистем ТС при создании и редактировании события
+ *  @param element ссылка на таблицу
  *  @param name строка, название поля таблицы, для которого создается select
- *  @param val id (номер) подсистемы (используется при создании таблицы на странице редактирования события ремонта)
+ *  @param value id (номер) подсистемы (используется при создании таблицы на странице редактирования события ремонта)
  * */
-function createCellsSelect(tableRow, name, val) {
-    var cellSystem = document.createElement('td');
-    var cellSubsystem = document.createElement('td');
-    var selectSystem = document.createElement('select');
-    selectSystem.classList.add("ui", "fluid", "dropdown");
-    var selectSubsystem = document.createElement('select');
-    selectSubsystem.classList.add("ui", "fluid", "dropdown", "subsystem");
-    selectSystem.onchange = changeSubsystem;
-    selectSystem.name = name.replace('SubSystemId', 'SystemId');
-    selectSubsystem.name = name;
+function createCellsSelect(element, name, value) {
+    var selectSystem = element.querySelector("[name=" + "System" + "]");
+    var selectSubsystem = element.querySelector("[name=" + "Subsystem" + "]");
+    console.log(selectSystem);
+    selectSystem.name = name + '.SystemId';
+    selectSubsystem.name = name + '.SubSystemId';
     for (var i = 0; i < system.length; i++) {
         var optionSystem = document.createElement('option');
         optionSystem.innerHTML = system[i].Name;
-        if (val != undefined && val.SystemId - 1 == i) {
+        if (value != undefined && value.SystemId - 1 == i) {
             optionSystem.selected = true;
         }
         optionSystem.value = system[i].Id;
         selectSystem.append(optionSystem);
     }
     var index = 0; //по умолчанию при создании события выбрана первая система в списке
-    if (val != undefined) {
-        index = val.SystemId - 1;
+    if (value != undefined) {
+        index = value.SystemId - 1;
     }
     for (var j = 0; j < system[index].CarSubsystems.length; j++) {
         var optionSubsystem = document.createElement('option');
         optionSubsystem.innerHTML = system[index].CarSubsystems[j].Name;
+        if (value != undefined && value.SubSystemId == system[index].CarSubsystems[j].Id) {
+            optionSubsystem.selected = true;
+        }
         optionSubsystem.value = system[index].CarSubsystems[j].Id;
         selectSubsystem.append(optionSubsystem);
     }
-    cellSystem.appendChild(selectSystem);
-    cellSubsystem.append(selectSubsystem);
-    tableRow.appendChild(cellSystem);
-    tableRow.appendChild(cellSubsystem);
-
+    $(selectSystem).dropdown();
+    $(selectSubsystem).dropdown();
 }
 /**удаление списка подсистем из таблицы с деталями автотранспорта при срабатывании события типа сменя системы
  * @param selectElement ссылка на список подсистем, которые нужно удалить
@@ -231,7 +233,6 @@ function popup(str) {
                     document.getElementById("newRepairWindow").getElementsByTagName("form")[0].submit();
                 },
                 onVisible: () => {
-                    $("#newRepairWindow select").dropdown();
                 }
             })
             .modal('show');
@@ -332,8 +333,6 @@ function editRefuel(id) {
             elementsForm.FullTankCheckbox.checked = data.FullTank;
             elementsForm.ForgotRecordPreviousGasStationCheckbox.checked = data.ForgotRecordPreviousGasStation;
             elementsForm.Id.value = data.Id;
-
-            //document.getElementById('EditRefuelData').style.display = 'inline-block';
         }, () => {
             alert("Произошла ошибка");
         });
@@ -352,19 +351,16 @@ function RefuelEditSubmit() {
 
 //RepairEdit
 /**
- * заполняет таблицу с деталями автротранспорта в окне редактирования события ремонта
- * создает input с заданным параметром в ячейке таблицы
- * @param {any} tableRow ссылка на строку в таблице
- * @param {any} value значение параметра 
- * @param {any} name название параметра
+ * преобразует склонированный input к правильному и заполняет его данными
+ * @param {any} element ссылка на таблицу 
+ * @param {any} oldName имя поля, которое заполняется данными 
+ * @param {any} newName новое имя для поля
+ * @param {any} newValue новое значение для поля
  */
-function createCellRepairInput(tableRow, value, name) {
-    var cell = document.createElement('td');
-    var input = document.createElement('input');
-    cell.appendChild(input);
-    input.value = value;
-    input.name = name;
-    tableRow.appendChild(cell);
+function createCellRepairInput(element, oldName, newValue, newName) {
+    var input = element.querySelector("[name=" +oldName+ "]");
+    input.name = newName;
+    input.value = newValue;
 }
 
 /**
@@ -380,6 +376,9 @@ function editRepair(id) {
                 autofocus: false,
                 onApprove: function () {
                     document.getElementById('EditRepairData').getElementsByTagName("form")[0].submit();
+                },
+                onHide: function () {                    
+                    clearEvent(event);
                 }
             })
                 .modal('show');
@@ -391,16 +390,16 @@ function editRepair(id) {
             elementsForm.RepairCost.value = data.RepairCost;
             elementsForm.Comments.value = data.Comments;
             elementsForm.Id.value = data.Id;
-            var elem = document.getElementById("EditRepairData");
-            var elementTbody = elem.getElementsByTagName("tbody");
+            var mainTable = document.querySelector("#mainRepairEditTable");
+            var cloneTable = document.querySelector("#cloneRepairEditTable tr");
             for (var i = 0; i < data.Parts.length; i++) {
-                var tableRow = document.createElement('tr');
-                createCellRepairInput(tableRow, data.Parts[i].Name, "Parts[" + i + "].Name");
-                //createCellRepairSelect(tableRow, data.Parts[i].CarSubsystemModel, "Parts[" + i + "].CarSubsystemModel");
-                createCellsSelect(tableRow, "Parts[" + i + "].SubSystemId", data.Parts[i]);
-                createCellRepairInput(tableRow, data.Parts[i].CarManufacturer, "Parts[" + i + "].CarManufacturer");
-                createCellRepairInput(tableRow, data.Parts[i].Article, "Parts[" + i + "].Article");
-                createCellRepairInput(tableRow, data.Parts[i].Price, "Parts[" + i + "].Price");
+                var clone = cloneTable.cloneNode(true);
+                mainTable.append(clone);
+                createCellRepairInput(mainTable, "Name", data.Parts[i].Name, "Parts[" + i + "].Name");
+                createCellsSelect(mainTable, "Parts[" + i + "].SubSystemId", data.Parts[i]);
+                createCellRepairInput(mainTable, "Manufacturer", data.Parts[i].CarManufacturer, "Parts[" + i + "].CarManufacturer");
+                createCellRepairInput(mainTable, "Article", data.Parts[i].Article, "Parts[" + i + "].Article");
+                createCellRepairInput(mainTable, "Price", data.Parts[i].Price, "Parts[" + i + "].Price");
                 /*ячейка со скрытым значением Id*/
                 var inputId = document.createElement('input');
                 inputId.name = "Parts[" + i + "].Id";
@@ -412,19 +411,17 @@ function editRepair(id) {
                 inputDelete.className = "inputDelete";
                 inputDelete.name = "Parts[" + i + "].IsDeleted";
                 /*ячейка с событием скрытия поля по нажатию крестик*/
-                var cell = document.createElement('td');
-                cell.innerHTML = "&times";
-                cell.append(inputId);
-                cell.append(inputDelete);
-                cell.addEventListener("click", function (e) {
-                    e.target.parentElement.style.display = "none";
-                    var IsDeletedInput = e.target.getElementsByClassName("inputDelete");
+                var button = mainTable.querySelector('#deleteCarPartButton');
+                button.append(inputId);
+                button.append(inputDelete);
+                button.addEventListener("click", function (e) {
+                    var td = e.target.closest('td');
+                    var IsDeletedInput = td.getElementsByClassName("inputDelete");
                     IsDeletedInput[0].value = "true";
+                    td.style.display = "none";
                 })
-                tableRow.append(cell);
-                elementTbody[0].append(tableRow);
             }
-            document.getElementById('EditRepairData').style.display = 'inline-block';
+            mainTable.style.display = '';
         }, () => {
             alert("Произошла ошибка");
         });

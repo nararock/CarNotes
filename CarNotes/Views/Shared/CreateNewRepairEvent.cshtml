@@ -13,23 +13,10 @@
         <div class="field">Сервис: @Html.TextBoxFor(x => x.CarService)</div>
         <div class="field">Стоимость ремонтных работ: @Html.TextBoxFor(x => x.RepairCost)</div>
         <div class="field">Комментарии: @Html.TextBoxFor(x => x.Comments)</div>
-        <div class="ui button" onclick="addCarPart('newRepairWindow')">
+        <div class="ui button" onclick="addCarPart()">
             Добавить запчасть
         </div>
-        <table style="display:none" class = "ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) table">
-            <thead>
-                <tr>
-                    <th>Название</th>
-                    <th>Система</th>
-                    <th>Подсистема</th>
-                    <th>Производитель</th>
-                    <th>Артикул</th>
-                    <th>Цена</th>
-                    <th> </th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+        <table style="display:none" id="mainRepairCreateTable" class = "ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) table"></table>
     }
 </div>
 <div class="actions">
@@ -40,4 +27,38 @@
         Сохранить данные
     </div>
 </div>
+<table style="display:none" id="cloneRepairCreateTable">
+    <tr>
+        <td>
+            <div class="three fields">
+                <div class="field">
+                    <input type="text" name="Name" placeholder="Название автозапчасти">
+                </div>
+                <div class="field">
+                    <select name="System" class="ui fluid dropdown">
+                        <option value="">Система</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <select name="Subsystem" class="ui fluid dropdown">
+                        <option value="">Подсистема</option>
+                    </select>
+                </div>
+            </div>
+            <div class="three fields">
+                <div class="field">
+                    <input name="Manufacturer" type="text" placeholder="Производитель">
+                </div>
+                <div class="field">
+                    <input name="Article" type="text" placeholder="Артикул">
+                </div>
+                <div class="field">
+                    <input name="Price" type="text" placeholder="Цена">
+                </div>
+                <div class="ui icon button deleteCarPartButton"><i class="trash alternate icon"></i></div>
+            </div>
+        </td>
+
+    </tr>
+</table>
 

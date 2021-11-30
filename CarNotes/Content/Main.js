@@ -395,6 +395,7 @@ function editRepair(id) {
             elementsForm.Comments.value = data.Comments;
             elementsForm.Id.value = data.Id;
             var mainTable = document.querySelector("#repairPartsTable");
+            mainTable.innerHTML = '';
             var cloneTable = document.querySelector("#clone-repairPartsTable tr");
             for (var i = 0; i < data.Parts.length; i++) {
                 var clone = cloneTable.cloneNode(true);
@@ -415,7 +416,7 @@ function editRepair(id) {
                 inputDelete.className = "inputDelete";
                 inputDelete.name = "Parts[" + i + "].IsDeleted";
                 /*ячейка с событием скрытия поля по нажатию крестик*/
-                var button = mainTable.querySelector('#deleteCarPartButton');
+                var button = mainTable.querySelector('.deleteCarPartButton');
                 button.append(inputId);
                 button.append(inputDelete);
                 button.addEventListener("click", function (e) {
@@ -425,7 +426,9 @@ function editRepair(id) {
                     td.style.display = "none";
                 })
             }
-            mainTable.style.display = '';
+            if (data.Parts.length > 0) {
+                mainTable.style.display = '';
+            }
         }, () => {
             alert("Произошла ошибка");
         });

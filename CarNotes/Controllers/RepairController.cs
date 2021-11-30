@@ -49,21 +49,6 @@ namespace CarNotes.Controllers
             return Redirect("~/Vehicle/Index");
         }
 
-
-        [Authorize]
-        [HttpPost]
-        public ActionResult Create(RepairModel rm)
-        {
-            var vehicleId = int.Parse(HttpContext.Request.Cookies.Get("vehicleId").Value);
-            var Id = new AuthHelper(HttpContext).AuthenticationManager.User.Identity.GetUserId();
-            var vehicle = new CnDbContext().Vehicles.FirstOrDefault(x => x.Id == vehicleId);
-            if (vehicle == null || vehicle.UserId != Id)
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
-            new RepairHelper().SaveToDataBase(rm, vehicleId);
-            return RedirectToAction("Index");
-        }
-
-
         // GET: Repair
         public ActionResult Delete(int id)
         {
@@ -84,7 +69,8 @@ namespace CarNotes.Controllers
         [HttpPost]
         public ActionResult Edit(RepairModel rm)
         {
-            new RepairHelper().ChangeData(rm);
+            var vehicleId = int.Parse(HttpContext.Request.Cookies.Get("vehicleId").Value);
+            new RepairHelper().ChangeData(rm, vehicleId);
             return Redirect("/Repair/Index");
         }
 

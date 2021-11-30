@@ -8,6 +8,11 @@ namespace CarNotes.Models
 {
     public class RepairModel
     {
+        public RepairModel()
+        {
+            Parts = new List<CarPartModel>();
+            Date = DateTime.Now.ToString("dd.MM.yyyy");
+        }
         public int Id { get; set; }
         public string Date { get; set; }
         public double Mileage { get; set; }

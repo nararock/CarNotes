@@ -5,6 +5,5 @@
 @Html.Partial("_LinkMenuTemplate", ViewData)
 @RenderBody()
 <div class="ui mini modal" id="newRefuelWindow">@Html.Partial("CreateNewRefuelEvent", new CarNotes.Models.RefuelModel())</div>
-<div class="ui small modal" id="newRepairWindow">@Html.Partial("CreateNewRepairEvent", new CarNotes.Models.RepairModel())</div>
 <div class="ui small modal" id="EditRepairData">@Html.Partial("RepairEdit")</div>
 <div class="ui mini modal" id="EditRefuelData">@Html.Partial("RefuelEdit")</div>

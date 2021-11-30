@@ -21,34 +21,7 @@ namespace CarNotes.Classes
                     CarManufacturer=y.CarManufacturer, Name=y.Name, Price=y.Price}).ToList() }).ToList();
             return list;
         }
-        public void SaveToDataBase(RepairModel rm, int vehicleId)
-        {
-            var database = new CnDbContext();
-            var repairEvent = new RepairEvent();
-            repairEvent.CarService = rm.CarService;
-            repairEvent.Comments = rm.Comments;
-            var tempDate = new DateTime();
-            DateTime.TryParse(rm.Date, out tempDate);
-            repairEvent.Date = tempDate;
-            repairEvent.Mileage = rm.Mileage;
-            repairEvent.Repair = rm.Repair;
-            repairEvent.RepairCost = rm.RepairCost;
-            repairEvent.VehicleId = vehicleId;
-            repairEvent.Parts = new List<CarPart>();
-            for (int i = 0; i < rm.Parts.Count; i++)
-            {
-                var carPart = new CarPart();
-                carPart.Article = rm.Parts[i].Article;
-                carPart.CarManufacturer = rm.Parts[i].CarManufacturer;
-                carPart.Name = rm.Parts[i].Name;
-                carPart.Price = rm.Parts[i].Price;
-                carPart.CarSubsystemId = rm.Parts[i].SubSystemId;
-                repairEvent.Parts.Add(carPart);
-            }
-            database.RepairEvents.Add(repairEvent);
-            database.SaveChanges();
-        }
-
+        
         public void Delete(int id, HttpContextBase hc)
         {
             var data = new CnDbContext();
@@ -95,14 +68,21 @@ namespace CarNotes.Classes
             return editRepairModel;
         }
 
-        public void ChangeData(RepairModel rm)
+        public void ChangeData(RepairModel rm, int vehicleId)
         {
             var db = new CnDbContext();
+            
             var repairEvent = db.RepairEvents
                 .Include(x => x.Parts)
                 .Include(x => x.Parts.Select(p => p.CarSubsystem))
                 .Where(y => y.Id == rm.Id)
                 .FirstOrDefault();
+            if (repairEvent == null)
+            {
+                repairEvent = new RepairEvent();
+                db.RepairEvents.Add(repairEvent);
+                repairEvent.VehicleId = vehicleId;
+            }
             repairEvent.CarService = rm.CarService;
             repairEvent.Comments = rm.Comments;
             var tempDate = new DateTime();

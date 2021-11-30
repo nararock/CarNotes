@@ -226,16 +226,17 @@ function changeSelectList(e) {
 //create new event
 function popup(str) {
     if (str == "Новый ремонт")
-        $('#newRepairWindow')
-            .modal({
-                autofocus: false,
-                onApprove: function () {
-                    document.getElementById("newRepairWindow").getElementsByTagName("form")[0].submit();
-                },
-                onVisible: () => {
-                }
-            })
-            .modal('show');
+        editRepair(0);
+        //$('#newRepairWindow')
+        //    .modal({
+        //        autofocus: false,
+        //        onApprove: function () {
+        //            document.getElementById("newRepairWindow").getElementsByTagName("form")[0].submit();
+        //        },
+        //        onVisible: () => {
+        //        }
+        //    })
+        //    .modal('show');
     else if (str == "Новая заправка") {
         $('#newRefuelWindow')
             .modal({
@@ -380,8 +381,11 @@ function editRepair(id) {
                 onHide: function () {                    
                     clearEvent(event);
                 }
-            })
-                .modal('show');
+            }).modal('show');
+            if (id == 0) {
+                var header = document.querySelector('#EditRepairData .header');
+                header.innerHTML = "Новый ремонт";
+            }
             var elementsForm = document.getElementById('RepairFormEdit');
             elementsForm.Date.value = data.Date;
             elementsForm.Mileage.value = data.Mileage;
@@ -390,14 +394,14 @@ function editRepair(id) {
             elementsForm.RepairCost.value = data.RepairCost;
             elementsForm.Comments.value = data.Comments;
             elementsForm.Id.value = data.Id;
-            var mainTable = document.querySelector("#mainRepairEditTable");
-            var cloneTable = document.querySelector("#cloneRepairEditTable tr");
+            var mainTable = document.querySelector("#repairPartsTable");
+            var cloneTable = document.querySelector("#clone-repairPartsTable tr");
             for (var i = 0; i < data.Parts.length; i++) {
                 var clone = cloneTable.cloneNode(true);
                 mainTable.append(clone);
                 createCellRepairInput(mainTable, "Name", data.Parts[i].Name, "Parts[" + i + "].Name");
                 createCellsSelect(mainTable, "Parts[" + i + "].SubSystemId", data.Parts[i]);
-                createCellRepairInput(mainTable, "Manufacturer", data.Parts[i].CarManufacturer, "Parts[" + i + "].CarManufacturer");
+                createCellRepairInput(mainTable, "CarManufacturer", data.Parts[i].CarManufacturer, "Parts[" + i + "].CarManufacturer");
                 createCellRepairInput(mainTable, "Article", data.Parts[i].Article, "Parts[" + i + "].Article");
                 createCellRepairInput(mainTable, "Price", data.Parts[i].Price, "Parts[" + i + "].Price");
                 /*ячейка со скрытым значением Id*/

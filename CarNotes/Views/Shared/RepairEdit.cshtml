@@ -13,7 +13,7 @@
         <div class="field">Комментарии<input type="text" name="Comments" /></div>
         <input type="hidden" name="Id" /><br>
         <div class="ui button" onclick="addCarPart()">Добавить запчасть</div>
-        <table id="mainRepairEditTable" name="Parts" style="display:none" class="ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) unstackable table"></table>
+        <table id="repairPartsTable" name="Parts" style="display:none" class="ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) unstackable table"></table>
     </form>
 </div>
 <div class="actions">
@@ -24,7 +24,7 @@
         Изменить
     </div>
 </div>
-<table style="display:none" id="cloneRepairEditTable">
+<table style="display:none" id="clone-repairPartsTable">
     <tr>
         <td>
             <div class="three fields">

@@ -83,9 +83,9 @@ function updateVehicleSelector() {
  * @param id строка, id элемента (table) 
 **/
 function addCarPart() {
-    var mainTable = document.querySelector("#mainRepairCreateTable");
+    var mainTable = document.querySelector("#repairPartsTable");
     mainTable.style.display = '';
-    var cloneTable = document.querySelector("#cloneRepairCreateTable tr");
+    var cloneTable = document.querySelector("#clone-repairPartsTable tr");
     var clone = cloneTable.cloneNode(true);
     mainTable.append(clone);
 
@@ -119,7 +119,7 @@ function addCarPart() {
  * @param {any} name строка, название поля таблицы, для которого создается input
  */
 function createCellInput(element, fieldName, index) {
-    var input = element.querySelector("[name=" + fieldName+ "]");
+    var input = element.querySelector("[name=" + fieldName + "]");
     input.name = "Parts[" + index + "]." + fieldName;
     //var cell = document.createElement('td');
     //var input = document.createElement('input');

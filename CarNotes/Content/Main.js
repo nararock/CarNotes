@@ -136,7 +136,6 @@ function createCellInput(element, fieldName, index) {
 function createCellsSelect(element, name, value) {
     var selectSystem = element.querySelector("[name=" + "System" + "]");
     var selectSubsystem = element.querySelector("[name=" + "Subsystem" + "]");
-    console.log(selectSystem);
     selectSystem.name = name + '.SystemId';
     selectSubsystem.name = name + '.SubSystemId';
     for (var i = 0; i < system.length; i++) {
@@ -161,8 +160,8 @@ function createCellsSelect(element, name, value) {
         optionSubsystem.value = system[index].CarSubsystems[j].Id;
         selectSubsystem.append(optionSubsystem);
     }
-    $(selectSystem).dropdown();
-    $(selectSubsystem).dropdown();
+    //$(selectSystem).dropdown();
+    //$(selectSubsystem).dropdown();
 }
 /**удаление списка подсистем из таблицы с деталями автотранспорта при срабатывании события типа сменя системы
  * @param selectElement ссылка на список подсистем, которые нужно удалить
@@ -180,7 +179,8 @@ function removeOptions(selectElement) {
  */
 function changeSubsystem(event) {
     var selectSystem = event.target;
-    var selectSubsystem = selectSystem.closest("tr").getElementsByClassName("subsystem")[0].getElementsByTagName("select")[0];
+    var tableRow = selectSystem.closest('tr');
+    var selectSubsystem = tableRow.querySelector('.Subsystem');
     var selectValueSystem = selectSystem.value;
     removeOptions(selectSubsystem);
     for (var j = 0; j < system[selectValueSystem - 1].CarSubsystems.length; j++) {
@@ -308,7 +308,7 @@ function editRefuel(id) {
             $('#EditRefuelData').modal({
                 autofocus: false,
                 onVisible: () => {
-                    $('#EditRefuelData select').dropdown();
+                    //$('#EditRefuelData select').dropdown();
                     $('#EditRefuelData .ui.checkbox').checkbox();
                 },
                 onApprove: function () {

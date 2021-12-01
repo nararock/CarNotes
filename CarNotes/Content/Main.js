@@ -85,23 +85,15 @@ function updateVehicleSelector() {
 function addCarPart() {
     var mainTable = document.querySelector("#repairPartsTable");
     mainTable.style.display = '';
+    var amount = mainTable.childElementCount;
     var cloneTable = document.querySelector("#clone-repairPartsTable tr");
     var clone = cloneTable.cloneNode(true);
-    mainTable.append(clone);
-
-    //var elem = document.getElementById(id);
-    //var elemTable = elem.getElementsByTagName('table');
-    //elemTable[0].style.display = "";
-    //var elementTBody = elem.getElementsByTagName('tbody');
-    //var tableRow = document.createElement('tr');
-    var amount = mainTable.childElementCount;
+    mainTable.append(clone);    
     createCellInput(clone, "Name", amount);
     createCellsSelect(clone, "Parts[" + amount + "]");
     createCellInput(clone, "CarManufacturer", amount);
     createCellInput(clone, "Article", amount);
     createCellInput(clone, "Price", amount);
-    //var cell = document.createElement('td');
-    //cell.innerHTML = "&times";
     var button = clone.querySelector('.deleteCarPartButton');
     button.addEventListener("click", function () {
         if (button.closest('table').children.length == 1) {
@@ -109,10 +101,6 @@ function addCarPart() {
         }
         button.closest('tr').remove();
     });
-    //tableRow.appendChild(cell);
-    //elementTBody[0].append(tableRow);
-    //var elemSelect = tableRow.getElementsByTagName('select');
-    //$(elemSelect).dropdown();
 }
 /**создание элемента input для ячейки таблицы с системами и подсистемами
  * @param {any} tableRow ссылка на элемент строки в таблице
@@ -401,7 +389,7 @@ function editRepair(id) {
                 var clone = cloneTable.cloneNode(true);
                 mainTable.append(clone);
                 createCellRepairInput(mainTable, "Name", data.Parts[i].Name, "Parts[" + i + "].Name");
-                createCellsSelect(mainTable, "Parts[" + i + "].SubSystemId", data.Parts[i]);
+                createCellsSelect(mainTable, "Parts[" + i + "]", data.Parts[i]);
                 createCellRepairInput(mainTable, "CarManufacturer", data.Parts[i].CarManufacturer, "Parts[" + i + "].CarManufacturer");
                 createCellRepairInput(mainTable, "Article", data.Parts[i].Article, "Parts[" + i + "].Article");
                 createCellRepairInput(mainTable, "Price", data.Parts[i].Price, "Parts[" + i + "].Price");

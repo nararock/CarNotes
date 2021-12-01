@@ -443,11 +443,11 @@ function editCommon(record, id) {
  * скрывает форму соотвествующего события при нажатии на крестик
  * @param {any} event элемент из соотвествующего окна, по которому произошло событие нажатия
  */
-function closeWindow(event) {
-    var elem = event.target;
-    var parent = elem.closest('.modal');
-    parent.style.display = "none";
-}
+//function closeWindow(event) {
+//    var elem = event.target;
+//    var parent = elem.closest('.modal');
+//    parent.style.display = "none";
+//}
 /*clear the form fields before closing*/
 /**
  * срабатывает на события нажатия на крестик в окнах создания или редактирования событий
@@ -456,13 +456,13 @@ function closeWindow(event) {
  */
 function clearEvent(event) {
     var element = event.target;
-    var modalParent = element.closest('.modal');
-    var formElements = modalParent.getElementsByTagName('form');
+    //var modalParent = element.closest('.modal');
+    var formElements = event.target.getElementsByClassName('content')[0].getElementsByTagName('form');
     formElements[0].reset();
-    if (formElements[0].getElementsByTagName('tbody').length > 0) {
-        formElements[0].getElementsByTagName('tbody')[0].innerHTML = "";
-    }
-    closeWindow(event);
+    //if (formElements[0].getElementsByTagName('tbody').length > 0) {
+    //    formElements[0].getElementsByTagName('tbody')[0].innerHTML = "";
+    //}
+    //closeWindow(event);
 }
 
 /**

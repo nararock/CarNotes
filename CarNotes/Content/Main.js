@@ -367,7 +367,7 @@ function editRepair(id) {
                     document.getElementById('EditRepairData').getElementsByTagName("form")[0].submit();
                 },
                 onHide: function () {                    
-                    clearEvent(event);
+                    clearEvent("RepairFormEdit");
                 }
             }).modal('show');
             if (id == 0) {
@@ -454,11 +454,11 @@ function editCommon(record, id) {
  * очищает форму перед удалением 
  * @param {any} event элемент из соотвествующего окна, по которому произошло событие нажатия 
  */
-function clearEvent(event) {
-    var element = event.target;
+function clearEvent(IdForm) {
+    var element = document.getElementById(IdForm);
     //var modalParent = element.closest('.modal');
-    var formElements = event.target.getElementsByClassName('content')[0].getElementsByTagName('form');
-    formElements[0].reset();
+    //var formElements = event.target.getElementsByTagName('form');
+    element.reset();
     //if (formElements[0].getElementsByTagName('tbody').length > 0) {
     //    formElements[0].getElementsByTagName('tbody')[0].innerHTML = "";
     //}

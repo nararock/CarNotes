@@ -8,7 +8,7 @@
 <div>
     @if (Model.Count > 0)
     {
-        <table class="ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) unstackable table ">
+        <table class="ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) unstackable table hide-on-mobile">
             <caption>@ViewBag.Name</caption>
             <thead>
                 <tr>
@@ -17,23 +17,48 @@
                     <th>Год выхода</th>
                     <th>Цвет</th>
                     <th>Кузов</th>
-                    <th></th>
+                    <th  style="width:0"></th>
+                    <th  style="width:0"></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var element in Model)
                 {
-                    <tr>
-                        <td>@element.Brand</td>
-                        <td>@element.Model</td>
-                        <td>@element.ReleaseYear</td>
-                        <td>@element.Color</td>
-                        <td>@element.Body</td>
-                        <td class="right aligned"><input type="button" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" value=&#10008 onclick="deleteVehicle(@element.Id)" /></td>
-                    </tr>
+                <tr>
+                    <td>@element.Brand</td>
+                    <td>@element.Model</td>
+                    <td>@element.ReleaseYear</td>
+                    <td>@element.Color</td>
+                    <td>@element.Body</td>
+                    <td class="right aligned"><input type="button" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" value="&#9998" onclick="editVehicle(@element.Id)" /></td>
+                    <td class="right aligned"><input type="button" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" value=&#10008 onclick="deleteVehicle(@element.Id)" /></td>
+                </tr>
                 }
             </tbody>
         </table>
+        foreach (var element in Model)
+        {
+            <div class=" ui grid" style="margin-bottom:-2rem">
+                <div class="column">
+                    <div class="ui fluid card mobile-only">
+                        <div class="content">
+                            <div class="header">
+                                @element.Brand  @element.Model @element.ReleaseYear
+                            </div>
+                            <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="deleteVehicle(@element.Id)">
+                                <i class="trash alternate icon"></i>
+                            </button>
+                            <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editVehicle(@element.Id)">
+                                <i class="highlighter icon"></i>
+                            </button>
+                            <div class="meta">
+                                @element.Body @element.Color
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
     }
     else
     {

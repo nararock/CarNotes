@@ -61,5 +61,18 @@ namespace CarNotes.Classes
             editVehicleModel.Id = editVehicle.Id;
             return editVehicleModel;
         }
+
+        public void ChangeData(VehicleModel vm)
+        {
+            var data = new CnDbContext();
+            var vehicleEdit = data.Vehicles.FirstOrDefault(x => x.Id == vm.Id);
+            vehicleEdit.Brand = vm.Brand;
+            vehicleEdit.Model = vm.Model;
+            vehicleEdit.Body = vm.Body;
+            vehicleEdit.Color = vm.Color;
+            vehicleEdit.ReleaseYear = vm.ReleaseYear;
+            vehicleEdit.Id = vm.Id;
+            data.SaveChanges();
+        }
     }
 }

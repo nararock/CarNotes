@@ -422,6 +422,29 @@ function editRepair(id) {
         });
 }
 
+function editVehicle(Id) {
+    fetch("/Vehicle/Get?Id=" + Id)
+        .then(response => response.json())
+        .then((data) => {
+            $("#EditVehicleData").modal({
+                onApprove: function () {
+                    document.getElementById('EditVehicleData').getElementsByTagName("form")[0].submit();
+                },
+                onHide: function () {
+                    clearEvent("VehicleFormEdit");
+                }
+            }).modal("show");
+            var elementsForm = document.getElementById('VehicleFormEdit');
+            elementsForm.Brand.value = data.Brand;
+            elementsForm.Model.value = data.Model;
+            elementsForm.ReleaseYear.value = data.ReleaseYear;
+            elementsForm.Color.value = data.Color;
+            elementsForm.Body.value = data.Body;
+            elementsForm.Id.value = data.Id;
+        }, () => {
+            alert("Произошла ошибка");
+        });
+}
 //Home (Index)
 /**
  * срабатывает на событие нажатия на знак редактирования ("карандаш") в общей таблице 

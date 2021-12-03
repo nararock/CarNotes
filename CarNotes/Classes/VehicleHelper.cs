@@ -47,5 +47,19 @@ namespace CarNotes.Classes
             db.Vehicles.Remove(db.Vehicles.FirstOrDefault(x => x.Id == id));
             db.SaveChanges();
         }
+         
+        public VehicleModel GetDataEdit(int Id)
+        {
+            var db = new CnDbContext();
+            var editVehicle = db.Vehicles.FirstOrDefault(x => x.Id == Id);
+            var editVehicleModel = new VehicleModel();
+            editVehicleModel.Brand = editVehicle.Brand;
+            editVehicleModel.Model = editVehicle.Model;
+            editVehicleModel.ReleaseYear = editVehicle.ReleaseYear;
+            editVehicleModel.Color = editVehicle.Color;
+            editVehicleModel.Body = editVehicle.Body;
+            editVehicleModel.Id = editVehicle.Id;
+            return editVehicleModel;
+        }
     }
 }

@@ -1,0 +1,22 @@
+﻿<i class="close icon"></i>
+<div class="icon header">
+    Изменение данных о транспортном средстве
+</div>
+<div class="content">
+    <form action="/Vehicle/Edit" method="post" class="ui form" id="VehicleFormEdit">
+        <div class="field">Марка: <input type="text" name="Brand" /></div>
+        <div class="field">Модель: <input type="text" name="Model" /></div>
+        <div class="field">Год выхода: <input type="text" name="ReleaseYear" /></div>
+        <div class="field">Цвет: <input type="text" name="Color" /></div>
+        <div class="field">Кузов:<input type="text" name="Body" /></div>
+        <input type="hidden" name="Id" /><br>
+    </form>
+</div>
+<div class="actions">
+    <div class="ui black deny button">
+        Отмена
+    </div>
+    <div class="ui positive button">
+        Изменить
+    </div>
+</div>

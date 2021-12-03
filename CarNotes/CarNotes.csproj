@@ -258,6 +258,7 @@
     <Content Include="Styles\themes\default\assets\fonts\outline-icons.ttf" />
     <Content Include="Styles\themes\default\assets\fonts\outline-icons.woff" />
     <Content Include="Styles\themes\default\assets\fonts\outline-icons.woff2" />
+    <Content Include="Views\Shared\VehicleEdit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

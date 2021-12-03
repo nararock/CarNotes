@@ -1,4 +1,5 @@
 ﻿using CarNotes.Classes;
+using CarNotes.CnDb;
 using CarNotes.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,6 @@ using System.Web.Mvc;
 
 namespace CarNotes.Controllers
 {
-
     [Authorize]
     public class VehicleController : Controller
     {
@@ -30,6 +30,21 @@ namespace CarNotes.Controllers
         public ActionResult Delete(int id)
         {
             new VehicleHelper().Delete(id);
+            return Redirect("/Vehicle/Index");
+        }
+
+        public ActionResult Get(int Id)
+        {
+            var VehicleEdit = new VehicleHelper().GetDataEdit(Id);
+            var result = new JsonResult();
+            result.Data = VehicleEdit;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
+         [HttpPost]
+         public ActionResult Edit(VehicleModel vm)
+        {
+            new VehicleHelper().ChangeData(vm);
             return Redirect("/Vehicle/Index");
         }
     }

@@ -230,6 +230,7 @@ function popup(str) {
             .modal({
                 autofocus: false,
                 onApprove: function () {
+                    RefuelCreateSubmit();
                     document.getElementById("newRefuelWindow").getElementsByTagName("form")[0].submit();
                 },
                 onVisible: () => {
@@ -252,6 +253,14 @@ function popup(str) {
             .modal('show');
     }
 }
+
+function RefuelCreateSubmit() {
+    var elementsForm = document.getElementById('formCreate');
+    elementsForm.children.FullTank.value = elementsForm.children[7].getElementsByTagName('input')[0].checked;
+    elementsForm.children.ForgotRecordPreviousGasStation.value = elementsForm.children[9].getElementsByTagName('input')[0].checked;
+    return true;
+}
+
 //delete events
 //Repair (Index)
 /**

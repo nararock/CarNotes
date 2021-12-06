@@ -7,7 +7,7 @@
     Новая заправка
 </div>
 <div class="content">
-    @using (Html.BeginForm("Create", "Refuel", FormMethod.Post, new { @class = "ui form" }))
+    @using (Html.BeginForm("Create", "Refuel", FormMethod.Post, new { @class = "ui form", @id = "formCreate" }))
     {
         <div class="field">Дата: @Html.TextBoxFor(x => x.Date, new { @class = "MyDateRangePicker" })</div>
         <div class="field">Пробег: @Html.TextBoxFor(x => x.Mileage)</div>
@@ -22,12 +22,14 @@
                 <label>Полный бак</label>
             </div>
         </div>
+        <input type="hidden" name="FullTank" />
         <div class="field">
             <div class="ui checkbox">
                 <input type="checkbox" name="ForgotRecordPreviousGasStationCheckbox" />
                 <label>Забыл внести предыдущие данные</label>
             </div>
         </div>
+        <input type="hidden" name="ForgotRecordPreviousGasStation" />
     }
 </div>
 <div class="actions">

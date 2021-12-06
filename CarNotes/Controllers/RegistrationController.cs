@@ -33,7 +33,8 @@ namespace CarNotes.Controllers
                 }
                 return View();
             }
-            return View("EndOfRegistration");
+            ViewBag.Message = "Вы успешно зарегистрировались! Войдите.";
+            return View("~/Views/Login/Index.cshtml");
         }
     }
 }

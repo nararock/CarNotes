@@ -44,6 +44,10 @@
                     Записки Автомобилиста
                 </div>
             </h3>
+            @if(ViewBag.Message != null)
+            {
+                <div class="ui olive message">@ViewBag.Message</div>
+            }
             <form class="ui large form" method="post" action="~/Login/Index">
                 <div class="ui stacked segment">
                     <div class="field">
@@ -59,12 +63,12 @@
                         </div>
                     </div>
                     <button class="ui fluid large teal submit button" type="submit">Войти</button>
-                    <div class="ui error message"></div>   
+                    <div class="ui error message"></div>
                 </div>
             </form>
             <div class="ui message">
                 Нет аккаунта? <a href="@Url.Content("~/Registration/Index")">Регистрация</a>
-            </div>            
+            </div>
         </div>
     </div>
 </body>

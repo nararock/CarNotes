@@ -31,7 +31,6 @@
 
         .ui.fluid.large.teal.submit.button {
             background-color: #91c37c;
-            
         }
     </style>
 </head>
@@ -44,23 +43,26 @@
                     Записки Автомобилиста
                 </div>
             </h3>
-            @if(ViewBag.Message != null)
+            @if (ViewBag.Message != null)
             {
                 <div class="ui olive message">@ViewBag.Message</div>
             }
             <form class="ui large form" method="post" action="~/Login/Index">
+                @Html.ValidationSummary(true)
                 <div class="ui stacked segment">
                     <div class="field">
                         <div class="ui left icon input">
                             <i class="user icon"></i>
                             <input type="text" name="Login" placeholder="Почта">
                         </div>
+                        @Html.ValidationMessageFor(model => model.Login)
                     </div>
                     <div class="field">
                         <div class="ui left icon input">
                             <i class="lock icon"></i>
                             <input type="password" name="Password" placeholder="Пароль">
                         </div>
+                        @Html.ValidationMessageFor(model => model.Password)
                     </div>
                     <button class="ui fluid large teal submit button" type="submit">Войти</button>
                     <div class="ui error message"></div>

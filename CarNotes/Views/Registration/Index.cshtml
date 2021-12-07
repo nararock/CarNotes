@@ -51,24 +51,28 @@
                 </div>
             </h3>
             <form class="ui large form" method="post" action="~/Registration/Index">
+                @Html.ValidationSummary(true)
                 <div class="ui stacked segment">
                     <div class="field">
                         <div class="ui left icon input">
                             <i class="user icon"></i>
                             <input type="text" name="Name" placeholder="Имя">
                         </div>
+                        @Html.ValidationMessageFor(model => model.Name)
                     </div>
                     <div class="field">
                         <div class="ui left icon input">
                             <i class="user icon"></i>
                             <input type="text" name="Email" placeholder="Почта">
                         </div>
+                        @Html.ValidationMessageFor(model => model.Email)
                     </div>
                     <div class="field">
                         <div class="ui left icon input">
                             <i class="lock icon"></i>
                             <input type="password" name="Password" placeholder="Пароль">
                         </div>
+                        @Html.ValidationMessageFor(model => model.Password)
                     </div>
                     <button class="ui fluid large teal submit button" type="submit">Зарегистрироваться</button>
                     <div class="ui error message"></div>

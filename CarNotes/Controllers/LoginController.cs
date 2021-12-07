@@ -20,6 +20,10 @@ namespace CarNotes.Controllers
         [HttpPost]
         public async Task<ActionResult> Index(LoginModel loginModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             if (!await new LoginHelper().Login(loginModel, HttpContext))
             {
                 ModelState.AddModelError("", "Не верно введен логин или пароль");

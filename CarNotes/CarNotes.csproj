@@ -238,7 +238,6 @@
     <Content Include="Views\web.config" />
     <Content Include="Views\Shared\_LinkMenuTemplate.cshtml" />
     <Content Include="Views\Registration\Index.cshtml" />
-    <Content Include="Views\Registration\EndOfRegistration.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Vehicle\Index.cshtml" />
     <Content Include="Views\Vehicle\Add.cshtml" />

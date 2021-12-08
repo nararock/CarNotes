@@ -2,6 +2,8 @@
 @using CarNotes.Classes;
 @{
     Layout = "../Shared/_TableTemplate.cshtml";
+    var userHelper = new AuthHelper(Context);
+    var isVerified = userHelper.AuthenticationManager.User.Identity.IsAuthenticated;
 }
 <div>
     <table class="ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) unstackable table hide-on-mobile">
@@ -14,23 +16,29 @@
                 <th>Сервис</th>
                 <th>Стоимость работ</th>
                 <th>Комментарии</th>
-                <th style="width:0"></th>
-                <th style="width:0"></th>
+                @if (isVerified)
+                {
+                    <th style="width:0"></th>
+                    <th style="width:0"></th>
+                }
             </tr>
         </thead>
         <tbody>
             @foreach (CarNotes.Models.RepairModel b in Model)
             {
-                <tr>
-                    <td>@b.Date</td>
-                    <td>@b.Mileage</td>
-                    <td>@b.Repair</td>
-                    <td>@b.CarService</td>
-                    <td>@b.RepairCost</td>
-                    <td>@b.Comments</td>
+            <tr>
+                <td>@b.Date</td>
+                <td>@b.Mileage</td>
+                <td>@b.Repair</td>
+                <td>@b.CarService</td>
+                <td>@b.RepairCost</td>
+                <td>@b.Comments</td>
+                @if (isVerified)
+                {
                     <td><input type="button" value="&#9998" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editRepair(@b.Id)" /></td>
                     <td><input type="button" value="&#10008" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="deleteRepair(@b.Id)" /></td>
-                </tr>
+                }
+            </tr>
             }
         </tbody>
     </table>

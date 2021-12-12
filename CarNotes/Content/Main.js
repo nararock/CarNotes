@@ -195,17 +195,32 @@ function changeData(Id) {
  * 
  * @param {any} e параметр, который был выбран при событии (option)
  */
-function changeSelectList(e) {
+function changeSelectListCreate(e) {
     var inputStation = e.target;
     if (inputStation.value == "1") {
         $(inputStation.parentElement.parentElement.nextElementSibling).slideDown();
         //inputStation.parentElement.parentElement.nextElementSibling.style.display = "inline-block";
     }
     else if (inputStation.value != "1") {
+        inputStation.parentElement.parentElement.nextElementSibling.querySelector('input').value = '';
         $(inputStation.parentElement.parentElement.nextElementSibling).slideUp();
         //inputStation.parentElement.parentElement.nextElementSibling.style.display = "none";
     }
 }
+
+function changeSelectListEdit(e) {
+    var inputStation = e.target;
+    if (inputStation.value == "1") {
+        $(inputStation.parentElement.nextElementSibling).slideDown();
+        //inputStation.parentElement.parentElement.nextElementSibling.style.display = "inline-block";
+    }
+    else if (inputStation.value != "1") {
+        inputStation.parentElement.nextElementSibling.querySelector('input').value = '';
+        $(inputStation.parentElement.nextElementSibling).slideUp();
+        //inputStation.parentElement.parentElement.nextElementSibling.style.display = "none";
+    }
+}
+
 //SubMenu BasicTemplate
 /**срабатывает на событие нажатие на кнопку выбора события (Новая заправка или Новый ремонт) в шапке мастер страницы
  * делает видимым выбранное частичное представление, которое было скрыто

@@ -21,7 +21,7 @@
             @*<input type="text" name="Fuel" />*@
         </div>
         <div class="field">
-            АЗС: <select name="Station" onchange="changeSelectList(event)" class="ui fluid dropdown">
+            АЗС: <select name="Station" onchange="changeSelectListEdit(event)" class="ui fluid dropdown">
                 @foreach (var elem in gasStation)
                 {
                     <option value="@elem.Id">@elem.Name</option>

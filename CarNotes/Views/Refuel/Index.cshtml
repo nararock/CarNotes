@@ -51,7 +51,7 @@
                 </td>
                 @if (isVerified)
                 {
-                    <td><input type="button" value="&#9998" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editRefuel(@b.Id)" /></td>
+                    <td><input type="button" value="&#9998" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editRefuel(@b.Id, false)" /></td>
                     <td><input type="button" value="&#10008" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="deleteRefuel(@b.Id)" /></td>
                 }
             </tr>
@@ -71,7 +71,7 @@
                     <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="deleteRefuel(@b.Id)">
                         <i class="trash alternate icon"></i>
                     </button>
-                    <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editRefuel(@b.Id)">
+                    <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editRefuel(@b.Id, false)">
                         <i class="highlighter icon"></i>
                     </button>
                     <div class="meta">

@@ -313,7 +313,7 @@ function deleteCommon(record, id) {
  * открыает окно для редактирования события, где заполняет форму редактирования данными выбранного события (id)
  * @param {any} id номер события заправки для редактирования
  */
-function editRefuel(id) {
+function editRefuel(id, type) {
     fetch("/Refuel/Get?id=" + id)
         .then(response => response.json())
         .then((data) => {
@@ -346,6 +346,56 @@ function editRefuel(id) {
             elementsForm.FullTankCheckbox.checked = data.FullTank;
             elementsForm.ForgotRecordPreviousGasStationCheckbox.checked = data.ForgotRecordPreviousGasStation;
             elementsForm.Id.value = data.Id;
+            if (type) {//если пользователь не авторизован 
+                var inputs = elementsForm.getElementsByTagName('input');
+                for (var l = 0; l < inputs.length; l++)
+                {
+                    inputs[l].setAttribute('disabled', 'disabled');
+                }
+                var dropdowns = elementsForm.getElementsByClassName('dropdown');
+                for (var d = 0; d < dropdowns.length; d++)
+                {
+                    if (dropdowns[d].name == 'Station' && dropdowns[d].value == "1")
+                    {
+                        dropdowns[d].parentElement.nextElementSibling.style.marginTop = 0;
+                        dropdowns[d].parentElement.style.marginBottom = 0;
+                        dropdowns[d].style.display = 'none';
+                        continue;
+                    } else
+                    {
+                        dropdowns[d].style.display = '';
+                        dropdowns[d].parentElement.nextElementSibling.style.marginTop = '';
+                        dropdowns[d].parentElement.style.marginBottom = '';                        
+                    }
+                    dropdowns[d].setAttribute('disabled', 'disabled');
+                }
+                if (data.FullTank) {
+                    document.getElementById('hiddenFullTank').style.display = '';
+                }
+                else {
+                    document.getElementById('hiddenFullTank').style.display = 'none';
+                }
+                if (data.ForgotRecordPreviousGasStation) {
+                    document.getElementById('hiddenForgotRecord').style.display = '';
+                } else {
+                    document.getElementById('hiddenForgotRecord').style.display = 'none';
+                }
+                var checkboxes = elementsForm.getElementsByClassName('checkbox');
+                for (var c = 0; c < checkboxes.length; c++)
+                {
+                    checkboxes[c].style.display = 'none';
+                }
+                var buttons = elementsForm.parentElement.nextElementSibling.getElementsByClassName('button');
+                for(var m = 0; m < buttons.length; m++)
+                {
+                    buttons[m].style.display = 'none';
+                }
+                var closeButton = elementsForm.parentElement.nextElementSibling.getElementsByClassName('closeRefuelEditButton');
+                closeButton[0].style.display = '';
+                var name = elementsForm.parentElement.previousElementSibling;
+                name.innerText = 'Данные о заправке';
+            }
+           
         }, () => {
             alert("Произошла ошибка");
         });
@@ -478,10 +528,16 @@ function editVehicle(Id) {
  */
 function editCommon(record, id) {
     if (record == 'Refuel') {
-        editRefuel(id);
+        editRefuel(id, false);
     }
     else if (record == 'Repair') {
         editRepair(id);
+    }
+}
+
+function showCommon(record, id) {
+    if (record == 'Refuel') {
+        editRefuel(id, true);
     }
 }
 

@@ -167,6 +167,19 @@
                 display: none !important;
             }
         }
+        /*стили для модульных окон, которые нельзя редактировать(для неавторизованных пользователей)*/
+        .justText input[disabled=disabled] {
+            color: black !important;
+            border: none !important;
+            opacity: 1 !important;
+        }
+        .justText select[disabled=disabled] {
+            border: none !important;
+            opacity: 1 !important;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
     </style>
 </head>
 <body>

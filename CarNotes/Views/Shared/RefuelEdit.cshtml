@@ -8,7 +8,7 @@
     Изменение данных о заправке
 </div>
 <div class="content">
-    <form action="/Refuel/Edit" method="post" class="ui form" id="formEdit">
+    <form action="/Refuel/Edit" method="post" class="ui form justText" id="formEdit">
         <div class="field">Дата: <input type="text" name="Date" class="MyDateRangePicker" /></div>
         <div class="field">Пробег: <input type="text" name="Mileage" /></div>
         <div class="field">
@@ -18,7 +18,6 @@
                     <option>@elem</option>
                 }
             </select>
-            @*<input type="text" name="Fuel" />*@
         </div>
         <div class="field">
             АЗС: <select name="Station" onchange="changeSelectListEdit(event)" class="ui fluid dropdown">
@@ -37,6 +36,7 @@
                 <label>Полный бак</label>
             </div>
         </div>
+        <div style="display:none" id="hiddenFullTank" class="field"><label>&#10004 Полный бак</label></div>
         <input type="hidden" name="FullTank" />
         <div class="field">
             <div class="ui checkbox">
@@ -44,14 +44,17 @@
                 <label>Забыл внести предыдущие данные</label>
             </div>
         </div>
+        <div style="display:none" id="hiddenForgotRecord" class="field"><label>&#10004 Забыл внести предыдущие данные</label></div>
         <input type="hidden" name="ForgotRecordPreviousGasStation" />
         <input type="hidden" name="Id" /><br>
-        @*<input type="submit" value="Сохранить изменения" class="button" onclick="RefuelEditSubmit()" />*@
     </form>
 </div>
 <div class="actions">
     <div class="ui black deny button">
         Отмена
+    </div>
+    <div class="ui black deny button closeRefuelEditButton" style="display:none">
+        Закрыть
     </div>
     <div class="ui positive button">
         Изменить

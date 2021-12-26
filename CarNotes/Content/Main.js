@@ -229,7 +229,7 @@ function changeSelectListEdit(e) {
 //create new event
 function popup(str) {
     if (str == "Новый ремонт")
-        editRepair(0);
+        editRepair(0, false);
         //$('#newRepairWindow')
         //    .modal({
         //        autofocus: false,
@@ -306,6 +306,21 @@ function deleteCommon(record, id) {
     document.location = "/Home/DeleteEvent?record=" + record + "&id=" + id;
 }
 
+function toggleForm(form, nameForm)
+{
+    form.classList.add('justText');
+    var inputs = form.getElementsByTagName('input');
+    for (var l = 0; l < inputs.length; l++) {
+        inputs[l].setAttribute('disabled', 'disabled');
+    }
+    var buttons = form.parentElement.nextElementSibling.getElementsByClassName('button');
+    for (var m = 0; m < buttons.length; m++) {
+        buttons[m].style.display = 'none';
+    }
+    var name = form.parentElement.previousElementSibling;
+    name.innerText = nameForm;
+}
+
 //edit events
 //RefuelEdit
 /**
@@ -313,7 +328,7 @@ function deleteCommon(record, id) {
  * открыает окно для редактирования события, где заполняет форму редактирования данными выбранного события (id)
  * @param {any} id номер события заправки для редактирования
  */
-function editRefuel(id, type) {
+function editRefuel(id, notVerified) {
     fetch("/Refuel/Get?id=" + id)
         .then(response => response.json())
         .then((data) => {
@@ -346,12 +361,8 @@ function editRefuel(id, type) {
             elementsForm.FullTankCheckbox.checked = data.FullTank;
             elementsForm.ForgotRecordPreviousGasStationCheckbox.checked = data.ForgotRecordPreviousGasStation;
             elementsForm.Id.value = data.Id;
-            if (type) {//если пользователь не авторизован 
-                var inputs = elementsForm.getElementsByTagName('input');
-                for (var l = 0; l < inputs.length; l++)
-                {
-                    inputs[l].setAttribute('disabled', 'disabled');
-                }
+            if (notVerified) {//если пользователь не авторизован 
+                toggleForm(elementsForm, 'Данные о заправке');
                 var dropdowns = elementsForm.getElementsByClassName('dropdown');
                 for (var d = 0; d < dropdowns.length; d++)
                 {
@@ -385,15 +396,8 @@ function editRefuel(id, type) {
                 {
                     checkboxes[c].style.display = 'none';
                 }
-                var buttons = elementsForm.parentElement.nextElementSibling.getElementsByClassName('button');
-                for(var m = 0; m < buttons.length; m++)
-                {
-                    buttons[m].style.display = 'none';
-                }
                 var closeButton = elementsForm.parentElement.nextElementSibling.getElementsByClassName('closeRefuelEditButton');
-                closeButton[0].style.display = '';
-                var name = elementsForm.parentElement.previousElementSibling;
-                name.innerText = 'Данные о заправке';
+                closeButton[0].style.display = '';                
             }
            
         }, () => {
@@ -431,7 +435,7 @@ function createCellRepairInput(element, oldName, newValue, newName) {
  * открывает окно для редактирования события, где заполняет форму редактирования данными выбранного события (id)
  * @param {any} id номер события заправки для редактирования
  */
-function editRepair(id) {
+function editRepair(id, notVerified) {
     fetch("/Repair/Get?id=" + id)
         .then(response => response.json())
         .then((data) => {
@@ -457,39 +461,86 @@ function editRepair(id) {
             elementsForm.Comments.value = data.Comments;
             elementsForm.Id.value = data.Id;
             var mainTable = document.querySelector("#repairPartsTable");
-            mainTable.innerHTML = '';
-            var cloneTable = document.querySelector("#clone-repairPartsTable tr");
-            for (var i = 0; i < data.Parts.length; i++) {
-                var clone = cloneTable.cloneNode(true);
-                mainTable.append(clone);
-                createCellRepairInput(mainTable, "Name", data.Parts[i].Name, "Parts[" + i + "].Name");
-                createCellsSelect(mainTable, "Parts[" + i + "]", data.Parts[i]);
-                createCellRepairInput(mainTable, "CarManufacturer", data.Parts[i].CarManufacturer, "Parts[" + i + "].CarManufacturer");
-                createCellRepairInput(mainTable, "Article", data.Parts[i].Article, "Parts[" + i + "].Article");
-                createCellRepairInput(mainTable, "Price", data.Parts[i].Price, "Parts[" + i + "].Price");
-                /*ячейка со скрытым значением Id*/
-                var inputId = document.createElement('input');
-                inputId.name = "Parts[" + i + "].Id";
-                inputId.type = "hidden";
-                inputId.value = data.Parts[i].Id;
-                /*скрытая ячейка с булевым значением удаляется ли ячейка */
-                var inputDelete = document.createElement('input');
-                inputDelete.type = "hidden";
-                inputDelete.className = "inputDelete";
-                inputDelete.name = "Parts[" + i + "].IsDeleted";
-                /*ячейка с событием скрытия поля по нажатию крестик*/
-                var button = mainTable.querySelector('.deleteCarPartButton');
-                button.append(inputId);
-                button.append(inputDelete);
-                button.addEventListener("click", function (e) {
-                    var td = e.target.closest('td');
-                    var IsDeletedInput = td.getElementsByClassName("inputDelete");
-                    IsDeletedInput[0].value = "true";
-                    td.style.display = "none";
-                })
-            }
-            if (data.Parts.length > 0) {
-                mainTable.style.display = '';
+            if (notVerified) {//если пользователь не авторизован (таблица запчастей в виде карточек, убираются все возможности редактирования)
+                mainTable.style.display = "none";
+                var cards = document.querySelector('.cardsForCarPart');
+                cards.style.display = '';
+                for (var i = 0; i < data.Parts.length; i++) {
+                    var card = document.createElement('div');
+                    card.classList.add('card');
+                    var content = document.createElement('div');
+                    content.classList.add('content');
+                    card.append(content);
+                    var header = document.createElement('div');
+                    header.classList.add('header');
+                    header.innerText = data.Parts[i].Name;
+                    content.append(header);
+                    var meta = document.createElement('div');
+                    meta.classList.add('meta');
+                    meta.innerText = data.Parts[i].CarManufacturer;
+                    content.append(meta);
+                    var description1 = document.createElement('div');
+                    description1.classList.add('description');
+                    var systemNumber = data.Parts[i].SystemId;
+                    for (var s = 0; s < system[systemNumber].CarSubsystems.length; s++) {
+                        if (system[systemNumber - 1].CarSubsystems[s].Id == data.Parts[s].SubSystemId) {
+                            description1.innerText = system[systemNumber].Name + " : " + system[systemNumber].CarSubsystems[s].Name;
+                        }
+                    }
+                    content.append(description1);
+                    var description2 = document.createElement('div');
+                    description2.classList.add('description');
+                    description2.innerText = "Цена : " + data.Parts[i].Price;
+                    content.append(description2);
+
+                    cards.append(card);                    
+                }
+                toggleForm(elementsForm, 'Данные о ремонте');
+                var selects = elementsForm.getElementsByTagName('select');      
+                for (var s = 0; s < selects.length; s++) {
+                    selects[s].setAttribute('disabled', 'disabled');
+                }
+                var addButton = elementsForm.getElementsByClassName('button');
+                addButton[0].style.display = 'none';
+                var nameCarPart = elementsForm.getElementsByClassName('CarPartName');
+                nameCarPart[0].style.display = '';
+                var closeButton = elementsForm.parentElement.nextElementSibling.getElementsByClassName('closeRepairEditButton');
+                closeButton[0].style.display = '';
+            } else {
+                mainTable.innerHTML = '';
+                var cloneTable = document.querySelector("#clone-repairPartsTable tr");
+                for (var i = 0; i < data.Parts.length; i++) {
+                    var clone = cloneTable.cloneNode(true);
+                    mainTable.append(clone);
+                    createCellRepairInput(mainTable, "Name", data.Parts[i].Name, "Parts[" + i + "].Name");
+                    createCellsSelect(mainTable, "Parts[" + i + "]", data.Parts[i]);
+                    createCellRepairInput(mainTable, "CarManufacturer", data.Parts[i].CarManufacturer, "Parts[" + i + "].CarManufacturer");
+                    createCellRepairInput(mainTable, "Article", data.Parts[i].Article, "Parts[" + i + "].Article");
+                    createCellRepairInput(mainTable, "Price", data.Parts[i].Price, "Parts[" + i + "].Price");
+                    /*ячейка со скрытым значением Id*/
+                    var inputId = document.createElement('input');
+                    inputId.name = "Parts[" + i + "].Id";
+                    inputId.type = "hidden";
+                    inputId.value = data.Parts[i].Id;
+                    /*скрытая ячейка с булевым значением удаляется ли ячейка */
+                    var inputDelete = document.createElement('input');
+                    inputDelete.type = "hidden";
+                    inputDelete.className = "inputDelete";
+                    inputDelete.name = "Parts[" + i + "].IsDeleted";
+                    /*ячейка с событием скрытия поля по нажатию крестик*/
+                    var button = mainTable.querySelector('.deleteCarPartButton');
+                    button.append(inputId);
+                    button.append(inputDelete);
+                    button.addEventListener("click", function (e) {
+                        var td = e.target.closest('td');
+                        var IsDeletedInput = td.getElementsByClassName("inputDelete");
+                        IsDeletedInput[0].value = "true";
+                        td.style.display = "none";
+                    })
+                }
+                if (data.Parts.length > 0) {
+                    mainTable.style.display = '';
+                }
             }
         }, () => {
             alert("Произошла ошибка");
@@ -531,13 +582,16 @@ function editCommon(record, id) {
         editRefuel(id, false);
     }
     else if (record == 'Repair') {
-        editRepair(id);
+        editRepair(id, false);
     }
 }
 
 function showCommon(record, id) {
     if (record == 'Refuel') {
         editRefuel(id, true);
+    }
+    else if (record == 'Repair') {
+        editRepair(id, true);
     }
 }
 

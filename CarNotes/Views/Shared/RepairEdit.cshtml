@@ -11,14 +11,19 @@
         <div class="field">Сервис: <input type="text" name="CarService" /></div>
         <div class="field">Стоимость ремонтных работ:<input type="text" name="RepairCost" /></div>
         <div class="field">Комментарии<input type="text" name="Comments" /></div>
-        <input type="hidden" name="Id" /><br>
+        <input type="hidden" name="Id" />
+        <div class="ui small header CarPartName" style="display:none">Автозапчасти</div>
         <div class="ui button" onclick="addCarPart()">Добавить запчасть</div>
+        <div class="ui cards cardsForCarPart" style="display:none"></div>
         <table id="repairPartsTable" name="Parts" style="display:none" class="ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) unstackable table"></table>
     </form>
 </div>
 <div class="actions">
     <div class="ui black deny button">
         Отмена
+    </div>
+    <div class="ui black deny button closeRepairEditButton" style="display:none">
+        Закрыть
     </div>
     <div class="ui positive button">
         Изменить
@@ -27,8 +32,8 @@
 <table style="display:none" id="clone-repairPartsTable">
     <tr>
         <td>
-            <div class="ui unstackable compact grid hide-on-mobile">
-                <div class="three column row">
+            <div class="ui unstackable compact grid">
+                <div class="row">
                     <div class="column">
                         <input type="text" name="Name" placeholder="Название автозапчасти">
                     </div>
@@ -42,8 +47,6 @@
                             <option value="">Подсистема</option>
                         </select>
                     </div>
-                </div>
-                <div class="three column row">
                     <div class="column">
                         <input name="CarManufacturer" type="text" placeholder="Производитель">
                     </div>
@@ -56,37 +59,38 @@
                     </div>
                 </div>
             </div>
-            <div class="ui unstackable compact grid mobile-only">
-                <div class="two column row">
-                    <div class="column">
-                        <input type="text" name="Name" placeholder="Название автозапчасти">
+
+            @*<div class="ui unstackable compact grid mobile-only">
+                    <div class="two column row">
+                        <div class="column">
+                            <input type="text" name="Name" placeholder="Название автозапчасти">
+                        </div>
+                        <div class="column">
+                            <input name="CarManufacturer" type="text" placeholder="Производитель">
+                        </div>
                     </div>
-                    <div class="column">
-                        <input name="CarManufacturer" type="text" placeholder="Производитель">
+                    <div class="two column row">
+                        <div class="column">
+                            <select name="System" class="ui fluid dropdown" onchange="changeSubsystem(event)">
+                                <option value="">Система</option>
+                            </select>
+                        </div>
+                        <div class="column">
+                            <select name="Subsystem" class="ui fluid dropdown Subsystem">
+                                <option value="">Подсистема</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="two column row">
-                    <div class="column">
-                        <select name="System" class="ui fluid dropdown" onchange="changeSubsystem(event)">
-                            <option value="">Система</option>
-                        </select>
+                    <div class="two column row">
+                        <div class="column">
+                            <input name="Article" type="text" placeholder="Артикул">
+                        </div>
+                        <div class="column">
+                            <input name="Price" type="text" placeholder="Цена" style="width:calc(100% - 55px)">
+                            <div class="ui icon button deleteCarPartButton" style="float:right"><i class="trash alternate icon"></i></div>
+                        </div>
                     </div>
-                    <div class="column">
-                        <select name="Subsystem" class="ui fluid dropdown Subsystem">
-                            <option value="">Подсистема</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="two column row">
-                    <div class="column">
-                        <input name="Article" type="text" placeholder="Артикул">
-                    </div>
-                    <div class="column">
-                        <input name="Price" type="text" placeholder="Цена" style="width:calc(100% - 55px)">
-                        <div class="ui icon button deleteCarPartButton" style="float:right"><i class="trash alternate icon"></i></div>
-                    </div>
-                </div>
-            </div>
+                </div>*@
 
         </td>
 

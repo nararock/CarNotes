@@ -97,11 +97,14 @@
             margin-bottom: 0.5em
         }
 
+        #repairPartsTable .column {
+            width: 33.33% !important;
+            margin-bottom: 3px !important;
+        }
+
         /* Стили для мобильных телефонов */
         @@media screen and (max-width: 767.98px) {
-            .large-monitor-only,
-            .small-monitor-only,
-            .tablet-only {
+            .large-monitor-only, .small-monitor-only, .tablet-only {
                 display: none !important;
             }
 
@@ -118,6 +121,11 @@
                 margin-left: 6px;
                 font-size: 14px;
                 padding-bottom: 2px;
+            }
+
+            #repairPartsTable .column {
+                width: 50% !important;
+                margin-bottom: 3px !important;
             }
         }
         /* Стили для планшетов */

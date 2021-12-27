@@ -28,30 +28,30 @@
         <tbody>
             @foreach (var item in Model)
             {
-            <tr>
-                <td>
-                    @if (item.Record == CarNotes.Enums.RecordType.Refuel)
+                <tr>
+                    <td>
+                        @if (item.Record == CarNotes.Enums.RecordType.Refuel)
+                        {
+                            @:Заправка
+                        }
+                        else
+                        {
+                            @:Ремонт
+                        }
+                    </td>
+                    <td>@item.Date</td>
+                    <td>@item.Mileage</td>
+                    <td>@item.Cost</td>
+                    @if (isVerified)
                     {
-                        @:Заправка
+                        <td><input type="button" value="&#9998" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editCommon('@item.Record', @item.Id)" /></td>
+                        <td><input type="button" value="&#10008" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="deleteCommon('@item.Record', @item.Id)" /></td>
                     }
                     else
                     {
-                        @:Ремонт
+                        <td><input type="button" value="&#128269" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="showCommon('@item.Record', @item.Id)" /></td>
                     }
-                </td>
-                <td>@item.Date</td>
-                <td>@item.Mileage</td>
-                <td>@item.Cost</td>
-                @if (isVerified)
-                {
-                    <td><input type="button" value="&#9998" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editCommon('@item.Record', @item.Id)" /></td>
-                    <td><input type="button" value="&#10008" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="deleteCommon('@item.Record', @item.Id)" /></td>
-                }
-                else
-                {
-                    <td><input type="button" value="&#128269" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="showCommon('@item.Record', @item.Id)" /></td>
-                }
-            </tr>
+                </tr>
             }
 
         </tbody>
@@ -63,12 +63,21 @@
         <div class="column">
             <div class="ui fluid card">
                 <div class="content">
-                    <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="deleteCommon('@item.Record', @item.Id)">
-                        <i class="trash alternate icon"></i>
-                    </button>
-                    <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editCommon('@item.Record', @item.Id)">
-                        <i class="highlighter icon"></i>
-                    </button>
+                    @if (isVerified)
+                    {
+                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="deleteCommon('@item.Record', @item.Id)">
+                            <i class="trash alternate icon"></i>
+                        </button>
+                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editCommon('@item.Record', @item.Id)">
+                            <i class="highlighter icon"></i>
+                        </button>
+                    }
+                    else
+                    {
+                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="showCommon('@item.Record', @item.Id)">
+                            <i class="search icon"></i>
+                        </button>
+                    }
                     <div class="header">
                         @if (item.Record == CarNotes.Enums.RecordType.Refuel)
                         {

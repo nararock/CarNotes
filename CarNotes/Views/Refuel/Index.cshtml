@@ -68,12 +68,15 @@
                     <div class="header">
                         @b.Station
                     </div>
-                    <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="deleteRefuel(@b.Id)">
-                        <i class="trash alternate icon"></i>
-                    </button>
-                    <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editRefuel(@b.Id, false)">
-                        <i class="highlighter icon"></i>
-                    </button>
+                    @if (isVerified)
+                    {
+                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="deleteRefuel(@b.Id)">
+                            <i class="trash alternate icon"></i>
+                        </button>
+                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editRefuel(@b.Id, false)">
+                            <i class="highlighter icon"></i>
+                        </button>
+                    }
                     <div class="meta">
                         @b.Date
                     </div>

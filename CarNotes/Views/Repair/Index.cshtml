@@ -21,24 +21,32 @@
                     <th style="width:0"></th>
                     <th style="width:0"></th>
                 }
+                else
+                {
+                    <th style="width:0"></th>
+                }
             </tr>
         </thead>
         <tbody>
             @foreach (CarNotes.Models.RepairModel b in Model)
             {
-            <tr>
-                <td>@b.Date</td>
-                <td>@b.Mileage</td>
-                <td>@b.Repair</td>
-                <td>@b.CarService</td>
-                <td>@b.RepairCost</td>
-                <td>@b.Comments</td>
-                @if (isVerified)
-                {
-                    <td><input type="button" value="&#9998" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editRepair(@b.Id, false)" /></td>
-                    <td><input type="button" value="&#10008" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="deleteRepair(@b.Id)" /></td>
-                }
-            </tr>
+                <tr>
+                    <td>@b.Date</td>
+                    <td>@b.Mileage</td>
+                    <td>@b.Repair</td>
+                    <td>@b.CarService</td>
+                    <td>@b.RepairCost</td>
+                    <td>@b.Comments</td>
+                    @if (isVerified)
+                    {
+                        <td><input type="button" value="&#9998" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editRepair(@b.Id, false)" /></td>
+                        <td><input type="button" value="&#10008" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="deleteRepair(@b.Id)" /></td>
+                    }
+                    else
+                    {
+                        <td><input type="button" value="&#128269" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editRepair(@b.Id, true)" /></td>
+                    }
+                </tr>
             }
         </tbody>
     </table>
@@ -52,12 +60,21 @@
                     <div class="header">
                         @b.Repair
                     </div>
-                    <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="deleteRepair(@b.Id)">
-                        <i class="trash alternate icon"></i>
-                    </button>
-                    <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editRepair(@b.Id)">
-                        <i class="highlighter icon"></i>
-                    </button>
+                    @if (isVerified)
+                    {
+                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="deleteRepair(@b.Id)">
+                            <i class="trash alternate icon"></i>
+                        </button>
+                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editRepair(@b.Id, false)">
+                            <i class="highlighter icon"></i>
+                        </button>
+                    }
+                    else
+                    {
+                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editRepair(@b.Id, true)">
+                            <i class="search icon"></i>
+                        </button>
+                    }
                     <div class="meta">
                         @b.Date
                     </div>

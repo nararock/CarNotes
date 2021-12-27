@@ -204,7 +204,10 @@
                 <ul>
                     @foreach (CarNotes.Models.LinkMenuModel l in menu)
                     {
-                        <li><a href="@Url.Content(l.MethodLink)" class="link large ui @l.Color tertiary button">@l.NameLink</a></li>
+                        if (isVerified || (!isVerified && l.NameLink != "Гараж"))
+                        {
+                            <li><a href="@Url.Content(l.MethodLink)?vehicleId=@ViewBag.VehicleId" class="link large ui @l.Color tertiary button">@l.NameLink</a></li>
+                        }
                     }
                 </ul>
             </nav><div class="userInfo">
@@ -260,7 +263,10 @@
                 <ul>
                     @foreach (CarNotes.Models.LinkMenuModel l in menu)
                     {
-                        <li><a href="@Url.Content(l.MethodLink)" class="link large ui @l.Color tertiary button">@l.NameLink</a></li>
+                        if (isVerified || (!isVerified && l.NameLink != "Гараж"))
+                        {
+                            <li><a href="@Url.Content(l.MethodLink)?vehicleId=@ViewBag.VehicleId" class="link large ui @l.Color tertiary button">@l.NameLink</a></li>
+                        }
                     }
                 </ul>
             </nav><div class="userInfo">
@@ -318,7 +324,10 @@
                 <ul>
                     @foreach (CarNotes.Models.LinkMenuModel l in menu)
                     {
-                        <li><a href="@Url.Content(l.MethodLink)" class="link ui @l.Color tertiary button">@l.NameLink</a></li>
+                        if (isVerified || (!isVerified && l.NameLink != "Гараж"))
+                        {
+                            <li><a href="@Url.Content(l.MethodLink)?vehicleId=@ViewBag.VehicleId" class="link ui @l.Color tertiary button">@l.NameLink</a></li>
+                        }
                     }
                 </ul>
             </nav><div class="userInfo">
@@ -380,7 +389,10 @@
                     <div class="menu">
                         @foreach (CarNotes.Models.LinkMenuModel l in menu)
                         {
-                            <a href="@Url.Content(l.MethodLink)" class="item">@l.NameLink</a>
+                            if (isVerified || (!isVerified && l.NameLink != "Гараж"))
+                            {
+                                <a href="@Url.Content(l.MethodLink)?vehicleId=@ViewBag.VehicleId" class="item">@l.NameLink</a>
+                            }
                         }
                         <div class="divider"></div>
                         <div class="item"><i class="user circle outline icon"></i>@userName</div>

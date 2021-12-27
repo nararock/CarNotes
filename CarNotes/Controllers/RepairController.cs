@@ -16,6 +16,7 @@ namespace CarNotes.Controllers
         {
             if (vehicleId != null)
             {
+                ViewBag.VehicleId = vehicleId;
                 ViewBag.IsChecked = false;
                 if (HttpContext.User.Identity.IsAuthenticated)
                 {

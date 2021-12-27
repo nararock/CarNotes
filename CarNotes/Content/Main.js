@@ -465,6 +465,7 @@ function editRepair(id, notVerified) {
                 mainTable.style.display = "none";
                 var cards = document.querySelector('.cardsForCarPart');
                 cards.style.display = '';
+                cards.innerHTML = '';
                 for (var i = 0; i < data.Parts.length; i++) {
                     var card = document.createElement('div');
                     card.classList.add('card');

@@ -5,7 +5,7 @@
     var userHelper = new AuthHelper(Context);
     var isVerified = userHelper.AuthenticationManager.User.Identity.IsAuthenticated;
     var userName = userHelper.GetName(userHelper.AuthenticationManager.User.Identity.GetUserId());
-    var vehicles = new VehicleHelper().GetVehicles(Context);
+    var vehicles = new VehicleHelper().GetVehicles(ViewBag.VehicleId);
     List<LinkMenuModel> menu = new LinkMenuHelper().get(ViewBag.Name);
 }
 

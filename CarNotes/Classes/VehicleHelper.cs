@@ -26,6 +26,22 @@ namespace CarNotes.Classes
             return answer;
         }
 
+        public List<VehicleModel> GetVehicles(int vehicleId)
+        {
+            var db = new CnDbContext();
+            var userId = db.Vehicles.Find(vehicleId).UserId;
+            var answer = db.Vehicles.Where(x => x.UserId == userId).Select(x => new VehicleModel
+            {
+                Id = x.Id,
+                Brand = x.Brand,
+                Body = x.Body,
+                ReleaseYear = x.ReleaseYear,
+                Color = x.Color,
+                Model = x.Model
+            }).ToList();
+            return answer;
+        }
+
         public void Create(VehicleModel vm, HttpContextBase context)
         {
             var database = new CnDbContext();

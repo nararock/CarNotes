@@ -17,7 +17,7 @@ namespace CarNotes.Classes
             var vehicle = db.Vehicles.Include(v=>v.RepairEvents.Select(r=>r.Parts)).FirstOrDefault(x => x.Id == vehicleId);
             if (vehicle == null) return null;
             var list = vehicle.RepairEvents.Select(x => new RepairModel {Id = x.Id, Date=x.Date.ToString("dd.MM.yyyy"), Mileage=x.Mileage, Repair=x.Repair,
-                CarService=x.CarService, RepairCost=x.RepairCost, Comments=x.Comments, Parts=x.Parts.Select(y=>new CarPartModel { Article=y.Article,
+                CarService=x.CarService, RepairCost= Math.Round(x.RepairCost), Comments=x.Comments, Parts=x.Parts.Select(y=>new CarPartModel { Article=y.Article,
                     CarManufacturer=y.CarManufacturer, Name=y.Name, Price=y.Price}).ToList() }).ToList();
             return list;
         }

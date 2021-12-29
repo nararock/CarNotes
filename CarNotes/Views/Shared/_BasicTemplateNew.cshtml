@@ -181,6 +181,7 @@
             border: none !important;
             opacity: 1 !important;
         }
+
         .justText select[disabled=disabled] {
             border: none !important;
             opacity: 1 !important;
@@ -219,34 +220,35 @@
                 else
                 {
                     <p class="userName"><i class="user circle outline icon"></i>@userName <a href="@Url.Content("~/Login/LogOut")" class="exit" data-title="Выйти"><i class="sign in alternate icon"></i></a></p>
-                    <div>
-                        @if (vehicles.Count >= 1)
-                        {
-                            if (vehicles.Count == 1)
-                            {
-                                <i class="car side icon"></i><strong>@vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear</strong>
-                            }
-                            else
-                            {
-                                <i class="car side icon"></i>
-                                <div class="ui inline dropdown vehicleSelect" size="1">
-                                    <div class="text">
-                                        @vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear
-                                    </div>
-                                    <i class="dropdown icon"></i>
-                                    <div class="menu">
-                                        @foreach (var element in vehicles)
-                                        {
-                                            <div class="item" data-value="@element.Id" onclick="changeData(@element.Id)">
-                                                @element.Brand @element.Model @element.ReleaseYear
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                            }
-                        }
-                    </div>
+
                 }
+                <div>
+                    @if (vehicles.Count >= 1)
+                    {
+                        if (vehicles.Count == 1)
+                        {
+                            <i class="car side icon"></i><strong>@vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear</strong>
+                        }
+                        else
+                        {
+                            <i class="car side icon"></i>
+                            <div class="ui inline dropdown vehicleSelect" size="1">
+                                <div class="text">
+                                    @vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear
+                                </div>
+                                <i class="dropdown icon"></i>
+                                <div class="menu">
+                                    @foreach (var element in vehicles)
+                                    {
+                                        <div class="item" data-value="@element.Id" onclick="changeData(@element.Id)">
+                                            @element.Brand @element.Model @element.ReleaseYear
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
             </div>
         </div>
     </div>
@@ -270,45 +272,43 @@
                     }
                 </ul>
             </nav><div class="userInfo">
-                @if (!isVerified)
-                {
-                    <p class="topLetters"><a href="@Url.Content("~/Registration/Index")">Зарегистрироваться</a></p>
-                    <p class="topLetters"><a href="@Url.Content("~/Login/Index")">Вход</a></p>
-                }
-                else
-                {
-                    <p class="userName"><i class="user circle outline icon"></i>@userName <a href="@Url.Content("~/Login/LogOut")" class="exit" data-title="Выйти"><i class="sign in alternate icon"></i></a></p>
-                    @*<p class="exit" data-title="Выйти"></p>*@
-
-                  <div>
-                      @if (vehicles.Count >= 1)
-                      {
-                          if (vehicles.Count == 1)
-                          {
-                              <i class="car side icon"></i><strong>@vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear</strong>
-                          }
-                          else
-                          {
-                              <i class="car side icon"></i>
-                              <div class="ui inline dropdown vehicleSelect" size="1">
-                                  <div class="text">
-                                      @vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear
-                                  </div>
-                                  <i class="dropdown icon"></i>
-                                  <div class="menu">
-                                      @foreach (var element in vehicles)
-                                      {
-                                          <div class="item" data-value="@element.Id" onclick="changeData(@element.Id)">
-                                              @element.Brand @element.Model @element.ReleaseYear
-                                          </div>
-                                      }
-                                  </div>
-                              </div>
-                          }
-                      }
-                  </div>
-                }
-            </div>
+    @if (!isVerified)
+    {
+        <p class="topLetters"><a href="@Url.Content("~/Registration/Index")">Зарегистрироваться</a></p>
+        <p class="topLetters"><a href="@Url.Content("~/Login/Index")">Вход</a></p>
+    }
+    else
+    {
+        <p class="userName"><i class="user circle outline icon"></i>@userName <a href="@Url.Content("~/Login/LogOut")" class="exit" data-title="Выйти"><i class="sign in alternate icon"></i></a></p>
+    }
+    <div>
+        @if (vehicles.Count >= 1)
+        {
+            if (vehicles.Count == 1)
+            {
+                <i class="car side icon"></i><strong>@vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear</strong>
+            }
+            else
+            {
+                <i class="car side icon"></i>
+                <div class="ui inline dropdown vehicleSelect" size="1">
+                    <div class="text">
+                        @vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        @foreach (var element in vehicles)
+                        {
+                            <div class="item" data-value="@element.Id" onclick="changeData(@element.Id)">
+                                @element.Brand @element.Model @element.ReleaseYear
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
         </div>
     </div>
     <div class="ui container tablet-only">
@@ -331,45 +331,44 @@
                     }
                 </ul>
             </nav><div class="userInfo">
-                @if (!isVerified)
-                {
-                    <p class="topLetters"><a href="@Url.Content("~/Registration/Index")">Зарегистрироваться</a></p>
-                    <p class="topLetters"><a href="@Url.Content("~/Login/Index")">Вход</a></p>
-                }
-                else
-                {
-                    <p class="userName"><i class="user circle outline icon"></i>@userName <a href="@Url.Content("~/Login/LogOut")" class="exit" data-title="Выйти"><i class="sign in alternate icon"></i></a></p>
-                    @*<p class="exit" data-title="Выйти"></p>*@
+    @if (!isVerified)
+    {
+        <p class="topLetters"><a href="@Url.Content("~/Registration/Index")">Зарегистрироваться</a></p>
+        <p class="topLetters"><a href="@Url.Content("~/Login/Index")">Вход</a></p>
+    }
+    else
+    {
+        <p class="userName"><i class="user circle outline icon"></i>@userName <a href="@Url.Content("~/Login/LogOut")" class="exit" data-title="Выйти"><i class="sign in alternate icon"></i></a></p>
 
-                  <div>
-                      @if (vehicles.Count >= 1)
-                      {
-                          if (vehicles.Count == 1)
-                          {
-                              <i class="car side icon"></i><strong>@vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear</strong>
-                          }
-                          else
-                          {
-                              <i class="car side icon"></i>
-                              <div class="ui inline dropdown vehicleSelect" size="1">
-                                  <div class="text">
-                                      @vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear
-                                  </div>
-                                  <i class="dropdown icon"></i>
-                                  <div class="menu">
-                                      @foreach (var element in vehicles)
-                                      {
-                                          <div class="item" data-value="@element.Id" onclick="changeData(@element.Id)">
-                                              @element.Brand @element.Model @element.ReleaseYear
-                                          </div>
-                                      }
-                                  </div>
-                              </div>
-                          }
-                      }
-                  </div>
-                }
-            </div>
+    }
+    <div>
+        @if (vehicles.Count >= 1)
+        {
+            if (vehicles.Count == 1)
+            {
+                <i class="car side icon"></i><strong>@vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear</strong>
+            }
+            else
+            {
+                <i class="car side icon"></i>
+                <div class="ui inline dropdown vehicleSelect" size="1">
+                    <div class="text">
+                        @vehicles[0].Brand @vehicles[0].Model @vehicles[0].ReleaseYear
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        @foreach (var element in vehicles)
+                        {
+                            <div class="item" data-value="@element.Id" onclick="changeData(@element.Id)">
+                                @element.Brand @element.Model @element.ReleaseYear
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
         </div>
     </div>
     <div id="mobile-header" class="ui container mobile-only">

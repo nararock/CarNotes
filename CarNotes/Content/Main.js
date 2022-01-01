@@ -283,7 +283,9 @@ function RefuelCreateSubmit() {
  * @param {any} id номер события, которое нужно удалить из таблицы с ремонтами, вызывается соотвествующий метод контроллера Repair  
  */
 function deleteRepair(id) {
-    document.location = "/Repair/Delete?id=" + id;
+    if (confirm("Удалить ремонт?")) {
+        document.location = "/Repair/Delete?id=" + id;
+    }   
 }
 
 //Refuel (Index)
@@ -292,7 +294,9 @@ function deleteRepair(id) {
  * @param {any} id номер события, которое нужно удалить из таблицы с заправками, вызывается соотвествующий метод контроллера Refuel
  */
 function deleteRefuel(id) {
-    document.location = "/Refuel/Delete?id=" + id;
+    if (confirm("Удалить заправку?")) {
+        document.location = "/Refuel/Delete?id=" + id;
+    }    
 }
 
 //Home (Index)
@@ -303,7 +307,10 @@ function deleteRefuel(id) {
  * @param {any} id номер удаляемого события в соотвествующей событию таблице
  */
 function deleteCommon(record, id) {
-    document.location = "/Home/DeleteEvent?record=" + record + "&id=" + id;
+    var event = (record == "Refuel") ? "заправку" : "ремонт";
+    if (confirm("Удалить " + event + "?")) {
+        document.location = "/Home/DeleteEvent?record=" + record + "&id=" + id;
+    }
 }
 
 function toggleForm(form, nameForm)

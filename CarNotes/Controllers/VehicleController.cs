@@ -13,8 +13,9 @@ namespace CarNotes.Controllers
     public class VehicleController : Controller
     {
         // GET: Vehicle
-        public ActionResult Index()
+        public ActionResult Index(int? vehicleId)
         {
+            ViewBag.VehicleId = vehicleId;
             ViewBag.Name = "Гараж";
             ViewBag.IsChecked = true;
             var vehicles = new VehicleHelper().GetVehicles(HttpContext);

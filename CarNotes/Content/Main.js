@@ -594,6 +594,12 @@ function editCommon(record, id) {
     }
 }
 
+/**
+ * нажатие на кнопку "лупа" в режиме неавторизованного пользователя,
+ * для просмотра в детялах события ремонта или заправка
+ * @param {any} record название события (ремонт или заправка)
+ * @param {any} id статус неавторизованного пользователя (true - не авторизован)
+ */
 function showCommon(record, id) {
     if (record == 'Refuel') {
         editRefuel(id, true);
@@ -603,17 +609,6 @@ function showCommon(record, id) {
     }
 }
 
-/*close windows ("cross")*/
-/**
- * скрывает форму соотвествующего события при нажатии на крестик
- * @param {any} event элемент из соотвествующего окна, по которому произошло событие нажатия
- */
-//function closeWindow(event) {
-//    var elem = event.target;
-//    var parent = elem.closest('.modal');
-//    parent.style.display = "none";
-//}
-/*clear the form fields before closing*/
 /**
  * срабатывает на события нажатия на крестик в окнах создания или редактирования событий
  * очищает форму перед удалением 
@@ -621,13 +616,7 @@ function showCommon(record, id) {
  */
 function clearEvent(IdForm) {
     var element = document.getElementById(IdForm);
-    //var modalParent = element.closest('.modal');
-    //var formElements = event.target.getElementsByTagName('form');
     element.reset();
-    //if (formElements[0].getElementsByTagName('tbody').length > 0) {
-    //    formElements[0].getElementsByTagName('tbody')[0].innerHTML = "";
-    //}
-    //closeWindow(event);
 }
 
 /**

@@ -80,6 +80,7 @@ namespace CarNotes.Classes
             if (repairEvent == null)
             {
                 repairEvent = new RepairEvent();
+                repairEvent.Parts = new List<CarPart>();
                 db.RepairEvents.Add(repairEvent);
                 repairEvent.VehicleId = vehicleId;
             }

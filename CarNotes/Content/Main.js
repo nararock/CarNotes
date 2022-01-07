@@ -420,8 +420,8 @@ function editRefuel(id, notVerified) {
  * */
 function RefuelEditSubmit() {
     var elementsForm = document.getElementById('formEdit');
-    elementsForm.children.FullTank.value = elementsForm.children[7].getElementsByTagName('input')[0].checked;
-    elementsForm.children.ForgotRecordPreviousGasStation.value = elementsForm.children[9].getElementsByTagName('input').ForgotRecordPreviousGasStationCheckbox.checked;
+    elementsForm.children.FullTank.value = elementsForm.querySelector("[name=FullTankCheckbox]").checked;
+    elementsForm.children.ForgotRecordPreviousGasStation.value = elementsForm.querySelector("[name=ForgotRecordPreviousGasStationCheckbox]").checked;
     return true;
 }
 

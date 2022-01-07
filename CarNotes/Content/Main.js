@@ -212,12 +212,10 @@ function changeSelectListEdit(e) {
     var inputStation = e.target;
     if (inputStation.value == "1") {
         $(inputStation.parentElement.nextElementSibling).slideDown();
-        //inputStation.parentElement.parentElement.nextElementSibling.style.display = "inline-block";
     }
     else if (inputStation.value != "1") {
         inputStation.parentElement.nextElementSibling.querySelector('input').value = '';
         $(inputStation.parentElement.nextElementSibling).slideUp();
-        //inputStation.parentElement.parentElement.nextElementSibling.style.display = "none";
     }
 }
 
@@ -227,7 +225,7 @@ function changeSelectListEdit(e) {
  * @param {any} str имя выбранного частичного представления в подменю
  */
 //create new event
-function popup(str) {
+function popup(str, id) {
     if (str == "Новый ремонт")
         editRepair(0, false);
         //$('#newRepairWindow')
@@ -256,7 +254,12 @@ function popup(str) {
                     $("#newRefuelWindow form")[0].reset();
                 }
             })
-            .modal('show');
+        fetch("/Home/GetLastMileage?vehicleId=" + id)
+            .then(response => response.json())
+            .then((data) => {
+                document.getElementById("formCreate").querySelector("[name=" + "Mileage" + "]").value = data;
+                $('#newRefuelWindow').modal('show');
+            });        
     }
     else if (str == "Добавить новое транспортное средство") {
         $('#AddVehicle')
@@ -342,7 +345,6 @@ function editRefuel(id, notVerified) {
             $('#EditRefuelData').modal({
                 autofocus: false,
                 onVisible: () => {
-                    //$('#EditRefuelData select').dropdown();
                     $('#EditRefuelData .ui.checkbox').checkbox();
                 },
                 onApprove: function () {

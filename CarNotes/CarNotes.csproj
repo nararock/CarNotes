@@ -219,6 +219,7 @@
     <Compile Include="Models\GasStationModel.cs" />
     <Compile Include="Models\LinkMenuModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\Mileage.cs" />
     <Compile Include="Models\RefuelModel.cs" />
     <Compile Include="Models\RefuelModelOutput.cs" />
     <Compile Include="Models\RegistrationModel.cs" />

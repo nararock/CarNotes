@@ -62,5 +62,14 @@ namespace CarNotes.Controllers
             }
             return Redirect("~/Home/Index");
         }
+
+        public ActionResult GetLastMileage(int vehicleId)
+        {
+            var lastMileage =  new CommonHelper().GetLastMileage(vehicleId);
+            var result = new JsonResult();
+            result.Data = lastMileage;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
     }
 }

@@ -29,7 +29,7 @@ namespace CarNotes.Controllers
                 }
                 var cm = new RefuelHelper().GetList((int)vehicleId);
                 if (cm == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
-                ViewBag.Name = "Заправка";
+                ViewBag.Name = "Заправки";
                 return View(cm);
             }
             if (!HttpContext.User.Identity.IsAuthenticated)

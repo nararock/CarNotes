@@ -30,7 +30,7 @@ namespace CarNotes.Controllers
                 var common = new RepairHelper();
                 var cm = common.GetList((int)vehicleId);
                 if (cm == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
-                ViewBag.Name = "Ремонт";
+                ViewBag.Name = "Ремонты";
                 return View(cm);
             }
             if (!HttpContext.User.Identity.IsAuthenticated)

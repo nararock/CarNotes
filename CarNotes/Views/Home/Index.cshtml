@@ -3,7 +3,6 @@
 @{
     Layout = "../Shared/_TableTemplate.cshtml";
     var userHelper = new AuthHelper(Context);
-    var isVerified = userHelper.AuthenticationManager.User.Identity.IsAuthenticated;
 }
 <div class="hide-on-mobile">
     <table class="ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) unstackable table ">
@@ -14,7 +13,7 @@
                 <th>Дата</th>
                 <th>Пробег</th>
                 <th>Стоимость</th>
-                @if (isVerified)
+                @if (ViewBag.IsChecked)
                 {
                     <th style="width:0"></th>
                     <th style="width:0"></th>
@@ -42,7 +41,7 @@
                     <td>@item.Date</td>
                     <td>@item.Mileage</td>
                     <td>@item.Cost</td>
-                    @if (isVerified)
+                    @if (ViewBag.IsChecked)
                     {
                         <td><input type="button" value="&#9998" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editCommon('@item.Record', @item.Id)" /></td>
                         <td><input type="button" value="&#10008" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="deleteCommon('@item.Record', @item.Id)" /></td>
@@ -63,7 +62,7 @@
         <div class="column">
             <div class="ui fluid card">
                 <div class="content">
-                    @if (isVerified)
+                    @if (ViewBag.IsChecked)
                     {
                         <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="deleteCommon('@item.Record', @item.Id)">
                             <i class="trash alternate icon"></i>

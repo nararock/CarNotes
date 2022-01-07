@@ -3,7 +3,6 @@
 @{
     Layout = "../Shared/_TableTemplate.cshtml";
     var userHelper = new AuthHelper(Context);
-    var isVerified = userHelper.AuthenticationManager.User.Identity.IsAuthenticated;
 }
 <div>
     <table class="ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) unstackable table hide-on-mobile">
@@ -19,7 +18,7 @@
                 <th>Стоимость</th>
                 <th>Полный бак</th>
                 <th>Забыл внести предыдущую заправку</th>
-                @if (isVerified)
+                @if (ViewBag.IsChecked)
                 {
                     <th style="width:0"></th>
                     <th style="width:0"></th>
@@ -37,19 +36,19 @@
                 <td>@b.Volume</td>
                 <td>@b.PricePerOneLiter</td>
                 <td>@b.Cost</td>
-                <td>
+                <td style="text-align:center">
                     @if (b.FullTank == true)
                     {
                         <i class="check icon"></i>
                     }
                 </td>
-                <td>
+                <td style="text-align:center">
                     @if (b.ForgotRecordPreviousGasStation == true)
                     {
                         <i class="check icon"></i>
                     }
                 </td>
-                @if (isVerified)
+                @if (ViewBag.IsChecked)
                 {
                     <td><input type="button" value="&#9998" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editRefuel(@b.Id, false)" /></td>
                     <td><input type="button" value="&#10008" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="deleteRefuel(@b.Id)" /></td>
@@ -68,7 +67,7 @@
                     <div class="header">
                         @b.Station
                     </div>
-                    @if (isVerified)
+                    @if (ViewBag.IsChecked)
                     {
                         <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="deleteRefuel(@b.Id)">
                             <i class="trash alternate icon"></i>

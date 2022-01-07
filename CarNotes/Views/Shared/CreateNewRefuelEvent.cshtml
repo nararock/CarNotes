@@ -11,7 +11,7 @@
     {
         <div class="field">Дата: @Html.TextBoxFor(x => x.Date, new { @class = "MyDateRangePicker" })</div>
         <div class="field">Пробег: @Html.TextBoxFor(x => x.Mileage)</div>
-        <div class="field">Тип топлива: @Html.DropDownList("Fuel", new SelectList(new string[] { "A80", "A92", "A95", "A98" }), new { @class = "ui fluid dropdown" })</div>
+        <div class="field">Тип топлива: @Html.DropDownList("Fuel", new SelectList(new string[] { "АИ80", "АИ92", "АИ95", "АИ95 Plus", "АИ98" }), new { @class = "ui fluid dropdown" })</div>
         <div class="field">АЗС: @Html.DropDownListFor(x => x.Station, new SelectList(gasStation, "Id", "Name"), new { @onchange = "changeSelectListCreate(event)", @class = "ui fluid dropdown" })</div>
         <div class="field" style="display:none">Введите название АЗС: @Html.TextBoxFor(x => x.CustomStation)</div>
         <div class="field">Объем: @Html.TextBoxFor(x => x.Volume)</div>

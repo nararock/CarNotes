@@ -7,9 +7,10 @@ namespace CarNotes.Enums
 {
     public enum FuelType
     {
-        A80 = 1,
-        A92 = 2,
-        A95 = 3,
-        A98 = 4
+        АИ80 = 1,
+        АИ92 = 2,
+        АИ95 = 3,
+        АИ95Plus = 4,
+        АИ98 = 5
     }
 }

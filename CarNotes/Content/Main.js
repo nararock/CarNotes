@@ -223,11 +223,12 @@ function changeSelectListEdit(e) {
 /**срабатывает на событие нажатие на кнопку выбора события (Новая заправка или Новый ремонт) в шапке мастер страницы
  * делает видимым выбранное частичное представление, которое было скрыто
  * @param {any} str имя выбранного частичного представления в подменю
+ * @param {any} vehicleId id транспортного средства, для которого создается новое событие
  */
 //create new event
-function popup(str, id) {
+function popup(str, vehicleId) {
     if (str == "Новый ремонт")
-        editRepair(0, false);
+        editRepair(0, false, vehicleId);
         //$('#newRepairWindow')
         //    .modal({
         //        autofocus: false,
@@ -254,7 +255,7 @@ function popup(str, id) {
                     $("#newRefuelWindow form")[0].reset();
                 }
             })
-        fetch("/Home/GetLastMileage?vehicleId=" + id)
+        fetch("/Home/GetLastMileage?vehicleId=" + vehicleId)
             .then(response => response.json())
             .then((data) => {
                 document.getElementById("formCreate").querySelector("[name=" + "Mileage" + "]").value = data;
@@ -443,9 +444,10 @@ function createCellRepairInput(element, oldName, newValue, newName) {
  * срабатывает на событие нажатия на знак редактирования ("карандаш") в таблице для редактирования событий ремонта
  * открывает окно для редактирования события, где заполняет форму редактирования данными выбранного события (id)
  * @param {any} id номер события заправки для редактирования
+ * @param {any} notVerified true - если пользователь не авторизован
  */
-function editRepair(id, notVerified) {
-    fetch("/Repair/Get?id=" + id)
+function editRepair(id, notVerified, vehicleId) {
+    fetch("/Repair/Get?id=" + id + "&vehicleId=" + vehicleId)
         .then(response => response.json())
         .then((data) => {
             $('#EditRepairData').modal({

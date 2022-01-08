@@ -58,9 +58,9 @@ namespace CarNotes.Controllers
         }
 
         [HttpGet]
-        public ActionResult Get(int id)
+        public ActionResult Get(int id, int? vehicleId)
         {
-            var repairEdit = new RepairHelper().GetDataEdit(id);
+            var repairEdit = new RepairHelper().GetDataEdit(id, vehicleId);
             var result = new JsonResult();
             result.Data = repairEdit;
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;

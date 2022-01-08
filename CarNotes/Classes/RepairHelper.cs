@@ -33,18 +33,21 @@ namespace CarNotes.Classes
             }
         }
 
-        public RepairModel GetDataEdit(int id)
+        public RepairModel GetDataEdit(int id, int? vehicleId)
         {
             var db = new CnDbContext();
             var editRepair = db.RepairEvents
                 .Include(x => x.Parts)
                 .Include(x => x.Parts.Select(p => p.CarSubsystem))
                 .FirstOrDefault(y => y.Id == id);
+            
+            var editRepairModel = new RepairModel();            
+            
             if (editRepair == null)
             {
-                return new RepairModel();
+                editRepairModel.Mileage = new CommonHelper().GetLastMileage(vehicleId.GetValueOrDefault(0)).GetValueOrDefault(0);
+                return editRepairModel;
             }
-            var editRepairModel = new RepairModel();            
             editRepairModel.Id = editRepair.Id;
             editRepairModel.Mileage = editRepair.Mileage;
             editRepairModel.Repair = editRepair.Repair;

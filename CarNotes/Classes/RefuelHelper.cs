@@ -7,6 +7,7 @@ using System.Web;
 using System.Data.Entity;
 using CarNotes.Enums;
 using Microsoft.AspNet.Identity;
+using System.Data.SqlClient;
 
 namespace CarNotes.Classes
 {
@@ -108,6 +109,25 @@ namespace CarNotes.Classes
             var db = new CnDbContext();
             var gasStation = db.GasStations.Select(x => new GasStationModel {Id = x.ID, Name = x.Name }).ToList();         
             return gasStation;
+        }
+
+        public RefuelEventCreateModel GetDataForCreateEvent(int vehicleId)
+        {
+            var lastMileage = new CommonHelper().GetLastMileage(vehicleId);
+            var lastFuel = GetLastFuelType(vehicleId);
+            var createModel = new RefuelEventCreateModel();
+            createModel.LastMileage = lastMileage;
+            createModel.LastFuel = lastFuel;
+            return createModel;
+        }
+
+        public FuelType GetLastFuelType(int vehicleId)
+        {
+            var db = new CnDbContext();
+            db.Database.Log += s => System.Diagnostics.Debug.WriteLine(s);
+            SqlParameter param = new SqlParameter("@Id", vehicleId);
+            var lastFuel = db.Database.SqlQuery<FuelType>(@"Select top(1) Fuel as LastFuel from RefuelEvents where VehicleId = @Id order by Mileage", param).ToList();
+            return lastFuel[0];
         }
     }
 }

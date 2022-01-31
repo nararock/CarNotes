@@ -229,16 +229,7 @@ function changeSelectListEdit(e) {
 function popup(str, vehicleId) {
     if (str == "Новый ремонт")
         editRepair(0, false, vehicleId);
-        //$('#newRepairWindow')
-        //    .modal({
-        //        autofocus: false,
-        //        onApprove: function () {
-        //            document.getElementById("newRepairWindow").getElementsByTagName("form")[0].submit();
-        //        },
-        //        onVisible: () => {
-        //        }
-        //    })
-        //    .modal('show');
+        
     else if (str == "Новая заправка") {
         $('#newRefuelWindow')
             .modal({
@@ -255,10 +246,11 @@ function popup(str, vehicleId) {
                     $("#newRefuelWindow form")[0].reset();
                 }
             })
-        fetch("/Home/GetLastMileage?vehicleId=" + vehicleId)
+        fetch("/Refuel/GetDataForCreateEvent?vehicleId=" + vehicleId)
             .then(response => response.json())
             .then((data) => {
-                document.getElementById("formCreate").querySelector("[name=" + "Mileage" + "]").value = data;
+                document.getElementById("formCreate").querySelector("[name=" + "Mileage" + "]").value = data.LastMileage;
+                document.getElementById("formCreate").querySelector("[name=" + "Fuel" + "]").value = data.LastFuel;
                 $('#newRefuelWindow').modal('show');
             });        
     }

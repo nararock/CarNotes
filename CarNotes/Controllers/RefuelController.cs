@@ -85,5 +85,14 @@ namespace CarNotes.Controllers
             new RefuelHelper().ChangeData(rm);
             return Redirect("/Refuel/Index");
         }
+
+        public ActionResult GetDataForCreateEvent(int vehicleId)
+        {
+            var dataForCreate = new RefuelHelper().GetDataForCreateEvent(vehicleId);
+            var result = new JsonResult();
+            result.Data = dataForCreate;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
     }
 }

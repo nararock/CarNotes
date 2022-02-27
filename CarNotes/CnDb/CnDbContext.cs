@@ -17,6 +17,11 @@ namespace CarNotes.CnDb
         public DbSet<Vehicle> Vehicles  {get; set;}
         public DbSet<CarSystem> CarSystems { get; set; }
         public DbSet<CarSubsystem> CarSubsystems { get; set; }
+        /// <summary> Типы расходов </summary>
+        public DbSet<ExpenseType> ExpenseTypes { get; set; }
+        /// <summary> Расходы </summary>
+        public DbSet<Expense> Expenses { get; set; }
+
         public static CnDbContext Create()
         {
             return new CnDbContext();
@@ -31,6 +36,7 @@ namespace CarNotes.CnDb
             modelBuilder.Entity<CarSystem>().HasMany(r => r.Subsystems).WithRequired(r=>r.CarSystem).HasForeignKey(r=>r.CarsystemId);
             modelBuilder.Entity<CarSubsystem>().HasMany(r => r.CarParts).WithRequired(r => r.CarSubsystem).HasForeignKey(r => r.CarSubsystemId);
             modelBuilder.Entity<RepairEvent>().HasMany(r => r.Parts).WithRequired().HasForeignKey(r => r.RepairEventId).WillCascadeOnDelete(true);
+            modelBuilder.Entity<Expense>().HasRequired(e => e.Type).WithMany().HasForeignKey(e => e.TypeId);
             base.OnModelCreating(modelBuilder);
         }
     }

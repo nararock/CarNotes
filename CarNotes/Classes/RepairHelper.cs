@@ -89,9 +89,7 @@ namespace CarNotes.Classes
             }
             repairEvent.CarService = rm.CarService;
             repairEvent.Comments = rm.Comments;
-            var tempDate = new DateTime();
-            DateTime.TryParse(rm.Date, out tempDate);
-            repairEvent.Date = tempDate;
+            repairEvent.Date = DateTime.ParseExact(rm.Date, "dd.MM.yyyy", null); ;
             repairEvent.Mileage = rm.Mileage;
             repairEvent.Repair = rm.Repair;
             repairEvent.RepairCost = rm.RepairCost;

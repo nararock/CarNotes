@@ -128,6 +128,7 @@
     <Content Include="Content\logo_big.png" />
     <Content Include="Content\logo_small.png" />
     <Content Include="Content\Main.js" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Styles\semantic.min.css" />
     <Content Include="Scripts\semantic.min.js" />

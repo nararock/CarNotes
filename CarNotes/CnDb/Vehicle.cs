@@ -17,5 +17,6 @@ namespace CarNotes.CnDb
         public virtual User User { get; set; }
         public virtual List<RefuelEvent> RefuelEvents { get; set; }
         public virtual List<RepairEvent> RepairEvents { get; set; }
+        public virtual List<Expense> Expenses { get; set; }
     }
 }

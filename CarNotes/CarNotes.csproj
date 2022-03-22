@@ -145,6 +145,7 @@
     <Compile Include="App_Start\StartUp.cs" />
     <Compile Include="Classes\AuthHelper.cs" />
     <Compile Include="Classes\CommonHelper.cs" />
+    <Compile Include="Classes\ExpenseHelper.cs" />
     <Compile Include="Classes\IdentityConfig.cs" />
     <Compile Include="Classes\LinkMenuHelper.cs" />
     <Compile Include="Classes\LoginHelper.cs" />
@@ -155,7 +156,7 @@
     <Compile Include="CnDb\CarPart.cs" />
     <Compile Include="CnDb\CarSubsystem.cs" />
     <Compile Include="CnDb\CnDbContext.cs" />
-    <Compile Include="CnDb\Expenses.cs" />
+    <Compile Include="CnDb\Expense.cs" />
     <Compile Include="CnDb\ExpenseTypes.cs" />
     <Compile Include="CnDb\GasStation.cs" />
     <Compile Include="CnDb\RefuelEvent.cs" />
@@ -219,11 +220,16 @@
     <Compile Include="Migrations\202202272151189_Add expenses table.designer.cs">
       <DependentUpon>202202272151189_Add expenses table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202203222022318_add relations between Espense and Vehicle.cs" />
+    <Compile Include="Migrations\202203222022318_add relations between Espense and Vehicle.designer.cs">
+      <DependentUpon>202203222022318_add relations between Espense and Vehicle.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CarPartModel.cs" />
     <Compile Include="Models\CarSubsystemModel.cs" />
     <Compile Include="Models\CarSystemModel.cs" />
     <Compile Include="Models\CommonModel.cs" />
+    <Compile Include="Models\ExpenseModel.cs" />
     <Compile Include="Models\GasStationModel.cs" />
     <Compile Include="Models\LinkMenuModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
@@ -312,6 +318,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202202272151189_Add expenses table.resx">
       <DependentUpon>202202272151189_Add expenses table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203222022318_add relations between Espense and Vehicle.resx">
+      <DependentUpon>202203222022318_add relations between Espense and Vehicle.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

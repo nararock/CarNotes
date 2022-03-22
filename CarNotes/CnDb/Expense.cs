@@ -24,5 +24,10 @@ namespace CarNotes.CnDb
         
         /// <summary> Тип расхода </summary>
         public virtual ExpenseType Type { get; set; }
+        /// <summary>
+        /// Id транспортного средства
+        /// </summary>
+        public int VehicleId { get; set; }
+        public virtual Vehicle Vehicle { get; set; }
     }
 }

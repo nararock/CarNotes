@@ -1,0 +1,38 @@
+﻿@using CarNotes.Classes;
+@using CarNotes.Models;
+@{
+    List<TypeExpenseModel> typeExpense = new ExpenseHelper().GetTypeExpenseList();
+}
+<i class="close icon"></i>
+<div class="header">
+    Новый расход
+</div>
+<div class="content">
+    <form action="/Expense/Edit" method="post" class="ui form">
+        <div class="field">Дата: <input type="text" name="Date" class="MyDateRangePicker" /></div>
+        <div class="field">
+            Тип расхода:
+            <select name="TypeId" class="ui fluid dropdown">
+                @foreach(var elem in typeExpense)
+                {
+                    <option value="@elem.Id">@elem.Name</option>
+                }
+            </select>
+        </div>
+        <div class="field">Сумма: <input type="text" name="Sum" /></div>
+        <div class="field">Описание: <input type="text" name="Description" /></div>
+        <div class="field">Комментарий: <input type="text" name="Comment" /></div>
+        <input type="hidden" name="Id" />
+    </form>
+</div>
+<div class="actions">
+    <div class="ui black deny button">
+        Отмена
+    </div>
+    <div class="ui black deny button closeExpenseEditButton" style="display:none">
+        Закрыть
+    </div>
+    <div class="ui positive button">
+        Сохранить
+    </div>
+</div>

@@ -229,7 +229,7 @@ function changeSelectListEdit(e) {
 function popup(str, vehicleId) {
     if (str == "Новый ремонт")
         editRepair(0, false, vehicleId);
-        
+
     else if (str == "Новая заправка") {
         $('#newRefuelWindow')
             .modal({
@@ -252,7 +252,7 @@ function popup(str, vehicleId) {
                 document.getElementById("formCreate").querySelector("[name=" + "Mileage" + "]").value = data.LastMileage;
                 document.getElementById("formCreate").querySelector("[name=" + "Fuel" + "]").value = data.LastFuel;
                 $('#newRefuelWindow').modal('show');
-            });        
+            });
     }
     else if (str == "Добавить новое транспортное средство") {
         $('#AddVehicle')
@@ -261,6 +261,21 @@ function popup(str, vehicleId) {
                     document.getElementById("AddVehicle").getElementsByTagName("form")[0].submit();
                 }
             })
+            .modal('show');
+    }
+    else if (str = "Новый расход") {
+        $('#ExpenseEdit')
+            .modal({
+                autofocus: false,
+                onApprove:
+                    function () {
+                        document.getElementById("ExpenseEdit").getElementsByTagName("form")[0].submit();
+                    },
+                onVisible: () => {
+                    $("#ExpenseEdit select").dropdown();
+                }
+            }
+            )
             .modal('show');
     }
 }

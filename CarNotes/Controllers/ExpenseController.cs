@@ -1,5 +1,6 @@
 ﻿using CarNotes.Classes;
 using CarNotes.CnDb;
+using CarNotes.Models;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -47,6 +48,14 @@ namespace CarNotes.Controllers
             vehicleId = new CnDbContext().Users.Find(userId).Vehicles.FirstOrDefault()?.Id;
             if (vehicleId != null) return Redirect("~/Expense/Index?vehicleId=" + vehicleId);
             return Redirect("~/Vehicle/Index");
+        }
+
+        [HttpPost]
+        public ActionResult Edit(ExpenseEditModel em)
+        {
+            var vehicleId = int.Parse(HttpContext.Request.Cookies.Get("vehicleId").Value);
+            new ExpenseHelper().ChangeData(em, vehicleId);
+            return Redirect("/Expense/Index");
         }
     }
 }

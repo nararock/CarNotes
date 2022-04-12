@@ -33,6 +33,21 @@ namespace CarNotes.Classes
             var list = db.ExpenseTypes.Select(x=>new TypeExpenseModel { Id = x.Id, Name = x.Name}).ToList();
             return list;
         }
+        public ExpenseEditModel GetExpenseEditList(int id)
+        {
+            var db = new CnDbContext();
+            var editExpense = db.Expenses
+                .FirstOrDefault(x => x.Id == id);
+            var expenseEditModel = new ExpenseEditModel();
+            expenseEditModel.Id = editExpense.Id;
+            expenseEditModel.Date = editExpense.Date.ToString("dd.MM.yyyy");
+            expenseEditModel.TypeId = editExpense.TypeId;
+            expenseEditModel.Description = editExpense.Description;
+            expenseEditModel.Sum = editExpense.Sum.ToString();
+            expenseEditModel.Comment = editExpense.Comment;
+            return expenseEditModel;
+        }
+
         public void ChangeData(ExpenseEditModel em, int vehicleId)
         {
             var db = new CnDbContext();
@@ -52,7 +67,7 @@ namespace CarNotes.Classes
             {
                 expenseEvent.Sum = value;
             }
-            expenseEvent.Sum = int.Parse(em.Sum);
+            expenseEvent.Sum = decimal.Parse(em.Sum);
             expenseEvent.Description = em.Description;
             expenseEvent.Comment = em.Comment;
             db.SaveChanges();

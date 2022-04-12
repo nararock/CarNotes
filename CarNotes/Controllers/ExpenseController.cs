@@ -57,5 +57,14 @@ namespace CarNotes.Controllers
             new ExpenseHelper().ChangeData(em, vehicleId);
             return Redirect("/Expense/Index");
         }
+
+        public ActionResult Get(int id)
+        {
+            var expenseEdit = new ExpenseHelper().GetExpenseEditList(id);
+            var result = new JsonResult();
+            result.Data = expenseEdit;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
     }
 }

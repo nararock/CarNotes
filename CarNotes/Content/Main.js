@@ -343,7 +343,7 @@ function toggleForm(form, nameForm)
 //RefuelEdit
 /**
  * срабатывает на событие нажатия на знак редактирования ("карандаш") в таблице для редактирования событий заправки
- * открыает окно для редактирования события, где заполняет форму редактирования данными выбранного события (id)
+ * открывает окно для редактирования события, где заполняет форму редактирования данными выбранного события (id)
  * @param {any} id номер события заправки для редактирования
  */
 function editRefuel(id, notVerified) {
@@ -432,6 +432,38 @@ function RefuelEditSubmit() {
     elementsForm.children.ForgotRecordPreviousGasStation.value = elementsForm.querySelector("[name=ForgotRecordPreviousGasStationCheckbox]").checked;
     return true;
 }
+
+//ExpenseEdit
+/**
+ * срабатывает на событие нажатия на знак редактирования ("карандаш") в таблице для редактирования событий расходы
+ * открывает окно для редактирования события, где заполняет форму редактирования данными выбранного события (id)
+ * */
+function editExpense(id) {
+    fetch("/Expense/Get?id=" + id)
+        .then(response => response.json())
+        .then((data) => {
+            $('#ExpenseEdit').modal({
+                autofocus: false,
+                onVisible: () => {
+                    $('#ExpenseEdit .ui.checkbox').checkbox();
+                },
+                onApprove: function () {
+                    //RefuelEditSubmit();
+                    document.getElementById('ExpenseEdit').getElementsByTagName("form")[0].submit();
+                }
+            })
+                .modal('show');
+            var elementsForm = document.getElementById("formEditExpense");
+            elementsForm.Date.value = data.Date;
+            elementsForm.TypeId.value = data.TypeId;
+            elementsForm.Sum.value = data.Sum;
+            elementsForm.Description.value = data.Description;
+            elementsForm.Comment.value = data.Comment;
+            elementsForm.Id.value = data.Id;
+        })
+            }
+
+
 
 //RepairEdit
 /**

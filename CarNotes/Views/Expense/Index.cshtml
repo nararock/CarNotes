@@ -14,6 +14,11 @@
                     <th>Сумма расходов</th>
                     <th>Описание</th>
                     <th>Комментарий</th>
+                    @if (ViewBag.IsChecked)
+                    {
+                        <th style="width:0"></th>
+                        <th style="width:0"></th>
+                    }
                 </tr>
             </thead>
             <tbody>
@@ -25,6 +30,11 @@
                     <td>@e.Sum</td>
                     <td>@e.Description</td>
                     <td>@e.Comment</td>
+                    @if (ViewBag.IsChecked)
+                    {
+                        <td><input type="button" value="&#9998" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editExpense(@e.Id)" /></td>
+                        <td><input type="button" value="&#10008" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" @*onclick="deleteExpense()"*@ /></td>
+                    }
                 </tr>
                 }
             </tbody>

@@ -294,7 +294,7 @@ function RefuelCreateSubmit() {
  * @param {any} id номер события, которое нужно удалить из таблицы с ремонтами, вызывается соотвествующий метод контроллера Repair  
  */
 function deleteRepair(id) {
-    if (confirm("Удалить ремонт?")) {
+    if (confirm("Удалить эту запись о ремонте?")) {
         document.location = "/Repair/Delete?id=" + id;
     }   
 }
@@ -305,9 +305,20 @@ function deleteRepair(id) {
  * @param {any} id номер события, которое нужно удалить из таблицы с заправками, вызывается соотвествующий метод контроллера Refuel
  */
 function deleteRefuel(id) {
-    if (confirm("Удалить заправку?")) {
+    if (confirm("Удалить эту запись о заправке?")) {
         document.location = "/Refuel/Delete?id=" + id;
     }    
+}
+
+//Expense (Index)
+/**
+ * срабатывает на событие нажатия на "крестик" в таблице с событиями расходы
+ * @param {any} id id номер события, которое нужно удалить из таблицы с заправками, вызывается соотвествующий метод контроллера Expense
+ */
+function deleteExpense(id) {
+    if (confirm("Удалить эту запись о расходе?")) {
+        document.location = "/Expense/Delete?id=" + id;
+    }
 }
 
 //Home (Index)

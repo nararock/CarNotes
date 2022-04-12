@@ -66,5 +66,11 @@ namespace CarNotes.Controllers
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }
+
+        public ActionResult Delete(int id)
+        {
+            new ExpenseHelper().Delete(id, HttpContext);
+            return Redirect("~/Expense/Index");
+        }
     }
 }

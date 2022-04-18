@@ -234,6 +234,10 @@
     <Compile Include="Migrations\202203222022318_add relations between Espense and Vehicle.designer.cs">
       <DependentUpon>202203222022318_add relations between Espense and Vehicle.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204132020144_add Mileage to Expenses.cs" />
+    <Compile Include="Migrations\202204132020144_add Mileage to Expenses.designer.cs">
+      <DependentUpon>202204132020144_add Mileage to Expenses.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CarPartModel.cs" />
     <Compile Include="Models\CarSubsystemModel.cs" />
@@ -334,6 +338,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202203222022318_add relations between Espense and Vehicle.resx">
       <DependentUpon>202203222022318_add relations between Espense and Vehicle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204132020144_add Mileage to Expenses.resx">
+      <DependentUpon>202204132020144_add Mileage to Expenses.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

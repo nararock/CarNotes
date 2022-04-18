@@ -21,7 +21,8 @@ namespace CarNotes.CnDb
         public string Description { get; set; }
         /// <summary> Комментарий </summary>
         public string Comment { get; set; }
-        
+        /// <summary>Пробег</summary>
+        public double? Mileage { get; set; }        
         /// <summary> Тип расхода </summary>
         public virtual ExpenseType Type { get; set; }
         /// <summary>

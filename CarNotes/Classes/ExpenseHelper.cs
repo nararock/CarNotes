@@ -21,6 +21,7 @@ namespace CarNotes.Classes
                 Id = x.Id,
                 Type = x.Type.Name,
                 Date = x.Date.ToString("dd.MM.yyyy"),
+                Mileage = x.Mileage.ToString(),
                 Sum = x.Sum.ToString("#"),
                 Description = x.Description,
                 Comment = x.Comment
@@ -42,6 +43,7 @@ namespace CarNotes.Classes
             var expenseEditModel = new ExpenseEditModel();
             expenseEditModel.Id = editExpense.Id;
             expenseEditModel.Date = editExpense.Date.ToString("dd.MM.yyyy");
+            expenseEditModel.Mileage = editExpense.Mileage.ToString();
             expenseEditModel.TypeId = editExpense.TypeId;
             expenseEditModel.Description = editExpense.Description;
             expenseEditModel.Sum = editExpense.Sum.ToString();
@@ -63,6 +65,10 @@ namespace CarNotes.Classes
                 expenseEvent.VehicleId = vehicleId;
             }
             expenseEvent.Date = DateTime.ParseExact(em.Date, "dd.MM.yyyy", null);
+            if (double.TryParse(em.Mileage, out var valueMile))
+            {
+                expenseEvent.Mileage = valueMile;
+            }                
             expenseEvent.TypeId = em.TypeId;
             if (decimal.TryParse(em.Sum, out var value))
             {

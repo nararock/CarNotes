@@ -38,12 +38,12 @@
                     <td>@b.Comments</td>
                     @if (ViewBag.IsChecked)
                     {
-                        <td><input type="button" value="&#9998" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editRepair(@b.Id, false)" /></td>
+                        <td><input type="button" value="&#9998" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editRepair(@b.Id, true)" /></td>
                         <td><input type="button" value="&#10008" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="deleteRepair(@b.Id)" /></td>
                     }
                     else
                     {
-                        <td><input type="button" value="&#128269" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editRepair(@b.Id, true)" /></td>
+                        <td><input type="button" value="&#128269" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editRepair(@b.Id, false)" /></td>
                     }
                 </tr>
             }
@@ -64,13 +64,13 @@
                         <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="deleteRepair(@b.Id)">
                             <i class="trash alternate icon"></i>
                         </button>
-                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editRepair(@b.Id, false)">
+                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editRepair(@b.Id, true)">
                             <i class="highlighter icon"></i>
                         </button>
                     }
                     else
                     {
-                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editRepair(@b.Id, true)">
+                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editRepair(@b.Id, false)">
                             <i class="search icon"></i>
                         </button>
                     }

@@ -109,11 +109,6 @@ function addCarPart() {
 function createCellInput(element, fieldName, index) {
     var input = element.querySelector("[name=" + fieldName + "]");
     input.name = "Parts[" + index + "]." + fieldName;
-    //var cell = document.createElement('td');
-    //var input = document.createElement('input');
-    //cell.appendChild(input);
-    //input.name = name;
-    //tableRow.appendChild(cell);
 }
 /** 
  *  заполнение выпадающего списка значениями для систем и подсистем ТС при создании и редактировании события
@@ -183,8 +178,6 @@ function changeSubsystem(event) {
 /**функция срабатывает на событие смены транспортного средства, смена параметра транпсортного средства (vehicleId) в адресной строке
  * */
 function changeData(Id) {
-    //var elem = document.getElementById('vehicleSelect');
-    //var vehicle = elem.value;
     setCookie('vehicleId', Id);
     var location = window.location;
     location.search = "?vehicleId=" + Id;
@@ -199,12 +192,12 @@ function changeSelectListCreate(e) {
     var inputStation = e.target;
     if (inputStation.value == "1") {
         $(inputStation.parentElement.parentElement.nextElementSibling).slideDown();
-        //inputStation.parentElement.parentElement.nextElementSibling.style.display = "inline-block";
+       
     }
     else if (inputStation.value != "1") {
         inputStation.parentElement.parentElement.nextElementSibling.querySelector('input').value = '';
         $(inputStation.parentElement.parentElement.nextElementSibling).slideUp();
-        //inputStation.parentElement.parentElement.nextElementSibling.style.display = "none";
+        
     }
 }
 
@@ -335,8 +328,14 @@ function deleteCommon(record, id) {
     }
 }
 
-function toggleForm(form, nameForm)
-{
+//edit events
+
+/**
+ * изменение формы редактирования (только для просмотра)
+ * @param {any} form id формы 
+ * @param {any} nameForm новое название формы
+ */
+function toggleForm(form, nameForm) {
     form.classList.add('justText');
     var inputs = form.getElementsByTagName('input');
     for (var l = 0; l < inputs.length; l++) {
@@ -350,14 +349,13 @@ function toggleForm(form, nameForm)
     name.innerText = nameForm;
 }
 
-//edit events
 //RefuelEdit
 /**
  * срабатывает на событие нажатия на знак редактирования ("карандаш") в таблице для редактирования событий заправки
  * открывает окно для редактирования события, где заполняет форму редактирования данными выбранного события (id)
  * @param {any} id номер события заправки для редактирования
  */
-function editRefuel(id, notVerified) {
+function editRefuel(id, Verified) {
     fetch("/Refuel/Get?id=" + id)
         .then(response => response.json())
         .then((data) => {
@@ -389,7 +387,7 @@ function editRefuel(id, notVerified) {
             elementsForm.FullTankCheckbox.checked = data.FullTank;
             elementsForm.ForgotRecordPreviousGasStationCheckbox.checked = data.ForgotRecordPreviousGasStation;
             elementsForm.Id.value = data.Id;
-            if (notVerified) {//если пользователь не авторизован 
+            if (!Verified) {//если пользователь не авторизован 
                 toggleForm(elementsForm, 'Данные о заправке');
                 var dropdowns = elementsForm.getElementsByClassName('dropdown');
                 for (var d = 0; d < dropdowns.length; d++)
@@ -449,7 +447,7 @@ function RefuelEditSubmit() {
  * срабатывает на событие нажатия на знак редактирования ("карандаш") в таблице для редактирования событий расходы
  * открывает окно для редактирования события, где заполняет форму редактирования данными выбранного события (id)
  * */
-function editExpense(id) {
+function editExpense(id, Verified) {
     fetch("/Expense/Get?id=" + id)
         .then(response => response.json())
         .then((data) => {
@@ -466,13 +464,19 @@ function editExpense(id) {
                 .modal('show');
             var elementsForm = document.getElementById("formEditExpense");
             elementsForm.Date.value = data.Date;
+            elementsForm.Mileage.value = data.Mileage;
             elementsForm.TypeId.value = data.TypeId;
             elementsForm.Sum.value = data.Sum;
             elementsForm.Description.value = data.Description;
             elementsForm.Comment.value = data.Comment;
             elementsForm.Id.value = data.Id;
-        })
+            if (!Verified) {//пользователь не авторизован
+                toggleForm(elementsForm, 'Данные о расходе');
+                var dropdowns = elementsForm.getElementsByClassName('dropdown');
+                dropdowns[0].setAttribute('disabled', 'disabled');
             }
+        })    
+}
 
 
 
@@ -494,9 +498,9 @@ function createCellRepairInput(element, oldName, newValue, newName) {
  * срабатывает на событие нажатия на знак редактирования ("карандаш") в таблице для редактирования событий ремонта
  * открывает окно для редактирования события, где заполняет форму редактирования данными выбранного события (id)
  * @param {any} id номер события заправки для редактирования
- * @param {any} notVerified true - если пользователь не авторизован
+ * @param {any} Verified true - если пользователь не авторизован
  */
-function editRepair(id, notVerified, vehicleId) {
+function editRepair(id, Verified, vehicleId) {
     fetch("/Repair/Get?id=" + id + "&vehicleId=" + vehicleId)
         .then(response => response.json())
         .then((data) => {
@@ -522,7 +526,7 @@ function editRepair(id, notVerified, vehicleId) {
             elementsForm.Comments.value = data.Comments;
             elementsForm.Id.value = data.Id;
             var mainTable = document.querySelector("#repairPartsTable");
-            if (notVerified) {//если пользователь не авторизован (таблица запчастей в виде карточек, убираются все возможности редактирования)
+            if (!Verified) {//если пользователь не авторизован (таблица запчастей в виде карточек, убираются все возможности редактирования)
                 mainTable.style.display = "none";
                 var cards = document.querySelector('.cardsForCarPart');
                 cards.style.display = '';

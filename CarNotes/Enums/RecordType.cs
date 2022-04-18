@@ -8,6 +8,7 @@ namespace CarNotes.Enums
     public enum RecordType
     {
         Refuel = 1,
-        Repair = 2
+        Repair = 2,
+        Expense = 3
     }
 }

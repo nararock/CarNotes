@@ -10,9 +10,9 @@ using System.Web.Mvc;
 
 namespace CarNotes.Controllers
 {
-    public class HomeController : Controller
+    public class CommonController : Controller
     {
-        // GET: Home
+        // GET:Common
         public ActionResult Index(int? vehicleId)
         {
             if (vehicleId != null)
@@ -42,11 +42,11 @@ namespace CarNotes.Controllers
             int vehicleIdNumber;
             if (int.TryParse(vehicleIdCookie, out vehicleIdNumber))
             {
-                return Redirect("~/Home/Index?vehicleId=" + vehicleIdNumber);
+                return Redirect("~/Common/Index?vehicleId=" + vehicleIdNumber);
             }
             var userId = new AuthHelper(HttpContext).AuthenticationManager.User.Identity.GetUserId();
             vehicleId = new CnDbContext().Users.Find(userId).Vehicles.FirstOrDefault()?.Id;
-            if (vehicleId != null) return Redirect("~/Home/Index?vehicleId=" + vehicleId);
+            if (vehicleId != null) return Redirect("~/Common/Index?vehicleId=" + vehicleId);
             return Redirect("~/Vehicle/Index");
         }
            
@@ -60,7 +60,7 @@ namespace CarNotes.Controllers
             {
                 new RepairHelper().Delete(id, HttpContext);
             }
-            return Redirect("~/Home/Index");
+            return Redirect("~/Common/Index");
         }
 
         public ActionResult GetLastMileage(int vehicleId)

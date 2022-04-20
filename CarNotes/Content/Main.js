@@ -314,7 +314,7 @@ function deleteExpense(id) {
     }
 }
 
-//Home (Index)
+//Common (Index)
 /**
  * срабатывает на событие нажатия на "крестик" в общей таблице с событиями заправки и ремонта, 
  * вызывается метод DeleteEvent 
@@ -324,7 +324,7 @@ function deleteExpense(id) {
 function deleteCommon(record, id) {
     var event = (record == "Refuel") ? "заправку" : "ремонт";
     if (confirm("Удалить " + event + "?")) {
-        document.location = "/Home/DeleteEvent?record=" + record + "&id=" + id;
+        document.location = "/Common/DeleteEvent?record=" + record + "&id=" + id;
     }
 }
 
@@ -636,7 +636,7 @@ function editVehicle(Id) {
             alert("Произошла ошибка");
         });
 }
-//Home (Index)
+//Common (Index)
 /**
  * срабатывает на событие нажатия на знак редактирования ("карандаш") в общей таблице 
  * в зависимости от параметра record вызывает соотвествующую функцию для редавтирования события

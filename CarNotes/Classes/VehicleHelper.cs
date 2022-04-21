@@ -26,8 +26,9 @@ namespace CarNotes.Classes
             return answer;
         }
 
-        public List<VehicleModel> GetVehicles(int vehicleId)
+        public List<VehicleModel> GetVehicles(int? vehicleId)
         {
+            if (vehicleId == null) return new List<VehicleModel>();
             var db = new CnDbContext();
             var userId = db.Vehicles.Find(vehicleId).UserId;
             var answer = db.Vehicles.Where(x => x.UserId == userId).Select(x => new VehicleModel

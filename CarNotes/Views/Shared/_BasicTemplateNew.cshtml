@@ -5,7 +5,7 @@
     var userHelper = new AuthHelper(Context);
     var isVerified = userHelper.AuthenticationManager.User.Identity.IsAuthenticated;
     var userName = userHelper.GetName(userHelper.AuthenticationManager.User.Identity.GetUserId());
-    var vehicles = new VehicleHelper().GetVehicles(ViewBag.VehicleId);
+    var vehicles = new VehicleHelper().GetVehicles((int?)ViewBag.VehicleId);
     List<LinkMenuModel> menu = new LinkMenuHelper().get(ViewBag.Name);
 }
 
@@ -27,7 +27,7 @@
     <style>
 
         /*стили для header (верхней части)*/
-        .container {
+        .container { 
             height: 100px;
             display: flex;
             flex-flow: row nowrap;

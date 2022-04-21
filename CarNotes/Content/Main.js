@@ -221,7 +221,7 @@ function changeSelectListEdit(e) {
 //create new event
 function popup(str, vehicleId) {
     if (str == "Новый ремонт")
-        editRepair(0, false, vehicleId);
+        editRepair(0, true, vehicleId);
 
     else if (str == "Новая заправка") {
         $('#newRefuelWindow')

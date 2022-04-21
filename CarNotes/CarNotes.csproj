@@ -299,9 +299,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Migrations\202107022003377_add relations between Vehicles and RepairEvents \" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202106041827438_add RefuelEvent and GasStation.resx">
       <DependentUpon>202106041827438_add RefuelEvent and GasStation.cs</DependentUpon>

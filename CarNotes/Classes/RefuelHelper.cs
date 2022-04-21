@@ -127,7 +127,8 @@ namespace CarNotes.Classes
             db.Database.Log += s => System.Diagnostics.Debug.WriteLine(s);
             SqlParameter param = new SqlParameter("@Id", vehicleId);
             var lastFuel = db.Database.SqlQuery<FuelType>(@"Select top(1) Fuel as LastFuel from RefuelEvents where VehicleId = @Id order by Mileage", param).ToList();
-            return lastFuel[0];
+            var answer = lastFuel.Count == 0 ? (FuelType)1 : lastFuel[0];
+            return answer;
         }
     }
 }

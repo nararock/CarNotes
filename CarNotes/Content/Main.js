@@ -645,10 +645,13 @@ function editVehicle(Id) {
  */
 function editCommon(record, id) {
     if (record == 'Refuel') {
-        editRefuel(id, false);
+        editRefuel(id, true);
     }
     else if (record == 'Repair') {
-        editRepair(id, false);
+        editRepair(id, true);
+    }
+    else if (record == 'Expense') {
+        editExpense(id, true);
     }
 }
 

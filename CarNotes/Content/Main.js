@@ -548,9 +548,9 @@ function editRepair(id, Verified, vehicleId) {
                     var description1 = document.createElement('div');
                     description1.classList.add('description');
                     var systemNumber = data.Parts[i].SystemId;
-                    for (var s = 0; s < system[systemNumber].CarSubsystems.length; s++) {
-                        if (system[systemNumber - 1].CarSubsystems[s].Id == data.Parts[s].SubSystemId) {
-                            description1.innerText = system[systemNumber].Name + " : " + system[systemNumber].CarSubsystems[s].Name;
+                    for (var s = 0; s < system[systemNumber - 1].CarSubsystems.length; s++) {
+                        if (system[systemNumber - 1].CarSubsystems[s].Id == data.Parts[i].SubSystemId) {
+                            description1.innerText = system[systemNumber - 1].Name + " : " + system[systemNumber - 1].CarSubsystems[s].Name;
                         }
                     }
                     content.append(description1);

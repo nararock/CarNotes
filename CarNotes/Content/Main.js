@@ -663,10 +663,13 @@ function editCommon(record, id) {
  */
 function showCommon(record, id) {
     if (record == 'Refuel') {
-        editRefuel(id, true);
+        editRefuel(id, false);
     }
     else if (record == 'Repair') {
-        editRepair(id, true);
+        editRepair(id, false);
+    }
+    else if (record == 'Expense') {
+        editExpense(id, false);
     }
 }
 

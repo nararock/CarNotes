@@ -12,6 +12,7 @@ namespace CarNotes.CnDb
     public class User: IdentityUser
     {
         public string Name { get; set; }
+        public DateTime LastVisit { get; set; }
         public virtual List<Vehicle> Vehicles { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {

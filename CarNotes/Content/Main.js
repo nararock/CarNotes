@@ -690,3 +690,11 @@ function clearEvent(IdForm) {
 function deleteVehicle(id) {
     document.location = "/Vehicle/Delete?id=" + id;
 }
+
+//Home page 
+/**
+ * переход в общую таблицу личного кабинета
+ */
+function goToCommonTable() {
+    document.location = "/Common/Index";
+}

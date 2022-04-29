@@ -1,0 +1,114 @@
+﻿@using CarNotes.Classes;
+@using CarNotes.Models;
+@using CarNotes.Enums;
+@using Microsoft.AspNet.Identity;
+@{
+    Layout = null;
+    var userHelper = new AuthHelper(Context);
+    var userId = userHelper.AuthenticationManager.User.Identity.GetUserId();
+    var userName = userHelper.GetName(userId);
+    var lastVisit = new HomeHelper().GetLastVisit(userId);
+    List<LastEventModel> lastEvents = (new HomeHelper()).GetLastEvents();
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Записки автомобилиста</title>
+    <link rel="stylesheet" href="~/Styles/semantic.min.css" />
+    <link rel="stylesheet" href="~/Styles/Main.css" />
+    <script src="@Url.Content("~/Content/Main.js")"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/semantic.min.js"></script>
+</head>
+<body>
+    <div class="ui container large-monitor-only">
+        <div class="container header">
+            <div id="logo">
+                <img src="~/Content/logo_small.png" class="image" />
+            </div>
+            <div id="logo-text">
+                Записки<br />
+                Автомобилиста
+            </div>
+            <div class="userInfo">
+                @if (!ViewBag.IsAuthenticated)
+                {
+                    <p class="topLetters"><a href="@Url.Content("~/Registration/Index")">Зарегистрироваться</a></p>
+                    <p class="topLetters"><a href="@Url.Content("~/Login/Index")">Вход</a></p>
+                }
+                else
+                {
+                    <p class="userName"><i class="user circle outline icon"></i>@userName <a href="@Url.Content("~/Login/LogOut")" class="exit" data-title="Выйти"><i class="sign in alternate icon"></i></a></p>
+
+                }
+            </div>
+        </div>
+        <div class="container">
+            <div class="ui two column centered grid">
+                <div class="column">
+                    <p><b>Последние события</b></p>
+                    <table class="ui celled table">
+                        <thead>
+                            <tr>
+                                <th>Тип</th>
+                                <th>Бренд и марка</th>
+                                <th>Дата</th>
+                                <th>Стоимость</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (var i = 0; i < lastEvents.Count; i++)
+                            {
+                                <tr>
+                                    <td data-label="Тип">
+                                        @if (lastEvents[i].Record == RecordType.Refuel)
+                                        {
+                                            <i class="circular gas pump icon link"></i>
+                                        }
+                                        else if (lastEvents[i].Record == RecordType.Repair)
+                                        {
+                                            <i class="circular tools icon link"></i>
+                                        }
+                                        else if (lastEvents[i].Record == RecordType.Expense)
+                                        {
+                                            <i class="circular credit card outline icon link"></i>
+                                        }
+                                    </td>
+                                    <td data-label="Бренд Тип марка">@lastEvents[i].VehicleBrand @lastEvents[i].VehicleModel</td>
+                                    <td data-label="Дата">@lastEvents[i].Date</td>
+                                    <td data-label="Стоимость">@lastEvents[i].Cost</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="column">
+                    <p><b>Ваши данные</b></p>
+                    <div class="ui fluid card">
+                        <div class="content">
+                            <i class="circular tachometer alternate icon right floated"></i>
+                            <div class="header">
+                                Личный кабинет
+                            </div>
+                            <div class="meta">
+                                Последнее посещение @lastVisit[0] в @lastVisit[1] 
+                            </div>
+                            <div class="description">
+                                Дневник твоего автомобиля
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <div class="ui two buttons">
+                                <div class="ui basic green button" onclick="goToCommonTable()">Войти</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

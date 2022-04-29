@@ -1,119 +1,171 @@
-﻿/*_BasicTemplate*/
-html, body {
-    margin: 0;
-    padding: 0;
-}
-/*верхняя часть с логотипом*/
-.top {
-    margin-top: 0px;
-    margin-bottom: 50px;
-    border-bottom: 1px solid thin lightgray;
-    background-color: white;
-    height: 60px;
+﻿/*_BasicTemplateNew*/
+/*стили для header (верхней части)*/
+.header {
+    height: 100px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
 }
 
-.topLetters {
-    margin-right: 30px;
-    margin-top: 20px;
-    text-align: right;
-    text-decoration: none;
+#logo > img {
+    width: 80px;
+    height: 92px;
+}
+
+#logo-text {
+    font-variant: small-caps;
+    margin-left: 8px;
+    font-size: 16px;
+    padding-bottom: 7px;
 }
 
 .image {
-    float: left;
-    margin-left: 30px;
-}
-/*ссылки под логотипом*/
-.links {
-    font-size: 20px;
-    text-align: center;
-}
-
-/*таблица с данными*/
-.content {
-    width: 800px;
-    margin: auto;
-}
-
-table {
+    object-fit: cover;
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    text-align: center;
+    height: 100%;
 }
 
-th {
-    font-weight: normal;
-    padding: 10px 8px;
+.navigation {
+    flex-grow: 1;
 }
 
-td {
-    padding: 9px 8px;
-    transition: .05s linear;
+    .navigation ul {
+        display: flex;
+        justify-content: center;
+        flex-flow: row nowrap;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .navigation li {
+        margin-right: 30px;
+    }
+
+        .navigation li:last-child {
+            margin-right: 0;
+        }
+
+    .navigation a {
+        padding: 8px 10px;
+    }
+
+    .navigation:hover a {
+    }
+
+.userInfo {
+    display: flex;
+    justify-content:flex-start;
+    flex-direction: column;
+    width: 200px;
+    height: 100px;
+    padding-right: 0;
+    margin: auto;
+    margin-top: 10px;
+    margin-right: inherit;
 }
 
-.nameTable {
-    font-size: 25px;
-    margin-bottom: 15px;
-    border-radius: 15px;
-    color: floralwhite;
+.exit:hover::after {
+    content: attr(data-title);
 }
 
-tr:hover td {
-    color: floralwhite;
+.userName {
+    margin-top: 0.5em !important;
+    margin-bottom: 0.5em
 }
 
-/*кнопки для перехода в окно создания события*/
-.button {
-    opacity: 0.65;
-    height: 25px;
-    margin-top: 20px;
-    display: inline-block;
-    border: none;
-    border-radius: 15px;
-    color: floralwhite;
+#repairPartsTable .column {
+    width: 33.33% !important;
+    margin-bottom: 3px !important;
 }
 
-.buttons {
-    text-align: center;
+/* Стили для мобильных телефонов */
+@media screen and (max-width: 767.98px) {
+    .large-monitor-only, .small-monitor-only, .tablet-only {
+        display: none !important;
+    }
+
+    .hide-on-mobile {
+        display: none !important;
+    }
+
+    #logo > img {
+        width: 53px;
+        height: 61px;
+    }
+
+    #logo-text {
+        margin-left: 6px;
+        font-size: 14px;
+        padding-bottom: 2px;
+    }
+
+    #repairPartsTable .column {
+        width: 50% !important;
+        margin-bottom: 3px !important;
+    }
 }
-/*всплывающая форма создания события*/
-.modal {
-    position: absolute;
-    display: none;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+/* Стили для планшетов */
+@media only screen and (min-width: 768px) and (max-width: 991.98px) {
+    .large-monitor-only,
+    .small-monitor-only,
+    .mobile-only {
+        display: none !important;
+    }
+
+    #logo > img {
+        width: 53px;
+        height: 61px;
+    }
+
+    #logo-text {
+        margin-left: 6px;
+        font-size: 14px;
+        padding-bottom: 5px;
+    }
+
+    .userInfo {
+        flex-direction: column;
+        width: 180px;
+        height: 100px;
+        padding-right: 0;
+        font-size: 13px;
+    }
+
+    .userName {
+        margin-top: 1em !important;
+    }
 }
-.form{
-    position:relative;
-    width: 600px;
-    border: 1px solid grey;
-    background-color: floralwhite;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 100px;
-    margin-bottom: 30px;
-    text-align: center;
+/* Стили для небольших экранов */
+@media only screen and (min-width: 992px) and (max-width: 1199.98px) {
+    .large-monitor-only,
+    .tablet-only,
+    .mobile-only {
+        display: none !important;
+    }
 }
-/*кнопка закрытия во всплывающих окнах*/
-.cross {
-    position: absolute;
-    top: 8px;
-    right: 12px;
+/* Стили для больших экранов */
+@media only screen and (min-width: 1200px) {
+    .small-monitor-only,
+    .tablet-only,
+    .mobile-only {
+        display: none !important;
+    }
 }
-.cross>p
-{
-    margin:0;
+/*стили для модульных окон, которые нельзя редактировать(для неавторизованных пользователей)*/
+.justText input[disabled=disabled] {
+    color: black !important;
+    border: none !important;
+    opacity: 1 !important;
 }
-/*кнопки шапки главной страницы и создния событий*/
-.link {
-    border-radius: 15px;
-    padding: 15px 30px;
-    position: relative;
-    text-decoration: none;
-    color: floralwhite;
-    display: inline-block;
+
+.justText select[disabled=disabled] {
+    border: none !important;
+    opacity: 1 !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
- 
+
+

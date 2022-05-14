@@ -134,11 +134,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\home_picture.jpg" />
     <Content Include="Content\cookie.min.js" />
     <Content Include="Content\logo_big.png" />
     <Content Include="Content\logo_small.png" />
     <Content Include="Content\Main.js" />
+    <Content Include="Content\pexels-yaroslav-shuraev-1834403.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Styles\semantic.min.css" />

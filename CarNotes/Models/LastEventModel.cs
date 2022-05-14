@@ -11,7 +11,7 @@ namespace CarNotes.Models
         public string VehicleBrand { get; set; }
         public string VehicleModel { get; set; }
         public RecordType Record { get; set; }
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
         public string Cost { get; set; }
     }
 }

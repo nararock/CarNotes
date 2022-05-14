@@ -19,7 +19,7 @@ namespace CarNotes.Classes
                 VehicleBrand = x.Vehicle.Brand,
                 VehicleModel = x.Vehicle.Model,
                 Record = Enums.RecordType.Refuel,
-                Date = x.Date.ToString(),
+                Date = x.Date,
                 Cost = (x.PricePerOneLiter * x.Volume).ToString()
             }).OrderBy(x => x.Date).Take(10).ToList();
             list.AddRange(db.RepairEvents.Include(v => v.Vehicle).Select(x => new LastEventModel
@@ -27,7 +27,7 @@ namespace CarNotes.Classes
                 VehicleBrand = x.Vehicle.Brand,
                 VehicleModel = x.Vehicle.Model,
                 Record = Enums.RecordType.Repair,
-                Date = x.Date.ToString(),
+                Date = x.Date,
                 Cost = x.RepairCost.ToString()
             }).OrderBy(x => x.Date).Take(10));
             list.AddRange(db.Expenses.Include(v => v.Vehicle).Select(x => new LastEventModel
@@ -35,7 +35,7 @@ namespace CarNotes.Classes
                 VehicleBrand = x.Vehicle.Brand,
                 VehicleModel = x.Vehicle.Model,
                 Record = Enums.RecordType.Expense,
-                Date = x.Date.ToString(),
+                Date = x.Date,
                 Cost = x.Sum.ToString()
             }).OrderBy(x => x.Date).Take(10));
             list.OrderBy(x => x.Date).Take(6);

@@ -1,11 +1,14 @@
 ﻿/*_BasicTemplateNew*/
 /*стили для header (верхней части)*/
-.header {
+.cn.header {
     height: 100px;
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-start;
     align-items: center;
+    cursor: pointer;
+    position:relative;
+    z-index:3;
 }
 
 #logo > img {
@@ -105,6 +108,21 @@
         width: 50% !important;
         margin-bottom: 3px !important;
     }
+
+    .imageHome {
+        height: 350px;
+    }
+
+    .headerText {
+        margin-top: 0px;
+    }
+
+        .headerText h1 {
+            font-size: 20px;
+        }
+        .headerText h3 {
+            font-size: 15px;
+        }
 }
 /* Стили для планшетов */
 @media only screen and (min-width: 768px) and (max-width: 991.98px) {
@@ -136,6 +154,24 @@
     .userName {
         margin-top: 1em !important;
     }
+
+    .imageHome {
+        height: 350px;
+    }
+
+    .headerText {
+        margin-top: 10px;
+    }
+
+    .headerText h1{
+        font-size: 20px;
+    }
+    .headerText h3 {
+            font-size: 15px;
+    }
+    .userName.home {
+        font-size: 15px;
+    }
 }
 /* Стили для небольших экранов */
 @media only screen and (min-width: 992px) and (max-width: 1199.98px) {
@@ -144,6 +180,16 @@
     .mobile-only {
         display: none !important;
     }
+    .imageHome {
+        height: 450px;
+    }
+
+    .headerText {
+        margin-top: 100px;
+    }
+    .userName.home {
+        font-size:medium;
+    }
 }
 /* Стили для больших экранов */
 @media only screen and (min-width: 1200px) {
@@ -151,6 +197,22 @@
     .tablet-only,
     .mobile-only {
         display: none !important;
+    }
+    .imageHome {
+        height: 650px;
+    }
+
+    .headerText {
+        margin-top: 250px;
+    }
+    .headerText h1{
+        font-size: 40px;
+    }
+    .headerText h3{
+        font-size: 22px;
+    }
+    .userName.home {
+        font-size:larger;
     }
 }
 /*стили для модульных окон, которые нельзя редактировать(для неавторизованных пользователей)*/
@@ -168,4 +230,52 @@
     appearance: none;
 }
 
+.cn.card{
+    margin:auto;
+}
 
+/*заглавная страница Common*/
+.personal{
+    cursor: pointer;
+}
+
+.imageHome {
+    background: url('../Content/pexels-yaroslav-shuraev-1834403.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    z-index: 2;
+}
+
+.headerText{
+    color: white;
+    position:relative;
+    z-index:3;
+    bottom: auto;
+}
+
+.filler{
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color:black;
+    opacity:0.7;
+    z-index:1;
+}
+
+.cn.header.home{
+    color:white;
+}
+
+.userInfo.home{
+    flex-direction:row-reverse;
+    align-items:center;
+    margin-top:0;
+}
+
+.userName.home {
+    margin-top: 0 !important;
+}

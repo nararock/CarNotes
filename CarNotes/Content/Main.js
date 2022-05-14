@@ -698,3 +698,7 @@ function deleteVehicle(id) {
 function goToCommonTable() {
     document.location = "/Common/Index";
 }
+
+function goToHomePage() {
+    document.location = "/Home/Index";
+}

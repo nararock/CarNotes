@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -56,6 +57,51 @@ namespace CarNotes.Classes
                 result.Add(userDb.LastVisit.ToString("HH:mm:ss"));
                 return result;
             }
+            return result;
+        }
+
+        public List<ActiveUsersModel> GetActiveUsers()
+        {
+            var db = new CnDbContext();
+            db.Database.Log += s => System.Diagnostics.Debug.WriteLine(s);
+            var activeUsers = db.Database.SqlQuery<ActiveUsersModel>(@"select top(10) u.Name,v.Id as vehicleID, v.Brand, v.Model,isnull(table1.Events,0) as refuelEvents,isnull(table2.Events,0) as repairEvents, isnull(table1.Events,0)+isnull(table2.Events,0) as events from AspNetUsers as u
+                                                    join Vehicles as v on u.Id = v.UserId
+                                                    left join (select VehicleId, COUNT(ID) as Events from RefuelEvents
+	                                                where Date > DATEADD(day, -30, GETDATE())
+	                                                group by VehicleId) as table1 on v.Id = table1.VehicleId
+                                                    left join (select VehicleId, COUNT(ID) as Events from RepairEvents
+	                                                where Date > DATEADD(day, -30, GETDATE())
+	                                                group by VehicleId) as table2 on v.Id = table2.VehicleId
+                                                    group by u.Id, u.Name, v.Id, v.Brand, v.Model,isnull(table1.Events,0), isnull(table2.Events,0), isnull(table1.Events,0)+isnull(table2.Events,0)
+                                                    order by isnull(table1.Events,0)+isnull(table2.Events,0) desc").ToList();
+            return activeUsers;
+        } 
+
+        public int GetAmountVehicles()
+        {
+            var db = new CnDbContext();
+            var result = db.Vehicles.Count();
+            return result;
+        }
+
+        public int GetAmountUsers()
+        {
+            var db = new CnDbContext();
+            var result = db.Users.Count();
+            return result;
+        }
+
+        public int GetAmountRepairEvents()
+        {
+            var db = new CnDbContext();
+            var result = db.RepairEvents.Count();
+            return result;
+        }
+
+        public int GetAmountRefuelEvents()
+        {
+            var db = new CnDbContext();
+            var result = db.RefuelEvents.Count();
             return result;
         }
     }

@@ -16,7 +16,8 @@ namespace CarNotes.Classes
             {
                 Name = rm.Name,
                 Email = rm.Email,
-                UserName = rm.Email
+                UserName = rm.Email,
+                LastVisit = DateTime.Now
             };
             var result = await authHelper.UserManager.CreateAsync(user, rm.Password);
             return result.Errors;

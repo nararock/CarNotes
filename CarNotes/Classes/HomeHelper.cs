@@ -16,29 +16,32 @@ namespace CarNotes.Classes
             var db = new CnDbContext();
             var list = db.RefuelEvents.Include(v => v.Vehicle).Select(x => new LastEventModel
             {
+                Id = x.VehicleId,
                 VehicleBrand = x.Vehicle.Brand,
                 VehicleModel = x.Vehicle.Model,
                 Record = Enums.RecordType.Refuel,
                 Date = x.Date,
-                Cost = (x.PricePerOneLiter * x.Volume).ToString()
+                Cost = (int)(x.PricePerOneLiter * x.Volume)
             }).OrderBy(x => x.Date).Take(10).ToList();
             list.AddRange(db.RepairEvents.Include(v => v.Vehicle).Select(x => new LastEventModel
             {
+                Id = x.VehicleId,
                 VehicleBrand = x.Vehicle.Brand,
                 VehicleModel = x.Vehicle.Model,
                 Record = Enums.RecordType.Repair,
                 Date = x.Date,
-                Cost = x.RepairCost.ToString()
+                Cost = (int)x.RepairCost
             }).OrderBy(x => x.Date).Take(10));
             list.AddRange(db.Expenses.Include(v => v.Vehicle).Select(x => new LastEventModel
             {
+                Id = x.VehicleId,
                 VehicleBrand = x.Vehicle.Brand,
                 VehicleModel = x.Vehicle.Model,
                 Record = Enums.RecordType.Expense,
                 Date = x.Date,
-                Cost = x.Sum.ToString()
+                Cost = (int)x.Sum
             }).OrderBy(x => x.Date).Take(10));
-            list.OrderBy(x => x.Date).Take(6);
+            list = list.OrderByDescending(x => x.Date).Take(10).ToList();
             return list;
         }
 

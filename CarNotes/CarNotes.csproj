@@ -246,6 +246,7 @@
       <DependentUpon>202204291303308_add the field called LastVisit in User.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ActiveUsersModel.cs" />
     <Compile Include="Models\CarPartModel.cs" />
     <Compile Include="Models\CarSubsystemModel.cs" />
     <Compile Include="Models\CarSystemModel.cs" />

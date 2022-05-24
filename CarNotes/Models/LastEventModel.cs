@@ -8,10 +8,11 @@ namespace CarNotes.Models
 {
     public class LastEventModel
     {
+        public int Id { get; set; }
         public string VehicleBrand { get; set; }
         public string VehicleModel { get; set; }
         public RecordType Record { get; set; }
         public DateTime Date { get; set; }
-        public string Cost { get; set; }
+        public int Cost { get; set; }
     }
 }

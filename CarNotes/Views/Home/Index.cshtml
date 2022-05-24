@@ -9,6 +9,11 @@
     var userName = userHelper.GetName(userId);
     var lastVisit = new HomeHelper().GetLastVisit(userId);
     List<LastEventModel> lastEvents = (new HomeHelper()).GetLastEvents();
+    var amountVehicles = new HomeHelper().GetAmountVehicles();
+    var amountUsers = new HomeHelper().GetAmountUsers();
+    var amountRepairEvents = new HomeHelper().GetAmountRepairEvents();
+    var amountRefuelEvents = new HomeHelper().GetAmountRefuelEvents();
+    var activeUsers = new HomeHelper().GetActiveUsers();
 }
 
 <!DOCTYPE html>
@@ -24,91 +29,146 @@
     <script type="text/javascript" src="~/Scripts/semantic.min.js"></script>
 </head>
 <body>
-    <div class="imageHome">
-        <div class="filler"></div>
-        <div class="ui container">
-            <div class="container cn header home">
-                <div id="logo">
-                    <img src="~/Content/logo_small.png" class="image" />
+    <div class="ui vertical fitted segment">
+        <div class="imageHome">
+            <div class="filler"></div>
+            <div class="ui container">
+                <div class="container cn header home">
+                    <div id="logo">
+                        <img src="~/Content/logo_small.png" class="image" />
+                    </div>
+                    <div id="logo-text">
+                        Записки<br />
+                        Автомобилиста
+                    </div>
+                    <div class="userInfo home">
+                        @if (!ViewBag.IsAuthenticated)
+                        {
+                            <p class="userName home"><a href="@Url.Content("~/Login/Index")"><i class="user circle outline icon"></i></a></p>
+                        }
+                        else
+                        {
+                            <p class="userName home" onclick="goToCommonTable()"><i class="user circle outline icon"></i>@userName <a href="@Url.Content("~/Login/LogOut")" class="exit" data-title="Выйти"><i class="sign in alternate icon"></i></a></p>
+                        }
+                    </div>
                 </div>
-                <div id="logo-text">
-                    Записки<br />
-                    Автомобилиста
+                <div class="headerText">
+                    <h1>Дневник твоего автомобиля</h1>
+                    <p>
+                        <h3>
+                            Учет и контроль расходов на свой автомобиль: на заправки, на ремонт, на техосмотры, на штрафы и т.п.
+                        </h3>
+                    </p>
                 </div>
-                <div class="userInfo home">
-                    @if (!ViewBag.IsAuthenticated)
-                    {
-                        <p class="userName home"><a href="@Url.Content("~/Login/Index")"><i class="user circle outline icon"></i></a></p>
-                    }
-                    else
-                    {
-                        <p class="userName home" onclick="goToCommonTable()"><i class="user circle outline icon"></i>@userName <a href="@Url.Content("~/Login/LogOut")" class="exit" data-title="Выйти"><i class="sign in alternate icon"></i></a></p>
-                    }
-                </div>
-            </div>
-            <div class="headerText">
-                <h1>Дневник твоего автомобиля</h1>
-                <p>
-                    <h3>
-                        Регистрируйся.<br /><br /> &nbsp &nbsp Добавляй свой траснпорт.<br /><br /> &nbsp &nbsp &nbsp И веди статистику расходов:
-                        <br /><br /> &nbsp &nbsp &nbsp &nbsp на заправки, ремонты, налоги, техосмотры и т.д.
-                    </h3>
-                </p>
             </div>
         </div>
     </div>
-    <div class="ui container">
-        <div class="container">
-            <div class="ui column centered grid">
-                <div class="column centered row">
-                    <p><h3>Последние события</h3></p>
-                </div>
-                <div class="column centered row">
-                    <div class="two column">
-                        <table class="ui celled table unstackable">
-                            <thead>
-                                <tr>
-                                    <th>Тип</th>
-                                    <th>Автомобиль</th>
-                                    <th>Дата</th>
-                                    <th>Стоимость</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @for (var i = 0; i < lastEvents.Count; i++)
-                                {
-                                    <tr>
-                                        <td data-label="Тип">
-                                            @if (lastEvents[i].Record == RecordType.Refuel)
-                                            {
-                                                <span data-tooltip="Заправка">
-                                                    <i class="circular gas pump icon link"></i>
-                                                </span>
-                                            }
-                                            else if (lastEvents[i].Record == RecordType.Repair)
-                                            {
-                                                <span data-tooltip="Ремонт">
-                                                    <i class="circular tools icon link"></i>
-                                                </span>
-                                            }
-                                            else if (lastEvents[i].Record == RecordType.Expense)
-                                            {
-                                                <span data-tooltip="Расход">
-                                                    <i class="circular credit card outline icon link"></i>
-                                                </span>
-                                            }
-                                        </td>
-                                        <td data-label="Автомобиль">@lastEvents[i].VehicleBrand @lastEvents[i].VehicleModel</td>
-                                        <td data-label="Дата">@lastEvents[i].Date.ToString("dd.MM.yyyy")</td>
-                                        <td data-label="Стоимость">@lastEvents[i].Cost</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+    <div class="full height">
+        <div class="ui vertical padded segment">
+            <div class="ui container">
+                <div class="ui stackable grid">
+                    <div class="eight wide column">
+                        <div class="column centered row">
+                            <p><h3>Последние события</h3></p>
+                        </div>
+                        <div class="column centered row">
+                            <div class="two column">
+                                <table class="ui celled table unstackable">
+                                    <thead>
+                                        <tr>
+                                            <th>Тип</th>
+                                            <th>Автомобиль</th>
+                                            <th>Дата</th>
+                                            <th>Стоимость</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for (var i = 0; i < lastEvents.Count; i++)
+                                        {
+                                            <tr>
+                                                <td data-label="Тип">
+                                                    @if (lastEvents[i].Record == RecordType.Refuel)
+                                                    {
+                                                        <span data-tooltip="Заправка">
+                                                            <i class="circular gas pump icon link"></i>
+                                                        </span>
+                                                    }
+                                                    else if (lastEvents[i].Record == RecordType.Repair)
+                                                    {
+                                                        <span data-tooltip="Ремонт">
+                                                            <i class="circular tools icon link"></i>
+                                                        </span>
+                                                    }
+                                                    else if (lastEvents[i].Record == RecordType.Expense)
+                                                    {
+                                                        <span data-tooltip="Расход">
+                                                            <i class="circular credit card outline icon link"></i>
+                                                        </span>
+                                                    }
+                                                </td>
+                                                <td data-label="Автомобиль"><a href="@Url.Content("~/Common/Index?vehicleId=" + lastEvents[i].Id)">@lastEvents[i].VehicleBrand @lastEvents[i].VehicleModel</a></td>
+                                                <td data-label="Дата">@lastEvents[i].Date.ToString("dd.MM.yyyy")</td>
+                                                <td data-label="Стоимость">@lastEvents[i].Cost</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="eight wide column">
+                        <div class="column centered row">
+                            <p><h3>Самые активные пользователи за месяц</h3></p>
+                        </div>
+                        <div class="column centered row">
+                            <div class="two column">
+                                <table class="ui celled table unstackable">
+                                    <thead>
+                                        <tr>
+                                            <th>Пользователь</th>
+                                            <th>Автомобиль</th>
+                                            <th>Заправки</th>
+                                            <th>Ремонты</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for (var i = 0; i < activeUsers.Count; i++)
+                                        {
+                                        <tr>
+                                            <td data-label="Пользователь">
+                                                @activeUsers[i].Name
+                                            </td>
+                                            <td data-label="Автомобиль">
+                                                <a href="@Url.Content("~/Common/Index?vehicleId=" + @activeUsers[i].VehicleId)">@activeUsers[i].Brand  @activeUsers[i].Model</a> 
+                                            </td>
+                                            <td data-label="Заправки">
+                                                @activeUsers[i].refuelEvents
+                                            </td>
+                                            <td data-label="Ремонты">
+                                                @activeUsers[i].repairEvents
+                                            </td>
+                                        </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+    <div class="ui vertical inverted segment" style="flex: 0 0 auto">
+        <div class="ui container">
+            <div class="ui grid footer">
+                <div class="eight wide column">2022 Записки автомобилиста</div>
+                <div class="two wide column"> </div>
+                <div class="six wide column">nararock@mail.ru</div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

@@ -203,7 +203,7 @@
     }
 
     .headerText {
-        margin-top: 250px;
+        margin-top: 200px;
     }
     .headerText h1{
         font-size: 40px;
@@ -253,6 +253,7 @@
     position:relative;
     z-index:3;
     bottom: auto;
+    text-align:center;
 }
 
 .filler{
@@ -278,4 +279,18 @@
 
 .userName.home {
     margin-top: 0 !important;
+}
+
+.footer {
+    text-align: center;
+}
+
+.full.height {
+    flex: 1 0 auto;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }

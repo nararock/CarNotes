@@ -33,7 +33,7 @@
                     <td>@e.Date</td>
                     <td>@e.Mileage</td>
                     <td>@e.Type</td>
-                    <td>@e.Sum</td>
+                    <td>@e.Sum.ToString("#")</td>
                     <td>@e.Description</td>
                     <td>@e.Comment</td>
                     @if (ViewBag.IsChecked)
@@ -81,7 +81,7 @@
                     Пробег: @e.Mileage
                 </div>
                 <div class="description">
-                    Стоимость: @e.Sum
+                    Стоимость: @e.Sum.ToString("#")
                 </div>
                 <div class="description">
                     Описание: @e.Description

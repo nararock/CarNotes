@@ -34,7 +34,7 @@ namespace CarNotes.Classes
             Enum.TryParse(rm.Fuel, out fuelanswer);
             refuelEvent.Fuel = fuelanswer;
             refuelEvent.FullTank = rm.FullTank;
-            refuelEvent.Mileage = rm.Mileage;
+            refuelEvent.Mileage = double.Parse(rm.Mileage);
             refuelEvent.PricePerOneLiter = rm.PricePerOneLiter;
             refuelEvent.VehicleId = vehicleId;
             if (rm.Station == 1)
@@ -42,7 +42,7 @@ namespace CarNotes.Classes
                 refuelEvent.CustomStation = rm.CustomStation;
             }
             refuelEvent.Station_ID = rm.Station;
-            refuelEvent.Volume = rm.Volume;
+            refuelEvent.Volume = double.Parse(rm.Volume.Replace('.', ','));
             refuelEvent.ForgotRecordPreviousGasStation = rm.ForgotRecordPreviousGasStation;
             database.RefuelEvents.Add(refuelEvent);
             database.SaveChanges();
@@ -71,20 +71,20 @@ namespace CarNotes.Classes
             editRefuelModel.Date = editRefuel.Date.ToString("dd.MM.yyyy");
             editRefuelModel.Fuel = editRefuel.Fuel.ToString();
             editRefuelModel.FullTank = editRefuel.FullTank;
-            editRefuelModel.Mileage = editRefuel.Mileage;
+            editRefuelModel.Mileage = editRefuel.Mileage.ToString();
             editRefuelModel.PricePerOneLiter = editRefuel.PricePerOneLiter;
             editRefuelModel.Station = editRefuel.Station.ID;
             if (editRefuel.CustomStation != null)
             {
                 editRefuelModel.CustomStation = editRefuel.CustomStation;
             }
-            editRefuelModel.Volume = editRefuel.Volume;
+            editRefuelModel.Volume = editRefuel.Volume.ToString();
             editRefuelModel.ForgotRecordPreviousGasStation = editRefuel.ForgotRecordPreviousGasStation;
             editRefuelModel.Id = editRefuel.ID;
             return editRefuelModel;
         }
 
-        public void ChangeData(RefuelModel rm)
+        public void ChangeData([System.Web.Http.FromUri] RefuelModel rm)
         {
             var data = new CnDbContext();
             var refuelEvent = data.RefuelEvents.Where(x => x.ID == rm.Id).Include(y=>y.Station).FirstOrDefault();
@@ -96,10 +96,10 @@ namespace CarNotes.Classes
                 refuelEvent.Fuel = l;
                 refuelEvent.FullTank = rm.FullTank;
                 refuelEvent.ID = rm.Id;
-                refuelEvent.Mileage = rm.Mileage;
+                refuelEvent.Mileage = double.Parse(rm.Mileage);
                 refuelEvent.PricePerOneLiter = rm.PricePerOneLiter;
-                refuelEvent.Station_ID = rm.Station;
-                refuelEvent.Volume = rm.Volume;
+                refuelEvent.Station_ID = rm.Station;                
+                refuelEvent.Volume = double.Parse(rm.Volume.Replace('.', ','));
                 data.SaveChanges();
             }
         }

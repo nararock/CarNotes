@@ -10,7 +10,7 @@
 <div class="content">
     <form action="/Refuel/Edit" method="post" class="ui form" id="formEdit">
         <div class="field">Дата: <input type="text" name="Date" class="MyDateRangePicker" /></div>
-        <div class="field">Пробег: <input type="text" name="Mileage" /></div>
+        <div class="field">Пробег: <input type="number" name="Mileage" /></div>
         <div class="field">
             Вид топлива: <select name="Fuel" class="ui fluid dropdown">
                 @foreach (var elem in new string[] { "АИ80", "АИ92", "АИ95", "АИ95Plus", "АИ98" })
@@ -28,8 +28,8 @@
             </select>
         </div>
         <p style="display:none"><input type="text" name="CustomStation" /></p>
-        <div class="field">Объем: <input type="text" name="Volume" /></div>
-        <div class="field">Цена: <input type="text" name="PricePerOneLiter" /></div>
+        <div class="field">Объем: <input type="number" name="Volume" /></div>
+        <div class="field">Цена: <input type="number" name="PricePerOneLiter" /></div>
         <div class="field">
             <div class="ui checkbox">
                 <input type="checkbox" name="FullTankCheckbox" />

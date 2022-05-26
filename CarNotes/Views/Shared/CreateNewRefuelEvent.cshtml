@@ -10,12 +10,12 @@
     @using (Html.BeginForm("Create", "Refuel", FormMethod.Post, new { @class = "ui form", @id = "formCreate" }))
     {
         <div class="field">Дата: @Html.TextBoxFor(x => x.Date, new { @class = "MyDateRangePicker" })</div>
-        <div class="field">Пробег: @Html.TextBoxFor(x => x.Mileage)</div>
+        <div class="field">Пробег: @Html.TextBoxFor(x => x.Mileage, new { @type = "number" })</div>
         <div class="field">Тип топлива: @Html.DropDownList("Fuel", new SelectList(new string[] { "АИ80", "АИ92", "АИ95", "АИ95 Plus", "АИ98" }), new { @class = "ui fluid dropdown" })</div>
         <div class="field">АЗС: @Html.DropDownListFor(x => x.Station, new SelectList(gasStation, "Id", "Name"), new { @onchange = "changeSelectListCreate(event)", @class = "ui fluid dropdown" })</div>
         <div class="field" style="display:none">Введите название АЗС: @Html.TextBoxFor(x => x.CustomStation)</div>
-        <div class="field">Объем: @Html.TextBoxFor(x => x.Volume)</div>
-        <div class="field">Цена: @Html.TextBoxFor(x => x.PricePerOneLiter)</div>
+        <div class="field">Объем: @Html.TextBoxFor(x => x.Volume, new { @type = "number" })</div>
+        <div class="field">Цена: @Html.TextBoxFor(x => x.PricePerOneLiter, new {@type="number"})</div>
         <div class="field">
             <div class="ui checkbox">
                 <input type="checkbox" name="FullTankCheckbox" />

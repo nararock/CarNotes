@@ -6,10 +6,10 @@
 <div class="content">
     <form action="/Repair/Edit" method="post" class="ui form" id="RepairFormEdit">
         <div class="field">Дата: <input type="text" name="Date" class="MyDateRangePicker" /></div>
-        <div class="field">Пробег: <input type="text" name="Mileage" /></div>
+        <div class="field">Пробег: <input type="number" name="Mileage" /></div>
         <div class="field">Название ремонтных работ: <input type="text" name="Repair" /></div>
         <div class="field">Сервис: <input type="text" name="CarService" /></div>
-        <div class="field">Стоимость ремонтных работ:<input type="text" name="RepairCost" /></div>
+        <div class="field">Стоимость ремонтных работ:<input type="number" name="RepairCost" /></div>
         <div class="field">Комментарии<input type="text" name="Comments" /></div>
         <input type="hidden" name="Id" />
         <div class="ui small header CarPartName" style="display:none">Автозапчасти</div>

@@ -21,8 +21,8 @@ namespace CarNotes.Classes
                 Id = x.Id,
                 Type = x.Type.Name,
                 Date = x.Date.ToString("dd.MM.yyyy"),
-                Mileage = x.Mileage.ToString(),
-                Sum = x.Sum.ToString("#"),
+                Mileage = x.Mileage,
+                Sum = x.Sum,
                 Description = x.Description,
                 Comment = x.Comment
             }).ToList();
@@ -43,10 +43,10 @@ namespace CarNotes.Classes
             var expenseEditModel = new ExpenseEditModel();
             expenseEditModel.Id = editExpense.Id;
             expenseEditModel.Date = editExpense.Date.ToString("dd.MM.yyyy");
-            expenseEditModel.Mileage = editExpense.Mileage.ToString();
+            expenseEditModel.Mileage = editExpense.Mileage;
             expenseEditModel.TypeId = editExpense.TypeId;
             expenseEditModel.Description = editExpense.Description;
-            expenseEditModel.Sum = editExpense.Sum.ToString();
+            expenseEditModel.Sum = editExpense.Sum;
             expenseEditModel.Comment = editExpense.Comment;
             return expenseEditModel;
         }
@@ -65,16 +65,10 @@ namespace CarNotes.Classes
                 expenseEvent.VehicleId = vehicleId;
             }
             expenseEvent.Date = DateTime.ParseExact(em.Date, "dd.MM.yyyy", null);
-            if (double.TryParse(em.Mileage, out var valueMile))
-            {
-                expenseEvent.Mileage = valueMile;
-            }                
+            expenseEvent.Mileage = em.Mileage;             
             expenseEvent.TypeId = em.TypeId;
-            if (decimal.TryParse(em.Sum, out var value))
-            {
-                expenseEvent.Sum = value;
-            }
-            expenseEvent.Sum = decimal.Parse(em.Sum);
+            expenseEvent.Sum = em.Sum;
+            expenseEvent.Sum = em.Sum;
             expenseEvent.Description = em.Description;
             expenseEvent.Comment = em.Comment;
             db.SaveChanges();

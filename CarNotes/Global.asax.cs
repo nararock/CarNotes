@@ -16,6 +16,8 @@ namespace CarNotes
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            ModelBinders.Binders.Add(typeof(double), new DoubleModelBinder());
+            ModelBinders.Binders.Add(typeof(decimal), new DecimalModelBinder());
         }
 
         protected void Application_EndRequest()

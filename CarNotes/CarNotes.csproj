@@ -156,6 +156,8 @@
     <Compile Include="App_Start\StartUp.cs" />
     <Compile Include="Classes\AuthHelper.cs" />
     <Compile Include="Classes\CommonHelper.cs" />
+    <Compile Include="Classes\DecimalModelBinder.cs" />
+    <Compile Include="Classes\DoubleModelBinder.cs" />
     <Compile Include="Classes\ExpenseHelper.cs" />
     <Compile Include="Classes\HomeHelper.cs" />
     <Compile Include="Classes\IdentityConfig.cs" />

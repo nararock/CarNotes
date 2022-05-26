@@ -294,3 +294,16 @@ body {
     flex-direction: column;
     height: 100%;
 }
+
+/*стили для всех input у которых type=number, чтобы не было стрелочек при вводе числа*/
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type='number'],
+input[type="number"]:hover,
+input[type="number"]:focus {
+    appearance: none;
+    -moz-appearance: textfield;
+}

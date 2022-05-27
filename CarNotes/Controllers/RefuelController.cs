@@ -26,6 +26,7 @@ namespace CarNotes.Controllers
                         ViewBag.IsChecked = true;
                         HttpContext.Response.Cookies.Set(new HttpCookie("vehicleId", vehicleId.ToString()));
                     }
+                    else { return Redirect("~/Vehicle/Index"); }
                 }
                 var cm = new RefuelHelper().GetList((int)vehicleId);
                 if (cm == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
@@ -41,7 +42,11 @@ namespace CarNotes.Controllers
             int vehicleIdNumber;
             if (int.TryParse(vehicleIdCookie, out vehicleIdNumber))
             {
-                return Redirect("~/Refuel/Index?vehicleId=" + vehicleIdNumber);
+                if (!new CnDbContext().Vehicles.Any(v => v.Id == vehicleIdNumber))
+                {
+                    HttpContext.Response.Cookies.Remove("vehicleId");
+                }
+                else return Redirect("~/Refuel/Index?vehicleId=" + vehicleIdNumber);
             }
             var userId = new AuthHelper(HttpContext).AuthenticationManager.User.Identity.GetUserId();
             vehicleId = new CnDbContext().Users.Find(userId).Vehicles.FirstOrDefault()?.Id;

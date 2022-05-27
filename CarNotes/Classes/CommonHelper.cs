@@ -9,6 +9,11 @@ namespace CarNotes.Classes
 {
     public class CommonHelper
     {
+        /// <summary>
+        /// возвращает список общих событий
+        /// </summary>
+        /// <param name="vehicleId"></param>
+        /// <returns></returns>
         public List<CommonModel> CreateList(int vehicleId)
         {
             var db = new CnDbContext();

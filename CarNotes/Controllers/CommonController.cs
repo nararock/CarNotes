@@ -42,7 +42,11 @@ namespace CarNotes.Controllers
             int vehicleIdNumber;
             if (int.TryParse(vehicleIdCookie, out vehicleIdNumber))
             {
-                return Redirect("~/Common/Index?vehicleId=" + vehicleIdNumber);
+                if(!new CnDbContext().Vehicles.Any(v => v.Id == vehicleIdNumber))
+                {
+                    HttpContext.Response.Cookies.Remove("vehicleId"); 
+                }
+                else return Redirect("~/Common/Index?vehicleId=" + vehicleIdNumber);
             }
             var userId = new AuthHelper(HttpContext).AuthenticationManager.User.Identity.GetUserId();
             vehicleId = new CnDbContext().Users.Find(userId).Vehicles.FirstOrDefault()?.Id;

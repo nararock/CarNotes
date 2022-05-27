@@ -139,6 +139,7 @@
     <Content Include="Content\logo_small.png" />
     <Content Include="Content\Main.js" />
     <Content Include="Content\pexels-yaroslav-shuraev-1834403.jpg" />
+    <Content Include="Content\pexels-yaroslav-shuraev-1834403_1920.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Styles\semantic.min.css" />

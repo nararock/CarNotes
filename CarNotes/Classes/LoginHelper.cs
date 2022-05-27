@@ -19,6 +19,11 @@ namespace CarNotes.Classes
         public void LogOut(HttpContextBase context)
         {
             new AuthHelper(context).AuthenticationManager.SignOut();
+            if (context.Request.Cookies["vehicleId"] != null)
+            {
+                context.Response.Cookies["vehicleId"].Expires = DateTime.Now.AddDays(-1);
+            }
+            //context.Response.Cookies.Remove("vehicleId");
         }
     }
 }

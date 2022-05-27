@@ -48,7 +48,6 @@ namespace CarNotes.Controllers
                     HttpContext.Response.Cookies.Remove("vehicleId");
                 }
                 else return Redirect("~/Expense/Index?vehicleId=" + vehicleIdNumber);
-
             }
             var userId = new AuthHelper(HttpContext).AuthenticationManager.User.Identity.GetUserId();
             vehicleId = new CnDbContext().Users.Find(userId).Vehicles.FirstOrDefault()?.Id;

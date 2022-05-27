@@ -22,7 +22,7 @@ namespace CarNotes.Classes
             var list = vehicle.RefuelEvents.Select(x => new CommonModel {Id = x.ID, Record = Enums.RecordType.Refuel, Date = x.Date.ToString("dd.MM.yyyy"), Mileage = x.Mileage, Cost = Math.Round(x.PricePerOneLiter * x.Volume) }).ToList();
             list.AddRange(vehicle.RepairEvents.Select(x => new CommonModel {Id = x.Id, Record = Enums.RecordType.Repair, Date = x.Date.ToString("dd.MM.yyyy"), Mileage = x.Mileage, Cost = (double)x.RepairCost }));
             list.AddRange(vehicle.Expenses.Select(x => new CommonModel { Id = x.Id, Record = Enums.RecordType.Expense, Date = x.Date.ToString("dd.MM.yyyy"), Mileage = x.Mileage??0, Cost = (double)x.Sum }));
-            list = list.OrderBy(x => x.Mileage).ToList();
+            list = list.OrderByDescending(x => x.Mileage).ToList();
             return list;
         }
 

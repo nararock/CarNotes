@@ -28,8 +28,7 @@ namespace CarNotes.Controllers
                         HttpContext.Response.Cookies.Set(new HttpCookie("vehicleId", vehicleId.ToString()));
                     }
                 }
-                var common = new CommonHelper();
-                var cm = common.CreateList((int)vehicleId);
+                var cm = new CommonHelper().CreateList((int)vehicleId);
                 if (cm == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
                 ViewBag.Name = "Общая таблица";
                 return View(cm);

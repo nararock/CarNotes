@@ -44,7 +44,7 @@
                     <div class="userInfo home">
                         @if (!ViewBag.IsAuthenticated)
                         {
-                            <p class="userName home"><a href="@Url.Content("~/Login/Index")"><i class="user circle outline icon"></i></a></p>
+                            <p class="userName home"><a href="@Url.Content("~/Login/Index")"><i class="user circle outline icon"></i>Войти</a></p>
                         }
                         else
                         {
@@ -71,8 +71,7 @@
                         <div class="column centered row">
                             <p><h3>Последние события</h3></p>
                         </div>
-                        <div class="column centered row">
-                            <div class="two column">
+                        <div class="column centered row">                            
                                 <table class="ui celled table unstackable">
                                     <thead>
                                         <tr>
@@ -113,7 +112,6 @@
                                         }
                                     </tbody>
                                 </table>
-                            </div>
                         </div>
                     </div>
                     <div class="eight wide column">
@@ -127,8 +125,18 @@
                                         <tr>
                                             <th>Пользователь</th>
                                             <th>Автомобиль</th>
-                                            <th>Заправки</th>
-                                            <th>Ремонты</th>
+                                            <th>
+                                                <span class="hide-on-mobile">Заправки</span>
+                                                <span data-tooltip="Заправка" class="mobile-only">
+                                                    <i class="circular gas pump icon link"></i>
+                                                </span>
+                                            </th>
+                                            <th>
+                                                <span class="hide-on-mobile">Ремонты</span>
+                                                <span data-tooltip="Ремонт" class="mobile-only">
+                                                    <i class="circular tools icon link"></i>
+                                                </span>
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -159,10 +167,9 @@
         </div>
     </div>
 
-
     <div class="ui vertical inverted segment" style="flex: 0 0 auto">
         <div class="ui container">
-            <div class="ui grid footer">
+            <div class="ui stackable grid footer">
                 <div class="six wide column">2022 Записки автомобилиста</div>
                 <div class="four wide column"> </div>
                 <div class="six wide column">nararock@mail.ru</div>

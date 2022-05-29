@@ -15,7 +15,10 @@ namespace CarNotes.Classes
         public List<LastEventModel> GetLastEvents()
         {
             var db = new CnDbContext();
-            var list = db.RefuelEvents.Include(v => v.Vehicle).Select(x => new LastEventModel
+            var dateCompare = DateTime.Now.AddDays(1);
+            var list = db.RefuelEvents.Include(v => v.Vehicle)
+                .Where(x=>x.Date <= dateCompare)
+                .Select(x => new LastEventModel
             {
                 Id = x.VehicleId,
                 VehicleBrand = x.Vehicle.Brand,
@@ -23,8 +26,10 @@ namespace CarNotes.Classes
                 Record = Enums.RecordType.Refuel,
                 Date = x.Date,
                 Cost = (int)(x.PricePerOneLiter * x.Volume)
-            }).OrderBy(x => x.Date).Take(10).ToList();
-            list.AddRange(db.RepairEvents.Include(v => v.Vehicle).Select(x => new LastEventModel
+            }).OrderByDescending(x => x.Date).Take(10).ToList();
+            list.AddRange(db.RepairEvents.Include(v => v.Vehicle)
+                .Where(x => x.Date <= dateCompare)
+                .Select(x => new LastEventModel
             {
                 Id = x.VehicleId,
                 VehicleBrand = x.Vehicle.Brand,
@@ -32,8 +37,10 @@ namespace CarNotes.Classes
                 Record = Enums.RecordType.Repair,
                 Date = x.Date,
                 Cost = (int)x.RepairCost
-            }).OrderBy(x => x.Date).Take(10));
-            list.AddRange(db.Expenses.Include(v => v.Vehicle).Select(x => new LastEventModel
+            }).OrderByDescending(x => x.Date).Take(10));
+            list.AddRange(db.Expenses.Include(v => v.Vehicle)
+                .Where(x => x.Date <= dateCompare)
+                .Select(x => new LastEventModel
             {
                 Id = x.VehicleId,
                 VehicleBrand = x.Vehicle.Brand,
@@ -41,7 +48,7 @@ namespace CarNotes.Classes
                 Record = Enums.RecordType.Expense,
                 Date = x.Date,
                 Cost = (int)x.Sum
-            }).OrderBy(x => x.Date).Take(10));
+            }).OrderByDescending(x => x.Date).Take(10));
             list = list.OrderByDescending(x => x.Date).Take(10).ToList();
             return list;
         }

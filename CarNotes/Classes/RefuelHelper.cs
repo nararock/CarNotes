@@ -52,11 +52,12 @@ namespace CarNotes.Classes
         {
             var data = new CnDbContext();
             var refuel = data.RefuelEvents.FirstOrDefault(x => x.ID == id);
-            if (refuel?.Vehicle?.UserId == hc.User.Identity.GetUserId())
+            if ((refuel?.Vehicle?.UserId) != hc.User.Identity.GetUserId())
             {
-                data.RefuelEvents.Remove(refuel);
-                data.SaveChanges();
+                return;
             }
+            data.RefuelEvents.Remove(refuel);
+            data.SaveChanges();
         }
 
         public RefuelModel GetDataEdit(int id)
@@ -84,24 +85,29 @@ namespace CarNotes.Classes
             return editRefuelModel;
         }
 
-        public void ChangeData([System.Web.Http.FromUri] RefuelModel rm)
+        public void ChangeData(RefuelModel rm, HttpContextBase hc)
         {
             var data = new CnDbContext();
-            var refuelEvent = data.RefuelEvents.Where(x => x.ID == rm.Id).Include(y=>y.Station).FirstOrDefault();
-            if (refuelEvent != null)
+            var refuelEvent = data.RefuelEvents.Where(x => x.ID == rm.Id).Include(y => y.Station).FirstOrDefault();
+            if (refuelEvent == null)
             {
-                refuelEvent.Date = DateTime.ParseExact(rm.Date, "dd.MM.yyyy", null);
-                refuelEvent.ForgotRecordPreviousGasStation = rm.ForgotRecordPreviousGasStation;
-                Enum.TryParse(rm.Fuel, out FuelType l);
-                refuelEvent.Fuel = l;
-                refuelEvent.FullTank = rm.FullTank;
-                refuelEvent.ID = rm.Id;
-                refuelEvent.Mileage = double.Parse(rm.Mileage);
-                refuelEvent.PricePerOneLiter = rm.PricePerOneLiter;
-                refuelEvent.Station_ID = rm.Station;                
-                refuelEvent.Volume = double.Parse(rm.Volume.Replace('.', ','));
-                data.SaveChanges();
+                return;
             }
+            if ((refuelEvent?.Vehicle?.UserId) != hc.User.Identity.GetUserId())
+            {
+                return;
+            }
+            refuelEvent.Date = DateTime.ParseExact(rm.Date, "dd.MM.yyyy", null);
+            refuelEvent.ForgotRecordPreviousGasStation = rm.ForgotRecordPreviousGasStation;
+            Enum.TryParse(rm.Fuel, out FuelType l);
+            refuelEvent.Fuel = l;
+            refuelEvent.FullTank = rm.FullTank;
+            refuelEvent.ID = rm.Id;
+            refuelEvent.Mileage = double.Parse(rm.Mileage);
+            refuelEvent.PricePerOneLiter = rm.PricePerOneLiter;
+            refuelEvent.Station_ID = rm.Station;
+            refuelEvent.Volume = double.Parse(rm.Volume.Replace('.', ','));
+            data.SaveChanges();
         }
 
         public List<GasStationModel> GetGasStationsList()

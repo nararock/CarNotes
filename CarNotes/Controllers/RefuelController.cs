@@ -10,8 +10,10 @@ using System.Web.Mvc;
 
 namespace CarNotes.Controllers
 {
+    [Authorize]
     public class RefuelController : Controller
     {
+        [AllowAnonymous]
         public ActionResult Index(int? vehicleId)
         {
             if (vehicleId != null)
@@ -26,7 +28,6 @@ namespace CarNotes.Controllers
                         ViewBag.IsChecked = true;
                         HttpContext.Response.Cookies.Set(new HttpCookie("vehicleId", vehicleId.ToString()));
                     }
-                    else { return Redirect("~/Vehicle/Index"); }
                 }
                 var cm = new RefuelHelper().GetList((int)vehicleId);
                 if (cm == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
@@ -54,7 +55,6 @@ namespace CarNotes.Controllers
             return Redirect("~/Vehicle/Index");
         }
 
-        [Authorize]
         [HttpPost]
         public ActionResult Create(RefuelModel rm)
         {
@@ -87,7 +87,7 @@ namespace CarNotes.Controllers
         [HttpPost]
         public ActionResult Edit(RefuelModel rm)
         {
-            new RefuelHelper().ChangeData(rm);
+            new RefuelHelper().ChangeData(rm, HttpContext);
             return Redirect("/Refuel/Index");
         }
 

@@ -19,7 +19,7 @@ namespace CarNotes.Models
         public string Repair { get; set; }
         public List<CarPartModel> Parts { get; set; }
         public string CarService { get; set; }
-        public decimal RepairCost { get; set; }
+        public int RepairCost { get; set; }
         public string Comments { get; set; }
     }
 }

@@ -51,9 +51,10 @@ namespace CarNotes.Classes
             return expenseEditModel;
         }
 
-        public void ChangeData(ExpenseEditModel em, int vehicleId)
+        public void ChangeData(ExpenseEditModel em, int vehicleId, HttpContextBase hc)
         {
             var db = new CnDbContext();
+            var checkUser = new CommonHelper().GetAccessToVehicle(hc.User.Identity.GetUserId(), vehicleId, db);
             var expenseEvent = db.Expenses
                 .Include(z=>z.Type)
                 .Where(x => x.Id == em.Id)

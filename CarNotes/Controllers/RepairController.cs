@@ -26,7 +26,7 @@ namespace CarNotes.Controllers
                         ViewBag.IsChecked = true;
                         HttpContext.Response.Cookies.Set(new HttpCookie("vehicleId", vehicleId.ToString()));
                     }
-                    else { return Redirect("~/Vehicle/Index"); }
+                    //else { return Redirect("~/Vehicle/Index"); }
                 }
                 var common = new RepairHelper();
                 var cm = common.GetList((int)vehicleId);
@@ -76,7 +76,7 @@ namespace CarNotes.Controllers
         public ActionResult Edit(RepairModel rm)
         {
             var vehicleId = int.Parse(HttpContext.Request.Cookies.Get("vehicleId").Value);
-            new RepairHelper().ChangeData(rm, vehicleId);
+            new RepairHelper().ChangeData(rm, vehicleId, HttpContext);
             return Redirect("/Repair/Index");
         }
 

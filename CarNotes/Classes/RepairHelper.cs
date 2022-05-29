@@ -51,7 +51,7 @@ namespace CarNotes.Classes
             editRepairModel.Id = editRepair.Id;
             editRepairModel.Mileage = editRepair.Mileage;
             editRepairModel.Repair = editRepair.Repair;
-            editRepairModel.RepairCost = editRepair.RepairCost;
+            editRepairModel.RepairCost = (int)editRepair.RepairCost;
             editRepairModel.Date = editRepair.Date.ToString("dd.MM.yyyy");
             editRepairModel.CarService = editRepair.CarService;
             editRepairModel.Comments = editRepair.Comments;
@@ -71,10 +71,10 @@ namespace CarNotes.Classes
             return editRepairModel;
         }
 
-        public void ChangeData(RepairModel rm, int vehicleId)
+        public void ChangeData(RepairModel rm, int vehicleId, HttpContextBase hc)
         {
             var db = new CnDbContext();
-            
+            var checkUser = new CommonHelper().GetAccessToVehicle(hc.User.Identity.GetUserId(), vehicleId, db);
             var repairEvent = db.RepairEvents
                 .Include(x => x.Parts)
                 .Include(x => x.Parts.Select(p => p.CarSubsystem))

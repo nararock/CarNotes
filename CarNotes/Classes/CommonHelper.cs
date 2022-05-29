@@ -40,5 +40,20 @@ namespace CarNotes.Classes
             }
             return maxMileage[0].LastMileage;
         }
+        /// <summary>
+        /// проверка соответсвия между UserId пользователя и vehicleId автомобиля
+        /// </summary>
+        /// <param name="UserId"></param>
+        /// <param name="vehicleId"></param>
+        /// <returns></returns>
+        public bool GetAccessToVehicle(string UserId, int vehicleId, CnDbContext db)
+        {
+            var vehicle = db.Vehicles.Find(vehicleId);
+            if (vehicle == null)
+            {
+                return false;
+            }
+            return  vehicle.UserId == UserId;
+        }
     }
 }

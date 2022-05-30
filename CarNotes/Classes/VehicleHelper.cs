@@ -58,9 +58,11 @@ namespace CarNotes.Classes
             database.SaveChanges();
         }
 
-        public void Delete(int id)
+        public void Delete(int id, HttpContextBase hc)
         {
             var db = new CnDbContext();
+            var checkUser = new CommonHelper().GetAccessToVehicle(hc.User.Identity.GetUserId(), id, db);
+            if (!checkUser) { return; }
             db.Vehicles.Remove(db.Vehicles.FirstOrDefault(x => x.Id == id));
             db.SaveChanges();
         }
@@ -79,9 +81,11 @@ namespace CarNotes.Classes
             return editVehicleModel;
         }
 
-        public void ChangeData(VehicleModel vm)
+        public void ChangeData(VehicleModel vm, HttpContextBase hc)
         {
             var data = new CnDbContext();
+            var checkUser = new CommonHelper().GetAccessToVehicle(hc.User.Identity.GetUserId(), vm.Id, data);
+            if (!checkUser) { return; }
             var vehicleEdit = data.Vehicles.FirstOrDefault(x => x.Id == vm.Id);
             vehicleEdit.Brand = vm.Brand;
             vehicleEdit.Model = vm.Model;

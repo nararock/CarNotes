@@ -55,6 +55,7 @@ namespace CarNotes.Classes
         {
             var db = new CnDbContext();
             var checkUser = new CommonHelper().GetAccessToVehicle(hc.User.Identity.GetUserId(), vehicleId, db);
+            if (!checkUser) { return; }
             var expenseEvent = db.Expenses
                 .Include(z=>z.Type)
                 .Where(x => x.Id == em.Id)

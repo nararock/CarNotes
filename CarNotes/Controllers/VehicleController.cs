@@ -30,7 +30,7 @@ namespace CarNotes.Controllers
 
         public ActionResult Delete(int id)
         {
-            new VehicleHelper().Delete(id);
+            new VehicleHelper().Delete(id, HttpContext);
             return Redirect("/Vehicle/Index");
         }
 
@@ -45,7 +45,7 @@ namespace CarNotes.Controllers
          [HttpPost]
          public ActionResult Edit(VehicleModel vm)
         {
-            new VehicleHelper().ChangeData(vm);
+            new VehicleHelper().ChangeData(vm, HttpContext);
             return Redirect("/Vehicle/Index");
         }
     }

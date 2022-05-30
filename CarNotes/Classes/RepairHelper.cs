@@ -74,6 +74,7 @@ namespace CarNotes.Classes
         {
             var db = new CnDbContext();
             var checkUser = new CommonHelper().GetAccessToVehicle(hc.User.Identity.GetUserId(), vehicleId, db);
+            if (!checkUser) { return; }
             var repairEvent = db.RepairEvents
                 .Include(x => x.Parts)
                 .Include(x => x.Parts.Select(p => p.CarSubsystem))

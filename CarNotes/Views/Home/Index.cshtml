@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="~/Styles/semantic.min.css" />
     <link rel="stylesheet" href="~/Styles/Main.css" />
     <script src="@Url.Content("~/Content/Main.js")"></script>
+    <script src="@Url.Content("~/Content/cookie.min.js")"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="~/Scripts/semantic.min.js"></script>
 </head>
@@ -178,12 +179,11 @@
             <div class="ui justified text container">
                 <h2 style="font-variant: small-caps;">Записки автомобилиста</h2>
                 Приветствуем вас на нашем сайте. Здесь вы можете вести дневник вашего автомобиля:
-                учитывать расходы, ремонты и заправки.
-                Наш проект достаточно молодой и далеко не все еще реализовано. В будущем мы планируем
+                записывать расходы, ремонты и заправки.
+                Наш проект молодой и не все еще реализовано. В будущем мы планируем
                 добавить все необходимое для ведения учета и анализа своих затрат на автомобиль.
-                Если у вас появятся идеи или замечания при использовании нашего сайта -
-                вы можете оставить их в специальной форме "Отзывы и предложения", мы их обязательно учтем.
-                Наша цель - простота и удобство в использовании нашего продукта.
+                Свои идеи и замечания вы можете оставить в специальной форме в личном кабинете.
+                Наша цель - создать простой и удобный инструмент для хранения и просмотра истории автомобиля.
             </div>
             <div class="ui center aligned home down container">
                 @if (ViewBag.IsAuthenticated)

@@ -234,7 +234,7 @@
     margin:auto;
 }
 
-/*заглавная страница Common*/
+/*заглавная страница Home*/
 .personal{
     cursor: pointer;
 }
@@ -293,6 +293,14 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
+}
+
+.login.button{
+    margin-top:50px;
+}
+
+.home.down.container {
+    padding-top:20px;
 }
 
 /*стили для всех input у которых type=number, чтобы не было стрелочек при вводе числа*/

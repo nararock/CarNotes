@@ -174,18 +174,32 @@
                 </div>
             </div>
         </div>
+        <div class="ui vertical padded segment">
+            <div class="ui justified text container">
+                <h2 style="font-variant: small-caps;">Записки автомобилиста</h2>
+                Приветствуем вас на нашем сайте. Здесь вы можете вести дневник вашего автомобиля:
+                учитывать расходы, ремонты и заправки.
+                Наш проект достаточно молодой и далеко не все еще реализовано. В будущем мы планируем
+                добавить все необходимое для ведения учета и анализа своих затрат на автомобиль.
+                Если у вас появятся идеи или замечания при использовании нашего сайта -
+                вы можете оставить их в специальной форме "Отзывы и предложения", мы их обязательно учтем.
+                Наша цель - простота и удобство в использовании нашего продукта.
+            </div>
+            <div class="ui center aligned home down container">
+                @if (ViewBag.IsAuthenticated)
+                {
+                    <button class="ui teal large down home button" onclick="goToCommonTable()">Войти в личный кабинет</button>
+                }
+                else
+                {
+                    <button class="ui teal large down home button" onclick="goToRegisterPage()">Создать новый аккаунт</button>
+                }
+            </div>
+
+
+        </div>
     </div>
-    <div>
-        @if (ViewBag.IsAuthenticated)
-        {
-            <button class="ui teal large login button" onclick="goToCommonTable()">Войти в личный кабинет</button>
-        }
-        else
-        {
-            <button class="ui teal large login button" onclick="goToRegisterPage()">Создать новый аккаунт</button>
-        }
-    </div>
-    
+
     <div class="ui vertical inverted segment" style="flex: 0 0 auto">
         <div class="ui container">
             <div class="ui stackable grid footer">

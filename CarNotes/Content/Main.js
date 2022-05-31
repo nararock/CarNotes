@@ -699,6 +699,14 @@ function goToCommonTable() {
     document.location = "/Common/Index";
 }
 
+/**
+ * переход на главную страницу
+ * */
 function goToHomePage() {
     document.location = "/Home/Index";
+}
+
+
+function goToRegisterPage() {
+    document.location = "/Registration/Index";
 }

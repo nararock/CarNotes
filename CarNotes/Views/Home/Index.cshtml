@@ -59,7 +59,16 @@
                             Учет и контроль расходов на свой автомобиль: заправки, ремонты, расходы.
                         </h3>
                     </p>
+                    @if (ViewBag.IsAuthenticated)
+                    {
+                        <button class="ui teal large login button" onclick="goToCommonTable()">Войти в личный кабинет</button>
+                    }
+                    else
+                    {
+                        <button class="ui teal large login button" onclick="goToRegisterPage()">Создать новый аккаунт</button>
+                    }
                 </div>
+
             </div>
         </div>
     </div>
@@ -71,47 +80,47 @@
                         <div class="column centered row">
                             <p><h3>Последние события</h3></p>
                         </div>
-                        <div class="column centered row">                            
-                                <table class="ui celled table unstackable">
-                                    <thead>
+                        <div class="column centered row">
+                            <table class="ui celled table unstackable">
+                                <thead>
+                                    <tr>
+                                        <th>Тип</th>
+                                        <th>Автомобиль</th>
+                                        <th>Дата</th>
+                                        <th>Стоимость</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (var i = 0; i < lastEvents.Count; i++)
+                                    {
                                         <tr>
-                                            <th>Тип</th>
-                                            <th>Автомобиль</th>
-                                            <th>Дата</th>
-                                            <th>Стоимость</th>
+                                            <td data-label="Тип">
+                                                @if (lastEvents[i].Record == RecordType.Refuel)
+                                                {
+                                                    <span data-tooltip="Заправка">
+                                                        <i class="circular gas pump icon link"></i>
+                                                    </span>
+                                                }
+                                                else if (lastEvents[i].Record == RecordType.Repair)
+                                                {
+                                                    <span data-tooltip="Ремонт">
+                                                        <i class="circular tools icon link"></i>
+                                                    </span>
+                                                }
+                                                else if (lastEvents[i].Record == RecordType.Expense)
+                                                {
+                                                    <span data-tooltip="Расход">
+                                                        <i class="circular credit card outline icon link"></i>
+                                                    </span>
+                                                }
+                                            </td>
+                                            <td data-label="Автомобиль"><a href="@Url.Content("~/Common/Index?vehicleId=" + lastEvents[i].Id)">@lastEvents[i].VehicleBrand @lastEvents[i].VehicleModel</a></td>
+                                            <td data-label="Дата">@lastEvents[i].Date.ToString("dd.MM.yyyy")</td>
+                                            <td data-label="Стоимость">@lastEvents[i].Cost</td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        @for (var i = 0; i < lastEvents.Count; i++)
-                                        {
-                                            <tr>
-                                                <td data-label="Тип">
-                                                    @if (lastEvents[i].Record == RecordType.Refuel)
-                                                    {
-                                                        <span data-tooltip="Заправка">
-                                                            <i class="circular gas pump icon link"></i>
-                                                        </span>
-                                                    }
-                                                    else if (lastEvents[i].Record == RecordType.Repair)
-                                                    {
-                                                        <span data-tooltip="Ремонт">
-                                                            <i class="circular tools icon link"></i>
-                                                        </span>
-                                                    }
-                                                    else if (lastEvents[i].Record == RecordType.Expense)
-                                                    {
-                                                        <span data-tooltip="Расход">
-                                                            <i class="circular credit card outline icon link"></i>
-                                                        </span>
-                                                    }
-                                                </td>
-                                                <td data-label="Автомобиль"><a href="@Url.Content("~/Common/Index?vehicleId=" + lastEvents[i].Id)">@lastEvents[i].VehicleBrand @lastEvents[i].VehicleModel</a></td>
-                                                <td data-label="Дата">@lastEvents[i].Date.ToString("dd.MM.yyyy")</td>
-                                                <td data-label="Стоимость">@lastEvents[i].Cost</td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
+                                    }
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <div class="eight wide column">
@@ -166,7 +175,17 @@
             </div>
         </div>
     </div>
-
+    <div>
+        @if (ViewBag.IsAuthenticated)
+        {
+            <button class="ui teal large login button" onclick="goToCommonTable()">Войти в личный кабинет</button>
+        }
+        else
+        {
+            <button class="ui teal large login button" onclick="goToRegisterPage()">Создать новый аккаунт</button>
+        }
+    </div>
+    
     <div class="ui vertical inverted segment" style="flex: 0 0 auto">
         <div class="ui container">
             <div class="ui stackable grid footer">

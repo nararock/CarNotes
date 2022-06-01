@@ -22,7 +22,7 @@ namespace CarNotes.Classes
             var list = vehicle.RefuelEvents.Select(x => new RefuelModelOutput { Id = x.ID, Date = x.Date.ToString("dd.MM.yyyy"), Mileage = x.Mileage, Fuel = x.Fuel.ToString(),
                 Station = (x.Station_ID == 1) ? x.CustomStation : x.Station.Name,
                 Volume = x.Volume, PricePerOneLiter = x.PricePerOneLiter, Cost = Math.Round(x.Volume * x.PricePerOneLiter),  FullTank = x.FullTank,
-                ForgotRecordPreviousGasStation = x.ForgotRecordPreviousGasStation }).ToList();
+                ForgotRecordPreviousGasStation = x.ForgotRecordPreviousGasStation }).OrderByDescending(x => x.Date).OrderByDescending(x => x.Mileage).ToList();
             return list;
         }
         public void SaveToDataBase(RefuelModel rm, int vehicleId)

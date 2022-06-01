@@ -73,7 +73,7 @@ namespace CarNotes.Controllers
             new RefuelHelper().Delete(id, HttpContext);
             return Redirect("~/Refuel/Index");
         }
-
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult Get(int id)
         {

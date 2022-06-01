@@ -10,8 +10,10 @@ using System.Web.Mvc;
 
 namespace CarNotes.Controllers
 {
+    [Authorize]
     public class ExpenseController : Controller
     {
+        [AllowAnonymous]
         // GET: Expense
         public ActionResult Index(int? vehicleId)
         {
@@ -61,7 +63,7 @@ namespace CarNotes.Controllers
             new ExpenseHelper().ChangeData(em, vehicleId, HttpContext);
             return Redirect("/Expense/Index");
         }
-
+        [AllowAnonymous]
         public ActionResult Get(int id)
         {
             var expenseEdit = new ExpenseHelper().GetExpenseEditList(id);

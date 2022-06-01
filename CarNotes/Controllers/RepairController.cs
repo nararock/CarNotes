@@ -10,8 +10,10 @@ using System.Web.Mvc;
 
 namespace CarNotes.Controllers
 {
+    [Authorize]
     public class RepairController : Controller
     {
+        [AllowAnonymous]
         public ActionResult Index(int? vehicleId)
         {
             if (vehicleId != null)
@@ -28,8 +30,7 @@ namespace CarNotes.Controllers
                     }
                     //else { return Redirect("~/Vehicle/Index"); }
                 }
-                var common = new RepairHelper();
-                var cm = common.GetList((int)vehicleId);
+                var cm = new RepairHelper().GetList((int)vehicleId);
                 if (cm == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
                 ViewBag.Name = "Ремонты";
                 return View(cm);
@@ -61,7 +62,7 @@ namespace CarNotes.Controllers
             new RepairHelper().Delete(id, HttpContext);
             return Redirect("~/Repair/Index");
         }
-
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult Get(int id, int? vehicleId)
         {
@@ -79,7 +80,7 @@ namespace CarNotes.Controllers
             new RepairHelper().ChangeData(rm, vehicleId, HttpContext);
             return Redirect("/Repair/Index");
         }
-
+        [AllowAnonymous]
         public ActionResult GetSystem()
         {
             var resultList = new RepairHelper().GetSystemList();

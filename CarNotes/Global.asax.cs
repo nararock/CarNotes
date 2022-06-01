@@ -20,9 +20,15 @@ namespace CarNotes
             ModelBinders.Binders.Add(typeof(decimal), new DecimalModelBinder());
         }
 
+        protected void Application_BeginRequest()
+        {
+            if (!Context.Request.IsSecureConnection)
+                Response.Redirect(Context.Request.Url.ToString().Replace("http:", "https:"));
+        }
+
         protected void Application_EndRequest()
         {
-            if (Context.User.Identity.IsAuthenticated)
+            if (Context.User?.Identity?.IsAuthenticated == true)
             {
                 var db = new CnDbContext();                
                 var userId = Context.User.Identity.GetUserId();
@@ -34,5 +40,6 @@ namespace CarNotes
                 }
             }
         }
+
     }
 }

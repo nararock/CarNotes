@@ -32,36 +32,36 @@
         <tbody>
             @foreach (CarNotes.Models.RefuelModelOutput b in Model)
             {
-            <tr>
-                <td>@b.Date</td>
-                <td>@b.Mileage</td>
-                <td>@b.Fuel</td>
-                <td>@b.Station</td>
-                <td>@b.Volume</td>
-                <td>@b.PricePerOneLiter</td>
-                <td>@b.Cost</td>
-                <td style="text-align:center">
-                    @if (b.FullTank == true)
+                <tr>
+                    <td>@b.Date</td>
+                    <td>@b.Mileage</td>
+                    <td>@b.Fuel</td>
+                    <td>@b.Station</td>
+                    <td>@b.Volume</td>
+                    <td>@b.PricePerOneLiter</td>
+                    <td>@b.Cost</td>
+                    <td style="text-align:center">
+                        @if (b.FullTank == true)
+                        {
+                            <i class="check icon"></i>
+                        }
+                    </td>
+                    <td style="text-align:center">
+                        @if (b.ForgotRecordPreviousGasStation == true)
+                        {
+                            <i class="check icon"></i>
+                        }
+                    </td>
+                    @if (ViewBag.IsChecked)
                     {
-                        <i class="check icon"></i>
+                        <td><input type="button" value="&#9998" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editRefuel(@b.Id, true)" /></td>
+                        <td><input type="button" value="&#10008" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="deleteRefuel(@b.Id)" /></td>
                     }
-                </td>
-                <td style="text-align:center">
-                    @if (b.ForgotRecordPreviousGasStation == true)
+                    else
                     {
-                        <i class="check icon"></i>
+                        <td><input type="button" value="&#128269" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editRefuel(@b.Id, false)" /></td>
                     }
-                </td>
-                @if (ViewBag.IsChecked)
-                {
-                    <td><input type="button" value="&#9998" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editRefuel(@b.Id, true)" /></td>
-                    <td><input type="button" value="&#10008" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="deleteRefuel(@b.Id)" /></td>
-                }
-                else
-                {
-                    <td><input type="button" value="&#128269" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editRefuel(@b.Id, false)" /></td>
-                }
-            </tr>
+                </tr>
             }
         </tbody>
     </table>
@@ -80,8 +80,14 @@
                         <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="deleteRefuel(@b.Id)">
                             <i class="trash alternate icon"></i>
                         </button>
-                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editRefuel(@b.Id, false)">
+                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editRefuel(@b.Id, true)">
                             <i class="highlighter icon"></i>
+                        </button>
+                    }
+                    else
+                    {
+                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editRefuel(@b.Id, false)">
+                            <i class="search icon"></i>
                         </button>
                     }
                     <div class="meta">

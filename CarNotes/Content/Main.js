@@ -71,7 +71,7 @@ function ready() {
  * установка куки при загрузке страницы (если не определено)/выбор автотранспорта из имеющего списка (при определенной куки)
  * */
 function updateVehicleSelector() {
-    var vehicleIdCookie = getCookie('vehicleId');
+    var vehicleIdCookie =  getCookie('vehicleId');
     var select = document.getElementsByClassName('vehicleSelect');
     if (select.length == 0) return;
     if (vehicleIdCookie == undefined) { return;}
@@ -143,8 +143,6 @@ function createCellsSelect(element, name, value) {
         optionSubsystem.value = system[index].CarSubsystems[j].Id;
         selectSubsystem.append(optionSubsystem);
     }
-    //$(selectSystem).dropdown();
-    //$(selectSubsystem).dropdown();
 }
 /**удаление списка подсистем из таблицы с деталями автотранспорта при срабатывании события типа сменя системы
  * @param selectElement ссылка на список подсистем, которые нужно удалить
@@ -232,7 +230,6 @@ function popup(str, vehicleId) {
                     document.getElementById("newRefuelWindow").getElementsByTagName("form")[0].submit();
                 },
                 onVisible: () => {
-                    $("#newRefuelWindow select").dropdown();
                     $("#newRefuelWindow .ui.checkbox").checkbox();
                 },
                 onHidden: () => {
@@ -264,9 +261,6 @@ function popup(str, vehicleId) {
                     function () {
                         document.getElementById("ExpenseEdit").getElementsByTagName("form")[0].submit();
                     },
-                onVisible: () => {
-                    $("#ExpenseEdit select").dropdown();
-                }
             }
             )
             .modal('show');

@@ -315,3 +315,8 @@ input[type="number"]:focus {
     appearance: none;
     -moz-appearance: textfield !important;
 }
+
+/*реформал окно, чтоб было ниже модальных окон*/
+#reformal_tab{
+    z-index:100 !important;
+}

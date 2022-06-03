@@ -189,11 +189,11 @@ function changeData(Id) {
 function changeSelectListCreate(e) {
     var inputStation = e.target;
     if (inputStation.value == "1") {
-        $(inputStation.parentElement.parentElement.nextElementSibling).slideDown();
+        $(inputStation.parentElement.nextElementSibling).slideDown();
        
     }
     else if (inputStation.value != "1") {
-        inputStation.parentElement.parentElement.nextElementSibling.querySelector('input').value = '';
+        inputStation.parentElement.nextElementSibling.querySelector('input').value = '';
         $(inputStation.parentElement.parentElement.nextElementSibling).slideUp();
         
     }

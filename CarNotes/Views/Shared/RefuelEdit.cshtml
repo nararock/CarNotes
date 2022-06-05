@@ -12,11 +12,12 @@
         <div class="field">Дата: <input type="text" name="Date" class="MyDateRangePicker" /></div>
         <div class="field">Пробег: <input type="number" name="Mileage" /></div>
         <div class="field">
-            Вид топлива: <select name="Fuel" class="ui fluid dropdown">
-                @foreach (var elem in new string[] { "АИ80", "АИ92", "АИ95", "АИ95Plus", "АИ98" })
-                {
-                    <option>@elem</option>
-                }
+            Тип топлива: <select name="Fuel" class="ui fluid dropdown">
+                <option value="1">"АИ80"</option>
+                <option value="2">"АИ92"</option>
+                <option value="3">"АИ95"</option>
+                <option value="4">"АИ95 Plus"</option>
+                <option value="5">"АИ98"</option>
             </select>
         </div>
         <div class="field">

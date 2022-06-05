@@ -1,8 +1,24 @@
-﻿
+﻿@using CarNotes.Models
+@using CarNotes.Classes
 @{
+    List<SubMenuModel> buttons = new LinkMenuHelper().getButtons (ViewBag.Name);
     Layout = "../Shared/_BasicTemplateNew.cshtml";
 }
-@Html.Partial("_LinkMenuTemplate", ViewData)
+<style>
+    .submenu {
+        margin-bottom: 15px;
+        text-align: center;
+    }
+</style>
+@if (ViewBag.IsChecked)
+{
+    <div class="submenu">
+        @foreach (SubMenuModel s in buttons)
+        {
+            <input type="button" value="@s.Name" class="ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="popup('@s.Name', @ViewBag.VehicleId)" />
+        }
+    </div>
+}
 @RenderBody()
 <div class="ui mini modal" id="newRefuelWindow">@Html.Partial("CreateNewRefuelEvent", new CarNotes.Models.RefuelModel())</div>
 <div class="ui small modal" id="EditRepairData">@Html.Partial("RepairEdit")</div>

@@ -280,7 +280,6 @@
     <Content Include="Views\Common\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\web.config" />
-    <Content Include="Views\Shared\_LinkMenuTemplate.cshtml" />
     <Content Include="Views\Registration\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Vehicle\Index.cshtml" />
@@ -305,6 +304,7 @@
     <Content Include="Views\Expense\Index.cshtml" />
     <Content Include="Views\Shared\ExpenseEdit.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Vehicle\EmptyGarage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

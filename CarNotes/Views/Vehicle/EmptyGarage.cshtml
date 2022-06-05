@@ -1,0 +1,16 @@
+﻿
+@{
+    Layout = "../Shared/_BasicTemplateNew.cshtml";
+}
+<div class="ui mini modal" id="AddVehicle">@Html.Partial("Add", new CarNotes.CnDb.Vehicle())</div>
+<div style="text-align: center">
+    <br />
+    <i class="massive icons">
+        <i class="big brown dont icon"></i>
+        <i class="truck monster icon"></i>
+    </i>
+    <br />
+    <br />
+    <h3>У вас не добавлено ни одного<br /> транспортного средства.</h3>
+    <button class="ui brown button" onclick="popup('Добавить новое транспортное средство', '0')">Добавить новое транспортное средство</button>
+</div>

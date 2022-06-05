@@ -19,6 +19,10 @@ namespace CarNotes.Controllers
             ViewBag.Name = "Гараж";
             ViewBag.IsChecked = true;
             var vehicles = new VehicleHelper().GetVehicles(HttpContext);
+            if (vehicles.Count()==0)
+            {
+                return View("EmptyGarage");
+            }
             return View(vehicles);
         }
         [HttpPost]

@@ -1,5 +1,5 @@
 ﻿@using CarNotes.Classes
-<i class="close icon"></i>
+<i class="close icon" onclick="hidePartsTable()"></i>
 <div class="icon header">
     Изменение данных о ремонте
 </div>
@@ -19,7 +19,7 @@
     </form>
 </div>
 <div class="actions">
-    <div class="ui black deny button">
+    <div class="ui black deny button" onclick="hidePartsTable()">
         Отмена
     </div>
     <div class="ui black deny button closeRepairEditButton" style="display:none">

@@ -607,6 +607,16 @@ function editRepair(id, Verified, vehicleId) {
         });
 }
 
+/**
+ * срабатывает при нажатии на кнопку "отмена" или крестик в окне редактирования и создания ремонта,
+ * скрывает таблицу с запчастями
+ */
+function hidePartsTable()
+{
+    var partsTable = document.querySelector("#repairPartsTable");
+    partsTable.style.display = "none";
+}
+
 function editVehicle(Id) {
     fetch("/Vehicle/Get?Id=" + Id)
         .then(response => response.json())

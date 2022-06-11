@@ -713,7 +713,7 @@ function goToCommonTable() {
  * переход на главную страницу
  * */
 function goToHomePage() {
-    document.location = "/Home/Index";
+    document.location = "/";
 }
 
 

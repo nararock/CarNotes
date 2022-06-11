@@ -23,7 +23,6 @@ namespace CarNotes.Classes
             {
                 context.Response.Cookies["vehicleId"].Expires = DateTime.Now.AddDays(-1);
             }
-            //context.Response.Cookies.Remove("vehicleId");
         }
     }
 }

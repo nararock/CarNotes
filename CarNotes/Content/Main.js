@@ -200,6 +200,11 @@ function changeSelectListCreate(e) {
     }
 }
 
+/**
+ * срабатывает при изменении поля АЗС (select) в окне редактирования заправки
+ * @param {any} e номер выбранной заправки
+ */
+
 function changeSelectListEdit(e) {
     var inputStation = e.target;
     if (inputStation.value == "1") {
@@ -372,7 +377,7 @@ function editRefuel(id, Verified) {
             elementsForm.Station.value = data.Station;
             if (data.Station == 1) {
                 elementsForm.CustomStation.value = data.CustomStation;
-                elementsForm.CustomStation.parentElement.style.display = "inline-block";
+                elementsForm.CustomStation.parentElement.style.display = "block";
             }
             else if (data.Station != 1 && elementsForm.CustomStation.parentElement.style.display != "none") {
                 elementsForm.CustomStation.parentElement.style.display = "none";

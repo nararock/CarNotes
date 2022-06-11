@@ -29,7 +29,7 @@ namespace CarNotes.Controllers
                 ModelState.AddModelError("", "Не верно введен логин или пароль");
                 return View();
             }
-            return Redirect("~");
+            return Redirect("/Common/Index/");
         }
 
         public ActionResult LogOut()

@@ -17,11 +17,7 @@ function ready() {
     //добавление пустой строки в начало выпадающего списка с АЗС при создании события
     elem = document.getElementById('newRefuelWindow');
     var elemStation = elem.getElementsByTagName("form")[0].Station;
-    var option = document.createElement('option');
-    option.innerHTML = "";
-    option.selected = true;
-    option.disabled = true;
-    elemStation.prepend(option);
+    elemStation.selectedIndex = -1;
 
     /**
      * добавление календаря при выборе даты во всплывающих окнах при помощи функции библиотеки jquery

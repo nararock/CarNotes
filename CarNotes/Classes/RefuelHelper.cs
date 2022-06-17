@@ -30,9 +30,9 @@ namespace CarNotes.Classes
             var database = new CnDbContext();
             var refuelEvent = new RefuelEvent();
             refuelEvent.Date = DateTime.ParseExact(rm.Date, "dd.MM.yyyy", null);
-            FuelType fuelanswer;
-            Enum.TryParse(rm.Fuel, out fuelanswer);
-            refuelEvent.Fuel = fuelanswer;
+            //FuelType fuelanswer;
+            //Enum.TryParse(rm.Fuel, out fuelanswer);
+            refuelEvent.Fuel = rm.Fuel;
             refuelEvent.FullTank = rm.FullTank;
             refuelEvent.Mileage = double.Parse(rm.Mileage);
             refuelEvent.PricePerOneLiter = rm.PricePerOneLiter;
@@ -70,7 +70,7 @@ namespace CarNotes.Classes
             }
             var editRefuelModel = new RefuelModel();
             editRefuelModel.Date = editRefuel.Date.ToString("dd.MM.yyyy");
-            editRefuelModel.Fuel = editRefuel.Fuel.ToString();
+            editRefuelModel.Fuel = editRefuel.Fuel;
             editRefuelModel.FullTank = editRefuel.FullTank;
             editRefuelModel.Mileage = editRefuel.Mileage.ToString();
             editRefuelModel.PricePerOneLiter = editRefuel.PricePerOneLiter;
@@ -99,8 +99,8 @@ namespace CarNotes.Classes
             }
             refuelEvent.Date = DateTime.ParseExact(rm.Date, "dd.MM.yyyy", null);
             refuelEvent.ForgotRecordPreviousGasStation = rm.ForgotRecordPreviousGasStation;
-            Enum.TryParse(rm.Fuel, out FuelType l);
-            refuelEvent.Fuel = l;
+            //Enum.TryParse(rm.Fuel, out FuelType l);
+            refuelEvent.Fuel = rm.Fuel;
             refuelEvent.FullTank = rm.FullTank;
             refuelEvent.ID = rm.Id;
             refuelEvent.Mileage = double.Parse(rm.Mileage);

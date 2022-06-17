@@ -48,6 +48,8 @@ function activeCalendar(calendarDate)
     $('.MyDateRangePicker').daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
+        minYear: 1999,
+        maxYear: new Date().getFullYear(),
         autoApply: true,
         startDate: calendarDate,
         locale: {

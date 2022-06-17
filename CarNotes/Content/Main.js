@@ -19,19 +19,42 @@ function ready() {
     var elemStation = elem.getElementsByTagName("form")[0].Station;
     elemStation.selectedIndex = -1;
 
+    
     /**
-     * добавление календаря при выборе даты во всплывающих окнах при помощи функции библиотеки jquery
-     * используется в окнах создания и редактирования событий
+     * получение всех значений CarSystem и CarSubsystem
      * */
+    fetch("/Repair/GetSystem")
+        .then(response => response.json())
+        .then((data) => { system = data; });
+}
+
+/**
+ * установка куки при загрузке страницы (если не определено)/выбор автотранспорта из имеющего списка (при определенной куки)
+ * */
+function updateVehicleSelector() {
+    var vehicleIdCookie =  getCookie('vehicleId');
+    var select = document.getElementsByClassName('vehicleSelect');
+    if (select.length == 0) return;
+    if (vehicleIdCookie == undefined) { return;}
+    $('.vehicleSelect').dropdown('set selected', vehicleIdCookie);
+}
+
+/**
+ * активирует календарь
+ * @param {any} calendarDate дата начала календаря
+ */
+function activeCalendar(calendarDate)
+{
     $('.MyDateRangePicker').daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
-        autoApply:true,
+        autoApply: true,
+        startDate: calendarDate,
         locale: {
             format: 'DD.MM.YYYY',
             "cancelLabel": "Отмена",
             "applyLabel": "Применить",
-             "daysOfWeek": [
+            "daysOfWeek": [
                 "Вс",
                 "Пн",
                 "Вт",
@@ -56,24 +79,8 @@ function ready() {
             ],
         }
     })
-    /**
-     * получение всех значений CarSystem и CarSubsystem
-     * */
-    fetch("/Repair/GetSystem")
-        .then(response => response.json())
-        .then((data) => { system = data; });
 }
 
-/**
- * установка куки при загрузке страницы (если не определено)/выбор автотранспорта из имеющего списка (при определенной куки)
- * */
-function updateVehicleSelector() {
-    var vehicleIdCookie =  getCookie('vehicleId');
-    var select = document.getElementsByClassName('vehicleSelect');
-    if (select.length == 0) return;
-    if (vehicleIdCookie == undefined) { return;}
-    $('.vehicleSelect').dropdown('set selected', vehicleIdCookie);
-}
 //CreateRepairEvent and RepairEdit
 //CarParts
 /**формирование полей таблицы с системами и подсистемами для создания (или правки) события ремонта
@@ -245,6 +252,7 @@ function popup(str, vehicleId) {
                 document.getElementById("formCreate").querySelector("[name=" + "Fuel" + "]").value = data.LastFuel;
                 $('#newRefuelWindow').modal('show');
             });
+        activeCalendar(new Date().getDate());
     }
     else if (str == "Добавить новое транспортное средство") {
         $('#AddVehicle')
@@ -266,6 +274,9 @@ function popup(str, vehicleId) {
             }
             )
             .modal('show');
+        var header = document.querySelector('#ExpenseEdit .header');
+        header.innerHTML = "Новый расход";
+        activeCalendar(new Date().getDate());
     }
 }
 
@@ -366,6 +377,9 @@ function editRefuel(id, Verified) {
                 }
             })
                 .modal('show');
+            /*активируем календарь*/
+            activeCalendar(data.Date);
+           
             var elementsForm = document.getElementById('formEdit');
             elementsForm.Date.value = data.Date;
             elementsForm.Mileage.value = data.Mileage;
@@ -453,11 +467,13 @@ function editExpense(id, Verified) {
                     $('#ExpenseEdit .ui.checkbox').checkbox();
                 },
                 onApprove: function () {
-                    //RefuelEditSubmit();
                     document.getElementById('ExpenseEdit').getElementsByTagName("form")[0].submit();
                 }
             })
                 .modal('show');
+
+            activeCalendar(data.Date);
+                        
             var elementsForm = document.getElementById("formEditExpense");
             elementsForm.Date.value = data.Date;
             elementsForm.Mileage.value = data.Mileage;
@@ -509,10 +525,13 @@ function editRepair(id, Verified, vehicleId) {
                     clearEvent("RepairFormEdit");
                 }
             }).modal('show');
+
             if (id == 0) {
                 var header = document.querySelector('#EditRepairData .header');
                 header.innerHTML = "Новый ремонт";
-            }
+                activeCalendar(new Date().getDate());
+            } else { activeCalendar(data.Date); }
+
             var elementsForm = document.getElementById('RepairFormEdit');
             elementsForm.Date.value = data.Date;
             elementsForm.Mileage.value = data.Mileage;

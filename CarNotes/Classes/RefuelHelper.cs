@@ -30,8 +30,6 @@ namespace CarNotes.Classes
             var database = new CnDbContext();
             var refuelEvent = new RefuelEvent();
             refuelEvent.Date = DateTime.ParseExact(rm.Date, "dd.MM.yyyy", null);
-            //FuelType fuelanswer;
-            //Enum.TryParse(rm.Fuel, out fuelanswer);
             refuelEvent.Fuel = rm.Fuel;
             refuelEvent.FullTank = rm.FullTank;
             refuelEvent.Mileage = double.Parse(rm.Mileage);

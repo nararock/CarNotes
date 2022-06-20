@@ -31,20 +31,23 @@
                     <td>
                         @if (item.Record == CarNotes.Enums.RecordType.Refuel)
                         {
-                            <span data-tooltip="Заправка">
-                                <i class="circular gas pump icon link"></i>
+                            <span @*data-tooltip="Заправка"*@>
+                                Заправка
+                                @*<i class="circular gas pump icon link"></i>*@
                             </span>
                         }
                         else if (item.Record == CarNotes.Enums.RecordType.Repair)
                         {
-                            <span data-tooltip="Ремонт">
-                                <i class="circular tools icon link"></i>
+                            <span @*data-tooltip="Ремонт"*@>
+                                Ремонт
+                                @*<i class="circular tools icon link"></i>*@
                             </span>
                         }
                         else
                         {
-                            <span data-tooltip="Расход">
-                                <i class="circular credit card outline icon link"></i>
+                            <span @*data-tooltip="Расход"*@>
+                                Расход
+                                @*<i class="circular credit card outline icon link"></i>*@
                             </span>
                         }
                     </td>

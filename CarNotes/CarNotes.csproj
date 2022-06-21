@@ -248,6 +248,10 @@
     <Compile Include="Migrations\202204291303308_add the field called LastVisit in User.designer.cs">
       <DependentUpon>202204291303308_add the field called LastVisit in User.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206211856208_add new field Order.cs" />
+    <Compile Include="Migrations\202206211856208_add new field Order.designer.cs">
+      <DependentUpon>202206211856208_add new field Order.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ActiveUsersModel.cs" />
     <Compile Include="Models\CarPartModel.cs" />
@@ -355,6 +359,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204291303308_add the field called LastVisit in User.resx">
       <DependentUpon>202204291303308_add the field called LastVisit in User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206211856208_add new field Order.resx">
+      <DependentUpon>202206211856208_add new field Order.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

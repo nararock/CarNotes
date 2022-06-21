@@ -39,6 +39,11 @@ namespace CarNotes.Classes
             {
                 refuelEvent.CustomStation = rm.CustomStation;
             }
+            else
+            {
+                var gasStation = database.GasStations.Where(x => x.ID == rm.Station).ToList();
+                gasStation[0].Order++;                
+            }
             refuelEvent.Station_ID = rm.Station;
             refuelEvent.Volume = double.Parse(rm.Volume.Replace('.', ','));
             refuelEvent.ForgotRecordPreviousGasStation = rm.ForgotRecordPreviousGasStation;

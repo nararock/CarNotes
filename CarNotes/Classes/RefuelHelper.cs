@@ -111,7 +111,8 @@ namespace CarNotes.Classes
         public List<GasStationModel> GetGasStationsList()
         {
             var db = new CnDbContext();
-            var gasStation = db.GasStations.Select(x => new GasStationModel {Id = x.ID, Name = x.Name }).ToList();         
+            var gasStation = db.GasStations.Select(x => new GasStationModel {Id = x.ID, Name = x.Name, Order = x.Order }).ToList();
+            gasStation.Sort();
             return gasStation;
         }
 

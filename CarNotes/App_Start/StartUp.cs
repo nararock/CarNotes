@@ -38,7 +38,8 @@ namespace CarNotes
             SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, User>(
             validateInterval: TimeSpan.FromMinutes(10),
             regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
-                }
+                },
+                ExpireTimeSpan = TimeSpan.FromDays(90),
             });
             // CookieAuthenticationOptions
             //{

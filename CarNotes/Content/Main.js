@@ -57,13 +57,13 @@ function activeCalendar(calendarDate)
             "cancelLabel": "Отмена",
             "applyLabel": "Применить",
             "daysOfWeek": [
+                "Вс",
                 "Пн",
                 "Вт",
                 "Ср",
                 "Чт",
                 "Пт",
-                "Сб",
-                "Вс"
+                "Сб",                
             ],
             "monthNames": [
                 "Январь",
@@ -79,7 +79,7 @@ function activeCalendar(calendarDate)
                 "Ноябрь",
                 "Декабрь"
             ],
-            "firstDay": 0
+            "firstDay": 1
         }
     })
 }

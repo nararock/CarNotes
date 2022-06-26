@@ -67,7 +67,12 @@ namespace CarNotes.Classes
                 expenseEvent.VehicleId = vehicleId;
             }
             expenseEvent.Date = DateTime.ParseExact(em.Date, "dd.MM.yyyy", null);
-            expenseEvent.Mileage = em.Mileage;             
+            expenseEvent.Mileage = em.Mileage;
+            if ((em.Mileage != null && new CommonHelper().CheckMileage(em.Date, Convert.ToString(em.Mileage), vehicleId)) || em.Mileage == null)
+            {
+                expenseEvent.WrongMileage = false;
+            }
+            else { expenseEvent.WrongMileage = true; }
             expenseEvent.TypeId = em.TypeId;
             expenseEvent.Sum = em.Sum;
             expenseEvent.Sum = em.Sum;

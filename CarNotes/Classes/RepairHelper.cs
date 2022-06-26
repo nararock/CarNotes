@@ -92,6 +92,10 @@ namespace CarNotes.Classes
             repairEvent.Comments = rm.Comments;
             repairEvent.Date = DateTime.ParseExact(rm.Date, "dd.MM.yyyy", null); ;
             repairEvent.Mileage = rm.Mileage;
+            if (new CommonHelper().CheckMileage(rm.Date, Convert.ToString(rm.Mileage), vehicleId))
+            {
+                repairEvent.WrongMileage = false;
+            } else { repairEvent.WrongMileage = true;}
             repairEvent.Repair = rm.Repair;
             repairEvent.RepairCost = rm.RepairCost;
             var carPartsDelete = new List<CarPart>();

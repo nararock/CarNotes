@@ -33,6 +33,10 @@ namespace CarNotes.Classes
             refuelEvent.Fuel = rm.Fuel;
             refuelEvent.FullTank = rm.FullTank;
             refuelEvent.Mileage = double.Parse(rm.Mileage);
+            if (new CommonHelper().CheckMileage(rm.Date, rm.Mileage, vehicleId))
+            {
+                refuelEvent.WrongMileage = true;
+            } else { refuelEvent.WrongMileage = false; }
             refuelEvent.PricePerOneLiter = rm.PricePerOneLiter;
             refuelEvent.VehicleId = vehicleId;
             if (rm.Station == 1)
@@ -102,11 +106,15 @@ namespace CarNotes.Classes
             }
             refuelEvent.Date = DateTime.ParseExact(rm.Date, "dd.MM.yyyy", null);
             refuelEvent.ForgotRecordPreviousGasStation = rm.ForgotRecordPreviousGasStation;
-            //Enum.TryParse(rm.Fuel, out FuelType l);
             refuelEvent.Fuel = rm.Fuel;
             refuelEvent.FullTank = rm.FullTank;
             refuelEvent.ID = rm.Id;
             refuelEvent.Mileage = double.Parse(rm.Mileage);
+            if (new CommonHelper().CheckMileage(rm.Date, rm.Mileage, rm.Id))
+            {
+                refuelEvent.WrongMileage = false;
+            }
+            else { refuelEvent.WrongMileage = true; }
             refuelEvent.PricePerOneLiter = rm.PricePerOneLiter;
             refuelEvent.Station_ID = rm.Station;
             refuelEvent.Volume = double.Parse(rm.Volume.Replace('.', ','));

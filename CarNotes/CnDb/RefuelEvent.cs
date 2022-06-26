@@ -23,5 +23,6 @@ namespace CarNotes.CnDb
         public bool ForgotRecordPreviousGasStation { get; set; }
         public virtual Vehicle Vehicle { get; set; }
         public int VehicleId { get; set; }
+        public bool WrongMileage { get; set; }
     }
 }

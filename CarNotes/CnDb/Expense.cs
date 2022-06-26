@@ -30,5 +30,6 @@ namespace CarNotes.CnDb
         /// </summary>
         public int VehicleId { get; set; }
         public virtual Vehicle Vehicle { get; set; }
+        public bool WrongMileage { get; set; }
     }
 }

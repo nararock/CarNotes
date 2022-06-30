@@ -14,5 +14,6 @@ namespace CarNotes.Models
         public decimal Sum { get; set; }
         public string Description { get; set; }
         public string Comment { get; set; }
+        public bool WrongMileage { get; set; }
     }
 }

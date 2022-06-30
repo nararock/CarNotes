@@ -10,5 +10,6 @@ namespace CarNotes.Models
         public string Date { get; set; }
         public double Mileage { get; set; }
         public double Cost { get; set; }
+        public bool WrongMileage { get; set; }
     }
 }

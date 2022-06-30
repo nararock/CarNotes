@@ -17,5 +17,6 @@ namespace CarNotes.Models
         public double Cost { get; set; }
         public bool FullTank { get; set; }
         public bool ForgotRecordPreviousGasStation { get; set; }
+        public bool WrongMileage { get; set; }
     }
 }

@@ -21,5 +21,6 @@ namespace CarNotes.Models
         public string CarService { get; set; }
         public int RepairCost { get; set; }
         public string Comments { get; set; }
+        public bool WrongMileage { get; set; }
     }
 }

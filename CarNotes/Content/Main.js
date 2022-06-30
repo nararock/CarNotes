@@ -45,11 +45,11 @@ function updateVehicleSelector() {
  */
 function activeCalendar(calendarDate)
 {
-    $('.MyDateRangePicker').daterangepicker({
+   $('.MyDateRangePicker').daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
         minYear: 1999,
-        maxYear: new Date().getFullYear(),
+        maxYear: (new Date().getFullYear()) + 1,
         autoApply: true,
         startDate: calendarDate,
         locale: {

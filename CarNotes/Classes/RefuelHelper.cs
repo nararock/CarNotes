@@ -19,11 +19,25 @@ namespace CarNotes.Classes
             var vehicle = db.Vehicles.Include(v => v.RefuelEvents.Select(r => r.Station))
                 .FirstOrDefault(x => x.Id == vehicleId);
             if (vehicle == null) return null;
-            var list = vehicle.RefuelEvents.Select(x => new RefuelModelOutput { Id = x.ID, Date = x.Date.ToString("dd.MM.yyyy"), Mileage = x.Mileage, Fuel = x.Fuel.ToString(),
+            var list = vehicle.RefuelEvents.Select(x => new { Id = x.ID, Date = x.Date, Mileage = x.Mileage, Fuel = x.Fuel.ToString(),
                 Station = (x.Station_ID == 1) ? x.CustomStation : x.Station.Name,
                 Volume = x.Volume, PricePerOneLiter = x.PricePerOneLiter, Cost = Math.Round(x.Volume * x.PricePerOneLiter),  FullTank = x.FullTank,
-                ForgotRecordPreviousGasStation = x.ForgotRecordPreviousGasStation }).OrderByDescending(x => x.Date).OrderByDescending(x => x.Mileage).ToList();
-            return list;
+                ForgotRecordPreviousGasStation = x.ForgotRecordPreviousGasStation, WrongMileage = x.WrongMileage }).OrderByDescending(x => x.Date).ThenByDescending(x => x.Mileage).ToList();
+            var refuelModelOutput = new List<RefuelModelOutput>();
+            refuelModelOutput.AddRange(list.Select(x => new RefuelModelOutput
+            {
+                Id = x.Id,
+                Date = x.Date.ToString("dd.MM.yyyy"),
+                Mileage = x.Mileage,
+                Fuel = x.Fuel,
+                Station = x.Station,
+                Volume = x.Volume,
+                PricePerOneLiter = x.PricePerOneLiter,
+                Cost = x.Cost,
+                ForgotRecordPreviousGasStation = x.ForgotRecordPreviousGasStation,
+                WrongMileage = x.WrongMileage 
+            }));
+            return refuelModelOutput;
         }
         public void SaveToDataBase(RefuelModel rm, int vehicleId)
         {
@@ -35,8 +49,8 @@ namespace CarNotes.Classes
             refuelEvent.Mileage = double.Parse(rm.Mileage);
             if (new CommonHelper().CheckMileage(rm.Date, rm.Mileage, vehicleId))
             {
-                refuelEvent.WrongMileage = true;
-            } else { refuelEvent.WrongMileage = false; }
+                refuelEvent.WrongMileage = false;
+            } else { refuelEvent.WrongMileage = true; }
             refuelEvent.PricePerOneLiter = rm.PricePerOneLiter;
             refuelEvent.VehicleId = vehicleId;
             if (rm.Station == 1)

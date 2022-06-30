@@ -16,17 +16,30 @@ namespace CarNotes.Classes
             var db = new CnDbContext();
             var vehicle = db.Vehicles.Include(v => v.Expenses.Select(r => r.Type)).FirstOrDefault(x => x.Id == vehicleId);
             if (vehicle == null) return null;
-            var list = vehicle.Expenses.Select(x => new ExpenseModel
+            var list = vehicle.Expenses.Select(x => new 
             {
                 Id = x.Id,
                 Type = x.Type.Name,
+                Date = x.Date,
+                Mileage = x.Mileage,
+                Sum = x.Sum,
+                Description = x.Description,
+                Comment = x.Comment,
+                WrongMileage = x.WrongMileage
+            }).OrderByDescending(x=>x.Date).ThenByDescending(x=>x.Mileage).ToList();
+            var expenseModel = new List<ExpenseModel>();
+            expenseModel.AddRange(list.Select(x => new ExpenseModel
+            {
+                Id = x.Id,
+                Type = x.Type,
                 Date = x.Date.ToString("dd.MM.yyyy"),
                 Mileage = x.Mileage,
                 Sum = x.Sum,
                 Description = x.Description,
-                Comment = x.Comment
-            }).ToList();
-            return list;
+                Comment = x.Comment,
+                WrongMileage = x.WrongMileage
+            }));
+            return expenseModel;
         }
 
         public List<TypeExpenseModel> GetTypeExpenseList()

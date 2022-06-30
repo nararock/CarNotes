@@ -16,10 +16,22 @@ namespace CarNotes.Classes
             var db = new CnDbContext();
             var vehicle = db.Vehicles.Include(v=>v.RepairEvents.Select(r=>r.Parts)).FirstOrDefault(x => x.Id == vehicleId);
             if (vehicle == null) return null;
-            var list = vehicle.RepairEvents.Select(x => new RepairModel {Id = x.Id, Date=x.Date.ToString("dd.MM.yyyy"), Mileage=x.Mileage, Repair=x.Repair,
-                CarService=x.CarService, RepairCost= (int)Math.Round(Convert.ToDouble(x.RepairCost) + x.Parts.Sum(p => p.Price)), Comments=x.Comments })
-                .OrderByDescending(x=>x.Date).OrderByDescending(x=>x.Mileage).ToList();
-            return list;
+            var list = vehicle.RepairEvents.Select(x => new {Id = x.Id, Date=x.Date, Mileage=x.Mileage, Repair=x.Repair,
+                CarService=x.CarService, RepairCost= (int)Math.Round(Convert.ToDouble(x.RepairCost) + x.Parts.Sum(p => p.Price)), Comments=x.Comments,
+                WrongMileage = x.WrongMileage }).OrderByDescending(x=>x.Date).ThenByDescending(x=>x.Mileage).ToList();
+            var repairModel = new List<RepairModel>();
+            repairModel.AddRange(list.Select(x => new RepairModel
+            {
+                Id = x.Id,
+                Date = x.Date.ToString("dd.MM.yyyy"),
+                Mileage = x.Mileage,
+                Repair = x.Repair,
+                CarService = x.CarService,
+                RepairCost = x.RepairCost,
+                Comments = x.Comments,
+                WrongMileage = x.WrongMileage
+            }));
+            return repairModel;
         }
         
         public void Delete(int id, HttpContextBase hc)

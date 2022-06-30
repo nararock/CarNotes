@@ -19,11 +19,13 @@ namespace CarNotes.Classes
             var db = new CnDbContext();
             var vehicle = db.Vehicles.Find(vehicleId);
             if (vehicle == null) return null;
-            var list = vehicle.RefuelEvents.Select(x => new CommonModel { Id = x.ID, Record = Enums.RecordType.Refuel, Date = x.Date.ToString("dd.MM.yyyy"), Mileage = x.Mileage, Cost = Math.Round(x.PricePerOneLiter * x.Volume) }).ToList();
-            list.AddRange(vehicle.RepairEvents.Select(x => new CommonModel { Id = x.Id, Record = Enums.RecordType.Repair, Date = x.Date.ToString("dd.MM.yyyy"), Mileage = x.Mileage, Cost = (double)x.RepairCost }));
-            list.AddRange(vehicle.Expenses.Select(x => new CommonModel { Id = x.Id, Record = Enums.RecordType.Expense, Date = x.Date.ToString("dd.MM.yyyy"), Mileage = x.Mileage ?? 0, Cost = (double)x.Sum }));
-            list = list.OrderByDescending(x => x.Mileage).ToList();
-            return list;
+            var list = vehicle.RefuelEvents.Select(x => new { Id = x.ID, Record = Enums.RecordType.Refuel, Date = x.Date, Mileage = x.Mileage, Cost = Math.Round(x.PricePerOneLiter * x.Volume), WrongMileage = x.WrongMileage }).ToList();
+            list.AddRange(vehicle.RepairEvents.Select(x => new { Id = x.Id, Record = Enums.RecordType.Repair, Date = x.Date, Mileage = x.Mileage, Cost = (double)x.RepairCost, WrongMileage = x.WrongMileage }));
+            list.AddRange(vehicle.Expenses.Select(x => new { Id = x.Id, Record = Enums.RecordType.Expense, Date = x.Date, Mileage = x.Mileage ?? 0, Cost = (double)x.Sum, WrongMileage = x.WrongMileage }));
+            list = list.OrderByDescending(x => x.Date).ThenByDescending(x=>x.Mileage).ToList();
+            var commonModel = new List<CommonModel>();
+            commonModel.AddRange(list.Select(x => new CommonModel { Id = x.Id, Record = x.Record, Mileage = x.Mileage, Date = x.Date.ToString("dd.MM.yyyy"), Cost = x.Cost, WrongMileage = x.WrongMileage }));
+            return commonModel;
         }
 
         public double? GetLastMileage(int vehicleId)

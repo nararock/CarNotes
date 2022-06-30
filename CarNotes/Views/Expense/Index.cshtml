@@ -31,7 +31,14 @@
             {
                 <tr>
                     <td>@e.Date</td>
-                    <td>@e.Mileage</td>
+                    @if (e.WrongMileage)
+                    {
+                        <td>@e.Mileage&nbsp;<span data-tooltip="Неправильный пробег"><i class="exclamation orange triangle icon"></i></span></td>
+                    }
+                    else
+                    {
+                        <td>@e.Mileage</td>
+                    }
                     <td>@e.Type</td>
                     <td>@e.Sum.ToString("#")</td>
                     <td>@e.Description</td>
@@ -51,46 +58,55 @@
     </table>
 </div>
 @foreach (CarNotes.Models.ExpenseModel e in Model)
- {
-<div class=" ui grid" style="margin-bottom:-2rem">
-    <div class="column">
-        <div class="ui fluid card mobile-only">
-            <div class="content">
-                <div class="header">
-                    @e.Type
-                </div>
-                @if (ViewBag.IsChecked)
-                {
-                    <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="deleteExpense(@e.Id)">
-                        <i class="trash alternate icon"></i>
-                    </button>
-                    <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editExpense(@e.Id, true)">
-                        <i class="highlighter icon"></i>
-                    </button>
-                }
-                else
-                {
-                    <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editExpenser(@e.Id, false)">
-                        <i class="search icon"></i>
-                    </button>
-                }
-                <div class="meta">
-                    @e.Date
-                </div>
-                <div class="description">
-                    Пробег: @e.Mileage
-                </div>
-                <div class="description">
-                    Стоимость: @e.Sum.ToString("#")
-                </div>
-                <div class="description">
-                    Описание: @e.Description
-                </div>
-                <div class="description">
-                    Комментарий: @e.Comment
+{
+    <div class=" ui grid" style="margin-bottom:-2rem">
+        <div class="column">
+            <div class="ui fluid card mobile-only">
+                <div class="content">
+                    <div class="header">
+                        @e.Type
+                    </div>
+                    @if (ViewBag.IsChecked)
+                    {
+                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="deleteExpense(@e.Id)">
+                            <i class="trash alternate icon"></i>
+                        </button>
+                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editExpense(@e.Id, true)">
+                            <i class="highlighter icon"></i>
+                        </button>
+                    }
+                    else
+                    {
+                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editExpenser(@e.Id, false)">
+                            <i class="search icon"></i>
+                        </button>
+                    }
+                    <div class="meta">
+                        @e.Date
+                    </div>
+                    @if (e.WrongMileage)
+                    {
+                        <div class="description">
+                            Пробег: @e.Mileage&nbsp;<span data-tooltip="Неправильный пробег"><i class="exclamation orange triangle icon"></i></span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="description">
+                            Пробег: @e.Mileage
+                        </div>
+                    }
+                    <div class="description">
+                        Стоимость: @e.Sum.ToString("#")
+                    </div>
+                    <div class="description">
+                        Описание: @e.Description
+                    </div>
+                    <div class="description">
+                        Комментарий: @e.Comment
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
- }
+}

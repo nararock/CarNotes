@@ -32,13 +32,13 @@
                         @if (item.Record == CarNotes.Enums.RecordType.Refuel)
                         {
                             <span>
-                                Заправка                                
+                                Заправка
                             </span>
                         }
                         else if (item.Record == CarNotes.Enums.RecordType.Repair)
                         {
                             <span>
-                                Ремонт                                
+                                Ремонт
                             </span>
                         }
                         else
@@ -49,7 +49,14 @@
                         }
                     </td>
                     <td>@item.Date</td>
-                    <td>@item.Mileage</td>
+                    @if (item.WrongMileage)
+                    {
+                        <td>@item.Mileage&nbsp;<span data-tooltip="Неправильный пробег"><i class="exclamation orange triangle icon"></i></span></td>
+                    }
+                    else
+                    {
+                        <td>@item.Mileage</td>
+                    }
                     <td>@item.Cost</td>
                     @if (ViewBag.IsChecked)
                     {
@@ -100,9 +107,17 @@
                     <div class="meta">
                         @item.Date
                     </div>
-                    <div class="description">
-                        Пробег: @item.Mileage км
-                    </div>
+                    @if (item.WrongMileage)
+                    {
+                        <div class="description">
+                            Пробег: @item.Mileage км&nbsp;<span data-tooltip="Неправильный пробег"><i class="exclamation orange triangle icon"></i></span>
+                        </div>
+                    }
+                    else
+                    { <div class="description">
+                            Пробег: @item.Mileage км
+                        </div>
+                    }
                     <div class="description">
                         Стоимость: @item.Cost руб.
                     </div>

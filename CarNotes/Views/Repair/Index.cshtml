@@ -31,7 +31,14 @@
             {
                 <tr>
                     <td>@b.Date</td>
-                    <td>@b.Mileage</td>
+                    @if (b.WrongMileage)
+                    {
+                        <td>@b.Mileage&nbsp;<span data-tooltip="Неправильный пробег"><i class="exclamation orange triangle icon"></i></span></td>
+                    }
+                    else
+                    {
+                        <td>@b.Mileage</td>
+                    }
                     <td>@b.Repair</td>
                     <td>@b.CarService</td>
                     <td>@b.RepairCost</td>
@@ -77,9 +84,18 @@
                     <div class="meta">
                         @b.Date
                     </div>
-                    <div class="description">
-                        Пробег: @b.Mileage км
-                    </div>
+                    @if (b.WrongMileage)
+                    {
+                        <div class="description">
+                            Пробег: @b.Mileage км&nbsp;<span data-tooltip="Неправильный пробег"><i class="exclamation orange triangle icon"></i></span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="description">
+                            Пробег: @b.Mileage км
+                        </div>
+                    }
                     <div class="description">
                         Сервис: @b.CarService
                     </div>

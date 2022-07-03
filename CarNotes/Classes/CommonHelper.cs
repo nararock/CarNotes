@@ -14,17 +14,29 @@ namespace CarNotes.Classes
         /// </summary>
         /// <param name="vehicleId"></param>
         /// <returns></returns>
-        public List<CommonModel> CreateList(int vehicleId)
+        public List<CommonModel> GetList(int vehicleId, int pageNumder, int pageSize)
         {
             var db = new CnDbContext();
             var vehicle = db.Vehicles.Find(vehicleId);
             if (vehicle == null) return null;
-            var list = vehicle.RefuelEvents.Select(x => new { Id = x.ID, Record = Enums.RecordType.Refuel, Date = x.Date, Mileage = x.Mileage, Cost = Math.Round(x.PricePerOneLiter * x.Volume), WrongMileage = x.WrongMileage }).ToList();
-            list.AddRange(vehicle.RepairEvents.Select(x => new { Id = x.Id, Record = Enums.RecordType.Repair, Date = x.Date, Mileage = x.Mileage, Cost = (double)x.RepairCost, WrongMileage = x.WrongMileage }));
-            list.AddRange(vehicle.Expenses.Select(x => new { Id = x.Id, Record = Enums.RecordType.Expense, Date = x.Date, Mileage = x.Mileage ?? 0, Cost = (double)x.Sum, WrongMileage = x.WrongMileage }));
-            list = list.OrderByDescending(x => x.Date).ThenByDescending(x=>x.Mileage).ToList();
-            var commonModel = new List<CommonModel>();
-            commonModel.AddRange(list.Select(x => new CommonModel { Id = x.Id, Record = x.Record, Mileage = x.Mileage, Date = x.Date.ToString("dd.MM.yyyy"), Cost = x.Cost, WrongMileage = x.WrongMileage }));
+            SqlParameter paramId = new SqlParameter("@Id", vehicleId);
+            SqlParameter paramAmountOffset = new SqlParameter("@amountOffset", (pageNumder - 1) * pageSize);
+            SqlParameter paramAmountGet = new SqlParameter("@amountGet", pageSize);
+            var commonModel = db.Database.SqlQuery<CommonModel>(@"select top(@amountGet) * from
+                                                       (select Id, Date, Mileage, Cost, Record, WrongMileage from 
+                                                          (select ID as Id, Date, 1 as Record, Mileage, PricePerOneLiter*Volume as Cost, WrongMileage from RefuelEvents Where VehicleId = @Id
+                                                           union 
+                                                           select Id, Date, 2 as Record, Mileage, Cast(RepairCost as float) as Cost, WrongMileage from RepairEvents Where VehicleId = @Id
+                                                           union  
+                                                           select Id, Date, 3 as Record, Mileage, Cast(Sum as float) as Cost, WrongMileage from Expenses Where VehicleId = @Id) as d
+                                                           order by Date desc, Mileage desc
+                                                           offset @amountOffset rows) as data1", paramId, paramAmountOffset, paramAmountGet).ToList();
+            //var list = db.RefuelEvents.Where(r=>r.VehicleId == vehicleId).OrderByDescending(x => x.Date).ThenByDescending(x => x.Mileage).Skip(5).Select(x => new { Id = x.ID, Record = Enums.RecordType.Refuel, Date = x.Date, Mileage = x.Mileage, Cost = Math.Round(x.PricePerOneLiter * x.Volume), WrongMileage = x.WrongMileage }).ToList();
+            //list.AddRange(vehicle.RepairEvents.Select(x => new { Id = x.Id, Record = Enums.RecordType.Repair, Date = x.Date, Mileage = x.Mileage, Cost = (double)x.RepairCost, WrongMileage = x.WrongMileage }));
+            //list.AddRange(vehicle.Expenses.Select(x => new { Id = x.Id, Record = Enums.RecordType.Expense, Date = x.Date, Mileage = x.Mileage ?? 0, Cost = (double)x.Sum, WrongMileage = x.WrongMileage }));
+            //list = list.OrderByDescending(x => x.Date).ThenByDescending(x=>x.Mileage).ToList();
+            //var commonModel = new List<CommonModel>();
+            //commonModel.AddRange(list.Select(x => new CommonModel { Id = x.Id, Record = x.Record, Mileage = x.Mileage, Date = x.Date.ToString("dd.MM.yyyy"), Cost = x.Cost, WrongMileage = x.WrongMileage }));
             return commonModel;
         }
 
@@ -76,7 +88,7 @@ namespace CarNotes.Classes
                   .OrderByDescending(x => x.date)
                   .ThenByDescending(x => x.mileage)
                   .Take(1)
-                  .Union(db.RepairEvents  
+                  .Union(db.RepairEvents
                       .Where(x => x.VehicleId == vehicleId && x.Date < dateEvent)
                       .Select(x => new { date = x.Date, mileage = x.Mileage })
                       .OrderByDescending(x => x.date)
@@ -91,7 +103,7 @@ namespace CarNotes.Classes
                   .OrderByDescending(x => x.date)
                   .ThenByDescending(x => x.mileage)
                   .FirstOrDefault();
-            
+
             var lateEvent = db.RefuelEvents
                   .Where(x => x.VehicleId == vehicleId && x.Date > dateEvent)
                   .Select(x => new { date = x.Date, mileage = x.Mileage })

@@ -1,5 +1,6 @@
-﻿@model List<CarNotes.Models.CommonModel>
+﻿@model CarNotes.Models.PageCommonTable
 @using CarNotes.Classes;
+@using CarNotes.Models;
 @{
     Layout = "../Shared/_TableTemplate.cshtml";
     var userHelper = new AuthHelper(Context);
@@ -25,7 +26,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (CommonModel item in Model.PageList)
             {
                 <tr>
                     <td>
@@ -72,8 +73,20 @@
 
         </tbody>
     </table>
+    @if (Model.HasPreviousPage)
+    {
+        <button class="ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="moveBackCommon(@ViewBag.VehicleId, @Model.PageNumber - 1)">
+            Назад
+        </button>
+    }
+    @if (Model.HasNextPage)
+    {
+        <button class="ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="moveOnCommon(@ViewBag.VehicleId, @Model.PageNumber + 1)">
+            Вперед
+        </button>
+    }
 </div>
-@foreach (var item in Model)
+@foreach (CommonModel item in Model.PageList)
 {
     <div class=" ui grid  mobile-only" style="margin-bottom:-2rem">
         <div class="column">

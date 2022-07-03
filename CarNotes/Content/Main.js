@@ -338,6 +338,28 @@ function deleteCommon(record, id) {
     }
 }
 
+/**
+ * вернуться на предыдущую страницу
+ * @param {any} vehicleId Id автомобиля
+ * @param {any} pageNumber номер страницы, на которую надо реализовать переход 
+ */
+
+function moveBackCommon(vehicleId, pageNumber)
+{
+    document.location = "/Common/Index?vehicleId=" + vehicleId + "&pageNumber=" + pageNumber;
+}
+
+/**
+ * перейти на следующую страницу
+ * @param {any} vehicleId
+ * @param {any} pageNumber номер страницы, на которую надо реализовать переход
+ */
+
+function moveOnCommon(vehicleId, pageNumber)
+{
+    document.location = "/Common/Index?vehicleId=" + vehicleId + "&pageNumber=" + pageNumber;
+}
+
 //edit events
 
 /**

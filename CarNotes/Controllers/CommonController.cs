@@ -13,7 +13,7 @@ namespace CarNotes.Controllers
     public class CommonController : Controller
     {
         // GET:Common
-        public ActionResult Index(int? vehicleId)
+        public ActionResult Index(int? vehicleId, int pageNumber=1)
         {
             if (vehicleId != null)
             {
@@ -28,10 +28,16 @@ namespace CarNotes.Controllers
                         HttpContext.Response.Cookies.Set(new HttpCookie("vehicleId", vehicleId.ToString()));
                     }
                 }
-                var cm = new CommonHelper().CreateList((int)vehicleId);
-                if (cm == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
+                int pageSize = 10;//количество выводимых событий на 1-ой странице 
+                var commonModelList = new CommonHelper().GetList((int)vehicleId, pageNumber, pageSize);
+                if (commonModelList == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
+                var database = new CnDbContext();
+                var countEvent = database.RefuelEvents.Where(e => e.VehicleId == vehicleId).Count()
+                    + database.RefuelEvents.Where(e => e.VehicleId == vehicleId).Count() + database.Expenses.Where(e=>e.VehicleId == vehicleId).Count();                
+                var pageModel = new PageCommonTable(countEvent, pageNumber, pageSize);
+                pageModel.PageList = commonModelList;
                 ViewBag.Name = "Общая таблица";
-                return View(cm);
+                return View(pageModel);
             }
             if (!HttpContext.User.Identity.IsAuthenticated)
             {

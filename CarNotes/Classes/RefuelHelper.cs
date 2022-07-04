@@ -34,6 +34,7 @@ namespace CarNotes.Classes
                 Volume = x.Volume,
                 PricePerOneLiter = x.PricePerOneLiter,
                 Cost = x.Cost,
+                FullTank = x.FullTank,
                 ForgotRecordPreviousGasStation = x.ForgotRecordPreviousGasStation,
                 WrongMileage = x.WrongMileage 
             }));

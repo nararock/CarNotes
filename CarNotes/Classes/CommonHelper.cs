@@ -24,11 +24,11 @@ namespace CarNotes.Classes
             SqlParameter paramAmountGet = new SqlParameter("@amountGet", pageSize);
             var commonModel = db.Database.SqlQuery<CommonModel>(@"select top(@amountGet) * from
                                                        (select Id, Date, Mileage, Cost, Record, WrongMileage from 
-                                                          (select ID as Id, Date, 1 as Record, Mileage, PricePerOneLiter*Volume as Cost, WrongMileage from RefuelEvents Where VehicleId = @Id
+                                                          (select ID as Id, Date, 1 as Record, Mileage, ROUND(PricePerOneLiter*Volume, 0) as Cost, WrongMileage from RefuelEvents Where VehicleId = @Id
                                                            union 
-                                                           select Id, Date, 2 as Record, Mileage, Cast(RepairCost as float) as Cost, WrongMileage from RepairEvents Where VehicleId = @Id
+                                                           select Id, Date, 2 as Record, Mileage, ROUND(Cast(RepairCost as float), 0) as Cost, WrongMileage from RepairEvents Where VehicleId = @Id
                                                            union  
-                                                           select Id, Date, 3 as Record, Mileage, Cast(Sum as float) as Cost, WrongMileage from Expenses Where VehicleId = @Id) as d
+                                                           select Id, Date, 3 as Record, Mileage, ROUND(Cast(Sum as float), 0) as Cost, WrongMileage from Expenses Where VehicleId = @Id) as d
                                                            order by Date desc, Mileage desc
                                                            offset @amountOffset rows) as data1", paramId, paramAmountOffset, paramAmountGet).ToList();
             //var list = db.RefuelEvents.Where(r=>r.VehicleId == vehicleId).OrderByDescending(x => x.Date).ThenByDescending(x => x.Mileage).Skip(5).Select(x => new { Id = x.ID, Record = Enums.RecordType.Refuel, Date = x.Date, Mileage = x.Mileage, Cost = Math.Round(x.PricePerOneLiter * x.Volume), WrongMileage = x.WrongMileage }).ToList();

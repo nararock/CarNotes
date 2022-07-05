@@ -26,17 +26,13 @@ namespace CarNotes.Classes
                                                        (select Id, Date, Mileage, Cost, Record, WrongMileage from 
                                                           (select ID as Id, Date, 1 as Record, Mileage, ROUND(PricePerOneLiter*Volume, 0) as Cost, WrongMileage from RefuelEvents Where VehicleId = @Id
                                                            union 
-                                                           select Id, Date, 2 as Record, Mileage, ROUND(Cast(RepairCost as float), 0) as Cost, WrongMileage from RepairEvents Where VehicleId = @Id
+                                                           (select Id, Date, 2 as Record, Mileage, ROUND((Cast(RepairCost as float) + Price), 0) as Cost, WrongMileage from RepairEvents as re
+                                                           join (select RepairEvent_Id, SUM(Price) as price from CarParts group by RepairEvent_Id) as t on re.Id = t.RepairEvent_Id
+                                                           Where VehicleId = @Id)
                                                            union  
                                                            select Id, Date, 3 as Record, Mileage, ROUND(Cast(Sum as float), 0) as Cost, WrongMileage from Expenses Where VehicleId = @Id) as d
                                                            order by Date desc, Mileage desc
                                                            offset @amountOffset rows) as data1", paramId, paramAmountOffset, paramAmountGet).ToList();
-            //var list = db.RefuelEvents.Where(r=>r.VehicleId == vehicleId).OrderByDescending(x => x.Date).ThenByDescending(x => x.Mileage).Skip(5).Select(x => new { Id = x.ID, Record = Enums.RecordType.Refuel, Date = x.Date, Mileage = x.Mileage, Cost = Math.Round(x.PricePerOneLiter * x.Volume), WrongMileage = x.WrongMileage }).ToList();
-            //list.AddRange(vehicle.RepairEvents.Select(x => new { Id = x.Id, Record = Enums.RecordType.Repair, Date = x.Date, Mileage = x.Mileage, Cost = (double)x.RepairCost, WrongMileage = x.WrongMileage }));
-            //list.AddRange(vehicle.Expenses.Select(x => new { Id = x.Id, Record = Enums.RecordType.Expense, Date = x.Date, Mileage = x.Mileage ?? 0, Cost = (double)x.Sum, WrongMileage = x.WrongMileage }));
-            //list = list.OrderByDescending(x => x.Date).ThenByDescending(x=>x.Mileage).ToList();
-            //var commonModel = new List<CommonModel>();
-            //commonModel.AddRange(list.Select(x => new CommonModel { Id = x.Id, Record = x.Record, Mileage = x.Mileage, Date = x.Date.ToString("dd.MM.yyyy"), Cost = x.Cost, WrongMileage = x.WrongMileage }));
             return commonModel;
         }
 

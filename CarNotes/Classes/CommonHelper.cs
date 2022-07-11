@@ -26,8 +26,8 @@ namespace CarNotes.Classes
                                                        (select Id, Date, Mileage, Cost, Record, WrongMileage from 
                                                           (select ID as Id, Date, 1 as Record, Mileage, ROUND(PricePerOneLiter*Volume, 0) as Cost, WrongMileage from RefuelEvents Where VehicleId = @Id
                                                            union 
-                                                           (select Id, Date, 2 as Record, Mileage, ROUND((Cast(RepairCost as float) + Price), 0) as Cost, WrongMileage from RepairEvents as re
-                                                           join (select RepairEvent_Id, SUM(Price) as price from CarParts group by RepairEvent_Id) as t on re.Id = t.RepairEvent_Id
+                                                           (select Id, Date, 2 as Record, Mileage, ROUND((Cast(RepairCost as float) + ISNULL(Price,0)), 0) as Cost, WrongMileage from RepairEvents as re
+                                                           left outer join (select RepairEvent_Id, SUM(Price) as price from CarParts group by RepairEvent_Id) as t on re.Id = t.RepairEvent_Id
                                                            Where VehicleId = @Id)
                                                            union  
                                                            select Id, Date, 3 as Record, Mileage, ROUND(Cast(Sum as float), 0) as Cost, WrongMileage from Expenses Where VehicleId = @Id) as d

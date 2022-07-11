@@ -14,5 +14,6 @@ namespace CarNotes.Models
         public RecordType Record { get; set; }
         public DateTime Date { get; set; }
         public int Cost { get; set; }
+        public double? PriceParts { get; set; } 
     }
 }

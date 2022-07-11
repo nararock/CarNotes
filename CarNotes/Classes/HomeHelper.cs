@@ -29,14 +29,23 @@ namespace CarNotes.Classes
             }).OrderByDescending(x => x.Date).Take(10).ToList();
             list.AddRange(db.RepairEvents.Include(v => v.Vehicle).Include(c => c.Parts)
                 .Where(x => x.Date <= dateCompare)
+                .Select(x => new
+                {
+                    x.VehicleId,
+                    x.Vehicle.Brand,
+                    x.Vehicle.Model,
+                    x.Date,
+                    x.RepairCost,
+                    PriceParts = (double?) x.Parts.Sum(c => c.Price)
+                }).OrderByDescending(x => x.Date).Take(10).ToList()
                 .Select(x => new LastEventModel
                 {
                     Id = x.VehicleId,
-                    VehicleBrand = x.Vehicle.Brand,
-                    VehicleModel = x.Vehicle.Model,
+                    VehicleBrand = x.Brand,
+                    VehicleModel = x.Model,
                     Record = Enums.RecordType.Repair,
                     Date = x.Date,
-                    Cost = (int)x.RepairCost + (int)x.Parts.Sum(c => c.Price)
+                    Cost = (int)x.RepairCost + (int)(x.PriceParts ?? 0),
                 }).OrderByDescending(x => x.Date).Take(10)) ;
             list.AddRange(db.Expenses.Include(v => v.Vehicle)
                 .Where(x => x.Date <= dateCompare)

@@ -10,7 +10,7 @@ namespace CarNotes.Classes
     public class CommonHelper
     {
         /// <summary>
-        /// возвращает список общих событий
+        /// возвращает список событий для общей таблицы
         /// </summary>
         /// <param name="vehicleId"></param>
         /// <returns></returns>
@@ -42,8 +42,10 @@ namespace CarNotes.Classes
             db.Database.Log += s => System.Diagnostics.Debug.WriteLine(s);
             SqlParameter param = new SqlParameter("@Id", vehicleId);
             var maxMileage = db.Database.SqlQuery<Mileage>(@"Select MAX(Mileage) as LastMileage from(Select * from (SELECT top(1) Mileage from RefuelEvents where VehicleId = @Id order by Mileage desc) as t1
-                union
-                Select * from(SELECT top(1) Mileage from RepairEvents where VehicleId = @Id order by Mileage desc) as t2) as t", param).ToList();
+                                                                                                    union
+                                                                                                    Select * from(SELECT top(1) Mileage from RepairEvents where VehicleId = @Id order by Mileage desc) as t2) 
+                                                                                                    union
+				                                                                                    Select * from(SELECT top(1) Mileage from Expenses where VehicleId = 3 order by Mileage desc) as t3) as t", param).ToList();
             if (maxMileage[0].LastMileage == null)
             {
                 return 0;

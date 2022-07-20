@@ -113,10 +113,14 @@
                         {
                             @:Заправка
                         }
-                        else
+                        else if (item.Record == CarNotes.Enums.RecordType.Repair)
                         {
                             @:Ремонт
                         }
+                        else if (item.Record == CarNotes.Enums.RecordType.Expense)
+                {
+                    @:Расход
+                }
                     </div>
                     <div class="meta">
                         @item.Date.ToString("dd.MM.yyyy")

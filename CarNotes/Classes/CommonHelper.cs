@@ -43,9 +43,9 @@ namespace CarNotes.Classes
             SqlParameter param = new SqlParameter("@Id", vehicleId);
             var maxMileage = db.Database.SqlQuery<Mileage>(@"Select MAX(Mileage) as LastMileage from(Select * from (SELECT top(1) Mileage from RefuelEvents where VehicleId = @Id order by Mileage desc) as t1
                                                                                                     union
-                                                                                                    Select * from(SELECT top(1) Mileage from RepairEvents where VehicleId = @Id order by Mileage desc) as t2) 
+                                                                                                    Select * from(SELECT top(1) Mileage from RepairEvents where VehicleId = @Id order by Mileage desc) as t2 
                                                                                                     union
-				                                                                                    Select * from(SELECT top(1) Mileage from Expenses where VehicleId = 3 order by Mileage desc) as t3) as t", param).ToList();
+				                                                                                    Select * from(SELECT top(1) Mileage from Expenses where VehicleId = 3 and Mileage IS NOT NULL order by Mileage desc) as t3) as t", param).ToList();
             if (maxMileage[0].LastMileage == null)
             {
                 return 0;

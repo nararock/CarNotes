@@ -33,7 +33,7 @@ namespace CarNotes.Controllers
                 if (commonModelList == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
                 var database = new CnDbContext();
                 var countEvent = database.RefuelEvents.Where(e => e.VehicleId == vehicleId).Count()
-                    + database.RefuelEvents.Where(e => e.VehicleId == vehicleId).Count() + database.Expenses.Where(e=>e.VehicleId == vehicleId).Count();                
+                    + database.RepairEvents.Where(e => e.VehicleId == vehicleId).Count() + database.Expenses.Where(e=>e.VehicleId == vehicleId).Count();                
                 var pageModel = new PageCommonTable(countEvent, pageNumber, pageSize);
                 pageModel.PageList = commonModelList;
                 ViewBag.Name = "Общая таблица";

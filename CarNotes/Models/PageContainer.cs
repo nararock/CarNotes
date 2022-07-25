@@ -27,7 +27,7 @@ namespace CarNotes.Models
         {
             get
             {
-                return (PageNumber + 1 < TotalPages);
+                return (PageNumber < TotalPages);
             }
         }
     }

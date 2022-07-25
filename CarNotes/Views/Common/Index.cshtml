@@ -4,9 +4,10 @@
 @{
     Layout = "../Shared/_TableTemplate.cshtml";
     var userHelper = new AuthHelper(Context);
+    var color = new LinkMenuHelper().getColor(ViewBag.Name);
 }
 <div class="hide-on-mobile">
-    <table class="ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) unstackable table ">
+    <table class="ui selectable @color unstackable table ">
         <caption>@ViewBag.Name</caption>
         <thead>
             <tr>
@@ -61,30 +62,18 @@
                     <td>@item.Cost</td>
                     @if (ViewBag.IsChecked)
                     {
-                        <td><input type="button" value="&#9998" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editCommon('@item.Record', @item.Id)" /></td>
-                        <td><input type="button" value="&#10008" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="deleteCommon('@item.Record', @item.Id)" /></td>
+                        <td><input type="button" value="&#9998" class="ui icon tiny @color basic button" onclick="editCommon('@item.Record', @item.Id)" /></td>
+                        <td><input type="button" value="&#10008" class="ui icon tiny @color basic button" onclick="deleteCommon('@item.Record', @item.Id)" /></td>
                     }
                     else
                     {
-                        <td><input type="button" value="&#128269" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="showCommon('@item.Record', @item.Id)" /></td>
+                        <td><input type="button" value="&#128269" class="ui icon tiny @color basic button" onclick="showCommon('@item.Record', @item.Id)" /></td>
                     }
                 </tr>
             }
 
         </tbody>
     </table>
-    @if (Model.HasPreviousPage)
-    {
-        <button class="ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="moveBackCommon(@ViewBag.VehicleId, @Model.PageNumber - 1)">
-            Назад
-        </button>
-    }
-    @if (Model.HasNextPage)
-    {
-        <button class="ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="moveOnCommon(@ViewBag.VehicleId, @Model.PageNumber + 1)">
-            Вперед
-        </button>
-    }
 </div>
 
 <div class=" ui grid  mobile-only" style="margin-bottom:-2rem">
@@ -118,9 +107,9 @@
                             @:Ремонт
                         }
                         else if (item.Record == CarNotes.Enums.RecordType.Expense)
-                {
-                    @:Расход
-                }
+                        {
+                            @:Расход
+                        }
                     </div>
                     <div class="meta">
                         @item.Date.ToString("dd.MM.yyyy")

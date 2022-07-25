@@ -14,7 +14,7 @@ namespace CarNotes.Controllers
     public class RefuelController : Controller
     {
         [AllowAnonymous]
-        public ActionResult Index(int? vehicleId)
+        public ActionResult Index(int? vehicleId, int pageNumber = 1)
         {
             if (vehicleId != null)
             {
@@ -29,10 +29,15 @@ namespace CarNotes.Controllers
                         HttpContext.Response.Cookies.Set(new HttpCookie("vehicleId", vehicleId.ToString()));
                     }
                 }
-                var cm = new RefuelHelper().GetList((int)vehicleId);
-                if (cm == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
+                int pageSize = 10;//количество выводимых событий на 1-ой странице
+                var refuelModelOutput = new RefuelHelper().GetList((int)vehicleId, pageNumber, pageSize);
+                if (refuelModelOutput == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
+                var database = new CnDbContext();
+                var countEvent = database.RefuelEvents.Where(e => e.VehicleId == vehicleId).Count();
+                var pageModel = new PageRefuelTable(countEvent, pageNumber, pageSize);
+                pageModel.PageList = refuelModelOutput;
                 ViewBag.Name = "Заправки";
-                return View(cm);
+                return View(pageModel);
             }
             if (!HttpContext.User.Identity.IsAuthenticated)
             {

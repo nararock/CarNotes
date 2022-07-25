@@ -13,33 +13,51 @@ namespace CarNotes.Classes
 {
     public class RefuelHelper
     {
-        public List<RefuelModelOutput> GetList(int vehicleId)
+        //public List<RefuelModelOutput> GetList(int vehicleId)
+        //{
+        //    var db = new CnDbContext();
+        //    var vehicle = db.Vehicles.Include(v => v.RefuelEvents.Select(r => r.Station))
+        //        .FirstOrDefault(x => x.Id == vehicleId);
+        //    if (vehicle == null) return null;
+        //    var list = vehicle.RefuelEvents.Select(x => new { Id = x.ID, Date = x.Date, Mileage = x.Mileage, Fuel = x.Fuel.ToString(),
+        //        Station = (x.Station_ID == 1) ? x.CustomStation : x.Station.Name,
+        //        Volume = x.Volume, PricePerOneLiter = x.PricePerOneLiter, Cost = Math.Round(x.Volume * x.PricePerOneLiter),  FullTank = x.FullTank,
+        //        ForgotRecordPreviousGasStation = x.ForgotRecordPreviousGasStation, WrongMileage = x.WrongMileage }).OrderByDescending(x => x.Date).ThenByDescending(x => x.Mileage).ToList();
+        //    var refuelModelOutput = new List<RefuelModelOutput>();
+        //    refuelModelOutput.AddRange(list.Select(x => new RefuelModelOutput
+        //    {
+        //        Id = x.Id,
+        //        Date = x.Date,
+        //        Mileage = x.Mileage,
+        //        Fuel = x.Fuel,
+        //        Station = x.Station,
+        //        Volume = x.Volume,
+        //        PricePerOneLiter = x.PricePerOneLiter,
+        //        Cost = x.Cost,
+        //        FullTank = x.FullTank,
+        //        ForgotRecordPreviousGasStation = x.ForgotRecordPreviousGasStation,
+        //        WrongMileage = x.WrongMileage 
+        //    }));
+        //    return refuelModelOutput;
+        //}
+
+        public List<RefuelModelOutput> GetList(int vehicleId, int pageNumder, int pageSize)
         {
             var db = new CnDbContext();
-            var vehicle = db.Vehicles.Include(v => v.RefuelEvents.Select(r => r.Station))
-                .FirstOrDefault(x => x.Id == vehicleId);
+            var vehicle = db.Vehicles.Find(vehicleId);
             if (vehicle == null) return null;
-            var list = vehicle.RefuelEvents.Select(x => new { Id = x.ID, Date = x.Date, Mileage = x.Mileage, Fuel = x.Fuel.ToString(),
-                Station = (x.Station_ID == 1) ? x.CustomStation : x.Station.Name,
-                Volume = x.Volume, PricePerOneLiter = x.PricePerOneLiter, Cost = Math.Round(x.Volume * x.PricePerOneLiter),  FullTank = x.FullTank,
-                ForgotRecordPreviousGasStation = x.ForgotRecordPreviousGasStation, WrongMileage = x.WrongMileage }).OrderByDescending(x => x.Date).ThenByDescending(x => x.Mileage).ToList();
-            var refuelModelOutput = new List<RefuelModelOutput>();
-            refuelModelOutput.AddRange(list.Select(x => new RefuelModelOutput
-            {
-                Id = x.Id,
-                Date = x.Date.ToString("dd.MM.yyyy"),
-                Mileage = x.Mileage,
-                Fuel = x.Fuel,
-                Station = x.Station,
-                Volume = x.Volume,
-                PricePerOneLiter = x.PricePerOneLiter,
-                Cost = x.Cost,
-                FullTank = x.FullTank,
-                ForgotRecordPreviousGasStation = x.ForgotRecordPreviousGasStation,
-                WrongMileage = x.WrongMileage 
-            }));
+            SqlParameter paramId = new SqlParameter("@Id", vehicleId);
+            SqlParameter paramAmountOffset = new SqlParameter("@amountOffset", (pageNumder - 1) * pageSize);
+            SqlParameter paramAmountGet = new SqlParameter("@amountGet", pageSize);
+            var refuelModelOutput = db.Database.SqlQuery<RefuelModelOutput>(@"select top(@amountGet) * from(select ID, Date, Mileage, Fuel, Name, CustomStation, Volume, PricePerOneLiter, ROUND(PricePerOneLiter*Volume, 0) as Cost, 
+                                                                            FullTank, ForgotRecordPreviousGasStation, WrongMileage from RefuelEvents as re 
+                                                                            join (Select ID as IDSt, Name from GasStations) as gs on re.Station_ID = gs.IDSt 
+                                                                            Where VehicleId = @Id
+                                                                            order by Date desc, Mileage desc
+                                                                            offset @amountOffset rows) as data", paramId, paramAmountOffset, paramAmountGet).ToList();
             return refuelModelOutput;
         }
+
         public void SaveToDataBase(RefuelModel rm, int vehicleId)
         {
             var database = new CnDbContext();

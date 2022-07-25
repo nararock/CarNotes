@@ -339,25 +339,26 @@ function deleteCommon(record, id) {
 }
 
 /**
- * вернуться на предыдущую страницу
- * @param {any} vehicleId Id автомобиля
- * @param {any} pageNumber номер страницы, на которую надо реализовать переход 
- */
-
-function moveBackCommon(vehicleId, pageNumber)
-{
-    document.location = "/Common/Index?vehicleId=" + vehicleId + "&pageNumber=" + pageNumber;
-}
-
-/**
  * перейти на следующую страницу
  * @param {any} vehicleId
  * @param {any} pageNumber номер страницы, на которую надо реализовать переход
  */
 
-function moveOnCommon(vehicleId, pageNumber)
+function moveOnCommon(vehicleId, namePage, pageNumber)
 {
-    document.location = "/Common/Index?vehicleId=" + vehicleId + "&pageNumber=" + pageNumber;
+    if (namePage == "Общая таблица") {
+        document.location = "/Common/Index?vehicleId=" + vehicleId + "&pageNumber=" + pageNumber;
+    }
+    else if (namePage == "Заправки") {
+        document.location = "/Refuel/Index?vehicleId=" + vehicleId + "&pageNumber=" + pageNumber;
+    }
+    else if (namePage == "Ремонты") {
+        document.location = "/Repair/Index?vehicleId=" + vehicleId + "&pageNumber=" + pageNumber;
+    }
+    else if (namePage == "Расходы")
+    {
+        document.location = "/Expense/Index?vehicleId=" + vehicleId + "&pageNumber=" + pageNumber;
+    }
 }
 
 //edit events

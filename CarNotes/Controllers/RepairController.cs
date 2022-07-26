@@ -14,7 +14,7 @@ namespace CarNotes.Controllers
     public class RepairController : Controller
     {
         [AllowAnonymous]
-        public ActionResult Index(int? vehicleId)
+        public ActionResult Index(int? vehicleId, int pageNumber = 1)
         {
             if (vehicleId != null)
             {
@@ -28,12 +28,16 @@ namespace CarNotes.Controllers
                         ViewBag.IsChecked = true;
                         HttpContext.Response.Cookies.Set(new HttpCookie("vehicleId", vehicleId.ToString()));
                     }
-                    //else { return Redirect("~/Vehicle/Index"); }
                 }
-                var cm = new RepairHelper().GetList((int)vehicleId);
-                if (cm == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
+                int pageSize = 10;//количество выводимых событий на 1-ой странице
+                var repairModel = new RepairHelper().GetList((int)vehicleId, pageNumber, pageSize);
+                if (repairModel == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
+                var database = new CnDbContext();
+                var countEvent = database.RepairEvents.Where(e => e.VehicleId == vehicleId).Count();
+                var pageModel = new PageRepairTable(countEvent, pageNumber, pageSize);
+                pageModel.PageList = repairModel;
                 ViewBag.Name = "Ремонты";
-                return View(cm);
+                return View(pageModel);
             }
             if (!HttpContext.User.Identity.IsAuthenticated)
             {

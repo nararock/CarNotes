@@ -6,34 +6,29 @@ using System.Linq;
 using System.Data.Entity;
 using System.Web;
 using Microsoft.AspNet.Identity;
+using System.Data.SqlClient;
 
 namespace CarNotes.Classes
 {
     public class RepairHelper
     {
-        public List<RepairModel> GetList(int vehicleId)
+        public List<RepairModel> GetList(int vehicleId, int pageNumder, int pageSize)
         {
             var db = new CnDbContext();
-            var vehicle = db.Vehicles.Include(v=>v.RepairEvents.Select(r=>r.Parts)).FirstOrDefault(x => x.Id == vehicleId);
+            var vehicle = db.Vehicles.Find(vehicleId);
             if (vehicle == null) return null;
-            var list = vehicle.RepairEvents.Select(x => new {Id = x.Id, Date=x.Date, Mileage=x.Mileage, Repair=x.Repair,
-                CarService=x.CarService, RepairCost= (int)Math.Round(Convert.ToDouble(x.RepairCost) + x.Parts.Sum(p => p.Price)), Comments=x.Comments,
-                WrongMileage = x.WrongMileage }).OrderByDescending(x=>x.Date).ThenByDescending(x=>x.Mileage).ToList();
-            var repairModel = new List<RepairModel>();
-            repairModel.AddRange(list.Select(x => new RepairModel
-            {
-                Id = x.Id,
-                Date = x.Date.ToString("dd.MM.yyyy"),
-                Mileage = x.Mileage,
-                Repair = x.Repair,
-                CarService = x.CarService,
-                RepairCost = x.RepairCost,
-                Comments = x.Comments,
-                WrongMileage = x.WrongMileage
-            }));
+            SqlParameter paramId = new SqlParameter("@Id", vehicleId);
+            SqlParameter paramAmountOffset = new SqlParameter("@amountOffset", (pageNumder - 1) * pageSize);
+            SqlParameter paramAmountGet = new SqlParameter("@amountGet", pageSize);
+            var repairModel = db.Database.SqlQuery<RepairModel>(@"select top(@amountGet) * from(select Id, Date, Mileage, Repair, ROUND((Cast(RepairCost as float) + ISNULL(Price,0)), 0) as RepairCost, CarService, Comments, WrongMileage from RepairEvents as re
+                                                                left outer join (select RepairEvent_Id, SUM(Price) as price from CarParts group by RepairEvent_Id) as t on re.Id = t.RepairEvent_Id
+                                                                Where VehicleId = @Id
+                                                                order by Date desc, Mileage desc
+                                                                offset @amountOffset rows) as data", paramId, paramAmountOffset, paramAmountGet).ToList();
             return repairModel;
         }
-        
+
+
         public void Delete(int id, HttpContextBase hc)
         {
             var data = new CnDbContext();

@@ -276,6 +276,7 @@
     <Compile Include="Models\PageCommonTable.cs" />
     <Compile Include="Models\PageContainer.cs" />
     <Compile Include="Models\PageRefuelTable.cs" />
+    <Compile Include="Models\PageRepairTable.cs" />
     <Compile Include="Models\RefuelEventCreateModel.cs" />
     <Compile Include="Models\RefuelModel.cs" />
     <Compile Include="Models\RefuelModelOutput.cs" />

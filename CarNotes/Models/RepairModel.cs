@@ -11,15 +11,15 @@ namespace CarNotes.Models
         public RepairModel()
         {
             Parts = new List<CarPartModel>();
-            Date = DateTime.Now.ToString("dd.MM.yyyy");
+            Date = DateTime.Now;
         }
         public int Id { get; set; }
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
         public double Mileage { get; set; }
         public string Repair { get; set; }
         public List<CarPartModel> Parts { get; set; }
         public string CarService { get; set; }
-        public int RepairCost { get; set; }
+        public double RepairCost { get; set; }
         public string Comments { get; set; }
         public bool WrongMileage { get; set; }
     }

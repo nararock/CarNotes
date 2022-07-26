@@ -1,4 +1,5 @@
-﻿@model List<CarNotes.Models.RepairModel>
+﻿@model CarNotes.Models.PageRepairTable
+@using CarNotes.Models
 @using CarNotes.Classes;
 @{
     Layout = "../Shared/_TableTemplate.cshtml";
@@ -27,7 +28,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (CarNotes.Models.RepairModel b in Model)
+            @foreach (RepairModel b in Model.PageList)
             {
                 <tr>
                     <td>@b.Date</td>
@@ -57,7 +58,7 @@
         </tbody>
     </table>
 </div>
-@foreach (CarNotes.Models.RepairModel b in Model)
+@foreach (RepairModel b in Model.PageList)
 {
     <div class=" ui grid" style="margin-bottom:-2rem">
         <div class="column">

@@ -59,7 +59,7 @@ namespace CarNotes.Classes
             editRepairModel.Mileage = editRepair.Mileage;
             editRepairModel.Repair = editRepair.Repair;
             editRepairModel.RepairCost = (int)editRepair.RepairCost;
-            editRepairModel.Date = editRepair.Date.ToString("dd.MM.yyyy");
+            editRepairModel.Date = editRepair.Date;
             editRepairModel.CarService = editRepair.CarService;
             editRepairModel.Comments = editRepair.Comments;
             editRepairModel.Parts = new List<CarPartModel>();
@@ -97,14 +97,14 @@ namespace CarNotes.Classes
             }
             repairEvent.CarService = rm.CarService;
             repairEvent.Comments = rm.Comments;
-            repairEvent.Date = DateTime.ParseExact(rm.Date, "dd.MM.yyyy", null); ;
+            repairEvent.Date = rm.Date; ;
             repairEvent.Mileage = rm.Mileage;
             if (new CommonHelper().CheckMileage(rm.Date, Convert.ToString(rm.Mileage), vehicleId))
             {
                 repairEvent.WrongMileage = false;
             } else { repairEvent.WrongMileage = true;}
             repairEvent.Repair = rm.Repair;
-            repairEvent.RepairCost = rm.RepairCost;
+            repairEvent.RepairCost = (Decimal)rm.RepairCost;
             var carPartsDelete = new List<CarPart>();
             foreach(var p in rm.Parts)
             {

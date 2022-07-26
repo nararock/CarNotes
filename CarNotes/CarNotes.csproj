@@ -275,6 +275,7 @@
     <Compile Include="Models\Mileage.cs" />
     <Compile Include="Models\PageCommonTable.cs" />
     <Compile Include="Models\PageContainer.cs" />
+    <Compile Include="Models\PageExpenseTable.cs" />
     <Compile Include="Models\PageRefuelTable.cs" />
     <Compile Include="Models\PageRepairTable.cs" />
     <Compile Include="Models\RefuelEventCreateModel.cs" />

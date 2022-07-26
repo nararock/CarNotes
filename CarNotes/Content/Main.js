@@ -344,7 +344,7 @@ function deleteCommon(record, id) {
  * @param {any} pageNumber номер страницы, на которую надо реализовать переход
  */
 
-function moveOnCommon(vehicleId, namePage, pageNumber)
+function toNextPage(vehicleId, namePage, pageNumber)
 {
     if (namePage == "Общая таблица") {
         document.location = "/Common/Index?vehicleId=" + vehicleId + "&pageNumber=" + pageNumber;

@@ -1,11 +1,13 @@
 ﻿@using CarNotes.Classes;
-@model List<CarNotes.Models.ExpenseModel>
+@using CarNotes.Models
+@model CarNotes.Models.PageExpenseTable
 @{
     Layout = "../Shared/_TableTemplate.cshtml";
+    var color = new LinkMenuHelper().getColor(ViewBag.Name);
 }
 
 <div>
-    <table class="ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) unstackable table hide-on-mobile">
+    <table class="ui selectable @color unstackable table hide-on-mobile">
         <caption>@ViewBag.Name</caption>
         <thead>
             <tr>
@@ -27,7 +29,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (CarNotes.Models.ExpenseModel e in Model)
+            @foreach (ExpenseModel e in Model.PageList)
             {
                 <tr>
                     <td>@e.Date</td>
@@ -45,19 +47,19 @@
                     <td>@e.Comment</td>
                     @if (ViewBag.IsChecked)
                     {
-                        <td><input type="button" value="&#9998" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editExpense(@e.Id, true)" /></td>
-                        <td><input type="button" value="&#10008" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="deleteExpense(@e.Id)" /></td>
+                        <td><input type="button" value="&#9998" class="ui icon tiny @color basic button" onclick="editExpense(@e.Id, true)" /></td>
+                        <td><input type="button" value="&#10008" class="ui icon tiny @color basic button" onclick="deleteExpense(@e.Id)" /></td>
                     }
                     else
                     {
-                        <td><input type="button" value="&#128269" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editExpense(@e.Id, false)" /></td>
+                        <td><input type="button" value="&#128269" class="ui icon tiny @color basic button" onclick="editExpense(@e.Id, false)" /></td>
                     }
                 </tr>
             }
         </tbody>
     </table>
 </div>
-@foreach (CarNotes.Models.ExpenseModel e in Model)
+@foreach (ExpenseModel e in Model.PageList)
 {
     <div class=" ui grid" style="margin-bottom:-2rem">
         <div class="column">
@@ -68,16 +70,16 @@
                     </div>
                     @if (ViewBag.IsChecked)
                     {
-                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="deleteExpense(@e.Id)">
+                        <button class="circular ui @color basic right floated icon button" onclick="deleteExpense(@e.Id)">
                             <i class="trash alternate icon"></i>
                         </button>
-                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editExpense(@e.Id, true)">
+                        <button class="circular ui @color basic right floated icon button" onclick="editExpense(@e.Id, true)">
                             <i class="highlighter icon"></i>
                         </button>
                     }
                     else
                     {
-                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editExpenser(@e.Id, false)">
+                        <button class="circular ui @color basic right floated icon button" onclick="editExpenser(@e.Id, false)">
                             <i class="search icon"></i>
                         </button>
                     }

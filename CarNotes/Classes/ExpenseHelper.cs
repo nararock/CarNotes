@@ -6,41 +6,59 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using Microsoft.AspNet.Identity;
+using System.Data.SqlClient;
 
 namespace CarNotes.Classes
 {
     public class ExpenseHelper
     {
-        public List<ExpenseModel> GetList(int vehicleId) 
+        //public List<ExpenseModel> GetList(int vehicleId) 
+        //{
+        //    var db = new CnDbContext();
+        //    var vehicle = db.Vehicles.Include(v => v.Expenses.Select(r => r.Type)).FirstOrDefault(x => x.Id == vehicleId);
+        //    if (vehicle == null) return null;
+        //    var list = vehicle.Expenses.Select(x => new 
+        //    {
+        //        Id = x.Id,
+        //        Type = x.Type.Name,
+        //        Date = x.Date,
+        //        Mileage = x.Mileage,
+        //        Sum = x.Sum,
+        //        Description = x.Description,
+        //        Comment = x.Comment,
+        //        WrongMileage = x.WrongMileage
+        //    }).OrderByDescending(x=>x.Date).ThenByDescending(x=>x.Mileage).ToList();
+        //    var expenseModel = new List<ExpenseModel>();
+        //    expenseModel.AddRange(list.Select(x => new ExpenseModel
+        //    {
+        //        Id = x.Id,
+        //        Type = x.Type,
+        //        Date = x.Date.ToString("dd.MM.yyyy"),
+        //        Mileage = x.Mileage,
+        //        Sum = x.Sum,
+        //        Description = x.Description,
+        //        Comment = x.Comment,
+        //        WrongMileage = x.WrongMileage
+        //    }));
+        //    return expenseModel;
+        //}
+
+        public List<ExpenseModel> GetList(int vehicleId, int pageNumder, int pageSize)
         {
             var db = new CnDbContext();
-            var vehicle = db.Vehicles.Include(v => v.Expenses.Select(r => r.Type)).FirstOrDefault(x => x.Id == vehicleId);
+            var vehicle = db.Vehicles.Find(vehicleId);
             if (vehicle == null) return null;
-            var list = vehicle.Expenses.Select(x => new 
-            {
-                Id = x.Id,
-                Type = x.Type.Name,
-                Date = x.Date,
-                Mileage = x.Mileage,
-                Sum = x.Sum,
-                Description = x.Description,
-                Comment = x.Comment,
-                WrongMileage = x.WrongMileage
-            }).OrderByDescending(x=>x.Date).ThenByDescending(x=>x.Mileage).ToList();
-            var expenseModel = new List<ExpenseModel>();
-            expenseModel.AddRange(list.Select(x => new ExpenseModel
-            {
-                Id = x.Id,
-                Type = x.Type,
-                Date = x.Date.ToString("dd.MM.yyyy"),
-                Mileage = x.Mileage,
-                Sum = x.Sum,
-                Description = x.Description,
-                Comment = x.Comment,
-                WrongMileage = x.WrongMileage
-            }));
+            SqlParameter paramId = new SqlParameter("@Id", vehicleId);
+            SqlParameter paramAmountOffset = new SqlParameter("@amountOffset", (pageNumder - 1) * pageSize);
+            SqlParameter paramAmountGet = new SqlParameter("@amountGet", pageSize);
+            var expenseModel = db.Database.SqlQuery<ExpenseModel>(@"select top(@amountGet) * from(select Id, Name as Type, Date, Sum, ISNULL(Mileage, 0) as Mileage, Description, Comment, WrongMileage from Expenses as re
+                                                                    left outer join (select Id as Idtype, Name from ExpenseTypes) as et on re.TypeId = et.Idtype
+                                                                    Where VehicleId = @Id
+                                                                    order by Date desc, Mileage desc
+                                                                    offset @amountOffset rows) as data", paramId, paramAmountOffset, paramAmountGet).ToList();
             return expenseModel;
         }
+
 
         public List<TypeExpenseModel> GetTypeExpenseList()
         {

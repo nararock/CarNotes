@@ -15,7 +15,7 @@ namespace CarNotes.Controllers
     {
         [AllowAnonymous]
         // GET: Expense
-        public ActionResult Index(int? vehicleId)
+        public ActionResult Index(int? vehicleId, int pageNumber = 1)
         {
             if (vehicleId != null)
             {
@@ -30,11 +30,15 @@ namespace CarNotes.Controllers
                         HttpContext.Response.Cookies.Set(new HttpCookie("vehicleId", vehicleId.ToString()));
                     }
                 }
-                var common = new ExpenseHelper();
-                var cm = common.GetList((int)vehicleId);
-                if (cm == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
+                int pageSize = 10;//количество выводимых событий на 1-ой странице
+                var expenseModel = new ExpenseHelper().GetList((int)vehicleId, pageNumber, pageSize);                
+                if (expenseModel == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
+                var database = new CnDbContext();
+                var countEvent = database.Expenses.Where(e => e.VehicleId == vehicleId).Count();
+                var pageModel = new PageExpenseTable(countEvent, pageNumber, pageSize);
+                pageModel.PageList = expenseModel;
                 ViewBag.Name = "Расходы";
-                return View(cm);
+                return View(pageModel);
             }
             if (!HttpContext.User.Identity.IsAuthenticated)
             {

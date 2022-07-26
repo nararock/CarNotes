@@ -75,10 +75,10 @@ namespace CarNotes.Classes
         /// <param name="mileage"></param> пробег проверяемого события
         /// <param name="vehicleId"></param> Id автомобиля
         /// <returns></returns>
-        public bool CheckMileage(string date, string mileage, int vehicleId)
+        public bool CheckMileage(DateTime date, string mileage, int vehicleId)
         {
             var db = new CnDbContext();
-            var dateEvent = DateTime.Parse(date);
+            var dateEvent = date;
             var mileageEvent = double.Parse(mileage);
             var earlyEvent = db.RefuelEvents
                   .Where(x => x.VehicleId == vehicleId && x.Date < dateEvent)

@@ -55,7 +55,7 @@ namespace CarNotes.Classes
                 .FirstOrDefault(x => x.Id == id);
             var expenseEditModel = new ExpenseEditModel();
             expenseEditModel.Id = editExpense.Id;
-            expenseEditModel.Date = editExpense.Date.ToString("dd.MM.yyyy");
+            expenseEditModel.Date = editExpense.Date;
             expenseEditModel.Mileage = editExpense.Mileage;
             expenseEditModel.TypeId = editExpense.TypeId;
             expenseEditModel.Description = editExpense.Description;
@@ -79,7 +79,7 @@ namespace CarNotes.Classes
                 db.Expenses.Add(expenseEvent);
                 expenseEvent.VehicleId = vehicleId;
             }
-            expenseEvent.Date = DateTime.ParseExact(em.Date, "dd.MM.yyyy", null);
+            expenseEvent.Date = em.Date;
             expenseEvent.Mileage = em.Mileage;
             if ((em.Mileage != null && new CommonHelper().CheckMileage(em.Date, Convert.ToString(em.Mileage), vehicleId)) || em.Mileage == null)
             {

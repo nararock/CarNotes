@@ -13,35 +13,7 @@ namespace CarNotes.Classes
 {
     public class RefuelHelper
     {
-        //public List<RefuelModelOutput> GetList(int vehicleId)
-        //{
-        //    var db = new CnDbContext();
-        //    var vehicle = db.Vehicles.Include(v => v.RefuelEvents.Select(r => r.Station))
-        //        .FirstOrDefault(x => x.Id == vehicleId);
-        //    if (vehicle == null) return null;
-        //    var list = vehicle.RefuelEvents.Select(x => new { Id = x.ID, Date = x.Date, Mileage = x.Mileage, Fuel = x.Fuel.ToString(),
-        //        Station = (x.Station_ID == 1) ? x.CustomStation : x.Station.Name,
-        //        Volume = x.Volume, PricePerOneLiter = x.PricePerOneLiter, Cost = Math.Round(x.Volume * x.PricePerOneLiter),  FullTank = x.FullTank,
-        //        ForgotRecordPreviousGasStation = x.ForgotRecordPreviousGasStation, WrongMileage = x.WrongMileage }).OrderByDescending(x => x.Date).ThenByDescending(x => x.Mileage).ToList();
-        //    var refuelModelOutput = new List<RefuelModelOutput>();
-        //    refuelModelOutput.AddRange(list.Select(x => new RefuelModelOutput
-        //    {
-        //        Id = x.Id,
-        //        Date = x.Date,
-        //        Mileage = x.Mileage,
-        //        Fuel = x.Fuel,
-        //        Station = x.Station,
-        //        Volume = x.Volume,
-        //        PricePerOneLiter = x.PricePerOneLiter,
-        //        Cost = x.Cost,
-        //        FullTank = x.FullTank,
-        //        ForgotRecordPreviousGasStation = x.ForgotRecordPreviousGasStation,
-        //        WrongMileage = x.WrongMileage 
-        //    }));
-        //    return refuelModelOutput;
-        //}
-
-        public List<RefuelModelOutput> GetList(int vehicleId, int pageNumder, int pageSize)
+       public List<RefuelModelOutput> GetList(int vehicleId, int pageNumder, int pageSize)
         {
             var db = new CnDbContext();
             var vehicle = db.Vehicles.Find(vehicleId);
@@ -62,7 +34,7 @@ namespace CarNotes.Classes
         {
             var database = new CnDbContext();
             var refuelEvent = new RefuelEvent();
-            refuelEvent.Date = DateTime.ParseExact(rm.Date, "dd.MM.yyyy", null);
+            refuelEvent.Date = rm.Date;
             refuelEvent.Fuel = rm.Fuel;
             refuelEvent.FullTank = rm.FullTank;
             refuelEvent.Mileage = double.Parse(rm.Mileage);
@@ -109,7 +81,7 @@ namespace CarNotes.Classes
                 return new RefuelModel();
             }
             var editRefuelModel = new RefuelModel();
-            editRefuelModel.Date = editRefuel.Date.ToString("dd.MM.yyyy");
+            editRefuelModel.Date = editRefuel.Date;
             editRefuelModel.Fuel = editRefuel.Fuel;
             editRefuelModel.FullTank = editRefuel.FullTank;
             editRefuelModel.Mileage = editRefuel.Mileage.ToString();
@@ -137,7 +109,7 @@ namespace CarNotes.Classes
             {
                 return;
             }
-            refuelEvent.Date = DateTime.ParseExact(rm.Date, "dd.MM.yyyy", null);
+            refuelEvent.Date = rm.Date;
             refuelEvent.ForgotRecordPreviousGasStation = rm.ForgotRecordPreviousGasStation;
             refuelEvent.Fuel = rm.Fuel;
             refuelEvent.FullTank = rm.FullTank;

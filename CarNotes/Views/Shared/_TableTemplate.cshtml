@@ -24,76 +24,82 @@
 
 
 <!--блок нумерации страниц-->
-@if (Model.HasPreviousPage)
+@if (ViewBag.Name != "Гараж")
 {
-    <button class="ui @color basic button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @Model.PageNumber - 1)">
-        <i class="angle double left icon"></i>Назад
-    </button>
-}
-@if (Model.TotalPages > 1 && Model.TotalPages <= 10)
-{
-    for (var p = 1; p <= Model.TotalPages; p++)
-    {
-        if (p == Model.PageNumber)
+    <div>
+        @if (Model.HasPreviousPage)
         {
-            <button class="ui @color button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button>
+            <button class="ui @color basic button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @Model.PageNumber - 1)">
+                <i class="angle double left icon"></i>Назад
+            </button>
         }
-        else
-        { <button class="ui @color basic button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button>}
-    }
- }
-else if (Model.TotalPages > 10)
-{
-<button class="ui @color basic button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', 1)">Начало</button>
-if (Model.PageNumber - 3 <= 1)
-{
-    for (var p = 1; p <= Model.PageNumber + 3; p++)
-    {
-        if (p == Model.PageNumber)
+        @if (Model.TotalPages > 1 && Model.TotalPages <= 10)
         {
-            <button class="ui @color button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button>
+            for (var p = 1; p <= Model.TotalPages; p++)
+            {
+                if (p == Model.PageNumber)
+                {
+                    <button class="ui @color button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button>
+                }
+                else
+                { <button class="ui @color basic button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button>}
+            }
+         }
+        else if (Model.TotalPages > 10)
+        {
+            <button class="ui @color basic button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', 1)">Начало</button>
+            if (Model.PageNumber - 3 <= 1)
+            {
+                for (var p = 1; p <= Model.PageNumber + 3; p++)
+                {
+                    if (p == Model.PageNumber)
+                    {
+                        <button class="ui @color button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button>
+                    }
+                    else
+                    {<button class="ui @color basic button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button> }
+            }
+            <span> . . . </span>
         }
-        else
-        {<button class="ui @color basic button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button> }
-}
-<span> . . . </span>
-}
-else if (Model.PageNumber - 3 > 1 && Model.PageNumber <= Model.TotalPages - 4)
-{
-<span> . . . </span>
-for (var p = Model.PageNumber - 3; p <= Model.PageNumber + 3 && p <= Model.TotalPages; p++)
-{
+        else if (Model.PageNumber - 3 > 1 && Model.PageNumber <= Model.TotalPages - 4)
+        {
+            <span> . . . </span>
+            for (var p = Model.PageNumber - 3; p <= Model.PageNumber + 3 && p <= Model.TotalPages; p++)
+            {
 
-    if (p == Model.PageNumber)
-    {
-        <button class="ui @color button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button>
-    }
-    else
-    {<button class="ui @color basic button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button> }
-}
-<span> . . . </span>
-}
-else if (Model.PageNumber > Model.TotalPages - 4)
-{
-<span> . . . </span>
-for (var p = Model.PageNumber - 3; p <= Model.PageNumber + 3 && p <= Model.TotalPages; p++)
-{
-    if (p == Model.PageNumber)
-    {
-        <button class="ui @color button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button>
-    }
-    else
-    {<button class="ui @color basic button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button> }
+                if (p == Model.PageNumber)
+                {
+                    <button class="ui @color button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button>
+                }
+                else
+                {<button class="ui @color basic button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button> }
+            }
+        <span> . . . </span>
+         }
+        else if (Model.PageNumber > Model.TotalPages - 4)
+        {
+            <span> . . . </span>
+            for (var p = Model.PageNumber - 3; p <= Model.PageNumber + 3 && p <= Model.TotalPages; p++)
+            {
+                if (p == Model.PageNumber)
+                {
+                    <button class="ui @color button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button>
+                }
+                else
+                {<button class="ui @color basic button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button> }
 
-}
-}
-<button class="ui @color basic button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @Model.TotalPages)">Конец</button>
-}
-@if (Model.HasNextPage)
-{
-    <button class="ui @color basic button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @Model.PageNumber + 1)">
-        Вперед<i class="angle double right icon"></i>
-    </button>
+            }
+        }
+        <button class="ui @color basic button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @Model.TotalPages)">Конец</button>
+    }
+        @if (Model.HasNextPage)
+        {
+            <button class="ui @color basic button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @Model.PageNumber + 1)">
+                Вперед<i class="angle double right icon"></i>
+            </button>
+        }
+    </div>
+
 }
 
 <div class="ui mini modal" id="newRefuelWindow">@Html.Partial("CreateNewRefuelEvent", new CarNotes.Models.RefuelModel())</div>

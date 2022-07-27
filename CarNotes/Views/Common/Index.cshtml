@@ -76,7 +76,7 @@
     </table>
 </div>
 
-<div class=" ui grid  mobile-only" style="margin-bottom:-2rem">
+<div class=" ui grid  mobile-only" >
     <div class="column">
         @foreach (CommonModel item in Model.PageList)
         {
@@ -130,18 +130,6 @@
                     </div>
                 </div>
             </div>
-        }
-        @if (Model.HasPreviousPage)
-        {
-            <button class="ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="moveBackCommon(@ViewBag.VehicleId, @Model.PageNumber - 1)">
-                Назад
-            </button>
-        }
-        @if (Model.HasNextPage)
-        {
-            <button class="ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="moveOnCommon(@ViewBag.VehicleId, @Model.PageNumber + 1)">
-                Вперед
-            </button>
         }
     </div>
 </div>

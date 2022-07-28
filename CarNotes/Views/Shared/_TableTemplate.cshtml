@@ -29,7 +29,7 @@
 @if (ViewBag.Name != "Гараж")
 {
     <!--кнопка вперед-->
-<div style="margin-top:10px;">
+<div style="margin:10px 0 10px 0;">
     @if (Model.HasPreviousPage)
     {
         <button class="ui @color icon compact circular basic button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @Model.PageNumber - 1)">

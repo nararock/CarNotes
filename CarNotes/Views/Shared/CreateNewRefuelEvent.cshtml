@@ -18,6 +18,7 @@
                 <option value="3">"АИ95"</option>
                 <option value="4">"АИ95 Plus"</option>
                 <option value="5">"АИ98"</option>
+                <option value="6">"Газ"</option>
             </select>
         </div>
         <div class="field">АЗС: @Html.DropDownListFor(x => x.Station, new SelectList(gasStation, "Id", "Name"), new { @onchange = "changeSelectListCreate(event)", @class = "ui fluid dropdown" })</div>

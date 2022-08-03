@@ -34,11 +34,11 @@ namespace CarNotes.Classes
         {
             var database = new CnDbContext();
             var refuelEvent = new RefuelEvent();
-            refuelEvent.Date = rm.Date;
+            refuelEvent.Date = DateTime.Parse(rm.Date);
             refuelEvent.Fuel = rm.Fuel;
             refuelEvent.FullTank = rm.FullTank;
             refuelEvent.Mileage = double.Parse(rm.Mileage);
-            if (new CommonHelper().CheckMileage(rm.Date, rm.Mileage, vehicleId))
+            if (new CommonHelper().CheckMileage(DateTime.Parse(rm.Date), rm.Mileage, vehicleId))
             {
                 refuelEvent.WrongMileage = false;
             } else { refuelEvent.WrongMileage = true; }
@@ -81,7 +81,7 @@ namespace CarNotes.Classes
                 return new RefuelModel();
             }
             var editRefuelModel = new RefuelModel();
-            editRefuelModel.Date = editRefuel.Date;
+            editRefuelModel.Date = editRefuel.Date.ToString("dd.MM.yyyy");
             editRefuelModel.Fuel = editRefuel.Fuel;
             editRefuelModel.FullTank = editRefuel.FullTank;
             editRefuelModel.Mileage = editRefuel.Mileage.ToString();
@@ -109,13 +109,13 @@ namespace CarNotes.Classes
             {
                 return;
             }
-            refuelEvent.Date = rm.Date;
+            refuelEvent.Date = DateTime.Parse(rm.Date);
             refuelEvent.ForgotRecordPreviousGasStation = rm.ForgotRecordPreviousGasStation;
             refuelEvent.Fuel = rm.Fuel;
             refuelEvent.FullTank = rm.FullTank;
             refuelEvent.ID = rm.Id;
             refuelEvent.Mileage = double.Parse(rm.Mileage);
-            if (new CommonHelper().CheckMileage(rm.Date, rm.Mileage, rm.Id))
+            if (new CommonHelper().CheckMileage(DateTime.Parse(rm.Date), rm.Mileage, rm.Id))
             {
                 refuelEvent.WrongMileage = false;
             }

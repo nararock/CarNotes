@@ -12,37 +12,6 @@ namespace CarNotes.Classes
 {
     public class ExpenseHelper
     {
-        //public List<ExpenseModel> GetList(int vehicleId) 
-        //{
-        //    var db = new CnDbContext();
-        //    var vehicle = db.Vehicles.Include(v => v.Expenses.Select(r => r.Type)).FirstOrDefault(x => x.Id == vehicleId);
-        //    if (vehicle == null) return null;
-        //    var list = vehicle.Expenses.Select(x => new 
-        //    {
-        //        Id = x.Id,
-        //        Type = x.Type.Name,
-        //        Date = x.Date,
-        //        Mileage = x.Mileage,
-        //        Sum = x.Sum,
-        //        Description = x.Description,
-        //        Comment = x.Comment,
-        //        WrongMileage = x.WrongMileage
-        //    }).OrderByDescending(x=>x.Date).ThenByDescending(x=>x.Mileage).ToList();
-        //    var expenseModel = new List<ExpenseModel>();
-        //    expenseModel.AddRange(list.Select(x => new ExpenseModel
-        //    {
-        //        Id = x.Id,
-        //        Type = x.Type,
-        //        Date = x.Date.ToString("dd.MM.yyyy"),
-        //        Mileage = x.Mileage,
-        //        Sum = x.Sum,
-        //        Description = x.Description,
-        //        Comment = x.Comment,
-        //        WrongMileage = x.WrongMileage
-        //    }));
-        //    return expenseModel;
-        //}
-
         public List<ExpenseModel> GetList(int vehicleId, int pageNumder, int pageSize)
         {
             var db = new CnDbContext();
@@ -73,7 +42,7 @@ namespace CarNotes.Classes
                 .FirstOrDefault(x => x.Id == id);
             var expenseEditModel = new ExpenseEditModel();
             expenseEditModel.Id = editExpense.Id;
-            expenseEditModel.Date = editExpense.Date;
+            expenseEditModel.Date = editExpense.Date.ToString("dd.MM.yyyy");
             expenseEditModel.Mileage = editExpense.Mileage;
             expenseEditModel.TypeId = editExpense.TypeId;
             expenseEditModel.Description = editExpense.Description;
@@ -97,9 +66,9 @@ namespace CarNotes.Classes
                 db.Expenses.Add(expenseEvent);
                 expenseEvent.VehicleId = vehicleId;
             }
-            expenseEvent.Date = em.Date;
+            expenseEvent.Date = DateTime.Parse(em.Date);
             expenseEvent.Mileage = em.Mileage;
-            if ((em.Mileage != null && new CommonHelper().CheckMileage(em.Date, Convert.ToString(em.Mileage), vehicleId)) || em.Mileage == null)
+            if ((em.Mileage != null && new CommonHelper().CheckMileage(DateTime.Parse(em.Date), Convert.ToString(em.Mileage), vehicleId)) || em.Mileage == null)
             {
                 expenseEvent.WrongMileage = false;
             }

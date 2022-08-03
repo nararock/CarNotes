@@ -28,7 +28,6 @@ namespace CarNotes.Classes
             return repairModel;
         }
 
-
         public void Delete(int id, HttpContextBase hc)
         {
             var data = new CnDbContext();
@@ -40,7 +39,7 @@ namespace CarNotes.Classes
             }
         }
 
-        public RepairModel GetDataEdit(int id, int? vehicleId)
+        public RepairEditModel GetDataEdit(int id, int? vehicleId)
         {
             var db = new CnDbContext();
             var editRepair = db.RepairEvents
@@ -48,7 +47,7 @@ namespace CarNotes.Classes
                 .Include(x => x.Parts.Select(p => p.CarSubsystem))
                 .FirstOrDefault(y => y.Id == id);
             
-            var editRepairModel = new RepairModel();            
+            var editRepairModel = new RepairEditModel();            
             
             if (editRepair == null)
             {
@@ -59,7 +58,7 @@ namespace CarNotes.Classes
             editRepairModel.Mileage = editRepair.Mileage;
             editRepairModel.Repair = editRepair.Repair;
             editRepairModel.RepairCost = (int)editRepair.RepairCost;
-            editRepairModel.Date = editRepair.Date;
+            editRepairModel.Date = editRepair.Date.ToString("dd.MM.yyyy");
             editRepairModel.CarService = editRepair.CarService;
             editRepairModel.Comments = editRepair.Comments;
             editRepairModel.Parts = new List<CarPartModel>();

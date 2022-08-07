@@ -39,25 +39,7 @@ namespace CarNotes.Controllers
                 ViewBag.Name = "Заправки";
                 return View(pageModel);
             }
-            if (!HttpContext.User.Identity.IsAuthenticated)
-            {
-                return Redirect("~/Login/Index");
-            }
-            // Проверяем, что в куке было число
-            var vehicleIdCookie = HttpContext.Request.Cookies.Get("vehicleId")?.Value;
-            int vehicleIdNumber;
-            if (int.TryParse(vehicleIdCookie, out vehicleIdNumber))
-            {
-                if (!new CnDbContext().Vehicles.Any(v => v.Id == vehicleIdNumber))
-                {
-                    HttpContext.Response.Cookies.Remove("vehicleId");
-                }
-                else return Redirect("~/Refuel/Index?vehicleId=" + vehicleIdNumber);
-            }
-            var userId = new AuthHelper(HttpContext).AuthenticationManager.User.Identity.GetUserId();
-            vehicleId = new CnDbContext().Users.Find(userId).Vehicles.FirstOrDefault()?.Id;
-            if (vehicleId != null) return Redirect("~/Refuel/Index?vehicleId=" + vehicleId);
-            return Redirect("~/Vehicle/Index");
+            return Redirect("~/Home/Resolve?ReturnURL=/Refuel/Index");
         }
 
         [HttpPost]

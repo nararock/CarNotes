@@ -28,7 +28,7 @@ namespace CarNotes.Controllers
                         HttpContext.Response.Cookies.Set(new HttpCookie("vehicleId", vehicleId.ToString()));
                     }
                 }
-                int pageSize = 10;//количество выводимых событий на 1-ой странице 
+                int pageSize = 1;//количество выводимых событий на 1-ой странице 
                 var commonModelList = new CommonHelper().GetList((int)vehicleId, pageNumber, pageSize);
                 if (commonModelList == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
                 var database = new CnDbContext();
@@ -39,24 +39,7 @@ namespace CarNotes.Controllers
                 ViewBag.Name = "Общая таблица";
                 return View(pageModel);
             }
-            if (!HttpContext.User.Identity.IsAuthenticated)
-            {
-                return Redirect("~/Login/Index");
-            }
-            var vehicleIdCookie = HttpContext.Request.Cookies.Get("vehicleId")?.Value;
-            int vehicleIdNumber;
-            if (int.TryParse(vehicleIdCookie, out vehicleIdNumber))
-            {
-                if(!new CnDbContext().Vehicles.Any(v => v.Id == vehicleIdNumber))
-                {
-                    HttpContext.Response.Cookies.Remove("vehicleId"); 
-                }
-                else return Redirect("~/Common/Index?vehicleId=" + vehicleIdNumber);
-            }
-            var userId = new AuthHelper(HttpContext).AuthenticationManager.User.Identity.GetUserId();
-            vehicleId = new CnDbContext().Users.Find(userId).Vehicles.FirstOrDefault()?.Id;
-            if (vehicleId != null) return Redirect("~/Common/Index?vehicleId=" + vehicleId);
-            return Redirect("~/Vehicle/Index");
+            return Redirect("~/Home/Resolve?ReturnURL=/Common/Index");
         }
            
         public ActionResult DeleteEvent(string record, int id)

@@ -7,7 +7,7 @@ function ready() {
     updateVehicleSelector();
 
     $('.vehicleSelect').dropdown();
-    $('myPopupClass').popup({
+    $('.myPopupClass').popup({
     });
 
     $('#mobile-header .dropdown').dropdown({

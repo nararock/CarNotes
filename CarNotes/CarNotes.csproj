@@ -323,6 +323,7 @@
     <Content Include="Views\Shared\ExpenseEdit.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Vehicle\EmptyGarage.cshtml" />
+    <Content Include="Views\Shared\_MenuTemplate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

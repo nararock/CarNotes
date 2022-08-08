@@ -12,8 +12,6 @@
 
 
 <!--блок нумерации страниц-->
-@if (ViewBag.Name != "Гараж")
-{
     <!--кнопка вперед-->
     <div style="margin:10px 0 10px 0;">
         @if (Model.HasPreviousPage)
@@ -34,66 +32,66 @@
                     }
                     else
                     { <button class="ui @color compact tertiary button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button>}
-            }
-        }
-        else if (Model.TotalPages > 10)
-        {
-            <!--кнопка перехода на первую страницу-->
-            if (Model.PageNumber - 3 > 1)
-            {
-                <button class="ui @color basic compact tertiary button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', 1)">1</button>
-            }
-            <!--кнопки нумерации в начале перечисления-->
-            if (Model.PageNumber - 3 <= 1)
-            {
-                for (var p = 1; p <= Model.PageNumber + 3; p++)
-                {
-                    if (p == Model.PageNumber)
-                    {
-                        <button class="ui @color compact icon circular button" style="width:30.5px">@p</button>
-                    }
-                    else
-                    {<button class="ui @color compact basic tertiary button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button> }
-            }
-            <span> . . . </span>
-        }
-
-        else if (Model.PageNumber - 3 > 1 && Model.PageNumber <= Model.TotalPages - 4)
-        {
-            <span> . . . </span>
-            for (var p = Model.PageNumber - 3; p <= Model.PageNumber + 3 && p <= Model.TotalPages; p++)
-            {
-
-                if (p == Model.PageNumber)
-                {
-                    <button class="ui @color compact icon circular button" style="width:30.5px">@p</button>
                 }
-                else
-                {<button class="ui @color compact basic tertiary button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button> }
-        }
-        <span> . . . </span>
-    }
-    else if (Model.PageNumber > Model.TotalPages - 4)
-    {
-        <span> . . . </span>
-        for (var p = Model.PageNumber - 3; p <= Model.PageNumber + 3 && p <= Model.TotalPages; p++)
-        {
-            if (p == Model.PageNumber)
-            {
-                <button class="ui @color compact icon circular button" style="width:30.5px">@p</button>
             }
-            else
-            {<button class="ui @color compact basic tertiary button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button> }
+            else if (Model.TotalPages > 10)
+            {
+                <!--кнопка перехода на первую страницу-->
+                if (Model.PageNumber - 3 > 1)
+                {
+                    <button class="ui @color basic compact tertiary button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', 1)">1</button>
+                }
+                <!--кнопки нумерации в начале перечисления-->
+                if (Model.PageNumber - 3 <= 1)
+                {
+                    for (var p = 1; p <= Model.PageNumber + 3; p++)
+                    {
+                        if (p == Model.PageNumber)
+                        {
+                            <button class="ui @color compact icon circular button" style="width:30.5px">@p</button>
+                        }
+                        else
+                        {<button class="ui @color compact basic tertiary button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button> }
+                    }
+                <span> . . . </span>
+                }
 
-    }
-}
-<!--кнопка перехода на последнюю страницу-->
-if (Model.PageNumber + 3 < @Model.TotalPages)
-{
-    <button class="ui @color compact tertiary basic button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @Model.TotalPages)">@Model.TotalPages</button>
-}
+                else if (Model.PageNumber - 3 > 1 && Model.PageNumber <= Model.TotalPages - 4)
+                {
+                    <span> . . . </span>
+                    for (var p = Model.PageNumber - 3; p <= Model.PageNumber + 3 && p <= Model.TotalPages; p++)
+                    {
 
-}
+                        if (p == Model.PageNumber)
+                        {
+                            <button class="ui @color compact icon circular button" style="width:30.5px">@p</button>
+                        }
+                        else
+                        {<button class="ui @color compact basic tertiary button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button> }
+                    }
+                    <span> . . . </span>
+                }
+                else if (Model.PageNumber > Model.TotalPages - 4)
+                {
+                    <span> . . . </span>
+                    for (var p = Model.PageNumber - 3; p <= Model.PageNumber + 3 && p <= Model.TotalPages; p++)
+                    {
+                        if (p == Model.PageNumber)
+                        {
+                            <button class="ui @color compact icon circular button" style="width:30.5px">@p</button>
+                        }
+                        else
+                        {<button class="ui @color compact basic tertiary button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button> }
+
+                    }
+                }
+                <!--кнопка перехода на последнюю страницу-->
+                if (Model.PageNumber + 3 < @Model.TotalPages)
+                {
+                    <button class="ui @color compact tertiary basic button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @Model.TotalPages)">@Model.TotalPages</button>
+                }
+
+            }
         </div>
 
         <div class="mobile-only" style="display:inline">
@@ -107,64 +105,63 @@ if (Model.PageNumber + 3 < @Model.TotalPages)
                     }
                     else
                     { <button class="ui @color compact tertiary button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button>}
-            }
-        }
-        else if (Model.TotalPages > 5)
-        {
-            <!--кнопка перехода на первую страницу-->
-            if (Model.PageNumber - 1 > 1)
-            {
-                <button class="ui @color basic compact tertiary button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', 1)">1</button>
-            }
-            <!--кнопки нумерации в начале перечисления-->
-            if (Model.PageNumber - 1 <= 1)
-            {
-                for (var p = 1; p <= Model.PageNumber + 1; p++)
-                {
-                    if (p == Model.PageNumber)
-                    {
-                        <button class="ui @color compact icon circular button" style="width:30.5px">@p</button>
-                    }
-                    else
-                    {<button class="ui @color compact basic tertiary button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button> }
-            }
-            <span> . . . </span>
-        }
-        else if (Model.PageNumber - 1 > 1 && Model.PageNumber <= Model.TotalPages - 2)
-        {
-            <span> . . . </span>
-            for (var p = Model.PageNumber - 1; p <= Model.PageNumber + 1 && p <= Model.TotalPages; p++)
-            {
-
-                if (p == Model.PageNumber)
-                {
-                    <button class="ui @color compact icon circular button" style="width:30.5px">@p</button>
                 }
-                else
-                {<button class="ui @color compact basic tertiary button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button> }
-        }
-        <span> . . . </span>
-    }
-    else if (Model.PageNumber > Model.TotalPages - 2)
-    {
-        <span> . . . </span>
-        for (var p = Model.PageNumber - 1; p <= Model.PageNumber + 1 && p <= Model.TotalPages; p++)
-        {
-            if (p == Model.PageNumber)
-            {
-                <button class="ui @color compact icon circular button" style="width:30.5px">@p</button>
             }
-            else
-            {<button class="ui @color compact basic tertiary button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button> }
+            else if (Model.TotalPages > 5)
+            {
+                <!--кнопка перехода на первую страницу-->
+                if (Model.PageNumber - 1 > 1)
+                {
+                    <button class="ui @color basic compact tertiary button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', 1)">1</button>
+                }
+                <!--кнопки нумерации в начале перечисления-->
+                if (Model.PageNumber - 1 <= 1)
+                {
+                    for (var p = 1; p <= Model.PageNumber + 1; p++)
+                    {
+                        if (p == Model.PageNumber)
+                        {
+                            <button class="ui @color compact icon circular button" style="width:30.5px">@p</button>
+                        }
+                        else
+                        {<button class="ui @color compact basic tertiary button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button> }
+                    }
+                    <span> . . . </span>
+                }
+                else if (Model.PageNumber - 1 > 1 && Model.PageNumber <= Model.TotalPages - 2)
+                {
+                    <span> . . . </span>
+                    for (var p = Model.PageNumber - 1; p <= Model.PageNumber + 1 && p <= Model.TotalPages; p++)
+                    {
+                        if (p == Model.PageNumber)
+                        {
+                            <button class="ui @color compact icon circular button" style="width:30.5px">@p</button>
+                        }
+                        else
+                        {<button class="ui @color compact basic tertiary button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button> }
+                    }
+                    <span> . . . </span>
+                }
+                else if (Model.PageNumber > Model.TotalPages - 2)
+                {
+                    <span> . . . </span>
+                    for (var p = Model.PageNumber - 1; p <= Model.PageNumber + 1 && p <= Model.TotalPages; p++)
+                    {
+                        if (p == Model.PageNumber)
+                        {
+                            <button class="ui @color compact icon circular button" style="width:30.5px">@p</button>
+                        }
+                        else
+                        {<button class="ui @color compact basic tertiary button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @p)">@p</button> }
 
-    }
-}
-<!--кнопка перехода на последнюю страницу-->
-if (Model.PageNumber + 1 < @Model.TotalPages)
-{
-    <button class="ui @color compact tertiary basic button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @Model.TotalPages)">@Model.TotalPages</button>
-}
-}
+                    }
+                }
+                <!--кнопка перехода на последнюю страницу-->
+                if (Model.PageNumber + 1 < @Model.TotalPages)
+                {
+                    <button class="ui @color compact tertiary basic button" onclick="toNextPage(@ViewBag.VehicleId, '@ViewBag.Name', @Model.TotalPages)">@Model.TotalPages</button>
+                }
+                }
         </div>
 
         <!--кнопка назад-->
@@ -175,8 +172,6 @@ if (Model.PageNumber + 1 < @Model.TotalPages)
             </button>
         }
     </div>
-
-}
 
 <!--модальные окна, создание и редактирование событий-->
 <div class="ui mini modal" id="newRefuelWindow">@Html.Partial("CreateNewRefuelEvent", new CarNotes.Models.RefuelModel())</div>

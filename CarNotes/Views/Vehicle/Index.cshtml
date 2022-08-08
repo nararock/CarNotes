@@ -1,8 +1,9 @@
 ﻿@using CarNotes.Classes
 @model List<CarNotes.Models.VehicleModel>
 @{
-    Layout = "../Shared/_TableTemplate.cshtml";
+    Layout = "../Shared/_BasicTemplateNew.cshtml";
 }
+@Html.Partial("_MenuTemplate");
 <div class="ui mini modal" id="AddVehicle">@Html.Partial("Add", new CarNotes.CnDb.Vehicle())</div>
 <div>
 

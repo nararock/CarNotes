@@ -31,7 +31,7 @@
             @foreach (RepairModel b in Model.PageList)
             {
                 <tr>
-                    <td>@b.Date</td>
+                    <td>@b.Date.ToString("dd.MM.yyyy")</td>
                     @if (b.WrongMileage)
                     {
                         <td>@b.Mileage&nbsp;<span data-tooltip="Неправильный пробег"><i class="exclamation orange triangle icon"></i></span></td>
@@ -83,7 +83,7 @@
                         </button>
                     }
                     <div class="meta">
-                        @b.Date
+                        @b.Date.ToString("dd.MM.yyyy")
                     </div>
                     @if (b.WrongMileage)
                     {

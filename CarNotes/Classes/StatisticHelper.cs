@@ -13,7 +13,10 @@ namespace CarNotes.Classes
         {
             var db = new CnDbContext();
             var result = new List<PieChartModel>();
-            var costRefuel = db.RefuelEvents.Where(e => e.VehicleId == vehicleId).Sum(e=>e.Volume * e.PricePerOneLiter);
+            var costRefuel = db.RefuelEvents.Where(e => e.VehicleId == vehicleId)
+                .Select(e => new {e.Volume, e.PricePerOneLiter})
+                .ToList()
+                .Sum(e=>e.Volume * e.PricePerOneLiter);
             if (costRefuel != 0)
             {
                 var refuel = new PieChartModel();

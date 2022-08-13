@@ -31,7 +31,7 @@ namespace CarNotes.Controllers
                     HttpContext.Response.Cookies.Set(new HttpCookie("vehicleId", vehicleId.ToString()));
                 }
             }
-            int pageSize = 1;//количество выводимых событий на 1-ой странице 
+            int pageSize = 10;//количество выводимых событий на 1-ой странице 
             var commonModelList = new CommonHelper().GetList((int)vehicleId, pageNumber, pageSize);
             if (commonModelList == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
             var database = new CnDbContext();

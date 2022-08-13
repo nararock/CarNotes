@@ -1,0 +1,16 @@
+﻿
+@{
+    Layout = "../Shared/_BasicTemplateNew.cshtml";
+}
+@section scripts {
+    <script>
+        var vehicleId = @ViewBag.VehicleId;
+    </script>
+    <script src="@Url.Content("~/Content/chart.min.js")"></script>
+    <script src="@Url.Content("~/Content/Statistic.js")"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+}
+<div class="ui stackable container" id="ChartWrapper" style="width:400px; height:400px">
+    <canvas id="Chart">
+    </canvas>
+</div>

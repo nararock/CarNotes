@@ -17,7 +17,12 @@ namespace CarNotes.Controllers
             ViewBag.IsAuthenticated = HttpContext.User.Identity.IsAuthenticated;
             return View();
         }
-
+        /// <summary>
+        /// Функция вызывается в методах Index контроллеров при условии vehicleId==null, проверяет зарегистрирован ли
+        /// пользователь, есть ли у него автомобили и в зависимости от результата функция перенаправляет на нужную страницу.
+        /// </summary>
+        /// <param name="ReturnURL"></param>
+        /// <returns></returns>
         public ActionResult Resolve(string ReturnURL)
         {
             if (!HttpContext.User.Identity.IsAuthenticated)

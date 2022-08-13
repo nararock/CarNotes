@@ -134,12 +134,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\chart.min.js" />
     <Content Include="Content\cookie.min.js" />
     <Content Include="Content\logo_big.png" />
     <Content Include="Content\logo_small.png" />
     <Content Include="Content\Main.js" />
     <Content Include="Content\pexels-yaroslav-shuraev-1834403.jpg" />
     <Content Include="Content\pexels-yaroslav-shuraev-1834403_1920.jpg" />
+    <Content Include="Content\Statistic.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Styles\semantic.min.css" />
@@ -167,6 +169,7 @@
     <Compile Include="Classes\RefuelHelper.cs" />
     <Compile Include="Classes\RegistrationHelper.cs" />
     <Compile Include="Classes\RepairHelper.cs" />
+    <Compile Include="Classes\StatisticHelper.cs" />
     <Compile Include="Classes\VehicleHelper.cs" />
     <Compile Include="CnDb\CarPart.cs" />
     <Compile Include="CnDb\CarSubsystem.cs" />
@@ -186,6 +189,7 @@
     <Compile Include="Controllers\RefuelController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Controllers\RepairController.cs" />
+    <Compile Include="Controllers\StatisticController.cs" />
     <Compile Include="Controllers\VehicleController.cs" />
     <Compile Include="Enums\FuelType.cs" />
     <Compile Include="Enums\RecordType.cs" />
@@ -278,6 +282,7 @@
     <Compile Include="Models\PageExpenseTable.cs" />
     <Compile Include="Models\PageRefuelTable.cs" />
     <Compile Include="Models\PageRepairTable.cs" />
+    <Compile Include="Models\PieChartModel.cs" />
     <Compile Include="Models\RefuelEventCreateModel.cs" />
     <Compile Include="Models\RefuelModel.cs" />
     <Compile Include="Models\RefuelModelOutput.cs" />
@@ -323,6 +328,7 @@
     <Content Include="Views\Shared\ExpenseEdit.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Vehicle\EmptyGarage.cshtml" />
+    <Content Include="Views\Statistic\Index.cshtml" />
     <Content Include="Views\Shared\_MenuTemplate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

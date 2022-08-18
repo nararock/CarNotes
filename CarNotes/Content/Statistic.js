@@ -1,9 +1,22 @@
 ﻿//при открытии страницы Статистика выполняется:
-document.addEventListener("DOMContentLoaded", getStatisticData);
+document.addEventListener("DOMContentLoaded", goToCommonStatistic);
 
-function getStatisticData()
+/**
+ * переменная для хранения объекта для построения графика*/
+var myChart;
+/**
+ * Метод для получения данных о расходах (заправки, ремонты, иные расходы) для построения круговой диаграммы "Общая статистика".
+ * Вызывается при загрузке страницы "Статистика".*/
+function goToCommonStatistic()
 {
-    fetch("/Statistic/GetAllExpenseData?vehicleId=" + vehicleId)
+    var elementReference = document.getElementsByClassName("CommonStatistic");
+    var anotherElementReference = document.getElementsByClassName("FuelFlowStatistic");
+    if (!elementReference[0].classList.contains("active")) {
+        elementReference[0].classList.add("active");
+        anotherElementReference[0].classList.remove("active");
+    }
+
+    fetch("/Statistic/GetDataForCommonStatistic?vehicleId=" + vehicleId)
         .then(response => response.json())
             .then((allExpenseData) => {
                 const labels = [];
@@ -27,13 +40,6 @@ function getStatisticData()
                     data: data,
                     options: {
                         plugins: {
-                            title: {
-                                display: true,
-                                text: 'Общая информация',
-                                font: {
-                                    size: 16
-                                }
-                            },
                             legend: {
                                 labels: {
                                     font: {
@@ -44,10 +50,24 @@ function getStatisticData()
                         }
                     }
                 };
-                const myChart = new Chart(
-                    document.getElementById('Chart'),
+                var parentCanvas = document.getElementById('ChartWrapper');
+                parentCanvas.classList.add('pieChart');//присваиваем класс для контроля размером в css стилях
+                if (parentCanvas.classList.contains('barChart')) {
+                    parentCanvas.classList.remove('barChart')
+                }
+                var canvas = document.getElementById('Chart');
+                if (typeof myChart != 'undefined') {//при каждом переходе к новому графику нужно удалять данные переменной chart и чистить canvas
+                    const context = canvas.getContext('2d');
+                    context.clearRect(0, 0, canvas.width, canvas.height);
+                    var w = canvas.width;
+                    canvas.width = 1;
+                    canvas.width = w;
+                    myChart.destroy();
+                }
+                 myChart = new Chart(
+                    canvas,
                     config
                 );
             })
-
 }
+

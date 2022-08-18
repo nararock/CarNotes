@@ -9,7 +9,12 @@ namespace CarNotes.Classes
 {
     public class StatisticHelper
     {
-        public List<PieChartModel> GetDataForPieAllExpense(int vehicleId)
+        /// <summary>
+        /// Метод для получения данных для построения круговой диаграммы с общими расходами.
+        /// </summary>
+        /// <param name="vehicleId"></param> Id автомобиля
+        /// <returns></returns>
+        public List<PieChartModel> GetDataForCommonStatistic(int vehicleId)
         {
             var db = new CnDbContext();
             var result = new List<PieChartModel>();

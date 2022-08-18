@@ -83,8 +83,68 @@
     margin-bottom: 3px !important;
 }
 
-/* Стили для мобильных телефонов */
-@media screen and (max-width: 767.98px) {
+@media screen and (min-width: 320px) and (max-width: 419px) {
+    .large-monitor-only, .small-monitor-only, .tablet-only {
+        display: none !important;
+    }
+
+    .pieChart {
+        width: 300px !important;
+        height: 300px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .barChart {
+        width: 300px !important;
+        height: 200px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+
+@media screen and (min-width: 420px) and (max-width: 549px) {
+    .large-monitor-only, .small-monitor-only, .tablet-only {
+        display: none !important;
+    }
+
+    .pieChart {
+        width: 350px !important;
+        height: 350px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .barChart {
+        width: 400px !important;
+        height: 300px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+
+@media screen and (min-width: 550px) and (max-width: 649px) {
+    .large-monitor-only, .small-monitor-only, .tablet-only {
+        display: none !important;
+    }
+
+    .pieChart {
+        width: 400px !important;
+        height: 400px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .barChart {
+        width: 500px !important;
+        height: 400px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+
+    /* Стили для мобильных телефонов */
+@media screen and (min-width: 650px) and (max-width: 767.98px) {
     .large-monitor-only, .small-monitor-only, .tablet-only {
         display: none !important;
     }
@@ -120,204 +180,256 @@
         .headerText h1 {
             font-size: 20px;
         }
+
         .headerText h3 {
             font-size: 15px;
         }
 
+    .pieChart {
+        width: 400px !important;
+        height: 400px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .barChart {
+        width: 600px !important;
+        height: 400px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
 }
-/* Стили для планшетов */
-@media only screen and (min-width: 768px) and (max-width: 991.98px) {
-    .large-monitor-only,
-    .small-monitor-only,
-    .mobile-only {
-        display: none !important;
-    }
+    /* Стили для планшетов */
+    @media only screen and (min-width: 768px) and (max-width: 991.98px) {
+        .large-monitor-only,
+        .small-monitor-only,
+        .mobile-only {
+            display: none !important;
+        }
 
-    #logo > img {
-        width: 53px;
-        height: 61px;
-    }
+        #logo > img {
+            width: 53px;
+            height: 61px;
+        }
 
-    #logo-text {
-        margin-left: 6px;
-        font-size: 14px;
-        padding-bottom: 5px;
-    }
+        #logo-text {
+            margin-left: 6px;
+            font-size: 14px;
+            padding-bottom: 5px;
+        }
 
-    .userInfo {
-        flex-direction: column;
-        width: 180px;
-        height: 100px;
-        padding-right: 0;
-        font-size: 13px;
-    }
+        .userInfo {
+            flex-direction: column;
+            width: 180px;
+            height: 100px;
+            padding-right: 0;
+            font-size: 13px;
+        }
 
-    .userName {
-        margin-top: 1em !important;
-    }
+        .userName {
+            margin-top: 1em !important;
+        }
 
-    .imageHome {
-        height: 350px;
-    }
+        .imageHome {
+            height: 350px;
+        }
 
-    .headerText {
-        margin-top: 10px;
-    }
+        .headerText {
+            margin-top: 10px;
+        }
 
-    .headerText h1{
-        font-size: 20px;
-    }
-    .headerText h3 {
+            .headerText h1 {
+                font-size: 20px;
+            }
+
+            .headerText h3 {
+                font-size: 15px;
+            }
+
+        .userName.home {
             font-size: 15px;
+        }
+
+        .pieChart {
+            width: 400px !important;
+            height: 400px;
+        }
+
+        .barChart {
+            width: 600px !important;
+            height: 400px;
+        }
     }
-    .userName.home {
-        font-size: 15px;
+    /* Стили для небольших экранов */
+    @media only screen and (min-width: 992px) and (max-width: 1199.98px) {
+        .large-monitor-only,
+        .tablet-only,
+        .mobile-only {
+            display: none !important;
+        }
+
+        .imageHome {
+            height: 450px;
+        }
+
+        .headerText {
+            margin-top: 100px;
+        }
+
+        .userName.home {
+            font-size: medium;
+        }
+
+        .pieChart {
+            width: 400px !important;
+            height: 400px;
+        }
+
+        .barChart {
+            width: 600px !important;
+            height: 400px;
+        }
     }
-}
-/* Стили для небольших экранов */
-@media only screen and (min-width: 992px) and (max-width: 1199.98px) {
-    .large-monitor-only,
-    .tablet-only,
-    .mobile-only {
-        display: none !important;
+    /* Стили для больших экранов */
+    @media only screen and (min-width: 1200px) {
+        .small-monitor-only,
+        .tablet-only,
+        .mobile-only {
+            display: none !important;
+        }
+
+        .imageHome {
+            height: 650px;
+        }
+
+        .headerText {
+            margin-top: 200px;
+        }
+
+            .headerText h1 {
+                font-size: 40px;
+            }
+
+            .headerText h3 {
+                font-size: 22px;
+            }
+
+        .userName.home {
+            font-size: larger;
+        }
+
+        .pieChart {
+            width: 400px !important;
+            height: 400px;
+        }
+
+        .barChart {
+            width: 600px !important;
+            height: 400px;
+        }
     }
+    /*стили для модульных окон, которые нельзя редактировать(для неавторизованных пользователей)*/
+    .justText input[disabled=disabled] {
+        color: black !important;
+        border: none !important;
+        opacity: 1 !important;
+    }
+
+    .justText select[disabled=disabled] {
+        border: none !important;
+        opacity: 1 !important;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+    .cn.card {
+        margin: auto;
+    }
+
+    /*заглавная страница Home*/
+    .personal {
+        cursor: pointer;
+    }
+
     .imageHome {
-        height: 450px;
+        background: url('../Content/pexels-yaroslav-shuraev-1834403_1920.jpg');
+        background-attachment: fixed;
+        background-position: center;
+        background-size: cover;
+        position: relative;
+        z-index: 2;
     }
 
     .headerText {
-        margin-top: 100px;
+        color: white;
+        position: relative;
+        z-index: 3;
+        bottom: auto;
+        text-align: center;
     }
+
+    .filler {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: black;
+        opacity: 0.7;
+        z-index: 1;
+    }
+
+    .cn.header.home {
+        color: white;
+    }
+
+    .userInfo.home {
+        flex-direction: row-reverse;
+        align-items: center;
+        margin-top: 0;
+    }
+
     .userName.home {
-        font-size:medium;
-    }
-}
-/* Стили для больших экранов */
-@media only screen and (min-width: 1200px) {
-    .small-monitor-only,
-    .tablet-only,
-    .mobile-only {
-        display: none !important;
-    }
-    .imageHome {
-        height: 650px;
+        margin-top: 0 !important;
     }
 
-    .headerText {
-        margin-top: 200px;
+    .footer {
+        text-align: center;
     }
-    .headerText h1{
-        font-size: 40px;
+
+    .full.height {
+        flex: 1 0 auto;
     }
-    .headerText h3{
-        font-size: 22px;
+
+    body {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
     }
-    .userName.home {
-        font-size:larger;
+
+    .login.button {
+        margin-top: 50px;
     }
-}
-/*стили для модульных окон, которые нельзя редактировать(для неавторизованных пользователей)*/
-.justText input[disabled=disabled] {
-    color: black !important;
-    border: none !important;
-    opacity: 1 !important;
-}
 
-.justText select[disabled=disabled] {
-    border: none !important;
-    opacity: 1 !important;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
+    .home.down.container {
+        padding-top: 20px;
+    }
 
-.cn.card{
-    margin:auto;
-}
+    /*стили для всех input у которых type=number, чтобы не было стрелочек при вводе числа*/
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none !important;
+    }
 
-/*заглавная страница Home*/
-.personal{
-    cursor: pointer;
-}
+    input[type='number'],
+    input[type="number"]:hover,
+    input[type="number"]:focus {
+        appearance: none;
+        -moz-appearance: textfield !important;
+    }
 
-.imageHome {
-    background: url('../Content/pexels-yaroslav-shuraev-1834403_1920.jpg');
-    background-attachment: fixed;
-    background-position: center;
-    background-size: cover;
-    position: relative;
-    z-index: 2;
-}
-
-.headerText{
-    color: white;
-    position:relative;
-    z-index:3;
-    bottom: auto;
-    text-align:center;
-}
-
-.filler{
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    background-color:black;
-    opacity:0.7;
-    z-index:1;
-}
-
-.cn.header.home{
-    color:white;
-}
-
-.userInfo.home{
-    flex-direction:row-reverse;
-    align-items:center;
-    margin-top:0;
-}
-
-.userName.home {
-    margin-top: 0 !important;
-}
-
-.footer {
-    text-align: center;
-}
-
-.full.height {
-    flex: 1 0 auto;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.login.button{
-    margin-top:50px;
-}
-
-.home.down.container {
-    padding-top:20px;
-}
-
-/*стили для всех input у которых type=number, чтобы не было стрелочек при вводе числа*/
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none !important;
-}
-
-input[type='number'],
-input[type="number"]:hover,
-input[type="number"]:focus {
-    appearance: none;
-    -moz-appearance: textfield !important;
-}
-
-/*реформал окно, чтоб было ниже модальных окон*/
-#reformal_tab{
-    z-index:100 !important;
-}
+    /*реформал окно, чтоб было ниже модальных окон*/
+    #reformal_tab {
+        z-index: 100 !important;
+    }

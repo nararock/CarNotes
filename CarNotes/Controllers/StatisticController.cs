@@ -29,11 +29,25 @@ namespace CarNotes.Controllers
         /// </summary>
         /// <param name="vehicleId"></param>
         /// <returns></returns>
-        public ActionResult GetAllExpenseData(int vehicleId)
+        public ActionResult GetDataForCommonStatistic(int vehicleId)
         {
-            var dataAllExpense = new StatisticHelper().GetDataForPieAllExpense(vehicleId);
+            var dataCommonStatistic = new StatisticHelper().GetDataForCommonStatistic(vehicleId);
             var result = new JsonResult();
-            result.Data = dataAllExpense;
+            result.Data = dataCommonStatistic;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
+
+        /// <summary>
+        /// получение данных для построения графика (bar chart) расхода топлива 
+        /// </summary>
+        /// <param name="vehicleId"></param>
+        /// <returns></returns>
+        public ActionResult GetDataForFuelFlowStatistic(int vehicleId)
+        {
+            var dataFuelFlowStatistic = new StatisticHelper().GetDataForFuelFlowStatistic(vehicleId);
+            var result = new JsonResult();
+            result.Data = dataFuelFlowStatistic;
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }

@@ -266,6 +266,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ActiveUsersModel.cs" />
+    <Compile Include="Models\BarChartModel.cs" />
     <Compile Include="Models\CarPartModel.cs" />
     <Compile Include="Models\CarSubsystemModel.cs" />
     <Compile Include="Models\CarSystemModel.cs" />

@@ -47,5 +47,31 @@ namespace CarNotes.Classes
             }
             return result;
         }
+
+        public List<BarChartModel> GetDataForFuelFlowStatistic(int vehicleId)
+        {
+            var db = new CnDbContext();
+            var refuelCostFromDb = db.RefuelEvents.Where(e => e.VehicleId == vehicleId)
+                .Select(e => new { e.Date, e.PricePerOneLiter, e.Volume })
+                .ToList();
+            var refuelCostDictionary = new Dictionary<DateTime, int>();
+            foreach(var e in refuelCostFromDb)
+            {
+                var dateRefuel = new DateTime(e.Date.Year, e.Date.Month, 1);
+                if (!refuelCostDictionary.ContainsKey(dateRefuel))
+                {
+                    refuelCostDictionary.Add(dateRefuel, (int)(e.PricePerOneLiter * e.Volume));
+                }
+                else
+                {
+                    refuelCostDictionary[dateRefuel] = refuelCostDictionary[dateRefuel] + (int)(e.PricePerOneLiter * (e.Volume));
+                }
+            }
+            var result = refuelCostDictionary
+                .Select(e=>new BarChartModel{ Date = e.Key.ToString("MM.yyyy"), Cost = e.Value } )
+                .OrderBy(e=>e.Date) 
+                .ToList();
+            return result;
+        }
     }
 }

@@ -71,3 +71,67 @@ function goToCommonStatistic()
             })
 }
 
+function goToFuelFlowStatistic()
+{
+    var elementReference = document.getElementsByClassName("FuelFlowStatistic");
+    var anotherElementReference = document.getElementsByClassName("CommonStatistic");
+    if (!elementReference[0].classList.contains("active")) {
+        elementReference[0].classList.add("active");
+        anotherElementReference[0].classList.remove("active");
+    }
+
+    fetch("/Statistic/GetDataForFuelFlowStatistic?vehicleId=" + vehicleId)
+        .then(response => response.json())
+        .then((dataFuelFlowStatistic) => {
+            const labels = [];
+            const dataBar = [];
+            for (var i = 0; i < dataFuelFlowStatistic.length; i++) {
+                labels.push(dataFuelFlowStatistic[i].Date);
+                dataBar.push(dataFuelFlowStatistic[i].Cost);
+            }
+            const data = {
+                labels: labels,
+                datasets: [{
+                    barThickness: 25,
+                    data: dataBar,
+                    backgroundColor: "#a333c8"
+                }]
+            };
+
+            const config = {
+                type: 'bar',
+                data: data,
+                options: {
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    indexAxis: 'x',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                },
+            };
+            var parentCanvas = document.getElementById('ChartWrapper');
+            parentCanvas.classList.add('barChart');
+            if (parentCanvas.classList.contains('pieChart')) {
+                parentCanvas.classList.remove('pieChart')
+            }
+            var canvas = document.getElementById('Chart');
+            const context = canvas.getContext('2d');
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            var w = canvas.width;
+            canvas.width = 1;
+            canvas.width = w;
+            myChart.destroy();
+            myChart = new Chart(
+                canvas,
+                config
+            );
+        })
+}

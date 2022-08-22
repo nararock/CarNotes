@@ -1,0 +1,115 @@
+﻿@media screen and (min-width: 320px) and (max-width: 419px) {
+    .large-monitor-only, .small-monitor-only, .tablet-only {
+        display: none !important;
+    }
+
+    .pieChart {
+        width: 300px !important;
+        height: 300px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .barChart {
+        width: 300px !important;
+        height: 200px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+
+/*мобильный экран*/
+@media screen and (min-width: 420px) and (max-width: 549px) {
+    .large-monitor-only, .small-monitor-only, .tablet-only {
+        display: none !important;
+    }
+
+    .pieChart {
+        width: 350px !important;
+        height: 350px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .barChart {
+        width: 400px !important;
+        height: 300px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+
+@media screen and (min-width: 550px) and (max-width: 649px) {
+    .large-monitor-only, .small-monitor-only, .tablet-only {
+        display: none !important;
+    }
+
+    .pieChart {
+        width: 400px !important;
+        height: 400px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .barChart {
+        width: 500px !important;
+        height: 400px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+
+@media screen /*and (min-width: 650px)*/ and (max-width: 767.98px) {
+    .pieChart {
+        width: 400px !important;
+        height: 400px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .barChart {
+        width: 600px !important;
+        height: 400px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+
+/* Стили для планшетов */
+@media only screen and (min-width: 768px) and (max-width: 991.98px) {
+    .pieChart {
+        width: 400px !important;
+        height: 400px;
+    }
+
+    .barChart {
+        width: 600px !important;
+        height: 400px;
+    }
+}
+
+/* Стили для небольших экранов */
+@media only screen and (min-width: 992px) and (max-width: 1199.98px) {
+    .pieChart {
+        width: 400px !important;
+        height: 400px;
+    }
+
+    .barChart {
+        width: 600px !important;
+        height: 400px;
+    }
+}
+
+/* Стили для больших экранов */
+@media only screen and (min-width: 1200px) {
+    .pieChart {
+        width: 400px !important;
+        height: 400px;
+    }
+
+    .barChart {
+        width: 600px !important;
+        height: 400px;
+    }
+}

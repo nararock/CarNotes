@@ -148,6 +148,7 @@
     <Content Include="Scripts\semantic.min.js" />
     <Content Include="Styles\Main.css" />
     <Content Include="Styles\Reset.css" />
+    <Content Include="Styles\Statistic.css" />
     <Content Include="Styles\themes\default\assets\fonts\brand-icons.svg" />
     <Content Include="Styles\themes\default\assets\fonts\icons.svg" />
     <Content Include="Styles\themes\default\assets\fonts\outline-icons.svg" />

@@ -1,6 +1,7 @@
 ﻿@model CarNotes.Models.PageRefuelTable
 @using CarNotes.Models;
 @using CarNotes.Classes;
+@using CarNotes.Enums;
 @{
     Layout = "../Shared/_TableTemplate.cshtml";
     var userHelper = new AuthHelper(Context);
@@ -43,7 +44,7 @@
                     {
                         <td>@b.Mileage</td>
                     }
-                    <td>@b.Fuel</td>
+                    <td>@((FuelType)b.Fuel)</td>
                     <td>@b.Station</td>
                     <td>@b.Volume</td>
                     <td>@b.PricePerOneLiter</td>
@@ -114,7 +115,7 @@
                         </div>
                     }
                     <div class="description">
-                        @b.Volume литров @b.Fuel
+                        @b.Volume литров @((FuelType)b.Fuel)
                         @if (b.FullTank != false)
                         {
                             <div class="ui circular green basic icon label myPopupClass" data-content="Полный бак">

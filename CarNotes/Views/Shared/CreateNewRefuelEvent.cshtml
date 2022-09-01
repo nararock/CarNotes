@@ -13,12 +13,12 @@
         <div class="field">Пробег: @Html.TextBoxFor(x => x.Mileage, new { @type = "number" })</div>
         <div class="field">
             Тип топлива:<select name="Fuel" class="ui fluid dropdown">
-                <option value="1">"АИ80"</option>
-                <option value="2">"АИ92"</option>
-                <option value="3">"АИ95"</option>
-                <option value="4">"АИ95 Plus"</option>
-                <option value="5">"АИ98"</option>
-                <option value="6">"Газ"</option>
+                <option value="1">АИ80</option>
+                <option value="2">АИ92</option>
+                <option value="3">АИ95</option>
+                <option value="4">АИ95 Plus</option>
+                <option value="5">АИ98</option>
+                <option value="6">Газ</option>
             </select>
         </div>
         <div class="field">АЗС: @Html.DropDownListFor(x => x.Station, new SelectList(gasStation, "Id", "Name"), new { @onchange = "changeSelectListCreate(event)", @class = "ui fluid dropdown" })</div>

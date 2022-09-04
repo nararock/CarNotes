@@ -10,18 +10,27 @@
     <script src="@Url.Content("~/Content/Statistic.js")"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 }
-<div style="margin-top:10px; margin-bottom:15px" class="ui column centered grid">
-    <div class="ui secondary pointing  menu">
-        <a class="active item CommonStatistic" onclick="goToCommonStatistic()">
-            Общая статистика
-        </a>
-        <a class="item FuelFlowStatistic" onclick="goToFuelFlowStatistic()">
-            Затраты на топливо
-        </a>
+<div style="margin-top:10px; margin-bottom:15px" class="ui centered grid">
+    <div class="row">
+        <div class="ui secondary pointing menu">
+            <a class="active item CommonStatistic" onclick="goToCommonStatistic()">
+                Общая статистика
+            </a>
+            <a class="item FuelFlowStatistic" onclick="goToFuelFlowStatistic(vehicleId)">
+                Затраты на топливо
+            </a>
+        </div>
     </div>
-</div>
-
-<div class="ui stackable container" id="ChartWrapper">
-    <canvas id="Chart">
-    </canvas>
-</div>
+        <div class="row">
+            <div class="six wide column"></div>
+            <div class="column">
+                <div class="ui small input">
+                    <input type="text" name="daterangeFuelFlow" class="daterangeFuelFlow" style="display:none" />
+                </div>
+            </div>            
+        </div>
+        <div class="row" id="ChartWrapper">
+            <canvas id="Chart">
+            </canvas>
+        </div>
+    </div>

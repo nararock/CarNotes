@@ -53,16 +53,17 @@ namespace CarNotes.Classes
             return result;
         }
 
-        public List<BarChartModel> GetDataForFuelFlowStatistic(int vehicleId)
+        public List<BarChartModel> GetDataForFuelFlowStatistic(int vehicleId, DateTime dateFrom, DateTime dateTo)
         {
             var db = new CnDbContext();
             var refuelCostFromDb = db.RefuelEvents.Where(e => e.VehicleId == vehicleId)
                 .Select(e => new { e.Date, e.PricePerOneLiter, e.Volume })
+                .Where(e=>e.Date >= dateFrom && e.Date <= dateTo)
                 .ToList();
             var refuelCostDictionary = new Dictionary<DateTime, int>();
             foreach(var e in refuelCostFromDb)
             {
-                var dateRefuel = new DateTime(e.Date.Year, e.Date.Month, 1);
+                var dateRefuel = new DateTime(e.Date.Year, e.Date.Month, e.Date.Day);
                 if (!refuelCostDictionary.ContainsKey(dateRefuel))
                 {
                     refuelCostDictionary.Add(dateRefuel, (int)(e.PricePerOneLiter * e.Volume));
@@ -73,7 +74,7 @@ namespace CarNotes.Classes
                 }
             }
             var result = refuelCostDictionary
-                .Select(e=>new BarChartModel{ Date = e.Key.ToString("MM.yyyy"), Cost = e.Value } )
+                .Select(e=>new BarChartModel{ Date = e.Key.ToString("dd.MM.yyyy"), Cost = e.Value } )
                 .OrderBy(e=>e.Date) 
                 .ToList();
             return result;

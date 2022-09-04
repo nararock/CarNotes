@@ -4,6 +4,7 @@ using CarNotes.Models;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -43,9 +44,20 @@ namespace CarNotes.Controllers
         /// </summary>
         /// <param name="vehicleId"></param>
         /// <returns></returns>
-        public ActionResult GetDataForFuelFlowStatistic(int vehicleId)
+        public ActionResult GetDataForFuelFlowStatistic(int vehicleId, string dateFrom, string dateTo)
         {
-            var dataFuelFlowStatistic = new StatisticHelper().GetDataForFuelFlowStatistic(vehicleId);
+            DateTime dateFromParam = DateTime.Now.AddDays(-90);
+            if (!string.IsNullOrWhiteSpace(dateFrom) && dateFrom != "undefined")
+            {
+                dateFromParam = DateTime.ParseExact(dateFrom, "dd.MM.yyyy", null);
+            }
+
+            DateTime dateToParam = DateTime.Now;
+            if (!string.IsNullOrEmpty(dateTo) && dateTo != "undefined")
+            {
+                dateToParam = DateTime.ParseExact(dateTo, "dd.MM.yyyy", null);
+            }
+            var dataFuelFlowStatistic = new StatisticHelper().GetDataForFuelFlowStatistic(vehicleId, dateFromParam, dateToParam);
             var result = new JsonResult();
             result.Data = dataFuelFlowStatistic;
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;

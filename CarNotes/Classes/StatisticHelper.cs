@@ -74,8 +74,8 @@ namespace CarNotes.Classes
                 }
             }
             var result = refuelCostDictionary
+                .OrderBy(e=>e.Key)
                 .Select(e=>new BarChartModel{ Date = e.Key.ToString("dd.MM.yyyy"), Cost = e.Value } )
-                .OrderBy(e=>e.Date) 
                 .ToList();
             return result;
         }

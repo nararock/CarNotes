@@ -21,7 +21,7 @@ namespace CarNotes.Classes
             SqlParameter paramId = new SqlParameter("@Id", vehicleId);
             SqlParameter paramAmountOffset = new SqlParameter("@amountOffset", (pageNumder - 1) * pageSize);
             SqlParameter paramAmountGet = new SqlParameter("@amountGet", pageSize);
-            var refuelModelOutput = db.Database.SqlQuery<RefuelModelOutput>(@"select top(@amountGet) * from(select ID, Date, Mileage, Fuel, Name, CustomStation, Volume, PricePerOneLiter, ROUND(PricePerOneLiter*Volume, 0) as Cost, 
+            var refuelModelOutput = db.Database.SqlQuery<RefuelModelOutput>(@"select top(@amountGet) * from(select ID, Date, Mileage, Fuel, ISNULL(CustomStation, Name) as Station, Volume, PricePerOneLiter, ROUND(PricePerOneLiter*Volume, 0) as Cost, 
                                                                             FullTank, ForgotRecordPreviousGasStation, WrongMileage from RefuelEvents as re 
                                                                             join (Select ID as IDSt, Name from GasStations) as gs on re.Station_ID = gs.IDSt 
                                                                             Where VehicleId = @Id

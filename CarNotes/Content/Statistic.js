@@ -4,17 +4,44 @@ document.addEventListener("DOMContentLoaded", goToCommonStatistic);
 /**
  * переменная для хранения объекта для построения графика*/
 var myChart;
+
+/**
+ * активирует календарь на странице Статистика*/
+function activeStatisticCalendar(vehicleId) {
+    moment.locale('ru');
+    $('input[name="daterangeFuelFlow"]').daterangepicker({
+        ranges: {
+            'Сегодня': [moment(), moment()],
+            'Вчера': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'За неделю': [moment().subtract(6, 'days'), moment()],
+            'За месяц': [moment().subtract(29, 'days'), moment()],
+            'Этот месяц': [moment().startOf('month'), moment().endOf('month')],
+            'Прошлый месяц': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        startDate: moment().subtract(90, 'days'),
+        endDate: moment(),
+        "alwaysShowCalendars": true
+    }, function (start, end, label) {
+        goToFuelFlowStatistic(vehicleId, start.format("DD.MM.YYYY"), end.format("DD.MM.YYYY"));
+        /*document.location = "/Statistic/GetDataForFuelFlowStatistic?vehicleId=" + vehicleId + "&dateFrom=" + start + "&dateTo=" + end;*/
+        /*console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));*/
+    });
+};
+
+
 /**
  * Метод для получения данных о расходах (заправки, ремонты, иные расходы) для построения круговой диаграммы "Общая статистика".
  * Вызывается при загрузке страницы "Статистика".*/
-function goToCommonStatistic()
-{
+function goToCommonStatistic() {
     var elementReference = document.getElementsByClassName("CommonStatistic");
     var anotherElementReference = document.getElementsByClassName("FuelFlowStatistic");
     if (!elementReference[0].classList.contains("active")) {
         elementReference[0].classList.add("active");
         anotherElementReference[0].classList.remove("active");
     }
+
+    var elementDaterange = document.getElementsByClassName("daterangeFuelFlow");
+    elementDaterange[0].style.display = "none";
 
     fetch("/Statistic/GetDataForCommonStatistic?vehicleId=" + vehicleId)
         .then(response => response.json())
@@ -71,7 +98,7 @@ function goToCommonStatistic()
             })
 }
 
-function goToFuelFlowStatistic()
+function goToFuelFlowStatistic(vehicleId, dateFrom, dateTo)
 {
     var elementReference = document.getElementsByClassName("FuelFlowStatistic");
     var anotherElementReference = document.getElementsByClassName("CommonStatistic");
@@ -80,7 +107,11 @@ function goToFuelFlowStatistic()
         anotherElementReference[0].classList.remove("active");
     }
 
-    fetch("/Statistic/GetDataForFuelFlowStatistic?vehicleId=" + vehicleId)
+    var elementDaterange = document.getElementsByClassName("daterangeFuelFlow");
+    elementDaterange[0].style.display = "inline";
+    activeStatisticCalendar(vehicleId);
+
+    fetch("/Statistic/GetDataForFuelFlowStatistic?vehicleId=" + vehicleId + "&dateFrom=" + dateFrom + "&dateTo=" + dateTo)
         .then(response => response.json())
         .then((dataFuelFlowStatistic) => {
             const labels = [];

@@ -271,7 +271,9 @@
     <Compile Include="Models\CarPartModel.cs" />
     <Compile Include="Models\CarSubsystemModel.cs" />
     <Compile Include="Models\CarSystemModel.cs" />
+    <Compile Include="Models\CommonInformationModel.cs" />
     <Compile Include="Models\CommonModel.cs" />
+    <Compile Include="Models\CommonTimeOnSite.cs" />
     <Compile Include="Models\ExpenseEditModel.cs" />
     <Compile Include="Models\ExpenseModel.cs" />
     <Compile Include="Models\GasStationModel.cs" />

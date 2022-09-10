@@ -63,5 +63,14 @@ namespace CarNotes.Controllers
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }
+
+        public ActionResult GetDataForCommonStatisticTable(int vehicleId)
+        {
+            var dataCommonStatistic = new StatisticHelper().GetDataForCommonInformation(vehicleId);
+            var result = new JsonResult();
+            result.Data = dataCommonStatistic;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
     }
 }

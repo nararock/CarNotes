@@ -1,5 +1,5 @@
 ﻿//при открытии страницы Статистика выполняется:
-document.addEventListener("DOMContentLoaded", goToCommonStatistic);
+document.addEventListener("DOMContentLoaded", letsgo);
 
 /**
  * переменная для хранения объекта для построения графика*/
@@ -23,11 +23,13 @@ function activeStatisticCalendar(vehicleId) {
         "alwaysShowCalendars": true
     }, function (start, end, label) {
         goToFuelFlowStatistic(vehicleId, start.format("DD.MM.YYYY"), end.format("DD.MM.YYYY"));
-        /*document.location = "/Statistic/GetDataForFuelFlowStatistic?vehicleId=" + vehicleId + "&dateFrom=" + start + "&dateTo=" + end;*/
-        /*console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));*/
     });
 };
 
+function letsgo() {
+    goToCommonStatistic();
+    createCommonStatisticTable(vehicleId);
+}
 
 /**
  * Метод для получения данных о расходах (заправки, ремонты, иные расходы) для построения круговой диаграммы "Общая статистика".
@@ -40,7 +42,12 @@ function goToCommonStatistic() {
         anotherElementReference[0].classList.remove("active");
     }
 
+    var elementTable = document.getElementById("CommonInformationTable");
+    elementTable.style.display = "inline";
+
+    var elementDaterangeDiv = document.getElementsByClassName("FuelFlowDate");
     var elementDaterange = document.getElementsByClassName("daterangeFuelFlow");
+    elementDaterangeDiv[0].style.display = "none";
     elementDaterange[0].style.display = "none";
 
     fetch("/Statistic/GetDataForCommonStatistic?vehicleId=" + vehicleId)
@@ -107,7 +114,12 @@ function goToFuelFlowStatistic(vehicleId, dateFrom, dateTo)
         anotherElementReference[0].classList.remove("active");
     }
 
+    var elementTable = document.getElementById("CommonInformationTable");
+    elementTable.style.display = "none";
+
+    var elementDaterangeDiv = document.getElementsByClassName("FuelFlowDate");
     var elementDaterange = document.getElementsByClassName("daterangeFuelFlow");
+    elementDaterangeDiv[0].style.display = "inline";
     elementDaterange[0].style.display = "inline";
     activeStatisticCalendar(vehicleId);
 
@@ -165,4 +177,43 @@ function goToFuelFlowStatistic(vehicleId, dateFrom, dateTo)
                 config
             );
         })
+}
+
+/**
+ * построение таблицы с общей информацией 
+ * @param {any} vehicleId Id автомобиля
+ */
+function createCommonStatisticTable(vehicleId) {
+    var elementTable = document.getElementById("CommonInformationTable");
+    fetch("/Statistic/GetDataForCommonStatisticTable?vehicleId=" + vehicleId)
+        .then(response => response.json())
+        .then((data) => {
+            var totalTimeString = (data.TotalTime.Year == 0 ? "" : data.TotalTime.Year) + " " + data.TotalTime.formYear + " "
+                + (data.TotalTime.Month == 0 ? "" : data.TotalTime.Month) + " " + data.TotalTime.formMonth + " "
+                + (data.TotalTime.Day == 0 ? "" : data.TotalTime.Day) + " " + data.TotalTime.formDay + " " + data.CommonMileage + " км ";
+            createPartOfTableCommonStatistic(elementTable, "На нашем сайте", totalTimeString);
+            var refuelString = data.RefuelAmount + " на сумму " + data.RefuelCost + " руб.";
+            createPartOfTableCommonStatistic(elementTable, "Заправок", refuelString);
+            var repairString = data.RepairAmount + " на сумму " + data.RepairCost + " руб.";
+            createPartOfTableCommonStatistic(elementTable, "Ремонтов", repairString);
+            var expenseString = data.ExpenseAmount + " на сумму " + data.ExpenseCost + " руб. ";
+            createPartOfTableCommonStatistic(elementTable, "Расходов", expenseString);
+            createPartOfTableCommonStatistic(elementTable, "Средняя стоимость 1 км", data.AverageFuelPrice + " руб ");
+        })
+}
+/**
+ * создание строчек и столбцов таблицы с общей информацией
+ * @param {any} table таблица, куда вставляются созданные строчки и столбцы
+ * @param {any} parameter1 первый параметр для первого столбца
+ * @param {any} parameter2 второй параметр для второго столбца
+ */
+function createPartOfTableCommonStatistic(table, parameter1, parameter2) {
+    tr = document.createElement('tr');
+    var td1 = document.createElement('td');
+    var td2 = document.createElement('td');
+    td1.innerText = parameter1;
+    td2.innerText = parameter2;
+    tr.append(td1);
+    tr.append(td2);
+    table.append(tr);
 }

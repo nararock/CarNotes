@@ -83,10 +83,10 @@ namespace CarNotes.Classes
             var activeUsers = db.Database.SqlQuery<ActiveUsersModel>(@"select top(10) u.Name,v.Id as vehicleID, v.Brand, v.Model,isnull(table1.Events,0) as refuelEvents,isnull(table2.Events,0) as repairEvents, isnull(table1.Events,0)+isnull(table2.Events,0) as events from AspNetUsers as u
                                                     join Vehicles as v on u.Id = v.UserId
                                                     left join (select VehicleId, COUNT(ID) as Events from RefuelEvents
-	                                                where Date > DATEADD(day, -30, GETDATE())
+	                                                where Date > DATEADD(day, -90, GETDATE())
 	                                                group by VehicleId) as table1 on v.Id = table1.VehicleId
                                                     left join (select VehicleId, COUNT(ID) as Events from RepairEvents
-	                                                where Date > DATEADD(day, -30, GETDATE())
+	                                                where Date > DATEADD(day, -90, GETDATE())
 	                                                group by VehicleId) as table2 on v.Id = table2.VehicleId
                                                     group by u.Id, u.Name, v.Id, v.Brand, v.Model,isnull(table1.Events,0), isnull(table2.Events,0), isnull(table1.Events,0)+isnull(table2.Events,0)
                                                     order by isnull(table1.Events,0)+isnull(table2.Events,0) desc").ToList();

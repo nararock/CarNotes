@@ -103,37 +103,52 @@ namespace CarNotes.Classes
                 .Union(database.RepairEvents.Where(e => e.VehicleId == vehicleId).Select(e => e.Date))
                 .Union(database.Expenses.Where(e => e.VehicleId == vehicleId).Select(e => e.Date))
                 .Min(e => e);
-            commonInformation.TotalTime = GetTimeSpentOnSite(oldestDate);
+            commonInformation.TotalTime = GetTimeSpentOnSite(oldestDate, DateTime.Now);
             commonInformation.RefuelAmount = database.RefuelEvents.Where(e => e.VehicleId == vehicleId).Count();
             commonInformation.RepairAmount = database.RepairEvents.Where(e => e.VehicleId == vehicleId).Count();
             commonInformation.ExpenseAmount = database.Expenses.Where(e => e.VehicleId == vehicleId).Count();
-            commonInformation.RefuelCost = (int)database.RefuelEvents
+            commonInformation.RefuelCost = (int?)database.RefuelEvents
                 .Where(e => e.VehicleId == vehicleId)
-                .Select(e => e.Volume * e.PricePerOneLiter)
-                .Sum(e => e);
-            commonInformation.RepairCost = (int)database.RepairEvents
+                .Sum(e => (double?)(e.Volume * e.PricePerOneLiter)) ?? 0;
+            commonInformation.RepairCost = (int?)database.RepairEvents
                 .Include(x => x.Parts)
                 .Where(e => e.VehicleId == vehicleId)
-                .Select(e => (double)e.RepairCost + e.Parts.Sum(p => p.Price))
-                .Sum();
-            commonInformation.ExpenseCost = (int)database.Expenses
+                .Select(e => (double?)e.RepairCost ?? 0 + ((double?)e.Parts.Sum(p => p.Price)) ?? 0)
+                .Sum(e=>e) ?? 0;
+            commonInformation.ExpenseCost = (int?)database.Expenses
                 .Where(e => e.VehicleId == vehicleId)
-                .Select(e => (double)e.Sum)
-                .Sum(e => e);
-            commonInformation.AverageFuelPrice = (int)database.RefuelEvents.Where(e=>e.VehicleId == vehicleId)
-                .Average(e=>e.PricePerOneLiter);            
+                .Select(e => (double?)e.Sum)
+                .Sum(e => e) ?? 0;
+            commonInformation.AverageFuelPrice = (int?)database.RefuelEvents.Where(e=>e.VehicleId == vehicleId)
+                .Sum(e=> (double?)e.PricePerOneLiter * (double?)e.Volume) ?? 0;
+            commonInformation.AverageFuelPrice = commonInformation.CommonMileage==0 ? 0 : commonInformation.AverageFuelPrice / commonInformation.CommonMileage;
             return commonInformation;
         }
         /// <summary>
         /// вычисление количества лет, месяцев и дней на сайте относительно текущего момента
         /// </summary>
         /// <param name="timeStart"></param>дата записи первого события на сайте
-        public CommonTimeOnSite GetTimeSpentOnSite(DateTime timeStart)
-        { 
+        public CommonTimeOnSite GetTimeSpentOnSite(DateTime timeStart, DateTime timeEnd)
+        {
             var timeSpent = new CommonTimeOnSite();
-            timeSpent.Year = DateTime.Now.Year - timeStart.Year;
-            timeSpent.Month = DateTime.Now.Month - timeStart.Month;
-            timeSpent.Day = DateTime.Now.Day - timeStart.Day;
+            timeSpent.Year = timeEnd.Year - timeStart.Year;
+            timeSpent.Month = timeEnd.Month - timeStart.Month;
+            if (timeSpent.Month < 0)
+            {
+                timeSpent.Year--;
+                timeSpent.Month = 12 + timeSpent.Month;
+            }
+            timeSpent.Day = timeEnd.Day - timeStart.Day;
+            if (timeSpent.Day < 0)
+            {
+                if(timeSpent.Month == 0)
+                {
+                    timeSpent.Year--;
+                    timeSpent.Month = 12 + timeSpent.Month;
+                }
+                timeSpent.Month--;
+                timeSpent.Day = timeSpent.Day + 30;
+            }
             timeSpent.formYear = GetWordForm(timeSpent.Year, "year");
             timeSpent.formMonth = GetWordForm(timeSpent.Month, "month");
             timeSpent.formDay = GetWordForm(timeSpent.Day, "day");
@@ -147,7 +162,7 @@ namespace CarNotes.Classes
         /// <returns></returns>
         public string GetWordForm(int amount, string timeForm)
         {
-            if ((11 <= amount % 100 && amount % 100 <= 14) || amount % 10 >= 5)
+            if ((11 <= amount % 100 && amount % 100 <= 14) || amount % 10 >= 5 || (amount != 0 && amount % 10 == 0))
             {
                 switch (timeForm)
                 {

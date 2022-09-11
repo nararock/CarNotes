@@ -4,3 +4,5 @@ CarNotes/obj/
 *.user
 .vs/
 desktop.ini
+CarNotes.Test/bin/
+CarNotes.Test/obj/

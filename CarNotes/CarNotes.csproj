@@ -265,6 +265,10 @@
     <Compile Include="Migrations\202206262003312_add field WrongMileage in database Expense.designer.cs">
       <DependentUpon>202206262003312_add field WrongMileage in database Expense.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202209122028177_Add field Order in ExpenseType.cs" />
+    <Compile Include="Migrations\202209122028177_Add field Order in ExpenseType.designer.cs">
+      <DependentUpon>202209122028177_Add field Order in ExpenseType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ActiveUsersModel.cs" />
     <Compile Include="Models\BarChartModel.cs" />
@@ -393,6 +397,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202206262003312_add field WrongMileage in database Expense.resx">
       <DependentUpon>202206262003312_add field WrongMileage in database Expense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202209122028177_Add field Order in ExpenseType.resx">
+      <DependentUpon>202209122028177_Add field Order in ExpenseType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

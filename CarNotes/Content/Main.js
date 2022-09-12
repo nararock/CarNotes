@@ -516,8 +516,6 @@ function editExpense(id, Verified) {
         })    
 }
 
-
-
 //RepairEdit
 /**
  * преобразует склонированный input к правильному и заполняет его данными

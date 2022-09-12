@@ -15,5 +15,9 @@ namespace CarNotes.CnDb
 
         /// <summary> Название типа расхода </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// порядок типа расхода для сортировки в выпадающем списке
+        /// </summary>
+        public int Order { get; set; }
     }
 }

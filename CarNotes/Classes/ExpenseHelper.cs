@@ -32,7 +32,7 @@ namespace CarNotes.Classes
         public List<TypeExpenseModel> GetTypeExpenseList()
         {
             var db = new CnDbContext();
-            var list = db.ExpenseTypes.Select(x=>new TypeExpenseModel { Id = x.Id, Name = x.Name}).ToList();
+            var list = db.ExpenseTypes.Select(x=>new TypeExpenseModel { Id = x.Id, Name = x.Name, Order = x.Order}).OrderBy(x=>x.Order).ThenBy(x=>x.Id).ToList();
             return list;
         }
         public ExpenseEditModel GetExpenseEditList(int id)

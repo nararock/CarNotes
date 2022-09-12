@@ -5,9 +5,10 @@
 @{
     Layout = "../Shared/_TableTemplate.cshtml";
     var userHelper = new AuthHelper(Context);
+    var color = new LinkMenuHelper().getColor(ViewBag.Name);
 }
 <div>
-    <table class="ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) unstackable table hide-on-mobile">
+    <table class="ui selectable @color unstackable table hide-on-mobile">
         <caption>@ViewBag.Name</caption>
         <thead>
             <tr>
@@ -18,8 +19,7 @@
                 <th>Объем</th>
                 <th>Цена</th>
                 <th>Стоимость</th>
-                <th>Полный бак</th>
-                <th>Забыл внести предыдущую заправку</th>
+                <th>Полный бак</th>                
                 @if (ViewBag.IsChecked)
                 {
                     <th style="width:0"></th>
@@ -54,21 +54,24 @@
                         {
                             <i class="check icon"></i>
                         }
-                    </td>
-                    <td style="text-align:center">
                         @if (b.ForgotRecordPreviousGasStation == true)
                         {
-                            <i class="check icon"></i>
+                            <span data-tooltip="Забыл внести предыдущую заправку">
+                                <i class="small icons">
+                                    <i class="big @color dont icon"></i>
+                                    <i class="black pen icon"></i>
+                                </i>
+                            </span>
                         }
-                    </td>
+                    </td>                    
                     @if (ViewBag.IsChecked)
                     {
-                        <td><input type="button" value="&#9998" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editRefuel(@b.Id, true)" /></td>
-                        <td><input type="button" value="&#10008" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="deleteRefuel(@b.Id)" /></td>
+                        <td><input type="button" value="&#9998" class="ui icon tiny @color basic button" onclick="editRefuel(@b.Id, true)" /></td>
+                        <td><input type="button" value="&#10008" class="ui icon tiny @color basic button" onclick="deleteRefuel(@b.Id)" /></td>
                     }
                     else
                     {
-                        <td><input type="button" value="&#128269" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" onclick="editRefuel(@b.Id, false)" /></td>
+                        <td><input type="button" value="&#128269" class="ui icon tiny @color basic button" onclick="editRefuel(@b.Id, false)" /></td>
                     }
                 </tr>
             }
@@ -86,16 +89,16 @@
                     </div>
                     @if (ViewBag.IsChecked)
                     {
-                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="deleteRefuel(@b.Id)">
+                        <button class="circular ui @color basic right floated icon button" onclick="deleteRefuel(@b.Id)">
                             <i class="trash alternate icon"></i>
                         </button>
-                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editRefuel(@b.Id, true)">
+                        <button class="circular ui @color basic right floated icon button" onclick="editRefuel(@b.Id, true)">
                             <i class="highlighter icon"></i>
                         </button>
                     }
                     else
                     {
-                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editRefuel(@b.Id, false)">
+                        <button class="circular ui @color basic right floated icon button" onclick="editRefuel(@b.Id, false)">
                             <i class="search icon"></i>
                         </button>
                     }

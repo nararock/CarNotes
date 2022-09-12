@@ -107,21 +107,23 @@ namespace CarNotes.Classes
             commonInformation.RefuelAmount = database.RefuelEvents.Where(e => e.VehicleId == vehicleId).Count();
             commonInformation.RepairAmount = database.RepairEvents.Where(e => e.VehicleId == vehicleId).Count();
             commonInformation.ExpenseAmount = database.Expenses.Where(e => e.VehicleId == vehicleId).Count();
-            commonInformation.RefuelCost = (int?)database.RefuelEvents
+            commonInformation.RefuelCost = (double?)database.RefuelEvents
                 .Where(e => e.VehicleId == vehicleId)
-                .Sum(e => (double?)(e.Volume * e.PricePerOneLiter)) ?? 0;
+                .Sum(e => (double?)(e.Volume * e.PricePerOneLiter)) ?? 0;            
             commonInformation.RepairCost = (int?)database.RepairEvents
                 .Include(x => x.Parts)
                 .Where(e => e.VehicleId == vehicleId)
                 .Select(e => (double?)e.RepairCost ?? 0 + ((double?)e.Parts.Sum(p => p.Price)) ?? 0)
-                .Sum(e=>e) ?? 0;
-            commonInformation.ExpenseCost = (int?)database.Expenses
+                .Sum(e=>e) ?? 0;            
+            commonInformation.ExpenseCost = (double?)database.Expenses
                 .Where(e => e.VehicleId == vehicleId)
                 .Select(e => (double?)e.Sum)
-                .Sum(e => e) ?? 0;
-            commonInformation.AverageFuelPrice = (int?)database.RefuelEvents.Where(e=>e.VehicleId == vehicleId)
-                .Sum(e=> (double?)e.PricePerOneLiter * (double?)e.Volume) ?? 0;
-            commonInformation.AverageFuelPrice = commonInformation.CommonMileage==0 ? 0 : commonInformation.AverageFuelPrice / commonInformation.CommonMileage;
+                .Sum(e => e) ?? 0;            
+            commonInformation.AverageFuelPrice = commonInformation.CommonMileage ==0 ? 0 : Math.Round((commonInformation.RefuelCost + commonInformation.RepairCost + commonInformation.ExpenseCost) 
+                / commonInformation.CommonMileage, 2);
+            commonInformation.RepairCost = Math.Round(commonInformation.RepairCost);
+            commonInformation.RefuelCost = Math.Round(commonInformation.RefuelCost);
+            commonInformation.ExpenseCost = Math.Round(commonInformation.ExpenseCost);
             return commonInformation;
         }
         /// <summary>

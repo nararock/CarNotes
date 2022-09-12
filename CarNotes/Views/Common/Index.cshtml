@@ -53,12 +53,13 @@
                     <td>@item.Date.ToString("dd.MM.yyyy")</td>
                     @if (item.WrongMileage)
                     {
-                        <td>@item.Mileage&nbsp;<span data-tooltip="Неправильный пробег"><i class="exclamation orange triangle icon"></i></span></td>
+                        <td>@item.Mileage км&nbsp;<span data-tooltip="Неправильный пробег"><i class="exclamation orange triangle icon"></i></span></td>
                     }
-                    else
+                    else if (item.Mileage != null)
                     {
-                        <td>@item.Mileage</td>
+                        <td>@item.Mileage км</td>
                     }
+                    else { <td> </td>}
                     <td>@item.Cost</td>
                     @if (ViewBag.IsChecked)
                     {

@@ -38,11 +38,11 @@
                     <td>@b.Date.ToString("dd.MM.yyyy")</td>
                     @if (b.WrongMileage)
                     {
-                        <td>@b.Mileage&nbsp;<span data-tooltip="Неправильный пробег"><i class="exclamation orange triangle icon"></i></span></td>
+                        <td>@b.Mileage км&nbsp;<span data-tooltip="Неправильный пробег"><i class="exclamation orange triangle icon"></i></span></td>
                     }
                     else
                     {
-                        <td>@b.Mileage</td>
+                        <td>@b.Mileage км</td>
                     }
                     <td>@((FuelType)b.Fuel)</td>
                     <td>@b.Station</td>

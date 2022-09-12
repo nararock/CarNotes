@@ -35,12 +35,13 @@
                     <td>@e.Date.ToString("dd.MM.yyyy")</td>
                     @if (e.WrongMileage)
                     {
-                        <td>@e.Mileage&nbsp;<span data-tooltip="Неправильный пробег"><i class="exclamation orange triangle icon"></i></span></td>
+                        <td>@e.Mileage км&nbsp;<span data-tooltip="Неправильный пробег"><i class="exclamation orange triangle icon"></i></span></td>
                     }
-                    else
+                    else if (e.Mileage != 0)
                     {
-                        <td>@e.Mileage</td>
+                        <td>@e.Mileage км</td>
                     }
+                    else { <td> </td>}
                     <td>@e.Type</td>
                     <td>@e.Sum.ToString("#")</td>
                     <td>@e.Description</td>

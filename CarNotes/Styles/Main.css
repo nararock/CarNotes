@@ -78,7 +78,7 @@
     margin-bottom: 0.5em
 }
 
-#repairPartsTable.column {
+#repairPartsTable .column {
     width: 33.33% !important;
     margin-bottom: 3px !important;
 }

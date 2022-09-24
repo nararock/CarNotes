@@ -127,7 +127,7 @@ namespace CarNotes.Classes
             var startMileage = earlyEvent == null ? int.MinValue : earlyEvent.mileage;
             var endMileage = lateEvent == null ? int.MaxValue : lateEvent.mileage;
 
-            if (mileageEvent > startMileage && mileageEvent < endMileage)
+            if (mileageEvent >= startMileage && mileageEvent <= endMileage)
             {
                 return true;
             }

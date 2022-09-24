@@ -277,6 +277,12 @@ function popup(str, vehicleId) {
             }
             )
             .modal('show');
+        fetch("/Expense/GetLastMileage?vehicleId=" + vehicleId)
+            .then(response => response.text())
+            .then((data) => {
+                console.log(data);
+                document.getElementById("formCreateExpense").querySelector("[name=" + "Mileage" + "]").value = data;
+            })
         var header = document.querySelector('#ExpenseEdit .header');
         header.innerHTML = "Новый расход";
         activeCalendar(new Date().getDate());

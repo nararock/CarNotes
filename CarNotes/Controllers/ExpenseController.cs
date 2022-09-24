@@ -60,6 +60,12 @@ namespace CarNotes.Controllers
             return result;
         }
 
+        public double? GetLastMileage(int vehicleId)
+        {
+            var lastMileage = new CommonHelper().GetLastMileage(vehicleId);
+            return lastMileage;
+        }
+
         public ActionResult Delete(int id)
         {
             new ExpenseHelper().Delete(id, HttpContext);

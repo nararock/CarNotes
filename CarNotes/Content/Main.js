@@ -108,6 +108,9 @@ function addCarPart() {
         }
         button.closest('tr').remove();
     });
+    //опустить скролл при добавлении строчки таблицы
+    var elementContent = document.getElementsByClassName("scrolling content repair");
+    elementContent[0].scrollTop = elementContent[0].scrollHeight;
 }
 /**создание элемента input для ячейки таблицы с системами и подсистемами
  * @param {any} tableRow ссылка на элемент строки в таблице

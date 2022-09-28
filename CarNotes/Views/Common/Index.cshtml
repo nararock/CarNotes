@@ -31,24 +31,9 @@
             {
                 <tr>
                     <td>
-                        @if (item.Record == CarNotes.Enums.RecordType.Refuel)
-                        {
-                            <span>
-                                Заправка
-                            </span>
-                        }
-                        else if (item.Record == CarNotes.Enums.RecordType.Repair)
-                        {
-                            <span>
-                                Ремонт
-                            </span>
-                        }
-                        else
-                        {
-                            <span>
-                                Расход
-                            </span>
-                        }
+                        <span>
+                            @item.getRecordName()
+                        </span>
                     </td>
                     <td>@item.Date.ToString("dd.MM.yyyy")</td>
                     @if (item.WrongMileage)
@@ -99,18 +84,7 @@
                         </button>
                     }
                     <div class="header">
-                        @if (item.Record == CarNotes.Enums.RecordType.Refuel)
-                        {
-                            @:Заправка
-                        }
-                        else if (item.Record == CarNotes.Enums.RecordType.Repair)
-                        {
-                            @:Ремонт
-                        }
-                        else if (item.Record == CarNotes.Enums.RecordType.Expense)
-                        {
-                            @:Расход
-                        }
+                        @item.getRecordName()
                     </div>
                     <div class="meta">
                         @item.Date.ToString("dd.MM.yyyy")

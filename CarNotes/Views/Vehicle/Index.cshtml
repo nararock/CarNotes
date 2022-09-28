@@ -2,12 +2,13 @@
 @model List<CarNotes.Models.VehicleModel>
 @{
     Layout = "../Shared/_BasicTemplateNew.cshtml";
+    var color = new LinkMenuHelper().getColor(ViewBag.Name);
 }
 @Html.Partial("_MenuTemplate");
 <div class="ui mini modal" id="AddVehicle">@Html.Partial("Add", new CarNotes.CnDb.Vehicle())</div>
 <div>
 
-    <table class="ui selectable @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) unstackable table hide-on-mobile">
+    <table class="ui selectable @color) unstackable table hide-on-mobile">
         <caption>@ViewBag.Name</caption>
         <thead>
             <tr>
@@ -29,8 +30,8 @@
                     <td>@element.ReleaseYear</td>
                     <td>@element.Color</td>
                     <td>@element.Body</td>
-                    <td class="right aligned"><input type="button" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" value="&#9998" onclick="editVehicle(@element.Id)" /></td>
-                    <td class="right aligned"><input type="button" class="ui icon tiny @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic button" value=&#10008 onclick="deleteVehicle(@element.Id)" /></td>
+                    <td class="right aligned"><input type="button" class="ui icon tiny @color) basic button" value="&#9998" onclick="editVehicle(@element.Id)" /></td>
+                    <td class="right aligned"><input type="button" class="ui icon tiny @color) basic button" value=&#10008 onclick="deleteVehicle(@element.Id)" /></td>
                 </tr>
             }
         </tbody>
@@ -44,10 +45,10 @@
                         <div class="header">
                             @element.Brand  @element.Model @element.ReleaseYear
                         </div>
-                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="deleteVehicle(@element.Id)">
+                        <button class="circular ui @color) basic right floated icon button" onclick="deleteVehicle(@element.Id)">
                             <i class="trash alternate icon"></i>
                         </button>
-                        <button class="circular ui @Html.Raw(new LinkMenuHelper().getColor(ViewBag.Name)) basic right floated icon button" onclick="editVehicle(@element.Id)">
+                        <button class="circular ui @color) basic right floated icon button" onclick="editVehicle(@element.Id)">
                             <i class="highlighter icon"></i>
                         </button>
                         <div class="meta">

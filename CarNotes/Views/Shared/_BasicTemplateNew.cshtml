@@ -43,7 +43,7 @@
                 <ul>
                     @foreach (CarNotes.Models.LinkMenuModel l in menu)
                     {
-                        if (isVerified || (!isVerified && l.NameLink != "Гараж"))
+                        if (isVerified && l.NameLink != "Гараж")
                         {
                             <li><a href="@Url.Content(l.MethodLink)?vehicleId=@ViewBag.VehicleId" class="link large ui @l.Color tertiary button">@l.NameLink</a></li>
                         }
@@ -57,7 +57,7 @@
                 }
                 else
                 {
-                    <p class="userName"><i class="user circle outline icon"></i>@userName <a href="@Url.Content("~/Login/LogOut")" class="exit" data-title="Выйти"><i class="sign in alternate icon"></i></a></p>
+                    <p class="userName"><a href="~/Vehicle/Index"><i class="user circle outline icon"></i>@userName</a> <a href="@Url.Content("~/Login/LogOut")" class="exit" data-title="Выйти"><i class="sign in alternate icon"></i></a></p>
 
                 }
                 <div>

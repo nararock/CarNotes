@@ -34,6 +34,7 @@ namespace CarNotes.Controllers
                 return View();
             }
             ViewBag.Message = "Вы успешно зарегистрировались! Войдите.";
+            ViewBag.IsNewRegistration = true;
             return View("~/Views/Login/Index.cshtml");
         }
     }

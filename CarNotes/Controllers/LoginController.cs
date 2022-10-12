@@ -14,6 +14,7 @@ namespace CarNotes.Controllers
         // GET: Login
         public ActionResult Index()
         {
+            ViewBag.IsNewRegistration = false;
             return View();
         }
 

@@ -18,7 +18,6 @@ function ready() {
     elem = document.getElementById('newRefuelWindow');
     var elemStation = elem.getElementsByTagName("form")[0].Station;
     elemStation.selectedIndex = -1;
-
     
     /**
      * получение всех значений CarSystem и CarSubsystem
@@ -493,36 +492,62 @@ function RefuelEditSubmit() {
  * открывает окно для редактирования события, где заполняет форму редактирования данными выбранного события (id)
  * */
 function editExpense(id, Verified) {
+    if (Verified) {
+         fetch("/Expense/Get?id=" + id)
+                .then(response => response.json())
+                .then((data) => {
+                    $('#ExpenseEdit').modal({
+                        autofocus: false,
+                        onVisible: () => {
+                            $('#ExpenseEdit .ui.checkbox').checkbox();
+                        },
+                        onApprove: function () {
+                            document.getElementById('ExpenseEdit').getElementsByTagName("form")[0].submit();
+                        }
+                    })
+                        .modal('show');
+
+                    activeCalendar(data.Date);
+                        
+                    var elementsForm = document.getElementById("formEditExpense");
+                    elementsForm.Date.value = data.Date;
+                    elementsForm.Mileage.value = data.Mileage;
+                    elementsForm.TypeId.value = data.TypeId;
+                    elementsForm.Sum.value = data.Sum;
+                    elementsForm.Description.value = data.Description;
+                    elementsForm.Comment.value = data.Comment;
+                    elementsForm.Id.value = data.Id;
+                }) 
+    }
+    else expenseShow(id);
+      
+}
+
+function expenseShow(id) {
     fetch("/Expense/Get?id=" + id)
         .then(response => response.json())
         .then((data) => {
-            $('#ExpenseEdit').modal({
-                autofocus: false,
-                onVisible: () => {
-                    $('#ExpenseEdit .ui.checkbox').checkbox();
-                },
-                onApprove: function () {
-                    document.getElementById('ExpenseEdit').getElementsByTagName("form")[0].submit();
-                }
-            })
+            $('#ExpenseShow').modal({})
                 .modal('show');
+            var expenseDiv = document.getElementById("ExpenseShow");
 
-            activeCalendar(data.Date);
-                        
-            var elementsForm = document.getElementById("formEditExpense");
-            elementsForm.Date.value = data.Date;
-            elementsForm.Mileage.value = data.Mileage;
-            elementsForm.TypeId.value = data.TypeId;
-            elementsForm.Sum.value = data.Sum;
-            elementsForm.Description.value = data.Description;
-            elementsForm.Comment.value = data.Comment;
-            elementsForm.Id.value = data.Id;
-            if (!Verified) {//пользователь не авторизован
-                toggleForm(elementsForm, 'Данные о расходе');
-                var dropdowns = elementsForm.getElementsByClassName('dropdown');
-                dropdowns[0].setAttribute('disabled', 'disabled');
+            var header = expenseDiv.getElementsByClassName("header");
+            header[0].innerHTML = data.TypeName;
+
+            var description = expenseDiv.getElementsByClassName("description");
+            description[0].innerHTML = "<strong>Дата: </strong>" + data.Date + "<br>";
+            if (data.Mileage != null) {
+                description[0].innerHTML += "<strong>Пробег: </strong>" + data.Mileage + "<br>";
+            }            
+            description[0].innerHTML += "<strong>Сумма: </strong>" + data.Sum + "<br>";
+            if (data.Description != null) {
+                description[0].innerHTML += "<strong>Описание: </strong>" + data.Description + "<br>";
             }
-        })    
+            if (data.Comment != null) {
+                description[0].innerHTML += "<strong>Комментарий: </strong>" + data.Comment;
+            }
+        })          
+                
 }
 
 //RepairEdit

@@ -39,12 +39,14 @@ namespace CarNotes.Classes
         {
             var db = new CnDbContext();
             var editExpense = db.Expenses
+                .Include(e=>e.Type)
                 .FirstOrDefault(x => x.Id == id);
             var expenseEditModel = new ExpenseEditModel();
             expenseEditModel.Id = editExpense.Id;
             expenseEditModel.Date = editExpense.Date.ToString("dd.MM.yyyy");
             expenseEditModel.Mileage = editExpense.Mileage;
             expenseEditModel.TypeId = editExpense.TypeId;
+            expenseEditModel.TypeName = editExpense.Type.Name;
             expenseEditModel.Description = editExpense.Description;
             expenseEditModel.Sum = editExpense.Sum;
             expenseEditModel.Comment = editExpense.Comment;

@@ -9,6 +9,7 @@ namespace CarNotes.Models
     {
         public int Id { get; set; }
         public int TypeId { get; set; }
+        public string TypeName { get; set; }
         public string Date { get; set; }
         public double? Mileage { get; set; }
         public decimal Sum { get; set; }

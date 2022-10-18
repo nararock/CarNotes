@@ -43,7 +43,7 @@
                 <ul>
                     @foreach (CarNotes.Models.LinkMenuModel l in menu)
                     {
-                        if (isVerified && l.NameLink != "Гараж")
+                        if (l.NameLink != "Гараж")
                         {
                             <li><a href="@Url.Content(l.MethodLink)?vehicleId=@ViewBag.VehicleId" class="link large ui @l.Color tertiary button">@l.NameLink</a></li>
                         }

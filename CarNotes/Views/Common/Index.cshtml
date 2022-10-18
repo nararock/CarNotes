@@ -45,7 +45,7 @@
                         <td>@item.Mileage км</td>
                     }
                     else { <td> </td>}
-                    <td>@item.Cost</td>
+                    <td align="right">@item.Cost</td>
                     @if (ViewBag.IsChecked)
                     {
                         <td><input type="button" value="&#9998" class="ui icon tiny @color basic button" onclick="editCommon('@item.Record', @item.Id)" /></td>

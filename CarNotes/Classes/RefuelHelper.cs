@@ -83,10 +83,12 @@ namespace CarNotes.Classes
             var editRefuelModel = new RefuelModel();
             editRefuelModel.Date = editRefuel.Date.ToString("dd.MM.yyyy");
             editRefuelModel.Fuel = editRefuel.Fuel;
+            editRefuelModel.FuelName = editRefuel.Fuel.ToString();
             editRefuelModel.FullTank = editRefuel.FullTank;
             editRefuelModel.Mileage = editRefuel.Mileage.ToString();
             editRefuelModel.PricePerOneLiter = editRefuel.PricePerOneLiter;
             editRefuelModel.Station = editRefuel.Station.ID;
+            editRefuelModel.StationName = editRefuel.Station.Name;
             if (editRefuel.CustomStation != null)
             {
                 editRefuelModel.CustomStation = editRefuel.CustomStation;

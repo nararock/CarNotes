@@ -397,82 +397,67 @@ function toggleForm(form, nameForm) {
  * @param {any} id номер события заправки для редактирования
  */
 function editRefuel(id, Verified) {
+    if (Verified) {
+        fetch("/Refuel/Get?id=" + id)
+            .then(response => response.json())
+            .then((data) => {
+                $('#EditRefuelData').modal({
+                    autofocus: false,
+                    onVisible: () => {
+                        $('#EditRefuelData .ui.checkbox').checkbox();
+                    },
+                    onApprove: function () {
+                        RefuelEditSubmit();
+                        document.getElementById('EditRefuelData').getElementsByTagName("form")[0].submit();
+                    }
+                })
+                    .modal('show');
+                /*активируем календарь*/
+                activeCalendar(data.Date);
+
+                var elementsForm = document.getElementById('formEdit');
+                elementsForm.Date.value = data.Date;
+                elementsForm.Mileage.value = data.Mileage;
+                elementsForm.Fuel.value = data.Fuel;
+                elementsForm.Station.value = data.Station;
+                if (data.Station == 1) {
+                    elementsForm.CustomStation.value = data.CustomStation;
+                    elementsForm.CustomStation.parentElement.style.display = "block";
+                }
+                else if (data.Station != 1 && elementsForm.CustomStation.parentElement.style.display != "none") {
+                    elementsForm.CustomStation.parentElement.style.display = "none";
+                }
+                elementsForm.Volume.value = data.Volume;
+                elementsForm.PricePerOneLiter.value = data.PricePerOneLiter;
+                elementsForm.FullTankCheckbox.checked = data.FullTank;
+                elementsForm.ForgotRecordPreviousGasStationCheckbox.checked = data.ForgotRecordPreviousGasStation;
+                elementsForm.Id.value = data.Id;
+            }, () => {
+                alert("Произошла ошибка");
+            });
+    } else refuelShow(id);
+    
+}
+
+function refuelShow(id) {
     fetch("/Refuel/Get?id=" + id)
         .then(response => response.json())
         .then((data) => {
-            $('#EditRefuelData').modal({
-                autofocus: false,
-                onVisible: () => {
-                    $('#EditRefuelData .ui.checkbox').checkbox();
-                },
-                onApprove: function () {
-                    RefuelEditSubmit();
-                    document.getElementById('EditRefuelData').getElementsByTagName("form")[0].submit();
-                }
-            })
+            $('#EventShow').modal({})
                 .modal('show');
-            /*активируем календарь*/
-            activeCalendar(data.Date);
-           
-            var elementsForm = document.getElementById('formEdit');
-            elementsForm.Date.value = data.Date;
-            elementsForm.Mileage.value = data.Mileage;
-            elementsForm.Fuel.value = data.Fuel;
-            elementsForm.Station.value = data.Station;
-            if (data.Station == 1) {
-                elementsForm.CustomStation.value = data.CustomStation;
-                elementsForm.CustomStation.parentElement.style.display = "block";
+            var refuelDiv = document.getElementById("EventShow");
+            var header = refuelDiv.getElementsByClassName("header");
+            header[0].innerHTML = "Заправка " + data.StationName;
+            var description = refuelDiv.getElementsByClassName("description");
+            description[0].innerHTML = "<strong>Дата: </strong>" + data.Date + "<br>";
+            description[0].innerHTML += "<strong>Пробег: </strong>" + data.Mileage + " км"+ "<br>"; 
+            description[0].innerHTML += "<strong>Тип топлива: </strong>" + data.FuelName + "<br>"; 
+            description[0].innerHTML += data.FullTank == true ? "<strong>Объем: </strong>" + data.Volume + "л, полный бак" + "<br>" : "<strong>Объем: </strong>" + data.Volume + "<br>";
+            description[0].innerHTML += "<strong>Стоимость: </strong>" + Math.round(data.Volume * data.PricePerOneLiter) + " руб." + "<br>"; 
+            if (data.ForgotRecordPreviousGasStation) {
+                description[0].innerHTML += "<strong>Забыл внести предыдущую заправку</strong>";
             }
-            else if (data.Station != 1 && elementsForm.CustomStation.parentElement.style.display != "none") {
-                elementsForm.CustomStation.parentElement.style.display = "none";
-            }
-            elementsForm.Volume.value = data.Volume;
-            elementsForm.PricePerOneLiter.value = data.PricePerOneLiter;
-            elementsForm.FullTankCheckbox.checked = data.FullTank;
-            elementsForm.ForgotRecordPreviousGasStationCheckbox.checked = data.ForgotRecordPreviousGasStation;
-            elementsForm.Id.value = data.Id;
-            if (!Verified) {//если пользователь не авторизован 
-                toggleForm(elementsForm, 'Данные о заправке');
-                var dropdowns = elementsForm.getElementsByClassName('dropdown');
-                for (var d = 0; d < dropdowns.length; d++)
-                {
-                    if (dropdowns[d].name == 'Station' && dropdowns[d].value == "1")
-                    {
-                        dropdowns[d].parentElement.nextElementSibling.style.marginTop = 0;
-                        dropdowns[d].parentElement.style.marginBottom = 0;
-                        dropdowns[d].style.display = 'none';
-                        continue;
-                    } else
-                    {
-                        dropdowns[d].style.display = '';
-                        dropdowns[d].parentElement.nextElementSibling.style.marginTop = '';
-                        dropdowns[d].parentElement.style.marginBottom = '';                        
-                    }
-                    dropdowns[d].setAttribute('disabled', 'disabled');
-                }
-                if (data.FullTank) {
-                    document.getElementById('hiddenFullTank').style.display = '';
-                }
-                else {
-                    document.getElementById('hiddenFullTank').style.display = 'none';
-                }
-                if (data.ForgotRecordPreviousGasStation) {
-                    document.getElementById('hiddenForgotRecord').style.display = '';
-                } else {
-                    document.getElementById('hiddenForgotRecord').style.display = 'none';
-                }
-                var checkboxes = elementsForm.getElementsByClassName('checkbox');
-                for (var c = 0; c < checkboxes.length; c++)
-                {
-                    checkboxes[c].style.display = 'none';
-                }
-                var closeButton = elementsForm.parentElement.nextElementSibling.getElementsByClassName('closeRefuelEditButton');
-                closeButton[0].style.display = '';                
-            }
-           
-        }, () => {
-            alert("Произошла ошибка");
-        });
+        })
 }
 
 /**
@@ -527,9 +512,9 @@ function expenseShow(id) {
     fetch("/Expense/Get?id=" + id)
         .then(response => response.json())
         .then((data) => {
-            $('#ExpenseShow').modal({})
+            $('#EventShow').modal({})
                 .modal('show');
-            var expenseDiv = document.getElementById("ExpenseShow");
+            var expenseDiv = document.getElementById("EventShow");
 
             var header = expenseDiv.getElementsByClassName("header");
             header[0].innerHTML = data.TypeName;

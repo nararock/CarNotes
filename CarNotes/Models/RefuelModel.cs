@@ -12,7 +12,9 @@ namespace CarNotes.Models
         public string Date { get; set; }
         public string Mileage { get; set; }
         public FuelType Fuel { get; set; }
+        public string FuelName { get; set; }
         public int Station { get; set; }
+        public string StationName { get; set; }
         public string CustomStation { get; set; }
         public string Volume { get; set; }
         public double PricePerOneLiter { get; set; }

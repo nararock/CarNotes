@@ -438,7 +438,10 @@ function editRefuel(id, Verified) {
     } else refuelShow(id);
     
 }
-
+/**
+ * вызов происходит в режиме неверифицированного пользователя при нажатии значка "лупа"
+ * @param {any} id id пользователя, чьи события просматриваются
+ */
 function refuelShow(id) {
     fetch("/Refuel/Get?id=" + id)
         .then(response => response.json())
@@ -447,7 +450,8 @@ function refuelShow(id) {
                 .modal('show');
             var refuelDiv = document.getElementById("EventShow");
             var header = refuelDiv.getElementsByClassName("header");
-            header[0].innerHTML = "Заправка " + data.StationName;
+            if (data.Station == 1) header[0].innerHTML = "Заправка " + data.CustomStation;
+            else header[0].innerHTML = "Заправка " + data.StationName;
             var description = refuelDiv.getElementsByClassName("description");
             description[0].innerHTML = "<strong>Дата: </strong>" + data.Date + "<br>";
             description[0].innerHTML += "<strong>Пробег: </strong>" + data.Mileage + " км"+ "<br>"; 
@@ -556,121 +560,116 @@ function createCellRepairInput(element, oldName, newValue, newName) {
  * @param {any} Verified true - если пользователь не авторизован
  */
 function editRepair(id, Verified, vehicleId) {
+    if (!Verified) repairShow(id, vehicleId)
+    else {
+        fetch("/Repair/Get?id=" + id + "&vehicleId=" + vehicleId)
+            .then(response => response.json())
+            .then((data) => {
+                $('#EditRepairData').modal({
+                    autofocus: false,
+                    onApprove: function () {
+                        document.getElementById('EditRepairData').getElementsByTagName("form")[0].submit();
+                    },
+                    onHide: function () {
+                        clearEvent("RepairFormEdit");
+                    }
+                }).modal('show');
+
+                if (id == 0) {
+                    var header = document.querySelector('#EditRepairData .header');
+                    header.innerHTML = "Новый ремонт";
+                    activeCalendar(new Date().getDate());
+                } else { activeCalendar(data.Date); }
+                var elementsForm = document.getElementById('RepairFormEdit');
+                elementsForm.Date.value = data.Date;
+                elementsForm.Mileage.value = data.Mileage;
+                elementsForm.Repair.value = data.Repair;
+                elementsForm.CarService.value = data.CarService;
+                elementsForm.RepairCost.value = data.RepairCost;
+                elementsForm.Comments.value = data.Comments;
+                elementsForm.Id.value = data.Id;
+                var mainTable = document.querySelector("#repairPartsTable");
+                
+                    mainTable.innerHTML = '';
+                    var cloneTable = document.querySelector("#clone-repairPartsTable tr");
+                    for (var i = 0; i < data.Parts.length; i++) {
+                        var clone = cloneTable.cloneNode(true);
+                        mainTable.append(clone);
+                        createCellRepairInput(mainTable, "Name", data.Parts[i].Name, "Parts[" + i + "].Name");
+                        createCellsSelect(mainTable, "Parts[" + i + "]", data.Parts[i]);
+                        createCellRepairInput(mainTable, "CarManufacturer", data.Parts[i].CarManufacturer, "Parts[" + i + "].CarManufacturer");
+                        createCellRepairInput(mainTable, "Article", data.Parts[i].Article, "Parts[" + i + "].Article");
+                        createCellRepairInput(mainTable, "Price", data.Parts[i].Price, "Parts[" + i + "].Price");
+                        /*ячейка со скрытым значением Id*/
+                        var inputId = document.createElement('input');
+                        inputId.name = "Parts[" + i + "].Id";
+                        inputId.type = "hidden";
+                        inputId.value = data.Parts[i].Id;
+                        /*скрытая ячейка с булевым значением удаляется ли ячейка */
+                        var inputDelete = document.createElement('input');
+                        inputDelete.type = "hidden";
+                        inputDelete.className = "inputDelete";
+                        inputDelete.name = "Parts[" + i + "].IsDeleted";
+                        /*ячейка с событием скрытия поля по нажатию крестик*/
+                        var button = mainTable.querySelector('.deleteCarPartButton');
+                        button.append(inputId);
+                        button.append(inputDelete);
+                        button.addEventListener("click", function (e) {
+                            var td = e.target.closest('td');
+                            var IsDeletedInput = td.getElementsByClassName("inputDelete");
+                            IsDeletedInput[0].value = "true";
+                            td.style.display = "none";
+                        })                  
+                    if (data.Parts.length > 0) {
+                        mainTable.style.display = '';
+                    }
+                }
+            }, () => {
+                alert("Произошла ошибка");
+            });
+    }
+}
+
+function repairShow(id, vehicleId) {
     fetch("/Repair/Get?id=" + id + "&vehicleId=" + vehicleId)
         .then(response => response.json())
         .then((data) => {
-            $('#EditRepairData').modal({
-                autofocus: false,
-                onApprove: function () {
-                    document.getElementById('EditRepairData').getElementsByTagName("form")[0].submit();
-                },
-                onHide: function () {                    
-                    clearEvent("RepairFormEdit");
-                }
-            }).modal('show');
+            $('#EventShow').modal({})
+                .modal('show');
+            var expenseDiv = document.getElementById("EventShow");
 
-            if (id == 0) {
-                var header = document.querySelector('#EditRepairData .header');
-                header.innerHTML = "Новый ремонт";
-                activeCalendar(new Date().getDate());
-            } else { activeCalendar(data.Date); }
+            var header = expenseDiv.getElementsByClassName("header");
+            header[0].innerHTML = data.Repair;
 
-            var elementsForm = document.getElementById('RepairFormEdit');
-            elementsForm.Date.value = data.Date;
-            elementsForm.Mileage.value = data.Mileage;
-            elementsForm.Repair.value = data.Repair;
-            elementsForm.CarService.value = data.CarService;
-            elementsForm.RepairCost.value = data.RepairCost;
-            elementsForm.Comments.value = data.Comments;
-            elementsForm.Id.value = data.Id;
-            var mainTable = document.querySelector("#repairPartsTable");
-            if (!Verified) {//если пользователь не авторизован (таблица запчастей в виде карточек, убираются все возможности редактирования)
-                mainTable.style.display = "none";
-                var cards = document.querySelector('.cardsForCarPart');
-                cards.style.display = '';
-                cards.innerHTML = '';
+            var description = expenseDiv.getElementsByClassName("description");
+            description[0].innerHTML = "<strong>Дата: </strong>" + data.Date + "<br>";
+            if (data.Mileage != null) {
+                description[0].innerHTML += "<strong>Пробег: </strong>" + data.Mileage + "<br>";
+            }
+            var commonCostRepair = data.RepairCost;
+            data.Parts.forEach(p => commonCostRepair += p.Price);
+            description[0].innerHTML += "<strong>Общая стоимость: </strong>" + commonCostRepair + " руб. <br>";
+            description[0].innerHTML += "<strong>Стоимость работ: </strong>" + data.RepairCost + " руб. <br>";
+            description[0].innerHTML += "<strong>Сервис: </strong>" + data.CarService + "<br>";
+            if (data.Comments != null) {
+                description[0].innerHTML += "<strong>Комментарий: </strong>" + data.Comments + "<br>";
+            }
+            if (data.Parts.length > 0) {
+                description[0].innerHTML += "<strong>Запчасти: </strong>  <br>";
                 for (var i = 0; i < data.Parts.length; i++) {
-                    var card = document.createElement('div');
-                    card.classList.add('card');
-                    var content = document.createElement('div');
-                    content.classList.add('content');
-                    card.append(content);
-                    var header = document.createElement('div');
-                    header.classList.add('header');
-                    header.innerText = data.Parts[i].Name;
-                    content.append(header);
-                    var meta = document.createElement('div');
-                    meta.classList.add('meta');
-                    meta.innerText = data.Parts[i].CarManufacturer;
-                    content.append(meta);
-                    var description1 = document.createElement('div');
-                    description1.classList.add('description');
-                    var systemNumber = data.Parts[i].SystemId;
-                    for (var s = 0; s < system[systemNumber - 1].CarSubsystems.length; s++) {
-                        if (system[systemNumber - 1].CarSubsystems[s].Id == data.Parts[i].SubSystemId) {
-                            description1.innerText = system[systemNumber - 1].Name + " : " + system[systemNumber - 1].CarSubsystems[s].Name;
+                    var nameSubsystem;
+                    var Subsystem = system[data.Parts[i].SystemId - 1].CarSubsystems;
+                    for (var j = 0; j < Subsystem.length; j++) {
+                        if (Subsystem[j].Id == data.Parts[i].SubSystemId) {
+                            nameSubsystem = Subsystem[j].Name;
                         }
                     }
-                    content.append(description1);
-                    var description2 = document.createElement('div');
-                    description2.classList.add('description');
-                    description2.innerText = "Цена : " + data.Parts[i].Price;
-                    content.append(description2);
-
-                    cards.append(card);                    
+                    description[0].innerHTML += i + 1 + ". " + data.Parts[i].Name + "  (" + system[data.Parts[i].SystemId - 1].Name + " / " + nameSubsystem + ") <br>"
+                        + "  " + data.Parts[i].CarManufacturer + "  " + data.Parts[i].Article + " за " + data.Parts[i].Price + " руб. <br>";  
                 }
-                toggleForm(elementsForm, 'Данные о ремонте');
-                var selects = elementsForm.getElementsByTagName('select');      
-                for (var s = 0; s < selects.length; s++) {
-                    selects[s].setAttribute('disabled', 'disabled');
-                }
-                var addButton = elementsForm.getElementsByClassName('button');
-                addButton[0].style.display = 'none';
-                var nameCarPart = elementsForm.getElementsByClassName('CarPartName');
-                nameCarPart[0].style.display = '';
-                var closeButton = elementsForm.parentElement.nextElementSibling.getElementsByClassName('closeRepairEditButton');
-                closeButton[0].style.display = '';
-            } else {
-                mainTable.innerHTML = '';
-                var cloneTable = document.querySelector("#clone-repairPartsTable tr");
-                for (var i = 0; i < data.Parts.length; i++) {
-                    var clone = cloneTable.cloneNode(true);
-                    mainTable.append(clone);
-                    createCellRepairInput(mainTable, "Name", data.Parts[i].Name, "Parts[" + i + "].Name");
-                    createCellsSelect(mainTable, "Parts[" + i + "]", data.Parts[i]);
-                    createCellRepairInput(mainTable, "CarManufacturer", data.Parts[i].CarManufacturer, "Parts[" + i + "].CarManufacturer");
-                    createCellRepairInput(mainTable, "Article", data.Parts[i].Article, "Parts[" + i + "].Article");
-                    createCellRepairInput(mainTable, "Price", data.Parts[i].Price, "Parts[" + i + "].Price");
-                    /*ячейка со скрытым значением Id*/
-                    var inputId = document.createElement('input');
-                    inputId.name = "Parts[" + i + "].Id";
-                    inputId.type = "hidden";
-                    inputId.value = data.Parts[i].Id;
-                    /*скрытая ячейка с булевым значением удаляется ли ячейка */
-                    var inputDelete = document.createElement('input');
-                    inputDelete.type = "hidden";
-                    inputDelete.className = "inputDelete";
-                    inputDelete.name = "Parts[" + i + "].IsDeleted";
-                    /*ячейка с событием скрытия поля по нажатию крестик*/
-                    var button = mainTable.querySelector('.deleteCarPartButton');
-                    button.append(inputId);
-                    button.append(inputDelete);
-                    button.addEventListener("click", function (e) {
-                        var td = e.target.closest('td');
-                        var IsDeletedInput = td.getElementsByClassName("inputDelete");
-                        IsDeletedInput[0].value = "true";
-                        td.style.display = "none";
-                    })
-                }
-                if (data.Parts.length > 0) {
-                    mainTable.style.display = '';
-                }
-            }
-        }, () => {
-            alert("Произошла ошибка");
-        });
+            }           
+        })
 }
-
 /**
  * срабатывает при нажатии на кнопку "отмена" или крестик в окне редактирования и создания ремонта,
  * скрывает таблицу с запчастями

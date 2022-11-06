@@ -456,8 +456,8 @@ function refuelShow(id) {
             description[0].innerHTML = "<strong>Дата: </strong>" + data.Date + "<br>";
             description[0].innerHTML += "<strong>Пробег: </strong>" + data.Mileage + " км"+ "<br>"; 
             description[0].innerHTML += "<strong>Тип топлива: </strong>" + data.FuelName + "<br>"; 
-            description[0].innerHTML += data.FullTank == true ? "<strong>Объем: </strong>" + data.Volume + "л, полный бак" + "<br>" : "<strong>Объем: </strong>" + data.Volume + "<br>";
-            description[0].innerHTML += "<strong>Стоимость: </strong>" + Math.round(data.Volume * data.PricePerOneLiter) + " руб." + "<br>"; 
+            description[0].innerHTML += data.FullTank == true ? "<strong>Объем: </strong>" + data.Volume + " л, полный бак" + "<br>" : "<strong>Объем: </strong>" + data.Volume + "<br>";
+            description[0].innerHTML += "<strong>Стоимость: </strong>" + Math.round(data.Cost) + " руб." + "<br>"; 
             if (data.ForgotRecordPreviousGasStation) {
                 description[0].innerHTML += "<strong>Забыл внести предыдущую заправку</strong>";
             }
@@ -644,7 +644,7 @@ function repairShow(id, vehicleId) {
             var description = expenseDiv.getElementsByClassName("description");
             description[0].innerHTML = "<strong>Дата: </strong>" + data.Date + "<br>";
             if (data.Mileage != null) {
-                description[0].innerHTML += "<strong>Пробег: </strong>" + data.Mileage + "<br>";
+                description[0].innerHTML += "<strong>Пробег: </strong>" + data.Mileage + " км <br>";
             }
             var commonCostRepair = data.RepairCost;
             data.Parts.forEach(p => commonCostRepair += p.Price);
@@ -655,8 +655,10 @@ function repairShow(id, vehicleId) {
                 description[0].innerHTML += "<strong>Комментарий: </strong>" + data.Comments + "<br>";
             }
             if (data.Parts.length > 0) {
-                description[0].innerHTML += "<strong>Запчасти: </strong>  <br>";
+                var ol = document.createElement('ol');
+                description[0].innerHTML += "<strong>Запчасти: </strong>";
                 for (var i = 0; i < data.Parts.length; i++) {
+                    var li = document.createElement('li');
                     var nameSubsystem;
                     var Subsystem = system[data.Parts[i].SystemId - 1].CarSubsystems;
                     for (var j = 0; j < Subsystem.length; j++) {
@@ -664,9 +666,11 @@ function repairShow(id, vehicleId) {
                             nameSubsystem = Subsystem[j].Name;
                         }
                     }
-                    description[0].innerHTML += i + 1 + ". " + data.Parts[i].Name + "  (" + system[data.Parts[i].SystemId - 1].Name + " / " + nameSubsystem + ") <br>"
-                        + "  " + data.Parts[i].CarManufacturer + "  " + data.Parts[i].Article + " за " + data.Parts[i].Price + " руб. <br>";  
+                    li.innerHTML += data.Parts[i].Name + "  (" + system[data.Parts[i].SystemId - 1].Name + " / " + nameSubsystem + ") <br>"
+                        + "  " + data.Parts[i].CarManufacturer + "  " + data.Parts[i].Article + " за " + data.Parts[i].Price + " руб. <br>";
+                    ol.append(li);
                 }
+                description[0].append(ol);
             }           
         })
 }

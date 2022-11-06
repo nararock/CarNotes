@@ -94,6 +94,7 @@ namespace CarNotes.Classes
                 editRefuelModel.CustomStation = editRefuel.CustomStation;
             }
             editRefuelModel.Volume = editRefuel.Volume.ToString();
+            editRefuelModel.Cost = editRefuel.Volume * editRefuel.PricePerOneLiter;
             editRefuelModel.ForgotRecordPreviousGasStation = editRefuel.ForgotRecordPreviousGasStation;
             editRefuelModel.Id = editRefuel.ID;
             return editRefuelModel;

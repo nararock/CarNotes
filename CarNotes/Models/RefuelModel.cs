@@ -18,6 +18,7 @@ namespace CarNotes.Models
         public string CustomStation { get; set; }
         public string Volume { get; set; }
         public double PricePerOneLiter { get; set; }
+        public double Cost { get; set; } 
         public bool FullTank { get; set; }
         public bool ForgotRecordPreviousGasStation { get; set; }
     }

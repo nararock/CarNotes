@@ -677,8 +677,10 @@ function repairShow(id, vehicleId) {
                             nameSubsystem = Subsystem[j].Name;
                         }
                     }
-                    li.innerHTML += data.Parts[i].Name + "  (" + system[data.Parts[i].SystemId - 1].Name + " / " + nameSubsystem + ") <br>"
-                        + "  " + data.Parts[i].CarManufacturer + "  " + data.Parts[i].Article + " за " + data.Parts[i].Price + " руб. <br>";
+                    li.innerHTML += (data.Parts[i].Name == null ? "" : data.Parts[i].Name) + "  (" + system[data.Parts[i].SystemId - 1].Name
+                        + " / " + nameSubsystem + ") <br>" + "  " + (data.Parts[i].CarManufacturer == null ? "" : data.Parts[i].CarManufacturer)
+                        + "  " + (data.Parts[i].Article == null ? "" : data.Parts[i].Article) + " за " +
+                        data.Parts[i].Price + " руб. <br>";
                     ol.append(li);
                 }
                 description[0].append(ol);

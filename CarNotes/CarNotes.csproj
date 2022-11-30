@@ -142,6 +142,7 @@
     <Content Include="Content\pexels-yaroslav-shuraev-1834403.jpg" />
     <Content Include="Content\pexels-yaroslav-shuraev-1834403_1920.jpg" />
     <Content Include="Content\Statistic.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Styles\semantic.min.css" />
@@ -153,6 +154,7 @@
     <Content Include="Styles\themes\default\assets\fonts\icons.svg" />
     <Content Include="Styles\themes\default\assets\fonts\outline-icons.svg" />
     <Content Include="Styles\themes\default\assets\images\flags.png" />
+    <Content Include="Styles\toastr.min.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

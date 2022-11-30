@@ -568,6 +568,17 @@ function editRepair(id, Verified, vehicleId) {
                 $('#EditRepairData').modal({
                     autofocus: false,
                     onApprove: function () {
+                        var systemSelect = document.getElementById('EditRepairData').getElementsByClassName("System")[0];
+                        var subsystemSelect = document.getElementById('EditRepairData').getElementsByClassName("Subsystem")[0];
+                        var errorString = [];
+                        if (systemSelect.value == '')
+                            errorString.push('систему');
+                        if (subsystemSelect.value == '')
+                            errorString.push('подсистему')
+                        if (errorString.length != 0) {
+                            toastr.error('Вы не выбрали ' + errorString.join(' и '));
+                            return false;                            
+                        }
                         document.getElementById('EditRepairData').getElementsByTagName("form")[0].submit();
                     },
                     onHide: function () {

@@ -341,6 +341,7 @@
     <Content Include="Views\Statistic\Index.cshtml" />
     <Content Include="Views\Shared\_MenuTemplate.cshtml" />
     <Content Include="Views\Shared\EventShow.cshtml" />
+    <None Include="Properties\PublishProfiles\driver-notes.ru - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

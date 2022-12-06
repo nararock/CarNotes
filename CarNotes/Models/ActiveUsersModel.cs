@@ -14,5 +14,6 @@ namespace CarNotes.Models
         public int Events { get; set; }
         public int refuelEvents { get; set; }
         public int repairEvents { get; set; }
+        public int Expenses { get; set; }
     }
 }

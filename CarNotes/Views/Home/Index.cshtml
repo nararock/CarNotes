@@ -95,7 +95,7 @@
                                     @for (var i = 0; i < lastEvents.Count; i++)
                                     {
                                         <tr>
-                                            <td data-label="Тип">
+                                            <td data-label="Тип" class="collapsing">
                                                 @if (lastEvents[i].Record == RecordType.Refuel)
                                                 {
                                                     <span data-tooltip="Заправка">
@@ -116,8 +116,8 @@
                                                 }
                                             </td>
                                             <td data-label="Автомобиль"><a href="@Url.Content("~/Common/Index?vehicleId=" + lastEvents[i].Id)">@lastEvents[i].VehicleBrand @lastEvents[i].VehicleModel</a></td>
-                                            <td data-label="Дата">@lastEvents[i].Date.ToString("dd.MM.yyyy")</td>
-                                            <td data-label="Стоимость">@lastEvents[i].Cost</td>
+                                            <td data-label="Дата" class="center aligned collapsing">@lastEvents[i].Date.ToString("dd.MM.yyyy")</td>
+                                            <td data-label="Стоимость" class="right aligned collapsing">@lastEvents[i].Cost</td>
                                         </tr>
                                     }
                                 </tbody>
@@ -135,18 +135,7 @@
                                         <tr>
                                             <th>Пользователь</th>
                                             <th>Автомобиль</th>
-                                            <th>
-                                                <span class="hide-on-mobile">Заправки</span>
-                                                <span data-tooltip="Заправка" class="mobile-only">
-                                                    <i class="circular gas pump icon link"></i>
-                                                </span>
-                                            </th>
-                                            <th>
-                                                <span class="hide-on-mobile">Ремонты</span>
-                                                <span data-tooltip="Ремонт" class="mobile-only">
-                                                    <i class="circular tools icon link"></i>
-                                                </span>
-                                            </th>
+                                            <th>Записи</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -159,11 +148,8 @@
                                                 <td data-label="Автомобиль">
                                                     <a href="@Url.Content("~/Common/Index?vehicleId=" + @activeUsers[i].VehicleId)">@activeUsers[i].Brand  @activeUsers[i].Model</a>
                                                 </td>
-                                                <td data-label="Заправки">
-                                                    @activeUsers[i].refuelEvents
-                                                </td>
-                                                <td data-label="Ремонты">
-                                                    @activeUsers[i].repairEvents
+                                                <td data-label="Записи" class="right aligned collapsing">
+                                                    @activeUsers[i].Events
                                                 </td>
                                             </tr>
                                         }

@@ -113,7 +113,7 @@ namespace CarNotes.Classes
             commonInformation.RepairCost = (int?)database.RepairEvents
                 .Include(x => x.Parts)
                 .Where(e => e.VehicleId == vehicleId)
-                .Select(e => (double?)e.RepairCost ?? 0 + ((double?)e.Parts.Sum(p => p.Price)) ?? 0)
+                .Select(e => (double?)e.RepairCost ?? 0 + ((double?)e.Parts.Sum(p => p.Price)) ?? 0).ToList()
                 .Sum(e=>e) ?? 0;            
             commonInformation.ExpenseCost = (double?)database.Expenses
                 .Where(e => e.VehicleId == vehicleId)

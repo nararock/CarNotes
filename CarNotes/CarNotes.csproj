@@ -1,4 +1,5 @@
 ﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.TypeScript.MSBuild.5.7.1\build\Microsoft.TypeScript.MSBuild.props" Condition="Exists('..\packages\Microsoft.TypeScript.MSBuild.5.7.1\build\Microsoft.TypeScript.MSBuild.props')" />
   <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -142,9 +143,28 @@
     <Content Include="Content\pexels-yaroslav-shuraev-1834403.jpg" />
     <Content Include="Content\pexels-yaroslav-shuraev-1834403_1920.jpg" />
     <Content Include="Content\Statistic.js" />
+    <Content Include="dist\car-notes\3rdpartylicenses.txt" />
+    <Content Include="dist\car-notes\browser\favicon.ico" />
+    <Content Include="dist\car-notes\browser\index.html" />
+    <Content Include="dist\car-notes\browser\main.js" />
+    <Content Include="dist\car-notes\browser\polyfills.js" />
+    <Content Include="dist\car-notes\browser\styles.css" />
+    <Content Include="dist\out-tsc\app\app.component.js" />
+    <Content Include="dist\out-tsc\app\app.component.spec.js" />
+    <Content Include="dist\out-tsc\app\app.config.js" />
+    <Content Include="dist\out-tsc\app\app.routes.js" />
+    <Content Include="dist\out-tsc\app\menu-component\menu-component.component.js" />
+    <Content Include="dist\out-tsc\app\menu-component\menu-component.component.spec.js" />
+    <Content Include="dist\out-tsc\main.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="src\app\app.component.css" />
+    <Content Include="src\app\app.component.html" />
+    <Content Include="src\app\menu-component\menu-component.component.css" />
+    <Content Include="src\app\menu-component\menu-component.component.html" />
+    <Content Include="src\index.html" />
+    <Content Include="src\styles.css" />
     <Content Include="Styles\semantic.min.css" />
     <Content Include="Scripts\semantic.min.js" />
     <Content Include="Styles\Main.css" />
@@ -185,6 +205,7 @@
     <Compile Include="CnDb\User.cs" />
     <Compile Include="CnDb\Vehicle.cs" />
     <Compile Include="CnDb\CarSystem.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ExpenseController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -306,6 +327,10 @@
     <Compile Include="StartUp.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="angular.json" />
+    <Content Include="package.json" />
+    <Content Include="package-lock.json" />
+    <Content Include="dist\car-notes\prerendered-routes.json" />
     <None Include="packages.config" />
     <Content Include="Views\Refuel\Index.cshtml" />
     <Content Include="Views\Shared\CreateNewRefuelEvent.cshtml" />
@@ -342,6 +367,8 @@
     <Content Include="Views\Shared\_MenuTemplate.cshtml" />
     <Content Include="Views\Shared\EventShow.cshtml" />
     <None Include="Properties\PublishProfiles\driver-notes.ru - Web Deploy.pubxml" />
+    <Content Include="tsconfig.json" />
+    <Content Include="Views\Account\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -349,7 +376,15 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <TypeScriptCompile Include="src\app\app.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\app.component.ts" />
+    <TypeScriptCompile Include="src\app\app.config.ts" />
+    <TypeScriptCompile Include="src\app\app.routes.ts" />
+    <TypeScriptCompile Include="src\app\menu-component\menu-component.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\menu-component\menu-component.component.ts" />
+    <TypeScriptCompile Include="src\main.ts" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202106041827438_add RefuelEvent and GasStation.resx">
       <DependentUpon>202106041827438_add RefuelEvent and GasStation.cs</DependentUpon>
@@ -406,6 +441,10 @@
       <DependentUpon>202209122028177_Add field Order in ExpenseType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -438,9 +477,12 @@
     <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
     <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.TypeScript.MSBuild.5.7.1\build\Microsoft.TypeScript.MSBuild.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.TypeScript.MSBuild.5.7.1\build\Microsoft.TypeScript.MSBuild.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.TypeScript.MSBuild.5.7.1\build\Microsoft.TypeScript.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.TypeScript.MSBuild.5.7.1\build\Microsoft.TypeScript.MSBuild.targets'))" />
   </Target>
   <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
+  <Import Project="..\packages\Microsoft.TypeScript.MSBuild.5.7.1\build\Microsoft.TypeScript.MSBuild.targets" Condition="Exists('..\packages\Microsoft.TypeScript.MSBuild.5.7.1\build\Microsoft.TypeScript.MSBuild.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

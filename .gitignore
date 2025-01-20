@@ -7,3 +7,6 @@ desktop.ini
 CarNotes.Test/bin/
 CarNotes.Test/obj/
 CarNotes/Properties/PublishProfiles/
+CarNotes/.vscode/extensions.json
+CarNotes/.vscode/
+CarNotes/package-lock.json
